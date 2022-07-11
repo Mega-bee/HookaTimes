@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HookaTimes.BLL\HookaTimes.BLL.csproj" />
+    <ProjectReference Include="..\HookaTimes.LoggerService\HookaTimes.LoggerService.csproj" />
+  </ItemGroup>
+
+</Project>
