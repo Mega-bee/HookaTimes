@@ -86,7 +86,8 @@ public class KTTheme : IKTTheme
     // Get SVG icon content
     public string getSvgIcon(string path, string classNames)
     {
-        var svg = File.ReadAllText($"./wwwroot/assets/media/icons/{path}");
+        
+        var svg = File.ReadAllText($"./wwwroot/AdminAssets/assets/media/icons/{path}");
 
         return $"<span class=\"{classNames}\">{svg}</span>";
     }

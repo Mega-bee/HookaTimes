@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 
 namespace HookaTimes.MVC.Areas.Admin.Controllers;
 
+[Area("Admin")]
 public class DashboardsController : Controller
 {
     private readonly ILogger<DashboardsController> _logger;
@@ -13,8 +14,8 @@ public class DashboardsController : Controller
         _logger = logger;
     }
 
-    public IActionResult index()
+    public IActionResult Index()
     {
-        return View("~/Views/Pages/Dashboards/Index.cshtml");
+        return View("~/Areas/Admin/Views/Pages/Dashboards/Index.cshtml");
     }
 }

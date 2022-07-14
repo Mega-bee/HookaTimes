@@ -20,7 +20,7 @@
 		<div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 			@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen022.svg", "svg-icon svg-icon-1"))
 		</div>
-		<partial name="~/Views/Partials/Menus/_NotificationsMenu.cshtml" />
+		<partial name="~/Areas/Admin/Views/Partials/Menus/_NotificationsMenu.cshtml" />
 		<!--end::Menu wrapper-->
 	</div>
 	<!--end::Notifications-->
@@ -36,14 +36,14 @@
 	<div class="app-navbar-item ms-1 ms-lg-3">
 		<!--begin::Menu wrapper-->
 		<div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-1"))</div>
-		<partial name="~/Views/Partials/Menus/_QuickLinksMenu.cshtml" />
+		<partial name="~/Areas/Admin/Views/Partials/Menus/_QuickLinksMenu.cshtml" />
 		<!--end::Menu wrapper-->
 	</div>
 	<!--end::Quick links-->
 	<!--begin::Theme mode-->
 	@if(KTTheme.isModeSwitchEnabled()){
 		<div class="app-navbar-item ms-1 ms-lg-3">
-			@await Html.PartialAsync("~/Views/Partials/ThemeMode/_Main.cshtml", new ViewDataDictionary(ViewData) { 
+			@await Html.PartialAsync("~/Areas/Admin/Views/Partials/ThemeMode/_Main.cshtml", new ViewDataDictionary(ViewData) { 
 				{ "ToggleBtnClass", "btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" }, 
 				{ "ToggleBtnIconClass", "svg-icon svg-icon-2" } 
 			})
@@ -54,9 +54,9 @@
 	<div class="app-navbar-item ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 		<!--begin::Menu wrapper-->
 		<div class="cursor-pointer symbol symbol-35px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-			<img src="assets/media/avatars/300-1.jpg" alt="user" />
+			<img src="/AdminAssets/assets/media/avatars/300-1.jpg" alt="user" />
 		</div>
-		<partial name="~/Views/Partials/Menus/_UserAccountMenu.cshtml" />
+		<partial name="~/Areas/Admin/Views/Partials/Menus/_UserAccountMenu.cshtml" />
 		<!--end::Menu wrapper-->
 	</div>
 	<!--end::User menu-->

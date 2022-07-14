@@ -106,20 +106,27 @@ app.UseThemeMiddleware();
 //                pattern: "error",
 //                defaults: new { area = "Admin", controller = "System", action = "error" });
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//      name: "areas",
+//      pattern: "{area:exists}/{controller=Dashboards}/{action=Index}/{id?}"
+//    );
+//    //endpoints.MapControllerRoute(
+//    //name: "default",
+//    //pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
+
+app.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Dashboards}/{action=Index}/{id?}"
     );
-    //endpoints.MapControllerRoute(
-    //name: "default",
-    //pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 
 
