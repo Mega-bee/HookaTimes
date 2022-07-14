@@ -11,6 +11,12 @@ builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureAuthentication();
 new ServiceInjector(builder.Services).Render();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
+var mvcBuilder = builder.Services.AddRazorPages();
+
+if (builder.Environment.IsDevelopment())
+{
+    mvcBuilder.AddRazorRuntimeCompilation();
+}
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,5 +37,14 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
 
 app.Run();

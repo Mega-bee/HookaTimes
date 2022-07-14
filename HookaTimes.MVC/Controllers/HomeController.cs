@@ -18,10 +18,15 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public ActionResult QuickView()
         {
-            return View();
+          
+
+            return PartialView("~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml", null);
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
