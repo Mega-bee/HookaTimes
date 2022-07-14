@@ -37,7 +37,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
-
+           
             var configurationMapper = new MapperConfiguration(option =>
             {
                 option.AddProfile(new UserProfile());
