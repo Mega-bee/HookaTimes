@@ -17,6 +17,9 @@
     
 // Desktop sidebar minimize mode
 @include app-layout-minimize(app-sidebar) {
+
+    
+
     .app-sidebar-logo {
         .app-sidebar-logo-default {
             display: none;

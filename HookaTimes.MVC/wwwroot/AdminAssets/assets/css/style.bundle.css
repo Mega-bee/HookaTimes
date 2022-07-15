@@ -8111,6 +8111,17 @@ textarea.form-control-lg {
   height: 15px !important;
 }
 
+.logo-height {
+    height:135px;
+}
+.logo-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .h-20px {
   height: 20px !important;
 }

@@ -21,7 +21,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
-    <Folder Include="wwwroot\AdminAssets\" />
   </ItemGroup>
 
 </Project>
