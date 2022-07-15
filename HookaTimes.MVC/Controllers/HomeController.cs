@@ -23,6 +23,22 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
+        public IActionResult WishList()
+        {
+            return View();
+        }
+
+
+        public IActionResult Cart()
+        {
+            return View();
+        }   
+        
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult QuickView()
         {
