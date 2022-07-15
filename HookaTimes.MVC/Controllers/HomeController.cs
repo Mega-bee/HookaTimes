@@ -74,5 +74,14 @@ namespace HookaTimes.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult OrderHsitory()
+        {
+            return View();
+        }
+        public IActionResult Addresses()
+        {
+            return View();
+        }
     }
 }
