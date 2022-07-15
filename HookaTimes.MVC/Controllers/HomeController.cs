@@ -83,5 +83,10 @@ namespace HookaTimes.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult Password()
+        {
+            return View();
+        }
     }
 }
