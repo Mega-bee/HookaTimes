@@ -259,14 +259,14 @@
                                                 </a>
                                                 <div class="account-menu__divider"></div>
                                                 <ul class="account-menu__links">
-                                                    <li><a href="account-profile.html">Edit Profile</a></li>
-                                                    <li><a href="account-orders.html">Order History</a></li>
-                                                    <li><a href="account-addresses.html">Addresses</a></li>
-                                                    <li><a href="account-password.html">Password</a></li>
+                                                    <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
+                                                    <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
+                                                    <li><a asp-controller="Home" asp-action="Addresses" >Addresses</a></li>
+                                                    <li><a asp-controller="Home" asp-action="AccountPassword">Password</a></li>
                                                 </ul>
                                                 <div class="account-menu__divider"></div>
                                                 <ul class="account-menu__links">
-                                                    <li><a href="account-login.html">Logout</a></li>
+                                                    <li><a asp-controller="Home" asp-action="AccountLogin">Logout</a></li>
                                                 </ul>
                                             </div>
                                         </div>
