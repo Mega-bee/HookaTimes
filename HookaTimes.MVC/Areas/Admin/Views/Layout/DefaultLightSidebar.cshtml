@@ -21,6 +21,9 @@
 	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/utilities/modals/create-app.js");
 	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/utilities/modals/users-search.js");
 	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/utilities/modals/new-target.js");
+	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/apps/user-management/users/list/table.js");
+	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/apps/user-management/users/list/export-users.js");
+	KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/apps/user-management/users/list/add.js");
 }
 
 <!--begin::Root-->
@@ -35,7 +38,7 @@
 			<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 				<!--begin::Content wrapper-->
 				<div class="d-flex flex-column flex-column-fluid">
-					@*<partial name='Partials/SidebarLayout/_toolbar.cshtml' />*@
+					<partial name='Partials/SidebarLayout/_toolbar.cshtml' />
 					<!--begin::Content-->
                     <div id="kt_app_content" class="app-content flex-column-fluid">
                     	<!--begin::Content container-->
@@ -60,3 +63,5 @@
 <partial name="~/Areas/Admin/Views/Partials/_Drawers.cshtml" />
 <partial name="~/Areas/Admin/Views/Partials/_Modals.cshtml" />
 <partial name="~/Areas/Admin/Views/Partials/_Scrolltop.cshtml" />
+
+@await RenderSectionAsync("Scripts", required: false)
