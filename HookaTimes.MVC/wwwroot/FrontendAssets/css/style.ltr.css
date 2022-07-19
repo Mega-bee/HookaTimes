@@ -5781,11 +5781,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 // .nav-panel
 */
 .nav-panel {
-  height: 54px;
-  background: #ffd333;
-  -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.04), inset 0 -1px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 1px rgba(0, 0, 0, 0.04), inset 0 -1px rgba(0, 0, 0, 0.04);
-  color: #3d464d;
+    /*height: 54px;*/
+    height: 70px;
+    /*background: #ffd333;*/
+    background: #ededed;
+    -webkit-box-shadow: 0 1px rgba(0, 0, 0, 0.04), inset 0 -1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px rgba(0, 0, 0, 0.04), inset 0 -1px rgba(0, 0, 0, 0.04);
+    color: #3d464d;
 }
 
 .nav-panel--stuck {
@@ -5819,6 +5821,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+          justify-content:space-between;
   position: relative;
   height: 100%;
 }
@@ -5847,7 +5850,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: -ms-flexbox;
   display: flex;
   height: 100%;
-  margin-left: auto;
+  /*margin-left: auto;*/
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {

@@ -5847,7 +5847,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: -ms-flexbox;
   display: flex;
   height: 100%;
-  margin-right: auto;
+  /*margin-right: auto;*/
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
