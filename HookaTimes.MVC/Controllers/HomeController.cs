@@ -65,17 +65,20 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult AccountLogin()
+        public IActionResult Login()
         {
             return View();
         }
+
+      
 
         public IActionResult EditProfile()
         {
             return View();
         }
 
-        public IActionResult OrderHsitory()
+      
+        public IActionResult OrderHistory()
         {
             return View();
         }
