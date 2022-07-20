@@ -1,24 +1,32 @@
+@using System.Text.RegularExpressions
+@{
+    var pattern = "([a-z?])[_ ]?([A-Z])";
+    var area = ViewContext.RouteData.Values["area"]!.ToString();
+    var controller = ViewContext.RouteData.Values["controller"]!.ToString();
+    var action = ViewContext.RouteData.Values["action"]!.ToString();
+}
+
 <!--begin::Page title-->
 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-	<!--begin::Title-->
-	<h1 class="page-heading d-flex text-dark fw-semibold fs-3 flex-column justify-content-center my-0">Default</h1>
-	<!--end::Title-->
-	<!--begin::Breadcrumb-->
-	<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-		<!--begin::Item-->
-		<li class="breadcrumb-item text-muted">
-			<a href="?page=index" class="text-muted text-hover-primary">@ViewData["PageName"]</a>
-		</li>
-		<!--end::Item-->
-		<!--begin::Item-->
-		<li class="breadcrumb-item">
-			<span class="bullet bg-gray-400 w-5px h-2px"></span>
-		</li>
-		<!--end::Item-->
-		<!--begin::Item-->
-		<li class="breadcrumb-item text-muted">Dashboards</li>
-		<!--end::Item-->
-	</ul>
-	<!--end::Breadcrumb-->
+    <!--begin::Title-->
+    <h1 class="page-heading d-flex text-dark fw-semibold fs-3 flex-column justify-content-center my-0">@Regex.Replace(controller, pattern, "$1 $2")</h1>
+    <!--end::Title-->
+    <!--begin::Breadcrumb-->
+    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+        <!--begin::Item-->
+        <li class="breadcrumb-item text-muted">
+            <a asp-area=@area asp-controller=@controller asp-action=@action class="text-muted text-hover-primary">@Regex.Replace(controller, pattern, "$1 $2")</a>
+        </li>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <li class="breadcrumb-item">
+            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+        </li>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <li class="breadcrumb-item text-muted">@Regex.Replace(action, pattern, "$1 $2")</li>
+        <!--end::Item-->
+    </ul>
+    <!--end::Breadcrumb-->
 </div>
 <!--end::Page title-->
