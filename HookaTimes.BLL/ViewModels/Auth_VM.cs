@@ -30,19 +30,29 @@ namespace HookaTimes.BLL.ViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
         [Required]
         public string PhoneNumber { get; set; }
+
         [Required]
         public string Password { get; set; }
+
         [Required]
         [Compare("Password", ErrorMessage = "Passwords don't match")]
         public string ConfirmPassword { get; set; }
-        public string Name { get; set; }
-        [Required(ErrorMessage = "Gender is missing")]
-        public int GenderId { get; set; }
-        [Required(ErrorMessage = "Birthdate is missing")]
-        public DateTime Birthdate { get; set; }
-        public IFormFile ImageFile { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+
+        //[Required(ErrorMessage = "Gender is missing")]
+        //public int GenderId { get; set; }
+
+        //[Required(ErrorMessage = "Birthdate is missing")]
+        //public DateTime Birthdate { get; set; }
+
+        //public IFormFile ImageFile { get; set; }
         public string DeviceToken { get; set; }
 
     }

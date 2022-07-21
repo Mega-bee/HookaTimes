@@ -9,7 +9,7 @@ using HookaTimes.DAL;
 
 using HookaTimes.DAL.Repos;
 using HookaTimes.DAL.Services;
-using HookaTimes.DAL.Models;
+//using HookaTimes.DAL.Models;
 using HookaTimes.BLL.Utilities.Logging;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL;
@@ -17,6 +17,7 @@ using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Service;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.Utilities.ActionFilters;
+using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.BLL
 {
@@ -34,7 +35,8 @@ namespace HookaTimes.BLL
 
             _services.AddScoped<IAuthBO, AuthBO>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
-            _services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
+            //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
+            _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using HookaTimes.DAL.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HookaTimes.DAL.Models;
+//using HookaTimes.DAL.Models;
 
 namespace HookaTimes.BLL.Hubs
 {
@@ -12,9 +13,9 @@ namespace HookaTimes.BLL.Hubs
     public class NotificationHub : Hub<INotificationHub>
     {
         private static readonly Dictionary<string, string> UserIds = new Dictionary<string, string>();
-        private readonly SentinelDbContext _context;
+        private readonly HookaDbContext _context;
 
-        public NotificationHub(SentinelDbContext context)
+        public NotificationHub(HookaDbContext context)
         {
             _context = context;
         }
@@ -29,16 +30,16 @@ namespace HookaTimes.BLL.Hubs
         public override Task OnConnectedAsync()
         {
             //string userId = Context.User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            string userId = Context.UserIdentifier;
-            var role = _context.AccProfiles.Where(x => x.UserId == userId).Select(x => new { roleName = x.Role.RoleName }).FirstOrDefault();
-            if (!UserIds.ContainsKey(Context.ConnectionId))
-            {
-                UserIds.Add(Context.ConnectionId, userId);
-                UpdateUserList();
-            }
+            //string userId = Context.UserIdentifier;
+            //var role = _context.AspNetUsers.Where(x => x.Id == userId).Select(x => new { roleName = x.Roles }).FirstOrDefault();
+            //if (!UserIds.ContainsKey(Context.ConnectionId))
+            //{
+            //    UserIds.Add(Context.ConnectionId, userId);
+            //    UpdateUserList();
+            //}
 
-            //UserIds.Add(userId, userId);
-            Groups.AddToGroupAsync(Context.ConnectionId, role.roleName);
+            ////UserIds.Add(userId, userId);
+            //Groups.AddToGroupAsync(Context.ConnectionId, role.roleName);
             UpdateUserList();
             return base.OnConnectedAsync();
         }

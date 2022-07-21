@@ -5,16 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
-using HookaTimes.DAL.Models;
+//using HookaTimes.DAL.Models;
 using HookaTimes.DAL.Services;
+using HookaTimes.DAL.Data;
 
 namespace HookaTimes.DAL.Repos
 {
     public class GenericRepos<T> : IGenericRepos<T> where T : class
     {
-        protected readonly SentinelDbContext _context;
+        protected readonly HookaDbContext _context;
 
-        public GenericRepos(SentinelDbContext context)
+        public GenericRepos(HookaDbContext context)
         {
             _context = context;
         }
@@ -97,7 +98,7 @@ namespace HookaTimes.DAL.Repos
         {
             var query = GetAll();
 
-            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).SingleOrDefault(predicate);
+            return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).SingleOrDefault(predicate); // Aggregate: yaane faw2 baadun ysiro
         }
 
         public T GetByIdWithPredicate(Expression<Func<T, bool>> predicate)

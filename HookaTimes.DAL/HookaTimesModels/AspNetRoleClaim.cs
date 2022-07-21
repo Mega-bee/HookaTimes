@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-#nullable disable
-
-namespace HookaTimes.DAL.Models
+namespace HookaTimes.DAL.HookaTimesModels
 {
     public partial class AspNetRoleClaim
     {
@@ -18,8 +16,8 @@ namespace HookaTimes.DAL.Models
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
 
-        [ForeignKey(nameof(RoleId))]
-        [InverseProperty(nameof(AspNetRole.AspNetRoleClaims))]
+        [ForeignKey("RoleId")]
+        [InverseProperty("AspNetRoleClaims")]
         public virtual AspNetRole Role { get; set; }
     }
 }

@@ -10,8 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using HookaTimes.DAL.Models;
+//using HookaTimes.DAL.Models;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.DAL.Data;
 
 namespace HookaTimes.BLL.Utilities
 {
@@ -19,9 +20,9 @@ namespace HookaTimes.BLL.Utilities
     {
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _fcmSettings;
-        private readonly SentinelDbContext _context;
+        private readonly HookaDbContext _context;
 
-        public NotificationHelper(IConfiguration configuration, SentinelDbContext context)
+        public NotificationHelper(IConfiguration configuration, HookaDbContext context)
         {
             _configuration = configuration;
             _fcmSettings = _configuration.GetSection("FcmNotification");

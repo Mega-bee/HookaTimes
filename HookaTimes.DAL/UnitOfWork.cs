@@ -1,4 +1,4 @@
-﻿using HookaTimes.DAL.Models;
+﻿//using HookaTimes.DAL.Models;
 using HookaTimes.DAL.Services;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HookaTimes.DAL.Repos;
+using HookaTimes.DAL.Data;
 
 namespace HookaTimes.DAL
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        protected readonly SentinelDbContext _context;
+        protected readonly HookaDbContext _context;
 
-        public UnitOfWork(SentinelDbContext context)
+        public UnitOfWork(HookaDbContext context)
         {
             _context = context;
         }
@@ -22,7 +23,9 @@ namespace HookaTimes.DAL
 
         #region private 
 
-        private IProfileRepos profileRepos;
+        //private IProfileRepos profileRepos;
+
+        private IUserRepos userRepos;
 
 
         #endregion
@@ -30,7 +33,8 @@ namespace HookaTimes.DAL
 
 
         #region public 
-        public IProfileRepos ProfileRepos => profileRepos ?? new ProfileRepos(_context);
+        //public IProfileRepos ProfileRepos => profileRepos ?? new ProfileRepos(_context);
+        public IUserRepos UserRepos => UserRepos ?? new UserRepos(_context);
 
 
         #endregion

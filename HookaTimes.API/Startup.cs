@@ -91,7 +91,7 @@ namespace HookaTimes.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.ConfigureCustomApiLoggingMiddleware();
+            //app.ConfigureCustomApiLoggingMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
