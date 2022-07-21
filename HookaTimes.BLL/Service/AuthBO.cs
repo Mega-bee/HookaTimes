@@ -66,39 +66,45 @@ namespace HookaTimes.BLL.Service
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
-
-            //AspNetUser profile = _uow.UserRepos.GetByIdWithPredicateAndIncludes(x => x.Email == res.Email && x.IsDeleted == false, x => x.Roles);
-            //ApplicationUser appUser = await _userManager.FindByIdAsync(res.Id);
-       
-            //if (!string.IsNullOrEmpty(model.DeviceToken))
-            //{
-            //    bool deviceTokenExists = await _context.UserDevicetokens.Where(x => x.UserId == res.Id && x.Token == model.DeviceToken).FirstOrDefaultAsync() != null;
-            //    if (!deviceTokenExists)
-            //    {
-            //        var newDeviceToken = new UserDevicetoken()
-            //        {
-            //            Token = model.DeviceToken,
-            //            UserId = res.Id
-            //        };
-            //        await _context.UserDevicetokens.AddAsync(newDeviceToken);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //}
             var roles = await _userManager.GetRolesAsync(res);
             var claims = Tools.GenerateClaims(res, roles);
             string JwtToken = Tools.GenerateJWT(claims);
-            User_VM user = new User_VM()
-            {
-                Token = JwtToken
-            };
+
             responseModel.StatusCode = 200;
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = user,
+                Data = JwtToken,
                 Message = ""
             };
             return responseModel;
+        }
+
+        public async Task<ResponseModel> RefreshFcmToken(string uid, string token)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            ApplicationUser user = await _userManager.FindByIdAsync(uid);
+            if (user == null)
+            {
+                responseModel.ErrorMessage = "User not found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+            user.FcmToken = token;
+            var res = await _userManager.UpdateAsync(user);
+            if (!res.Succeeded)
+            {
+                responseModel.ErrorMessage = "Failed to refresh fcm token";
+                responseModel.StatusCode = 400;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = "", Message = "Fcm token refreshed succesfully" };
+            return responseModel;
+
         }
 
         public async Task<ResponseModel> ForgetPassword(string identifier, HttpRequest Request)
@@ -252,8 +258,6 @@ namespace HookaTimes.BLL.Service
             await CheckRoles();
 
             ResponseModel responseModel = new ResponseModel();
-            bool isVerified = false;
-            //EmailSignUpResponse_VM resp = new EmailSignUpResponse_VM();
             ApplicationUser oldUser = await _userManager.FindByEmailAsync(model.Email);
             if (oldUser != null)
             {
@@ -263,43 +267,6 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
 
-            //CheckifExist_VM obj = await CheckIfUserExists(model.Email, model.PhoneNumber);
-
-
-            //if (obj.Phone)
-            //{
-
-            //    responseModel.StatusCode = 400;
-            //    responseModel.ErrorMessage = "Phone Number Already Exists";
-            //    responseModel.Data = new DataModel
-            //    {
-            //        Data = "",
-            //        Message = ""
-            //    };
-            //    return responseModel;
-            //}
-
-
-            //if (obj.Email)
-            //{
-            //    //isVerified = await CheckIfVerified(model.Email);
-            //    //if(!isVerified)
-            //    //{
-            //    //    await GenerateOtp(model.PhoneNumber);
-            //    //}
-
-
-
-
-            //    responseModel.StatusCode = 400;
-            //    responseModel.ErrorMessage = "Email Already Exists";
-            //    responseModel.Data = new DataModel
-            //    {
-            //        Data = "",
-            //        Message = ""
-            //    };
-            //    return responseModel;
-            //}
 
 
             IdentityResult res = await CreateUser(model);
@@ -323,33 +290,6 @@ namespace HookaTimes.BLL.Service
             var claims = Tools.GenerateClaims(newUser, roles);
             string JwtToken = Tools.GenerateJWT(claims);
 
-            //var newProfile = _context.AspNetUsers.Include(x => x.Gender).Where(x => x.Id == usersProfile.Id).FirstOrDefault();
-            //AspNetRole role = await _context.AspNetRoles.FirstOrDefaultAsync(x => x.Id == roleId);
-            //ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
-
-
-
-            //List<Claim> claims = GenerateClaims(user, role);
-
-            // generate jwt
-            //string JwtToken = GenerateJWT(claims);
-
-
-            //resp.Email = user.Email;
-            //resp.Token = JwtToken;
-
-            //Profile_VM userProfile = new Profile_VM()
-            //{
-            //    Id = newProfile.Id,
-            //    Name = newProfile.Name ?? "",
-            //    Email = newProfile.Email ?? "",
-            //    GenderId = (int)newProfile.GenderId,
-            //    Gender = newProfile.Gender.Name ?? "",
-            //    PhoneNumber = user.PhoneNumber ?? "",
-            //    Role = newProfile.Role.RoleName ?? "",
-            //    Token = JwtToken,
-            //};
-
             responseModel.StatusCode = 200;
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
@@ -360,87 +300,23 @@ namespace HookaTimes.BLL.Service
             return responseModel;
         }
 
-        public async Task<CheckifExist_VM> CheckIfUserExists(string email, string phone)
-        {
-            CheckifExist_VM checkifExist_VM = new CheckifExist_VM();
-
-            var accuser = _context.AspNetUsers.Where(x => x.PhoneNumber == phone).FirstOrDefault();
-            if (accuser != null)
-                checkifExist_VM.Phone = true;
-            ApplicationUser oldUser = await _userManager.FindByEmailAsync(email);
-            if (oldUser != null)
-                checkifExist_VM.Email = true;
-            return checkifExist_VM;
-        }
 
         public async Task<IdentityResult> CreateUser(EmailSignUp_VM model)
         {
             ApplicationUser user = new ApplicationUser();
 
-            if (!string.IsNullOrEmpty(model.PhoneNumber))
-            {
-                user.PhoneNumber = model.PhoneNumber;
-            }
-            if (!string.IsNullOrEmpty(model.Email))
-            {
-                user.Email = model.Email;
-                user.NormalizedEmail = model.Email;
-                user.UserName = model.Email;
-                user.NormalizedUserName = model.Email;
-
-            }
-
-            if (!string.IsNullOrEmpty(model.FirstName))
-            {
-                user.FirstName = model.FirstName;
-            }
-
-            if (!string.IsNullOrEmpty(model.LastName))
-            {
-                user.LastName = model.LastName;
-            }
-
-            //user.GenderId = null;
-
-
-            //if (model.Birthdate != default)
-            //{
-            //    user.BirthDate = model.Birthdate;
-            //}
-            //else
-            //{
-            //    user.BirthDate = new DateTime();
-            //}
-            //if (model.GenderId != default)
-            //{
-            //    user.GenderId = model.GenderId;
-            //}
-
-            //if (!string.IsNullOrEmpty(model.DeviceToken))
-            //{
-            //    bool deviceTokenExists = await _context.UserDeviceTokens.Where(x => x.UserId == user.Id && x.Token == model.DeviceToken).FirstOrDefaultAsync() != null;
-            //    if (!deviceTokenExists)
-            //    {
-            //        var newDeviceToken = new UserDeviceToken()
-            //        {
-            //            Token = model.DeviceToken,
-            //            UserId = user.Id
-            //        };
-            //        await _context.UserDeviceTokens.AddAsync(newDeviceToken);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //}
-        
-            //user.PhoneNumberConfirmed = true;
-
-
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+            user.NormalizedEmail = model.Email;
+            user.UserName = model.Email;
+            user.NormalizedUserName = model.Email;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
             IdentityResult res = await _userManager.CreateAsync(user, model.Password);
-
             await _userManager.AddToRoleAsync(user, AppSetting.UserRole);
 
             // check if user creation succeeded
             return res;
-
         }
 
         private async Task CheckRoles()

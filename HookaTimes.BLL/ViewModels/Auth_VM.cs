@@ -41,7 +41,9 @@ namespace HookaTimes.BLL.ViewModels
         [Compare("Password", ErrorMessage = "Passwords don't match")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
 
         //[Required(ErrorMessage = "Gender is missing")]

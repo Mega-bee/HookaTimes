@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace HookaTimes.API.Controllers
 {
@@ -44,6 +45,14 @@ namespace HookaTimes.API.Controllers
             ResponseModel signup = await _auth.SignUpWithEmail(model, Request);
             return Ok(signup);
 
+        }
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [HttpPut]
+        public async Task<IActionResult> RefreshFcmToken([FromForm] string token)
+        {
+            string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok(await _auth.RefreshFcmToken(uid, token));
         }
 
         //[HttpPut]

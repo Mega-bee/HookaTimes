@@ -44,7 +44,7 @@ namespace HookaTimes.BLL.IServices
         //Task<ResponseModel> GetUserProfile(string uid, HttpRequest Request);
 
         //Task<ResponseModel> ResendConfirmEmail(string email, HttpRequest Request);
-
+        Task<ResponseModel> RefreshFcmToken(string uid, string token);
         Task<ResponseModel> ResendOtp(string phone);
 
         Task<ResponseModel> ResetPassword(ResetPassword_VM model, string uid);
