@@ -12,7 +12,7 @@ namespace HookaTimes.BLL.IServices
 {
     public interface IAuthBO
     {
-        Task<CheckifExist_VM> CheckIfUserExists(string email, string phone);
+        //Task<CheckifExist_VM> CheckIfUserExists(string email, string phone);
 
         //Task<bool> CheckIfVerified(string email);
 

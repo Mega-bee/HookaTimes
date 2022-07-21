@@ -83,7 +83,7 @@ namespace HookaTimes.API
             }
             app.ConfigureCustomExceptionMiddleware();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sentinel v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HookaTimes v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
