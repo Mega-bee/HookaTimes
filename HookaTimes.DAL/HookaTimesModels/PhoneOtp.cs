@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-#nullable disable
-
-namespace HookaTimes.DAL.Models
+namespace HookaTimes.DAL.HookaTimesModels
 {
     [Table("PhoneOtp")]
     public partial class PhoneOtp

@@ -37,86 +37,60 @@ namespace HookaTimes.API.Controllers
 
         }
 
-        [HttpPost("{roleId}")]
-        public async Task<IActionResult> EmailSignUp([FromForm] EmailSignUp_VM model, [FromRoute] int roleId)
+        [HttpPost]
+        public async Task<IActionResult> SignUp([FromForm] EmailSignUp_VM model)
         {
 
-            ResponseModel signup = await _auth.SignUpWithEmail(model, roleId, Request);
+            ResponseModel signup = await _auth.SignUpWithEmail(model, Request);
             return Ok(signup);
 
         }
 
-        [HttpPut]
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> CompleteProfile([FromForm] CompleteProfile_VM model)
-        {
-            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
-            return Ok(completeProfile);
+        //[HttpPut]
+        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        //public async Task<IActionResult> CompleteProfile([FromForm] CompleteProfile_VM model)
+        //{
+        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
+        //    return Ok(completeProfile);
 
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EmailSignIn([FromForm] EmailSignIn_VM model)
-        {
-            return Ok(await _auth.EmailSignIn(model, Request));
+        //}
 
 
-        }
+        //[HttpGet]
+        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        //public async Task<IActionResult> GetUserProfile()
+        //{
 
-        [HttpGet]
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> GetUserProfile()
-        {
-
-            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            ResponseModel getUserProfile = await _auth.GetUserProfile(uid, Request);
-            return Ok(getUserProfile);
+        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    ResponseModel getUserProfile = await _auth.GetUserProfile(uid, Request);
+        //    return Ok(getUserProfile);
 
 
-        }
+        //}
 
-        [HttpPost]
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> ResetPassword([FromForm] ResetPassword_VM model)
-        {
+        //[HttpPost]
+        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        //public async Task<IActionResult> ResetPassword([FromForm] ResetPassword_VM model)
+        //{
 
-            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            ResponseModel resetPassword = await _auth.ResetPassword(model, uid);
-            return Ok(resetPassword);
+        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    ResponseModel resetPassword = await _auth.ResetPassword(model, uid);
+        //    return Ok(resetPassword);
 
-        }
+        //}
 
 
 
-        [HttpPut]
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfile_VM model)
-        {
-            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            ResponseModel updateProfile = await _auth.UpdateProfile(model, uid, Request);
-            return Ok(updateProfile);
+        //[HttpPut]
+        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        //public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfile_VM model)
+        //{
+        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    ResponseModel updateProfile = await _auth.UpdateProfile(model, uid, Request);
+        //    return Ok(updateProfile);
 
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ConfirmEmail(string token, string email)
-        {
-
-            ResponseModel confirmEmail = await _auth.ConfirmEmail(email, token);
-            return Ok(confirmEmail);
-        }
-
-
-        [HttpPost]
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> ResendConfirmEmail([FromForm] string email)
-        {
-
-            ResponseModel resendEmail = await _auth.ResendConfirmEmail(email, Request);
-            return Ok(resendEmail);
-
-        }
+        //}
 
         [HttpPost]
         [AllowAnonymous]
@@ -150,17 +124,6 @@ namespace HookaTimes.API.Controllers
             return Ok(ResendOtp);
         }
 
-
-
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ConfirmAccount([FromForm] string phone)
-        {
-
-            ResponseModel ResendOtp = await _auth.ConfirmAccount(phone);
-            return Ok(ResendOtp);
-        }
 
 
     }

@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-#nullable disable
-
-namespace HookaTimes.DAL.Models
+namespace HookaTimes.DAL.HookaTimesModels
 {
     public partial class AspNetUserClaim
     {
@@ -17,5 +15,9 @@ namespace HookaTimes.DAL.Models
         public string UserId { get; set; }
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
+
+        [ForeignKey("UserId")]
+        [InverseProperty("AspNetUserClaims")]
+        public virtual AspNetUser User { get; set; }
     }
 }

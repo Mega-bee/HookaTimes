@@ -9,7 +9,8 @@ namespace HookaTimes.DAL
 {
     public interface IUnitOfWork
     {
-        IProfileRepos ProfileRepos { get; }
+        //IProfileRepos ProfileRepos { get; }
+        IUserRepos UserRepos { get; }
 
 
         void Save();

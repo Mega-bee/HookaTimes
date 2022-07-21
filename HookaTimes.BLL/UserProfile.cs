@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
-using HookaTimes.DAL.Models;
+//using HookaTimes.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

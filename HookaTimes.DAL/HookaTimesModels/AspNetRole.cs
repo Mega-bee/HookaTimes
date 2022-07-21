@@ -4,16 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-#nullable disable
-
-namespace HookaTimes.DAL.Models
+namespace HookaTimes.DAL.HookaTimesModels
 {
     public partial class AspNetRole
     {
         public AspNetRole()
         {
             AspNetRoleClaims = new HashSet<AspNetRoleClaim>();
-            AspNetUserRoles = new HashSet<AspNetUserRole>();
+            Users = new HashSet<AspNetUser>();
         }
 
         [Key]
@@ -24,9 +22,11 @@ namespace HookaTimes.DAL.Models
         public string NormalizedName { get; set; }
         public string ConcurrencyStamp { get; set; }
 
-        [InverseProperty(nameof(AspNetRoleClaim.Role))]
+        [InverseProperty("Role")]
         public virtual ICollection<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-        [InverseProperty(nameof(AspNetUserRole.Role))]
-        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
+
+        [ForeignKey("RoleId")]
+        [InverseProperty("Roles")]
+        public virtual ICollection<AspNetUser> Users { get; set; }
     }
 }
