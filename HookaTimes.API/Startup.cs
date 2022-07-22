@@ -80,10 +80,15 @@ namespace HookaTimes.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HookaTimes v1"));
             }
             app.ConfigureCustomExceptionMiddleware();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HookaTimes v1"));
+            if(env.IsProduction())
+            {
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/webapi/swagger/v1/swagger.json", "HookaTimes v1"));
+            }
+       
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
