@@ -92,6 +92,16 @@ public class KTTheme : IKTTheme
         return $"<span class=\"{classNames}\">{svg}</span>";
     }
 
+    // Get input based on field type
+    public string GetInput(string path, string classNames)
+    {
+
+        var svg = File.ReadAllText($"./wwwroot/AdminAssets/assets/media/icons/{path}");
+
+        return $"<span class=\"{classNames}\">{svg}</span>";
+    }
+
+
     // Set dark mode enabled status
     public void setModeSwitch(bool flag)
     {

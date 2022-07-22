@@ -15,37 +15,37 @@ var KTUsersList = function () {
 
         tableRows.forEach(row => {
             const dateRow = row.querySelectorAll('td');
-            const lastLogin = dateRow[3].innerText.toLowerCase(); // Get last login time
-            let timeCount = 0;
-            let timeFormat = 'minutes';
+            //const lastLogin = dateRow[3].innerText.toLowerCase(); // Get last login time
+            //let timeCount = 0;
+            //let timeFormat = 'minutes';
 
-            // Determine date & time format -- add more formats when necessary
-            if (lastLogin.includes('yesterday')) {
-                timeCount = 1;
-                timeFormat = 'days';
-            } else if (lastLogin.includes('mins')) {
-                timeCount = parseInt(lastLogin.replace(/\D/g, ''));
-                timeFormat = 'minutes';
-            } else if (lastLogin.includes('hours')) {
-                timeCount = parseInt(lastLogin.replace(/\D/g, ''));
-                timeFormat = 'hours';
-            } else if (lastLogin.includes('days')) {
-                timeCount = parseInt(lastLogin.replace(/\D/g, ''));
-                timeFormat = 'days';
-            } else if (lastLogin.includes('weeks')) {
-                timeCount = parseInt(lastLogin.replace(/\D/g, ''));
-                timeFormat = 'weeks';
-            }
+            //// Determine date & time format -- add more formats when necessary
+            //if (lastLogin.includes('yesterday')) {
+            //    timeCount = 1;
+            //    timeFormat = 'days';
+            //} else if (lastLogin.includes('mins')) {
+            //    timeCount = parseInt(lastLogin.replace(/\D/g, ''));
+            //    timeFormat = 'minutes';
+            //} else if (lastLogin.includes('hours')) {
+            //    timeCount = parseInt(lastLogin.replace(/\D/g, ''));
+            //    timeFormat = 'hours';
+            //} else if (lastLogin.includes('days')) {
+            //    timeCount = parseInt(lastLogin.replace(/\D/g, ''));
+            //    timeFormat = 'days';
+            //} else if (lastLogin.includes('weeks')) {
+            //    timeCount = parseInt(lastLogin.replace(/\D/g, ''));
+            //    timeFormat = 'weeks';
+            //}
 
-            // Subtract date/time from today -- more info on moment datetime subtraction: https://momentjs.com/docs/#/durations/subtract/
-            const realDate = moment().subtract(timeCount, timeFormat).format();
+            //// Subtract date/time from today -- more info on moment datetime subtraction: https://momentjs.com/docs/#/durations/subtract/
+            //const realDate = moment().subtract(timeCount, timeFormat).format();
 
-            // Insert real date to last login attribute
-            dateRow[3].setAttribute('data-order', realDate);
+            //// Insert real date to last login attribute
+            //dateRow[3].setAttribute('data-order', realDate);
 
-            // Set real date for joined column
-            const joinedDate = moment(dateRow[5].innerHTML, "DD MMM YYYY, LT").format(); // select date from 5th column in table
-            dateRow[5].setAttribute('data-order', joinedDate);
+            //// Set real date for joined column
+            //const joinedDate = moment(dateRow[5].innerHTML, "DD MMM YYYY, LT").format(); // select date from 5th column in table
+            //dateRow[5].setAttribute('data-order', joinedDate);
         });
 
         // Init datatable --- more info on datatables: https://datatables.net/manual/
@@ -56,7 +56,7 @@ var KTUsersList = function () {
             "lengthChange": false,
             'columnDefs': [
                 { orderable: false, targets: 0 }, // Disable ordering on column 0 (checkbox)
-                { orderable: false, targets: 6 }, // Disable ordering on column 6 (actions)                
+                //{ orderable: false, targets: 6 }, // Disable ordering on column 6 (actions)                
             ]
         });
 
@@ -67,6 +67,8 @@ var KTUsersList = function () {
             toggleToolbars();
         });
     }
+
+   
 
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
     var handleSearchDatatable = () => {
@@ -105,25 +107,25 @@ var KTUsersList = function () {
     }
 
     // Reset Filter
-    var handleResetForm = () => {
-        // Select reset button
-        const resetButton = document.querySelector('[data-kt-user-table-filter="reset"]');
+    //var handleResetForm = () => {
+    //    // Select reset button
+    //    const resetButton = document.querySelector('[data-kt-user-table-filter="reset"]');
 
-        // Reset datatable
-        resetButton.addEventListener('click', function () {
-            // Select filter options
-            const filterForm = document.querySelector('[data-kt-user-table-filter="form"]');
-            const selectOptions = filterForm.querySelectorAll('select');
+    //    // Reset datatable
+    //    resetButton.addEventListener('click', function () {
+    //        // Select filter options
+    //        const filterForm = document.querySelector('[data-kt-user-table-filter="form"]');
+    //        const selectOptions = filterForm.querySelectorAll('select');
 
-            // Reset select2 values -- more info: https://select2.org/programmatic-control/add-select-clear-items
-            selectOptions.forEach(select => {
-                $(select).val('').trigger('change');
-            });
+    //        // Reset select2 values -- more info: https://select2.org/programmatic-control/add-select-clear-items
+    //        selectOptions.forEach(select => {
+    //            $(select).val('').trigger('change');
+    //        });
 
-            // Reset datatable --- official docs reference: https://datatables.net/reference/api/search()
-            datatable.search('').draw();
-        });
-    }
+    //        // Reset datatable --- official docs reference: https://datatables.net/reference/api/search()
+    //        datatable.search('').draw();
+    //    });
+    //}
 
 
     // Delete subscirption
@@ -140,11 +142,11 @@ var KTUsersList = function () {
                 const parent = e.target.closest('tr');
 
                 // Get user name
-                const userName = parent.querySelectorAll('td')[1].querySelectorAll('a')[1].innerText;
+                //const userName = parent.querySelectorAll('td')[1].querySelectorAll('a')[1].innerText;
 
                 // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                 Swal.fire({
-                    text: "Are you sure you want to delete " + userName + "?",
+                    text: "Are you sure?",
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
@@ -157,7 +159,7 @@ var KTUsersList = function () {
                 }).then(function (result) {
                     if (result.value) {
                         Swal.fire({
-                            text: "You have deleted " + userName + "!.",
+                            text: "Deleted Succesfully!.",
                             icon: "success",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -171,17 +173,18 @@ var KTUsersList = function () {
                             // Detect checked checkboxes
                             toggleToolbars();
                         });
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: customerName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
                     }
+                    // else if (result.dismiss === 'cancel') {
+                    //    Swal.fire({
+                    //        text: customerName + " was not deleted.",
+                    //        icon: "error",
+                    //        buttonsStyling: false,
+                    //        confirmButtonText: "Ok, got it!",
+                    //        customClass: {
+                    //            confirmButton: "btn fw-bold btn-primary",
+                    //        }
+                    //    });
+                    //}
                 });
             })
         });
@@ -301,7 +304,7 @@ var KTUsersList = function () {
             initUserTable();
             initToggleToolbar();
             handleSearchDatatable();
-            handleResetForm();
+            //handleResetForm();
             handleDeleteRows();
             handleFilterDatatable();
 

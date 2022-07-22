@@ -153,6 +153,8 @@ var KTCustomersExport = function () {
 		});
     }
 
+  
+
     var initForm = function () {
         const datepicker = form.querySelector("[name=date]");
         
