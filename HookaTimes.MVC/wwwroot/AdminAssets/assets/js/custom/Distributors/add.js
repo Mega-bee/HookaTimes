@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 // Class definition
 var KTUsersAddUser = function () {
@@ -9,23 +9,56 @@ var KTUsersAddUser = function () {
 
     // Init add schedule modal
     var initAddUser = () => {
-
+        //console.log(form.elements)
+        //const elements = Array.from(form.elements)
+        //elements.forEach((e) => {
+        //    console.log(e)
+        //})
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         var validator = FormValidation.formValidation(
             form,
             {
                 fields: {
-                    'user_name': {
+                    'companyName': {
                         validators: {
                             notEmpty: {
-                                message: 'Full name is required'
+                                message: 'Company name is required'
                             }
                         }
                     },
-                    'user_email': {
+                    'personInCharge': {
                         validators: {
                             notEmpty: {
-                                message: 'Valid email address is required'
+                                message: 'Person in charge is required'
+                            }
+                        }
+                    },
+                    'phoneNumber': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone number is required'
+                            }
+                        }
+                    },
+                    'dateOfBirth': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Date of birth is required'
+                            }
+                        }
+                    },
+        
+                    'emailAddress': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Email is required'
+                            }
+                        }
+                    },
+                    'remarks': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Remarks is required'
                             }
                         }
                     },
@@ -120,7 +153,7 @@ var KTUsersAddUser = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form			
-                    modal.hide();	
+                    modal.hide();
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
                         text: "Your form has not been cancelled!.",
@@ -154,7 +187,7 @@ var KTUsersAddUser = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form			
-                    modal.hide();	
+                    modal.hide();
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
                         text: "Your form has not been cancelled!.",
