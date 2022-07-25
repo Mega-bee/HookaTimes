@@ -21,9 +21,9 @@
             <!--end::Svg Icon-->
         </a>
         <!--end::Button-->
-@*        <!--begin::Button-->
-        <a href="../../demo1/dist/apps/ecommerce/sales/edit-order.html" class="btn btn-success btn-sm me-lg-n7">Edit Order</a>
-        <!--end::Button-->*@
+        @*        <!--begin::Button-->
+            <a href="../../demo1/dist/apps/ecommerce/sales/edit-order.html" class="btn btn-success btn-sm me-lg-n7">Edit Order</a>
+            <!--end::Button-->*@
     </div>
     <!--begin::Order summary-->
     <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10">
@@ -222,13 +222,7 @@
                                 <td class="text-muted">
                                     <div class="d-flex align-items-center">
                                         <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
-                                        <span class="svg-icon svg-icon-2 me-2">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.3" d="M16.5 9C16.5 13.125 13.125 16.5 9 16.5C4.875 16.5 1.5 13.125 1.5 9C1.5 4.875 4.875 1.5 9 1.5C13.125 1.5 16.5 4.875 16.5 9Z" fill="currentColor" />
-                                                <path d="M9 16.5C10.95 16.5 12.75 15.75 14.025 14.55C13.425 12.675 11.4 11.25 9 11.25C6.6 11.25 4.57499 12.675 3.97499 14.55C5.24999 15.75 7.05 16.5 9 16.5Z" fill="currentColor" />
-                                                <rect x="7" y="6" width="4" height="4" rx="2" fill="currentColor" />
-                                            </svg>
-                                        </span>
+                                        @Html.Raw(KTTheme.getSvgIcon("duotune/communication/com006.svg","svg-icon svg-icon-2 me-2"))
                                         <!--end::Svg Icon-->Distributor
                                     </div>
                                 </td>
@@ -255,12 +249,8 @@
                                 <td class="text-muted">
                                     <div class="d-flex align-items-center">
                                         <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
-                                        <span class="svg-icon svg-icon-2 me-2">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19Z" fill="currentColor" />
-                                                <path d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
+                                        @Html.Raw(KTTheme.getSvgIcon("duotune/communication/com011.svg","svg-icon svg-icon-2 me-2"))
+
                                         <!--end::Svg Icon-->Email
                                     </div>
                                 </td>
@@ -274,12 +264,8 @@
                                 <td class="text-muted">
                                     <div class="d-flex align-items-center">
                                         <!--begin::Svg Icon | path: icons/duotune/electronics/elc003.svg-->
-                                        <span class="svg-icon svg-icon-2 me-2">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5 20H19V21C19 21.6 18.6 22 18 22H6C5.4 22 5 21.6 5 21V20ZM19 3C19 2.4 18.6 2 18 2H6C5.4 2 5 2.4 5 3V4H19V3Z" fill="currentColor" />
-                                                <path opacity="0.3" d="M19 4H5V20H19V4Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
+                                        @Html.Raw(KTTheme.getSvgIcon("duotune/communication/com006.svg","svg-icon svg-icon-2 me-2"))
+
                                         <!--end::Svg Icon-->Phone
                                     </div>
                                 </td>
