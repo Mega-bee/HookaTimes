@@ -8,25 +8,29 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
     {
         public static List<Distributor_VM> distributors = new List<Distributor_VM>();
 
+
+        #region Lists
         private void FillList()
         {
             distributors.Add(new Distributor_VM()
             {
                 Id = 1,
-                Name = "ShishPresso Distribution",
+                Name = "ShishaPresso Distribution",
                 PhoneNumber = "+961 123 456",
-                 EmailAddress = "badih@shishapresso.com",
-                  PersonInCharge = "Badih Abou Hassan"
+                EmailAddress = "badih@shishapresso.com",
+                PersonInCharge = "Badih Abou Hassan"
             }); distributors.Add(new Distributor_VM
             {
                 Id = 2,
                 Name = "Kuazi Distribution",
                 PhoneNumber = "+961 123 456",
-                 EmailAddress="badih@kuazi.com",
-                  PersonInCharge = "Badih Abou Hassan",
-                   
-            }); 
+                EmailAddress = "badih@kuazi.com",
+                PersonInCharge = "Badih Abou Hassan",
+
+            });
         }
+        #endregion
+
         public IActionResult Index()
         {
             FillList();
