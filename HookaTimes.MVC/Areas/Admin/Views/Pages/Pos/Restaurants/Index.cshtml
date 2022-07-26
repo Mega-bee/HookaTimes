@@ -1,4 +1,4 @@
-﻿@model List<DeliveryCenterList_VM>
+﻿@model List<RestaurantList_VM>
 
 @{
     KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/HumanResources/table.js");
@@ -160,7 +160,7 @@
                                         <!--begin::Image input-->
                                         <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
                                             <!--begin::Preview existing avatar-->
-                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/AdminAssets/assets/media/avatars/300-6.jpg');"></div>
+                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/AdminAssets/assets/media/svg/files/blank-image.svg');"></div>
                                             <!--end::Preview existing avatar-->
                                             <!--begin::Label-->
                                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
@@ -191,7 +191,7 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Company Name</label>
+                                        <label class="required fw-semibold fs-6 mb-2">Name</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="text" name="companyName" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
@@ -201,7 +201,24 @@
                                     <!--begin::Input group-->
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Person In Charge</label>
+                                        <label class="required fw-semibold fs-6 mb-2">Name</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+                                        <select class="form-select form-select-solid form-control-lg" name="cuisineType" data-control="select2" data-placeholder="Select an option">
+                                            <option></option>
+                                            <option selected=true value="French Cuisine">French Cuisine</option>
+                                            <option value="Chinese Cuisine">Chinese Cuisine</option>
+                                            <option value="Spanish Food">Spanish Food</option>
+                                            <option value="Greek Food">Greek Food</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="required fw-semibold fs-6 mb-2">Address</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         @*                                        <input id="dateOfBirth" name="dateOfBirth" placeholder="Select a date" class="form-control mb-2" value="" />*@
@@ -212,10 +229,10 @@
                                     <!--end::Input group-->
                                     <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Address</label>
+                                        <label class="required fw-semibold fs-6 mb-2">Map Url</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" name="address" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
+                                        <input type="text" name="mapUrl" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="" value="" />
                                         <!--end::Input-->
                                     </div>
                                     <div class="fv-row mb-7">
@@ -227,31 +244,64 @@
                                         <!--end::Input-->
                                     </div>
 
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Email</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="" />
-                                        <!--end::Input-->
-                                    </div>
+
+
 
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    @*   <div class="fv-row mb-7">
+                                    <div class="fv-row mb-7">
                                         <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                        <label class="required fw-semibold fs-6 mb-2">Website</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="smith@kpmg.com" />
+                                        <input type="email" name="website" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="www.website.com" value="" />
                                         <!--end::Input-->
-                                        </div>*@
-                                    <!--begin::Main wrapper-->
-                                    
-                                    <!--end::Main wrapper-->
+                                    </div>
+
+
                                     <!--end::Input group-->
-                                   
+                                   <!--begin::Main wrapper-->
+                                    <div class="fv-row" data-kt-password-meter="true">
+                                        <!--begin::Wrapper-->
+                                        <div class="mb-1">
+                                            <!--begin::Label-->
+                                            <label class="required fw-semibold fs-6 mb-2">
+                                                Password
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input wrapper-->
+                                            <div class="position-relative mb-3">
+                                                <input class="form-control form-control-lg form-control-solid"
+                                                       type="password" placeholder="" name="new_password" autocomplete="off" />
+
+                                                <!--begin::Visibility toggle-->
+                                                <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                      data-kt-password-meter-control="visibility">
+                                                    <i class="bi bi-eye-slash fs-2"></i>
+
+                                                    <i class="bi bi-eye fs-2 d-none"></i>
+                                                </span>
+                                                <!--end::Visibility toggle-->
+                                            </div>
+                                            <!--end::Input wrapper-->
+                                            <!--begin::Highlight meter-->
+                                            <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                                <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                            </div>
+                                            <!--end::Highlight meter-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                        <!--begin::Hint-->
+                                        <div class="text-muted">
+                                            Use 8 or more characters with a mix of letters, numbers & symbols.
+                                        </div>
+                                        <!--end::Hint-->
+                                    </div>
+                                    <!--end::Main wrapper-->
+
                                 </div>
                                 <!--end::Scroll-->
                                 <!--begin::Actions-->
@@ -353,4 +403,3 @@
     <!--end::Card body-->
 </div>
 <!--end::Card-->
-

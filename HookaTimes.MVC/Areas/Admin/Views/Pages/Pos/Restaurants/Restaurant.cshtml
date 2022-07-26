@@ -56,10 +56,10 @@
                     </div>
                     <!--end::User-->
                     <!--begin::Actions-->
-@*                    <div class="d-flex my-4">
+                    @*                    <div class="d-flex my-4">
 
                         <a href="#" class="btn btn-sm btn-danger me-2">Deactivate</a>
-                    </div>*@
+                        </div>*@
                     <!--end::Actions-->
                 </div>
                 <!--end::Title-->
@@ -182,137 +182,202 @@
 <!--end::Navbar-->
 <div class="tab-content" id="myTabContent">
 
-<!--begin::Basic info-->
-<div class="tab-pane fade active show" id="details" role="tabpanel">
+    <!--begin::Basic info-->
+    <div class="tab-pane fade active show" id="details" role="tabpanel">
 
-    <div class="card mb-5 mb-xl-10">
-        <!--begin::Card header-->
-        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
-            <!--begin::Card title-->
-            <div class="card-title m-0">
-                <h3 class="fw-bold m-0">Update Details</h3>
+        <div class="card mb-5 mb-xl-10">
+            <!--begin::Card header-->
+            <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <!--begin::Card title-->
+                <div class="card-title m-0">
+                    <h3 class="fw-bold m-0">Update Details</h3>
+                </div>
+                <!--end::Card title-->
             </div>
-            <!--end::Card title-->
-        </div>
-        <!--begin::Card header-->
-        <!--begin::Content-->
-        <div id="kt_account_settings_profile_details" class="collapse show">
-            <!--begin::Form-->
-            <form id="kt_account_profile_details_form" class="form">
-                <!--begin::Card body-->
-                <div class="card-body border-top p-9">
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Image input-->
-                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/AdminAssets/assets/media/svg/avatars/blank.svg')">
-                                <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/AdminAssets/assets/media/custom/king-og-grill.jpg')"></div>
-                                <!--end::Preview existing avatar-->
-                                <!--begin::Label-->
-                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                    <i class="bi bi-pencil-fill fs-7"></i>
-                                    <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                    <input type="hidden" name="avatar_remove" />
-                                    <!--end::Inputs-->
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Cancel-->
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                    <i class="bi bi-x fs-2"></i>
-                                </span>
-                                <!--end::Cancel-->
-                                <!--begin::Remove-->
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                    <i class="bi bi-x fs-2"></i>
-                                </span>
-                                <!--end::Remove-->
-                            </div>
-                            <!--end::Image input-->
-                            <!--begin::Hint-->
-                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                            <!--end::Hint-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Company Name</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-
+            <!--begin::Card header-->
+            <!--begin::Content-->
+            <div id="kt_account_settings_profile_details" class="collapse show">
+                <!--begin::Form-->
+                <form id="kt_account_profile_details_form" class="form">
+                    <!--begin::Card body-->
+                    <div class="card-body border-top p-9">
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
+                            <!--end::Label-->
                             <!--begin::Col-->
-                            <div class="col-lg-6 fv-row">
-                                <input type="text" name="companyName" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="@Model.Name" />
+                            <div class="col-lg-8">
+                                <!--begin::Image input-->
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/AdminAssets/assets/media/svg/avatars/blank.svg')">
+                                    <!--begin::Preview existing avatar-->
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/AdminAssets/assets/media/custom/king-og-grill.jpg')"></div>
+                                    <!--end::Preview existing avatar-->
+                                    <!--begin::Label-->
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <!--begin::Inputs-->
+                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                        <input type="hidden" name="avatar_remove" />
+                                        <!--end::Inputs-->
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Cancel-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Cancel-->
+                                    <!--begin::Remove-->
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <!--end::Remove-->
+                                </div>
+                                <!--end::Image input-->
+                                <!--begin::Hint-->
+                                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                <!--end::Hint-->
                             </div>
                             <!--end::Col-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Person In Charge</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8 fv-row">
-                            <input type="text" name="personInCharge" class="form-control form-control-lg form-control-solid" value="@Model.PersonInCharge" />
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Name</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="@Model.Name" />
+                            </div>
+                            <!--end::Col-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                            <span class="required">Phone Number</span>
-                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8 fv-row">
-                            <input type="tel" name="phoneNumber" class="form-control form-control-lg form-control-solid" value="@Model.PhoneNumber" />
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Opening Hours</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="@Model.Name" />
+                            </div>
+                            <!--end::Col-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                            <span class="required">Email Address</span>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8 fv-row">
-                            <input type="text" name="email" class="form-control form-control-lg form-control-solid" placeholder="Email Address" value="@Model.EmailAddress" />
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Address</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="address" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="@Model.Name" />
+                            </div>
+                            <!--end::Col-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Map Url</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="mapUrl" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="@Model.Name" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Cuisine Type</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <select class="form-select form-select-solid form-control-lg" name="cuisineType" data-control="select2" data-placeholder="Select an option">
+                                    <option></option>
+                                    <option selected=true value="French Cuisine">French Cuisine</option>
+                                    <option value="Chinese Cuisine">Chinese Cuisine</option>
+                                    <option value="Spanish Food">Spanish Food</option>
+                                    <option value="Greek Food">Greek Food</option>
+                                </select>
+                            </div>
 
-                </div>
-                <!--end::Card body-->
-                <!--begin::Actions-->
-                <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
-                </div>
-                <!--end::Actions-->
-            </form>
-            <!--end::Form-->
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Person In Charge</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="personInCharge" class="form-control form-control-lg form-control-solid" value="@Model.PersonInCharge" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                <span class="required">Phone Number</span>
+                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="tel" name="phoneNumber" class="form-control form-control-lg form-control-solid" value="@Model.PhoneNumber" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                <span class="required">Email Address</span>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="email" class="form-control form-control-lg form-control-solid" placeholder="Email Address" value="@Model.EmailAddress" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                          <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                <span class="required">Website</span>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row">
+                                <input type="text" name="website" class="form-control form-control-lg form-control-solid" placeholder="Website" value="@Model.EmailAddress" />
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+                    <!--end::Card body-->
+                    <!--begin::Actions-->
+                    <div class="card-footer d-flex justify-content-end py-6 px-9">
+                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Content-->
         </div>
-        <!--end::Content-->
     </div>
-</div>
 </div>
 @*<!--end::Basic info-->
     <!--begin::Sign-in Method-->
