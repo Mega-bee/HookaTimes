@@ -19,6 +19,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Concession\Data\" />
+    <Folder Include="Areas\Concession\Models\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
   </ItemGroup>
