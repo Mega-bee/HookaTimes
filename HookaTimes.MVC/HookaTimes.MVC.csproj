@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Pages\Pos\Concessions\" />
     <Folder Include="wwwroot\AdminAssets\assets\media\King Of Grill\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
