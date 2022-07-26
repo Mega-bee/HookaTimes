@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HookaTimes.MVC.Areas.Admin.Controllers;
 
+[Area("Admin")]
 public class AuthController : Controller
 {
-    public IActionResult signIn()
+    public IActionResult SignIn()
     {
-        return View("~/Views/Pages/Auth/SignIn.cshtml");
+        return View("~/Areas/Admin/Views/Pages/Auth/SignIn.cshtml");
     }
 
     public IActionResult signUp()
