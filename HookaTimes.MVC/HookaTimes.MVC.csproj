@@ -23,6 +23,10 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\DeliveryCenter\Data\" />
     <Folder Include="Areas\DeliveryCenter\Models\" />
+    <Folder Include="Areas\Distributor\Controllers\" />
+    <Folder Include="Areas\Distributor\Data\" />
+    <Folder Include="Areas\Distributor\Models\" />
+    <Folder Include="Areas\Distributor\Views\" />
     <Folder Include="wwwroot\AdminAssets\assets\media\King Of Grill\" />
     <Folder Include="Areas\Concession\Data\" />
     <Folder Include="Areas\Concession\Models\" />
