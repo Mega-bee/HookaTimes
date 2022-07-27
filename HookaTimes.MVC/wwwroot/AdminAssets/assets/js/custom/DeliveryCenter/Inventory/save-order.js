@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 // Class definition
 var KTAppEcommerceSalesSaveOrder = function () {
@@ -18,7 +18,7 @@ var KTAppEcommerceSalesSaveOrder = function () {
         // Init select2 country options
         // Format options
         const optionFormat = (item) => {
-            if ( !item.id ) {
+            if (!item.id) {
                 return item.text;
             }
 
@@ -70,21 +70,21 @@ var KTAppEcommerceSalesSaveOrder = function () {
         });
     }
 
-     //Handle shipping form
-    const handleShippingForm = () => {
-        // Select elements
-        const element = document.getElementById('kt_ecommerce_edit_order_shipping_form');
-        const checkbox = document.getElementById('same_as_billing');
+    // Handle shipping form
+    //const handleShippingForm = () => {
+    //    // Select elements
+    //    const element = document.getElementById('kt_ecommerce_edit_order_shipping_form');
+    //    const checkbox = document.getElementById('same_as_billing');
 
-        // Show/hide shipping form
-        checkbox.addEventListener('change', e => {
-            if (e.target.checked) {
-                element.classList.add('d-none');
-            } else {
-                element.classList.remove('d-none');
-            }
-        });
-    }
+    //    // Show/hide shipping form
+    //    checkbox.addEventListener('change', e => {
+    //        if (e.target.checked) {
+    //            element.classList.add('d-none');
+    //        } else {
+    //            element.classList.remove('d-none');
+    //        }
+    //    });
+    //}
 
     // Handle product select
     const handleProductSelect = () => {
@@ -98,13 +98,13 @@ var KTAppEcommerceSalesSaveOrder = function () {
             checkbox.addEventListener('change', e => {
                 // Select parent row element
                 const parent = checkbox.closest('tr');
-                
+
                 // Clone parent element as variable
                 const product = parent.querySelector('[data-kt-ecommerce-edit-order-filter="product"]').cloneNode(true);
 
                 // Create inner wrapper
                 const innerWrapper = document.createElement('div');
-                
+
                 // Store inner content
                 const innerContent = product.innerHTML;
 
@@ -124,7 +124,7 @@ var KTAppEcommerceSalesSaveOrder = function () {
 
                 // Update inner wrapper classes
                 innerWrapper.classList.add(...wrapperClassesRemove);
-                innerWrapper.classList.add(...additionalClasses);                
+                innerWrapper.classList.add(...additionalClasses);
 
                 // Apply stored inner content into new inner wrapper
                 innerWrapper.innerHTML = innerContent;
@@ -205,7 +205,7 @@ var KTAppEcommerceSalesSaveOrder = function () {
             form,
             {
                 fields: {
-                    'payment_method': {
+                    'pos_name': {
                         validators: {
                             notEmpty: {
                                 message: 'Payment method is required'
@@ -325,7 +325,7 @@ var KTAppEcommerceSalesSaveOrder = function () {
 
             initSaveOrder();
             handleSearchDatatable();
-            handleShippingForm();
+            //handleShippingForm();
             handleProductSelect();
             handleSubmit();
         }
