@@ -99,6 +99,67 @@ namespace HookaTimes.BLL.Utilities.Extensions
             });
         }
 
+        public static void ConfigureCookieAuthentication(this IServiceCollection services)
+        {
+            services.AddAuthentication().AddJwtBearer(options =>
+            {
+
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    //Issuer is the API client 
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://localhost:44310",
+
+                    //Audience is the client 
+                    ValidateAudience = true,
+                    ValidAudience = "https://localhost:44310",
+
+                    ValidateIssuerSigningKey = true,
+                    //Our Secret Key
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fdjfhjehfjhfuehfbhvdbvjjoq8327483rgh")),
+
+                    //for delaying the expiry  date of the token
+                    ClockSkew = TimeSpan.FromMinutes(0)
+                };
+                //options.Events = new JwtBearerEvents
+                //{
+                //    OnMessageReceived = context =>
+                //    {
+                //        var accessToken = context.Request.Query["access_token"];
+
+                //        var path = context.HttpContext.Request.Path;
+                //        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                //        {
+                //            context.Token = accessToken;
+                //        }
+
+                //        return Task.CompletedTask;
+                //    }
+                //};
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Path.Value.StartsWith("/hubs/notification") &&
+                            context.Request.Query.TryGetValue("token", out StringValues token)
+                        )
+                        {
+                            context.Token = token;
+                        }
+
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        var te = context.Exception;
+                        return Task.CompletedTask;
+                    }
+                };
+
+            });
+        }
+
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
