@@ -1,0 +1,284 @@
+<!--begin::sidebar menu-->
+<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+	<!--begin::Menu wrapper-->
+	<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
+		<!--begin::Menu-->
+		<div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Concession" asp-controller="Dashboards" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Dashboard</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/communication/com005.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Sales</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Concession" asp-controller="Sales" asp-action="Indoor" asp-route-pageName="INDOORS">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">In Door</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Concession" asp-controller="Sales" asp-action="Outdoor" asp-route-pageName="OUTDOORS">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Out Door</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<div class="menu-item">
+				<!--begin:Menu link-->
+				
+				<!--end:Menu link-->
+			</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+				@*	<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/user-profile/campaigns">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Campaigns</span>
+						</a>
+						<!--end:Menu link-->
+					</div>*@
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+				@*	<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/user-profile/documents">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Documents</span>
+						</a>
+						<!--end:Menu link-->
+					</div>*@
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+				@*	<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/user-profile/followers">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Followers</span>
+						</a>
+						<!--end:Menu link-->
+					</div>*@
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					@*<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/user-profile/activity">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Activity</span>
+						</a>
+						<!--end:Menu link-->
+					</div>*@
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>
+
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+		@*	<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="Distributors" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Distributors</span>
+				</a>
+				<!--end:Menu link-->
+			</div>*@
+		
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/files/fil003.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">POS</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Concession" asp-controller="Inventories" asp-action="Stock" asp-route-pageName="Stock">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Stock</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTeamStaff" asp-route-pageName="Concession">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Orders</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					@*<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTeamStaff" asp-route-pageName="Delivery Center">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Delivery Center</span>
+						</a>
+						<!--end:Menu link-->
+					</div>*@
+					<!--end:Menu item-->
+				
+				</div>
+				<!--end:Menu sub-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+			@*<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/abstract/abs048.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Social</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/social/feeds">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Feeds</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/social/activity">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Activty</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/social/followers">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Followers</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" href="?page=pages/social/settings">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Settings</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+				</div>
+				<!--end:Menu sub-->
+			</div>*@
+				<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTeamStaff" asp-route-pageName="Delivery Services">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Delivery Services</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+				<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="HookaBuddies" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Hooka Buddies</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+				<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="Products" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Products Catalogue</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="Dashboards" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Inventory</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+
+				<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="Admin" asp-controller="Sales" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Sales</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			<!--end:Menu item-->
+			<!--begin:Menu item-->
+
+		</div>
+		<!--end::Menu-->
+	</div>
+	<!--end::Menu wrapper-->
+</div>
+
+<!--end::sidebar menu-->
