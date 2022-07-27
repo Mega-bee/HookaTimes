@@ -1,0 +1,89 @@
+<!--begin::sidebar menu-->
+<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+	<!--begin::Menu wrapper-->
+	<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
+		<!--begin::Menu-->
+		<div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Dashboards" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Dashboard</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+			
+
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Products" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm004.svg", "svg-icon svg-icon-2"))</span>
+
+					<span class="menu-title">Products</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+
+			<!--begin:Menu item-->
+			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm008.svg", "svg-icon svg-icon-2"))</span>
+
+					<span class="menu-title">Inventory</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Inventory" asp-action="Stocks">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Stock</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Inventory" asp-action="Orders">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Orders</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<div class="menu-item">
+				<!--begin:Menu link-->
+				
+				<!--end:Menu link-->
+		          	</div>
+				
+				</div>
+				<!--end:Menu sub-->
+			</div>
+
+			<div class="menu-item">
+				<!--begin:Menu link-->
+				<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Sales" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm001.svg", "svg-icon svg-icon-2"))</span>
+
+					<span class="menu-title">Sales</span>
+				</a>
+				<!--end:Menu link-->
+			</div>
+
+
+		</div>
+		<!--end::Menu-->
+	</div>
+	<!--end::Menu wrapper-->
+</div>
+
+<!--end::sidebar menu-->
