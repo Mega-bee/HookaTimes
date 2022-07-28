@@ -210,10 +210,10 @@
                                         <label class="required fw-semibold fs-6 mb-2">Date of birth</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-@*                                        <input id="dateOfBirth" name="dateOfBirth" placeholder="Select a date" class="form-control mb-2" value="" />*@
-                                            <input class="form-control mb-2" placeholder="Pick date" id="kt_daterangepicker_3"/>
+                                        @*                                        <input id="dateOfBirth" name="dateOfBirth" placeholder="Select a date" class="form-control mb-2" value="" />*@
+                                        <input class="form-control mb-2" placeholder="Pick date" id="kt_daterangepicker_3" />
 
-                                   <!--end::Input-->
+                                        <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <div class="fv-row mb-7">
@@ -485,15 +485,14 @@
     <!--end::Card body-->
 </div>
 <!--end::Card-->
-
 @section scripts {
-    <script>
-        $("#kt_daterangepicker_3").daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),10)
-    }
-);
-    </script>
+<script>
+            $("#kt_daterangepicker_3").daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format("YYYY"),10)
+        }
+    );
+</script>
 }
