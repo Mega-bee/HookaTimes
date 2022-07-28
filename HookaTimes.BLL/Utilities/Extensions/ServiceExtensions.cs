@@ -36,7 +36,9 @@ namespace HookaTimes.BLL.Utilities.Extensions
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+                ;
         }
 
         public static void ConfigureAuthentication(this IServiceCollection services)
