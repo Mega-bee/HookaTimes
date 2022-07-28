@@ -26,13 +26,6 @@ var KTUsersAddUser = function () {
                             }
                         }
                     },
-                    'personInCharge': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Person in charge is required'
-                            }
-                        }
-                    },
                     'phoneNumber': {
                         validators: {
                             notEmpty: {
@@ -40,10 +33,34 @@ var KTUsersAddUser = function () {
                             }
                         }
                     },
-                    'dateOfBirth': {
+                    'cuisineType': {
                         validators: {
                             notEmpty: {
-                                message: 'Date of birth is required'
+                                message: 'Phone number is required'
+                            }
+                        }
+                    },
+
+                    'address': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone number is required'
+                            }
+                        }
+                    },
+
+                    'mapUrl': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone number is required'
+                            }
+                        }
+                    },
+
+                    'website': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone number is required'
                             }
                         }
                     },
@@ -55,7 +72,7 @@ var KTUsersAddUser = function () {
                             }
                         }
                     },
-                    'remarks': {
+                    'openingHours': {
                         validators: {
                             notEmpty: {
                                 message: 'Remarks is required'
