@@ -15,7 +15,7 @@ namespace HookaTimes.MVC.Areas.Concession.Controllers
                 Product = "Lemon&Mint",
                 Category = "Capsule",
                 Quantity = 23,
-                 Status = "Low Qty"
+                Status = "Low Qty"
             });
             stock.Add(new Stock_VM()
             {

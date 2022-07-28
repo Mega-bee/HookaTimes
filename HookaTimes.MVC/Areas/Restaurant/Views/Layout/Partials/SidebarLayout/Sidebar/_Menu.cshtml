@@ -81,50 +81,16 @@
 
 
 			<!--begin:Menu item-->
-			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+			
+				<div class="menu-item">
 				<!--begin:Menu link-->
-				<span class="menu-link">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm008.svg", "svg-icon svg-icon-2"))</span>
+				<a class="menu-link" asp-area="Restaurant" asp-controller="Offers" asp-action="OffersList">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm001.svg", "svg-icon svg-icon-2"))</span>
 
 					<span class="menu-title">Offers</span>
-					<span class="menu-arrow"></span>
-				</span>
+				</a>
 				<!--end:Menu link-->
-				<!--begin:Menu sub-->
-				<div class="menu-sub menu-sub-accordion">
-					<!--begin:Menu item-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Inventory" asp-action="Stocks">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Offers History</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="DeliveryCenter" asp-controller="Inventory" asp-action="Orders">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Add Offers</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<div class="menu-item">
-				<!--begin:Menu link-->
-				
-				<!--end:Menu link-->
-		          	</div>
-				
-				</div>
-				<!--end:Menu sub-->
 			</div>
-
 			
 			<!--begin:Menu item-->
 			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
