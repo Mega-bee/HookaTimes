@@ -82,11 +82,11 @@
                 <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_customer_general" aria-selected="true">General Settings</a>
             </li>
             <!--end:::Tab item-->
-            <!--begin:::Tab item-->
+         @*   <!--begin:::Tab item-->
             <li class="nav-item">
                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_customer_advanced">Advanced Settings</a>
             </li>
-            <!--end:::Tab item-->
+            <!--end:::Tab item-->*@
         </ul>
         <!--end:::Tabs-->
         <!--begin:::Tab content-->
@@ -159,30 +159,32 @@
                                 <!--end::Image input wrapper-->
                             </div>
                             <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <label class="fs-6 fw-semibold mb-2 required">Concession Id</label>
+                                <label class="fs-6 fw-semibold mb-2 required">Restaurant</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="concessionId" value="@Model.Id" />
+                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Select an option">
+                                    <option></option>
+                                    <option value="1">King of Gril</option>
+                                    <option value="2">Z Burger House</option>
+                                </select>                                <!--end::Input-->
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-semibold mb-2 required">Day Shift</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-solid" placeholder="" name="day-shift" value="Hasan Bdeir" />
                                 <!--end::Input-->
                             </div>
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <label class="fs-6 fw-semibold mb-2 required">Dimensions</label>
+                                <label class="fs-6 fw-semibold mb-2 required">Night Shift</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="dimensions" value="@Model.Dimension" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-                                  <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-semibold mb-2 required">Capacity</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="dimensions" value="@Model.Capacity" />
+                                <input type="text" class="form-control form-control-solid" placeholder="" name="night-shift" value="Abir Mansour" />
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->

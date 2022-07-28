@@ -8,11 +8,11 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
 
         public IActionResult Index()
         {
-            return View("~/Areas/Admin/Views/Pages/Sales/Index.cshtml");
+            return View("~/Areas/Distributor/Views/Pages/Sales/Index.cshtml");
         }
         public IActionResult Order(int id)
         {
-            return View("~/Areas/Admin/Views/Pages/Sales/Order.cshtml");
+            return View("~/Areas/Distributor/Views/Pages/Sales/Order.cshtml");
         }
     }
 }

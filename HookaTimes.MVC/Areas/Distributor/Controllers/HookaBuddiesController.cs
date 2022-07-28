@@ -45,7 +45,7 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Name = x.Name,
 
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/HookaBuddies/Index.cshtml", buddiesList);
+            return View("~/Areas/Distributor/Views/Pages/HookaBuddies/Index.cshtml", buddiesList);
         }
 
         public IActionResult HookaBuddy(int id)
@@ -62,7 +62,7 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
 
             }).FirstOrDefault()!;
 
-            return View("~/Areas/Admin/Views/Pages/HookaBuddies/HookaBuddy.cshtml", buddy);
+            return View("~/Areas/Distributor/Views/Pages/HookaBuddies/HookaBuddy.cshtml", buddy);
         }
     }
 }

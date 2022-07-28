@@ -56,7 +56,7 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Id = x.Id,
                 Name = x.Name,
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/Products/Index.cshtml",productsList);
+            return View("~/Areas/Distributor/Views/Pages/Products/Index.cshtml",productsList);
         }
 
         public IActionResult Product(int id)
@@ -68,12 +68,12 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Id = x.Id,
                 Name = x.Name,
             }).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/Products/Product.cshtml", product);
+            return View("~/Areas/Distributor/Views/Pages/Products/Product.cshtml", product);
         }
 
         public IActionResult CreateProduct(int id)
         {
-            return View("~/Areas/Admin/Views/Pages/Products/CreateProduct.cshtml");
+            return View("~/Areas/Distributor/Views/Pages/Products/CreateProduct.cshtml");
         }
 
 

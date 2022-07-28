@@ -119,13 +119,13 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Id = x.Id,
                 Name = x.Name,
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/HumanResources/HookaTimesStaff.cshtml", userlist);
+            return View("~/Areas/Distributor/Views/Pages/HumanResources/HookaTimesStaff.cshtml", userlist);
         }
 
         public IActionResult StaffMemberDetails(int id)
         {
             StaffMember_VM user = users.Where(x => x.Id == id).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/HumanResources/StaffMemberDetails.cshtml", user);
+            return View("~/Areas/Distributor/Views/Pages/HumanResources/StaffMemberDetails.cshtml", user);
         }
 
         #endregion
@@ -141,13 +141,13 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Name = x.Name,
 
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/HumanResources/HookaTimesTeam.cshtml", teamList);
+            return View("~/Areas/Distributor/Views/Pages/HumanResources/HookaTimesTeam.cshtml", teamList);
         }
 
         public IActionResult HookaTeamMemberDetails(int id)
         {
             HookaTimesTeamMember_VM user = team.Where(x => x.Id == id).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/HumanResources/HookaTeamMemberDetails.cshtml", user);
+            return View("~/Areas/Distributor/Views/Pages/HumanResources/HookaTeamMemberDetails.cshtml", user);
         }
 
         #endregion

@@ -6,7 +6,7 @@
 		<div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
 			<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="Dashboards" asp-action="Index">
+				<a class="menu-link" asp-area="Distributor" asp-controller="Dashboards" asp-action="Index">
 					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen025.svg", "svg-icon svg-icon-2"))</span>
 					<span class="menu-title">Dashboard</span>
 				</a>
@@ -261,104 +261,15 @@
 			</div>*@
 			<!--end:Menu item-->
 			<!--begin:Menu item-->
-			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-				<!--begin:Menu link-->
-				<span class="menu-link">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/communication/com005.svg", "svg-icon svg-icon-2"))</span>
-					<span class="menu-title">Human Resources</span>
-					<span class="menu-arrow"></span>
-				</span>
-				<!--end:Menu link-->
-				<!--begin:Menu sub-->
-				<div class="menu-sub menu-sub-accordion">
-					<!--begin:Menu item-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTimesStaff">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">HT Staff</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTimesTeam">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">HT Team</span>
-						</a>
-						<!--end:Menu link-->
-					</div>
-					<div class="menu-item">
-				<!--begin:Menu link-->
-				
-				<!--end:Menu link-->
-			</div>
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-				@*	<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" href="?page=pages/user-profile/campaigns">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Campaigns</span>
-						</a>
-						<!--end:Menu link-->
-					</div>*@
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-				@*	<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" href="?page=pages/user-profile/documents">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Documents</span>
-						</a>
-						<!--end:Menu link-->
-					</div>*@
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-				@*	<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" href="?page=pages/user-profile/followers">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Followers</span>
-						</a>
-						<!--end:Menu link-->
-					</div>*@
-					<!--end:Menu item-->
-					<!--begin:Menu item-->
-					@*<div class="menu-item">
-						<!--begin:Menu link-->
-						<a class="menu-link" href="?page=pages/user-profile/activity">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Activity</span>
-						</a>
-						<!--end:Menu link-->
-					</div>*@
-					<!--end:Menu item-->
-				</div>
-				<!--end:Menu sub-->
-			</div>
+
 
 			<!--end:Menu item-->
 			<!--begin:Menu item-->
 			<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="Distributors" asp-action="Index">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm006.svg", "svg-icon svg-icon-2"))</span>
-					<span class="menu-title">Distributors</span>
+				<a class="menu-link" asp-area="Distributor" asp-controller="HookaTeam" asp-action="Index">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/communication/com005.svg", "svg-icon svg-icon-2"))</span>
+					<span class="menu-title">Hooka Team</span>
 				</a>
 				<!--end:Menu link-->
 			</div>
@@ -929,7 +840,7 @@
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="Admin" asp-controller="Pos" asp-action="Restaurants">
+						<a class="menu-link" asp-area="Distributor" asp-controller="Pos" asp-action="Restaurants">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
@@ -941,7 +852,7 @@
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="Admin" asp-controller="Pos" asp-action="Concessions">
+						<a class="menu-link" asp-area="Distributor" asp-controller="Pos" asp-action="Concessions">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
@@ -953,7 +864,7 @@
 					<!--begin:Menu item-->
 					<div class="menu-item">
 						<!--begin:Menu link-->
-						<a class="menu-link" asp-area="Admin" asp-controller="Pos" asp-action="DeliveryCenters">
+						<a class="menu-link" asp-area="Distributor" asp-controller="Pos" asp-action="DeliveryCenters">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
@@ -1052,42 +963,21 @@
 				</div>
 				<!--end:Menu sub-->
 			</div>*@
+			
+			
 				<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="HumanResources" asp-action="HookaTeamStaff" asp-route-pageName="Delivery Services">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm006.svg", "svg-icon svg-icon-2"))</span>
-					<span class="menu-title">Delivery Services</span>
-				</a>
-				<!--end:Menu link-->
-			</div>
-				<div class="menu-item">
-				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="HookaBuddies" asp-action="Index">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/general/gen049.svg", "svg-icon svg-icon-2"))</span>
-					<span class="menu-title">Hooka Buddies</span>
-				</a>
-				<!--end:Menu link-->
-			</div>
-				<div class="menu-item">
-				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="Products" asp-action="Index">
+				<a class="menu-link" asp-area="Distributor" asp-controller="Products" asp-action="Index">
 					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm004.svg", "svg-icon svg-icon-2"))</span>
 					<span class="menu-title">Products Catalogue</span>
 				</a>
 				<!--end:Menu link-->
 			</div>
-			<div class="menu-item">
-				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="Dashboards" asp-action="Index">
-					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm008.svg", "svg-icon svg-icon-2"))</span>
-					<span class="menu-title">Inventory</span>
-				</a>
-				<!--end:Menu link-->
-			</div>
+	
 
 				<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" asp-area="Admin" asp-controller="Sales" asp-action="Index">
+				<a class="menu-link" asp-area="Distributor" asp-controller="Sales" asp-action="Index">
 					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm001.svg", "svg-icon svg-icon-2"))</span>
 					<span class="menu-title">Sales</span>
 				</a>
@@ -1095,7 +985,49 @@
 			</div>
 			<!--end:Menu item-->
 			<!--begin:Menu item-->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+				<!--begin:Menu link-->
+				<span class="menu-link">
+					<span class="menu-icon">@Html.Raw(KTTheme.getSvgIcon("duotune/ecommerce/ecm008.svg", "svg-icon svg-icon-2"))</span>
 
+					<span class="menu-title">Inventory</span>
+					<span class="menu-arrow"></span>
+				</span>
+				<!--end:Menu link-->
+				<!--begin:Menu sub-->
+				<div class="menu-sub menu-sub-accordion">
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Distributor" asp-controller="Inventory" asp-action="Stocks">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Stock</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<!--end:Menu item-->
+					<!--begin:Menu item-->
+					<div class="menu-item">
+						<!--begin:Menu link-->
+						<a class="menu-link" asp-area="Distributor" asp-controller="Inventory" asp-action="Orders">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Orders</span>
+						</a>
+						<!--end:Menu link-->
+					</div>
+					<div class="menu-item">
+				<!--begin:Menu link-->
+				
+				<!--end:Menu link-->
+		          	</div>
+				
+				</div>
+				<!--end:Menu sub-->
+			</div>
 		</div>
 		<!--end::Menu-->
 	</div>

@@ -16,6 +16,6 @@ public class DashboardsController : Controller
 
     public IActionResult Index()
     {
-        return View("~/Areas/Admin/Views/Pages/Dashboards/Index.cshtml");
+        return View("~/Areas/Distributor/Views/Pages/Dashboards/Index.cshtml");
     }
 }

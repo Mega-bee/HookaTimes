@@ -50,7 +50,7 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 Id = x.Id,
                 Name = x.Name,
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/Pos/Restaurants/Index.cshtml", restaurantsList);
+            return View("~/Areas/Distributor/Views/Pages/Pos/Restaurants/Index.cshtml", restaurantsList);
         }
 
         public IActionResult Restaurant(int id)
@@ -63,7 +63,7 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                 PersonInCharge = x.PersonInCharge,
                 PhoneNumber = x.PhoneNumber,
             }).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/Pos/Restaurants/Restaurant.cshtml", distributor);
+            return View("~/Areas/Distributor/Views/Pages/Pos/Restaurants/Restaurant.cshtml", distributor);
         }
         #endregion
 
@@ -110,13 +110,13 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                  Status = x.Status,
                 Id = x.Id,
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/Pos/Concessions/Index.cshtml", concessionList);
+            return View("~/Areas/Distributor/Views/Pages/Pos/Concessions/Index.cshtml", concessionList);
         }
 
         public IActionResult Concession(int id)
         {
             Concession_VM concession = concessions.Where(x => x.Id == id).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/Pos/Concessions/Concession.cshtml", concession);
+            return View("~/Areas/Distributor/Views/Pages/Pos/Concessions/Concession.cshtml", concession);
         }
         #endregion
 
@@ -167,13 +167,13 @@ namespace HookaTimes.MVC.Areas.Distributor.Controllers
                   
                 Id = x.Id,
             }).ToList();
-            return View("~/Areas/Admin/Views/Pages/Pos/DeliveryCenters/Index.cshtml", deliveryCenterList);
+            return View("~/Areas/Distributor/Views/Pages/Pos/DeliveryCenters/Index.cshtml", deliveryCenterList);
         }
 
         public IActionResult DeliveryCenter(int id)
         {
             DeliveryCenter_VM deliveryCenter = deliveryCenters.Where(x => x.Id == id).FirstOrDefault()!;
-            return View("~/Areas/Admin/Views/Pages/Pos/DeliveryCenters/DeliveryCenter.cshtml", deliveryCenter);
+            return View("~/Areas/Distributor/Views/Pages/Pos/DeliveryCenters/DeliveryCenter.cshtml", deliveryCenter);
         }
         #endregion
     }
