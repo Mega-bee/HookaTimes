@@ -69,7 +69,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 Email = "dave@gmail.com",
                 PhoneNumber = "+961 123 456",
                 Address = "Zahle, Lebanon",
-                Image = "~/AdminAssets/assets/media/avatars/300-1.jpg",
+                Image = "300-1.jpg",
                 ConcessionId = 1,
                 Location = "Dubai"
             }); team.Add(new HookaTimesTeamMember_VM
@@ -80,7 +80,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 Email = "hadibawarshi@gmail.com",
                 PhoneNumber = "+961 123 456",
                 Address = "Zahle, Lebanon",
-                Image = "~/AdminAssets/assets/media/avatars/300-1.jpg",
+                Image = "300-1.jpg",
                 ConcessionId = 1,
                 Location = "Dubai"
             }); team.Add(new HookaTimesTeamMember_VM
@@ -91,7 +91,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 Email = "charbel@gmail.com",
                 PhoneNumber = "+961 123 456",
                 Address = "Zahle, Lebanon",
-                Image = "~/AdminAssets/assets/media/avatars/300-1.jpg",
+                Image = "300-1.jpg",
                 ConcessionId = 1,
                 Location = "Dubai"
             }); team.Add(new HookaTimesTeamMember_VM
@@ -102,7 +102,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 Email = "kamalfrenn@gmail.com",
                 PhoneNumber = "+961 123 456",
                 Address = "Zahle, Lebanon",
-                Image = "~/AdminAssets/assets/media/avatars/300-1.jpg",
+                Image = "300-1.jpg",
                 ConcessionId = 1,
                 Location = "Dubai"
             });
@@ -118,6 +118,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
+                 Role = x.Role,
             }).ToList();
             return View("~/Areas/Admin/Views/Pages/HumanResources/HookaTimesStaff.cshtml", userlist);
         }
@@ -139,6 +140,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 Id = x.Id,
                 Image = x.Image,
                 Name = x.Name,
+
 
             }).ToList();
             return View("~/Areas/Admin/Views/Pages/HumanResources/HookaTimesTeam.cshtml", teamList);
