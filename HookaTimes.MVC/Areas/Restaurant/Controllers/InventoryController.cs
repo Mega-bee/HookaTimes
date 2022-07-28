@@ -133,7 +133,7 @@ namespace HookaTimes.MVC.Areas.Restaurant.Controllers
                 Status = x.Status
 
             }).ToList();
-            return View("~/Areas/DeliveryCenter/Views/Pages/Inventory/Stocks.cshtml", stocksList);
+            return View("~/Areas/Restaurant/Views/Pages/Inventory/Stocks.cshtml", stocksList);
         }
 
         public IActionResult Orders()
@@ -146,12 +146,12 @@ namespace HookaTimes.MVC.Areas.Restaurant.Controllers
                 Description = x.Description,
                 Status = x.Status
             }).ToList();
-            return View("~/Areas/DeliveryCenter/Views/Pages/Inventory/Orders.cshtml", ordersList);
+            return View("~/Areas/Restaurant/Views/Pages/Inventory/Orders.cshtml", ordersList);
         }
 
         public IActionResult CreateOrder()
         {
-            return View("~/Areas/DeliveryCenter/Views/Pages/Inventory/CreateOrder.cshtml");
+            return View("~/Areas/Restaurant/Views/Pages/Inventory/CreateOrder.cshtml");
         }
 
     }
