@@ -23,6 +23,8 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\DeliveryCenter\Data\" />
     <Folder Include="Areas\DeliveryCenter\Models\" />
+    <Folder Include="Areas\Distributor\Data\" />
+    <Folder Include="Areas\Distributor\Models\" />
     <Folder Include="Areas\Restaurant\Data\" />
     <Folder Include="Areas\Restaurant\Models\" />
     <Folder Include="wwwroot\AdminAssets\assets\media\King Of Grill\" />

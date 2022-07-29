@@ -20,7 +20,7 @@ namespace HookaTimes.MVC.Areas.Admin.Controllers
                 EmailAddress = "h.bdeir@hotmail.com",
                  Address = "Beirut",
                   Image = "300-1.jpg",
-                 DateOfBirth = DateTime.UtcNow.ToString(),
+                 DateOfBirth = DateTime.UtcNow.ToShortDateString(),
             }); hookaBuddies.Add(new HookaBuddy_VM
             {
                 Id = 2,

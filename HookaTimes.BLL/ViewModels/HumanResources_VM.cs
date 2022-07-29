@@ -22,9 +22,11 @@ namespace HookaTimes.BLL.ViewModels
         public string RoleId { get; set; }
     }
 
-    public partial class StaffList_VM : BaseHumanResources_VM
+    public partial class StaffList_VM 
     {
-      
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Role { get; set; }
     }
 
     public partial class HookaTimesTeamList_VM : BaseHumanResources_VM

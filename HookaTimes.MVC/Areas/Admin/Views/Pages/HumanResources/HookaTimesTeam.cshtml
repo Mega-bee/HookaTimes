@@ -104,7 +104,7 @@
                         </svg>
                         </span>*@
                     @Html.Raw(KTTheme.getSvgIcon("duotune/arrows/arr075.svg", "svg-icon svg-icon-2"))
-                    <!--end::Svg Icon-->Add User
+                    <!--end::Svg Icon-->Add Team Member
                 </button>
                 <!--end::Add user-->
             </div>
@@ -125,7 +125,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_user_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">Add User</h2>
+                            <h2 class="fw-bold">Add Team Member</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
@@ -365,7 +365,7 @@
                                 {
                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                         <div class="symbol-label">
-                                            <img src="@property.GetValue(item)" alt="@item.Name" class="w-100" />
+                                            <img src="~/AdminAssets/assets/media/avatars/@property.GetValue(item)" alt="@item.Name" class="w-100" />
                                         </div>
                                     </div>
                                 }

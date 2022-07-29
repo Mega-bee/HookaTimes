@@ -118,14 +118,14 @@ app.UseThemeMiddleware();
 //});
 
 app.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Dashboards}/{action=Index}/{id?}"
+      name: "default",
+      pattern: "{area=Admin}/{controller=Dashboards}/{action=Index}/{id?}"
     );
 
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 

@@ -210,10 +210,10 @@
                                         <label class="required fw-semibold fs-6 mb-2">Date of birth</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-@*                                        <input id="dateOfBirth" name="dateOfBirth" placeholder="Select a date" class="form-control mb-2" value="" />*@
-                                            <input class="form-control mb-2" placeholder="Pick date" id="kt_daterangepicker_3"/>
+                                        @*                                        <input id="dateOfBirth" name="dateOfBirth" placeholder="Select a date" class="form-control mb-2" value="" />*@
+                                        <input class="form-control mb-2" placeholder="Pick date" id="kt_daterangepicker_3" />
 
-                                   <!--end::Input-->
+                                        <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <div class="fv-row mb-7">
@@ -241,6 +241,20 @@
                                         <!--begin::Input-->
                                         <input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="smith@kpmg.com" />
                                         <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
+                                           <!--begin::Input group-->
+                                    <div class="fv-row mb-7">
+                                        <!--begin::Label-->
+                                        <label class="required fw-semibold fs-6 mb-2">Role</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid" data-control="select2" name="role" data-placeholder="Select an option">
+                                            <option></option>
+                                            <option value="1">System Admin</option>
+                                            <option value="2">POS Admin</option>
+                                            <option value="2">Inventory Admin</option>
+                                        </select>                                        <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
@@ -286,104 +300,7 @@
                                     </div>
                                     <!--end::Main wrapper-->
                                     <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="mb-7">
-                                        <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-5">Role</label>
-                                        <!--end::Label-->
-                                        <!--begin::Roles-->
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="user_role" type="radio" value="0" id="kt_modal_update_role_option_0" checked='checked' />
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_0">
-                                                    <div class="fw-bold text-gray-800">Administrator</div>
-                                                    <div class="text-gray-600">Best for business owners and company administrators</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <div class='separator separator-dashed my-5'></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="user_role" type="radio" value="1" id="kt_modal_update_role_option_1" />
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_1">
-                                                    <div class="fw-bold text-gray-800">Developer</div>
-                                                    <div class="text-gray-600">Best for developers or people primarily using the API</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <div class='separator separator-dashed my-5'></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="user_role" type="radio" value="2" id="kt_modal_update_role_option_2" />
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_2">
-                                                    <div class="fw-bold text-gray-800">Analyst</div>
-                                                    <div class="text-gray-600">Best for people who need full access to analytics data, but don't need to update business settings</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <div class='separator separator-dashed my-5'></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="user_role" type="radio" value="3" id="kt_modal_update_role_option_3" />
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_3">
-                                                    <div class="fw-bold text-gray-800">Support</div>
-                                                    <div class="text-gray-600">Best for employees who regularly refund payments and respond to disputes</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <div class='separator separator-dashed my-5'></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="user_role" type="radio" value="4" id="kt_modal_update_role_option_4" />
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_4">
-                                                    <div class="fw-bold text-gray-800">Trial</div>
-                                                    <div class="text-gray-600">Best for people who need to preview content data, but don't need to make any updates</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Roles-->
-                                    </div>
-                                    <!--end::Input group-->
+                             
                                 </div>
                                 <!--end::Scroll-->
                                 <!--begin::Actions-->
@@ -486,14 +403,3 @@
 </div>
 <!--end::Card-->
 
-@section scripts {
-    <script>
-        $("#kt_daterangepicker_3").daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),10)
-    }
-);
-    </script>
-}

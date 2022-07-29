@@ -54,6 +54,13 @@ var KTUsersAddUser = function () {
                             }
                         }
                     },
+                    'role': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Role is required'
+                            }
+                        }
+                    },
                     'new_password': {
                         validators: {
                             notEmpty: {
