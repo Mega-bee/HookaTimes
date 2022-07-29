@@ -1,0 +1,223 @@
+﻿@{
+    KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/apps/ecommerce/catalog/save-category.js");
+    //KTTheme.addJavascriptFile("AdminAssets/assets/plugins/custom/formrepeater/formrepeater.bundle.js");
+    //KTTheme.addJavascriptFile("AdminAssets/assets/plugins/custom/formrepeater/formrepeater.bundle.js");
+}
+
+
+
+<form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/categories.html">
+    <!--begin::Aside column-->
+    <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+        <!--begin::Thumbnail settings-->
+        <div class="card card-flush py-4">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Thumbnail</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body text-center pt-0">
+                <!--begin::Image input-->
+                <!--begin::Image input-->
+                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                    <!--begin::Preview existing avatar-->
+                    <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/AdminAssets/assets/media/svg/files/blank-image.svg')"></div>
+                    <!--end::Preview existing avatar-->
+                    <!--begin::Label-->
+                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                        <!--begin::Icon-->
+                        <i class="bi bi-pencil-fill fs-7"></i>
+                        <!--end::Icon-->
+                        <!--begin::Inputs-->
+                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                        <input type="hidden" name="avatar_remove" />
+                        <!--end::Inputs-->
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Cancel-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Cancel-->
+                    <!--begin::Remove-->
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                    <!--end::Remove-->
+                </div>
+                <!--end::Image input-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Set the category thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                <!--end::Description-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Thumbnail settings-->
+     
+     
+    </div>
+    <!--end::Aside column-->
+    <!--begin::Main column-->
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+        <!--begin::General options-->
+        <div class="card card-flush py-4">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>General</h2>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name"  />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Name is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Cuisine Type</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+
+                    <select class="form-select form-select-solid form-control-lg" name="shift" data-control="select2" data-placeholder="Select an option">
+                        <option></option>
+                        <option selected=true value="leb">Lebanese</option>
+                        <option value="fr">French</option>
+                        <option value="it">Italian</option>
+
+
+                    </select>
+                </div>
+                <!--end::Input group-->
+                <!--end::Input group-->
+
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Opening Hours</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+
+
+                    <select class="form-select form-select-solid form-control-lg" name="shift" data-control="select2" data-placeholder="Select an option">
+                        <option></option>
+                        <option selected=true value="Day">12:00PM-06:00PM</option>
+                        <option value="Day2">10:00PM-04:00PM</option>
+                        <option value="Day3">02:00PM-08:00PM</option>
+
+                    </select>
+                </div>
+                <!--end::Input group-->
+
+                  <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Address</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Address"  />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Address is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+
+                         <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Map URL</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Map URl"  />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Map URL is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+              
+
+                              <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Phone Number</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Phone Number"  />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Phone Number is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+
+                                 <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Email Address</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Email Address"  />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Email Address is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+
+
+                                    <!--begin::Input group-->
+                <div class="mb-10 fv-row">
+                    <!--begin::Label-->
+                    <label class="required form-label">Website</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="category_name" class="form-control mb-2" placeholder="Website" />
+                    <!--end::Input-->
+                    <!--begin::Description-->
+                    <div class="text-muted fs-7">A Website is required</div>
+                    <!--end::Description-->
+                </div>
+                <!--end::Input group-->
+
+            </div>
+            <!--end::Card header-->
+        </div>
+        <!--end::General options-->
+       
+       
+        <div class="d-flex justify-content-end">
+            <!--begin::Button-->
+            <a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+            <!--end::Button-->
+            <!--begin::Button-->
+            <button type="submit" id="kt_ecommerce_add_category_submit" class="btn btn-primary">
+                <span class="indicator-label">Save Changes</span>
+                <span class="indicator-progress">
+
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+
+                </span>
+            </button>
+            <!--end::Button-->
+        </div>
+    </div>
+    <!--end::Main column-->
+</form>
