@@ -1,9 +1,10 @@
 ﻿@model List<HookaTimesTeamList_VM>
 
+
 @{
-    KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/HookaTeam/table.js");
+    KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/HumanResources/table.js");
     KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/apps/user-management/users/list/export-users.js");
-    KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/HookaTeam/add.js");
+    KTTheme.addJavascriptFile("/AdminAssets/assets/js/custom/HumanResources/add.js");
 
     var properties = Model.GetType().GetGenericArguments()[0].GetProperties();
     var pattern = "([a-z?])[_ ]?([A-Z])";
