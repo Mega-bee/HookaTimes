@@ -63,27 +63,7 @@ var KTAppEcommerceSaveCategory = function () {
         });
     }
 
-    // Init form repeater --- more info: https://github.com/DubFriend/jquery.repeater
-    const initFormRepeater = () => {
-        $('#kt_ecommerce_add_category_conditions').repeater({
-            initEmpty: false,
-
-            defaultValues: {
-                'text-input': 'foo'
-            },
-
-            show: function () {
-                $(this).slideDown();
-
-                // Init select2 on new repeated items
-                initConditionsSelect2();
-            },
-
-            hide: function (deleteElement) {
-                $(this).slideUp(deleteElement);
-            }
-        });
-    }
+   
 
     // Init condition select2
     const initConditionsSelect2 = () => {
@@ -193,13 +173,50 @@ var KTAppEcommerceSaveCategory = function () {
             form,
             {
                 fields: {
-                    'category_name': {
+                    'name': {
                         validators: {
                             notEmpty: {
-                                message: 'Category name is required'
+                                message: 'Name  is required'
                             }
                         }
-                    }
+                    },
+                    'address': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Address  is required'
+                            }
+                        }
+                    },
+                    'mapUrl': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Map Url  is required'
+                            }
+                        }
+                    } ,
+                    
+                    'phonenumber': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone Number  is required'
+                            }
+                        }
+                    },
+                    'emailAddress': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Email Address is required'
+                            }
+                        }
+                    },
+                    'website': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Website is required'
+                            }
+                        }
+                    },
+
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -270,7 +287,6 @@ var KTAppEcommerceSaveCategory = function () {
             // Init forms
             initQuill();
             initTagify();
-            initFormRepeater();
             initConditionsSelect2();
 
             // Handle forms

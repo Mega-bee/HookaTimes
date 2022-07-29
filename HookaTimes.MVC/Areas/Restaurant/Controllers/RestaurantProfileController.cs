@@ -10,5 +10,11 @@ namespace HookaTimes.MVC.Areas.Restaurant.Controllers
         {
             return View("~/Areas/Restaurant/Views/Pages/RestaurantProfile/RestaurantProfile.cshtml");
         }
+
+
+        public IActionResult Albums()
+        {
+            return View("~/Areas/Restaurant/Views/Pages/RestaurantProfile/Albums.cshtml");
+        }
     }
 }

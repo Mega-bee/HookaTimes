@@ -19,17 +19,24 @@ var KTUsersAddUser = function () {
             form,
             {
                 fields: {
-                    'offerTitle': {
+                    'title': {
                         validators: {
                             notEmpty: {
-                                message: 'Offer Title name is required'
+                                message: 'Title  is required'
                             }
                         }
                     },
                     'description': {
                         validators: {
                             notEmpty: {
-                                message: 'Description is required'
+                                message: 'descrition is required'
+                            }
+                        }
+                    },
+                    'price': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Price is required'
                             }
                         }
                     },
@@ -79,7 +86,7 @@ var KTUsersAddUser = function () {
         const submitButton = element.querySelector('[data-kt-users-modal-action="submit"]');
         submitButton.addEventListener('click', e => {
             e.preventDefault();
-            
+
             // Validate form before submit
             if (validator) {
                 validator.validate().then(function (status) {
