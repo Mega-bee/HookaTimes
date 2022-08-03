@@ -145,111 +145,132 @@ namespace HookaTimes.BLL.Service
             return responseModel;
         }
 
-        //public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
-        //{
+        public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
+        {
 
-        //    try
-        //    {
-        //        AspNetUser aspuser = _context.AspNetUsers.Where(x => x.Id == uid).FirstOrDefault();
-        //        AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
-        //        ResponseModel responseModel = new ResponseModel();
+            try
+            {
+                AspNetUser aspuser = _context.AspNetUsers.Where(x => x.Id == uid).FirstOrDefault();
+                //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+                ResponseModel responseModel = new ResponseModel();
 
-        //        if (aspuser == null)
-        //        {
-        //            responseModel.StatusCode = 404;
-        //            responseModel.ErrorMessage = "User was not Found";
-        //            responseModel.Data = new DataModel { Data = "", Message = "" };
-        //            return responseModel;
-        //        }
+                if (aspuser == null)
+                {
+                    responseModel.StatusCode = 404;
+                    responseModel.ErrorMessage = "User was not Found";
+                    responseModel.Data = new DataModel { Data = "", Message = "" };
+                    return responseModel;
+                }
 
-        //        if (!string.IsNullOrEmpty(model.PhoneNumber))
-        //        {
-        //            aspuser.PhoneNumber = model.PhoneNumber;
-        //            user.PhoneNumber = model.PhoneNumber;
-        //        }
-        //        if (!string.IsNullOrEmpty(model.Name))
-        //        {
-        //            user.Name = model.Name;
-        //        }
-        //        if (model.Birthdate != default)
-        //        {
-        //            user.BirthDate = model.Birthdate;
-        //        }
-        //        else
-        //        {
-        //            user.BirthDate = new DateTime();
-        //        }
-        //        if (model.GenderId != default)
-        //        {
-        //            user.GenderId = model.GenderId;
-        //        }
+                aspuser.Name = model.Name;
+                aspuser.AboutMe = model.AboutMe;
+                aspuser.Email = model.Email;
+                aspuser.PhoneNumber = model.PhoneNumber;
+                aspuser.DateOfBirth = model.Birthdate;
+                aspuser.GenderId = model.GenderId;
+                aspuser.MartialStatus = model.MaritalStatus;
+                aspuser.Height = model.Height;
+                aspuser.Weight = model.Weight;
+                aspuser.BodyType = model.BodyType;
+                aspuser.Eyes = model.Eyes;
+                aspuser.Hair = model.Hair;
+                aspuser.Education = model.Education;
+                aspuser.Profession = model.Profession;
+                aspuser.Interests = model.Interests;
+                aspuser.Hobbies = model.Hobbies;
 
-        //        IFormFile file = model.ImageFile;
-        //        if (file != null)
-        //        {
-        //            string NewFileName = await Helpers.SaveFile("wwwroot/uploads", file);
+                //if (!string.IsNullOrEmpty(model.Name))
+                //{
+                //    user.Name = model.Name;
+                //}
+                //if (model.Birthdate != default)
+                //{
+                //    user.BirthDate = model.Birthdate;
+                //}
+                //else
+                //{
+                //    user.BirthDate = new DateTime();
+                //}
+                //if (model.GenderId != default)
+                //{
+                //    user.GenderId = model.GenderId;
+                //}
 
-        //            user.ImageUrl = NewFileName;
-        //        }
-        //        else
-        //        {
-        //            user.ImageUrl = "user-placeholder.png";
-        //        }
+                IFormFile file = model.ImageFile;
+                if (file != null)
+                {
+                    string NewFileName = await Helpers.SaveFile("wwwroot/uploads", file);
 
-        //        await _context.SaveChangesAsync();
+                    aspuser.Image = NewFileName;
+                }
 
-        //        Profile_VM userProfile = new Profile_VM()
-        //        {
-        //            Id = user.Id,
-        //            Name = user.Name ?? "",
-        //            Email = user.Email ?? "",
-        //            BirthDate = (DateTime)user.BirthDate != default ? (DateTime)user.BirthDate : new DateTime(),
-        //            GenderId = (int)user.GenderId,
-        //            Gender = user.Gender.Name ?? "",
-        //            ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{user.ImageUrl}",
-        //            PhoneNumber = user.PhoneNumber ?? "",
-        //            Role = user.Role.RoleName ?? "",
-        //            Token = "",
 
-        //        };
+                await _context.SaveChangesAsync();
 
-        //        if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.PhoneNumber) || user.BirthDate == default || user.GenderId == default)
-        //        {
-        //            responseModel.StatusCode = 200;
-        //            responseModel.ErrorMessage = "";
-        //            responseModel.Data = new DataModel
-        //            {
-        //                Data = userProfile,
-        //                Message = ""
-        //            };
-        //            return responseModel;
-        //        }
-        //        if (user.BirthDate != new DateTime())
-        //        {
-        //            await _context.SaveChangesAsync();
-        //        }
+                Profile_VM userProfile = new Profile_VM()
+                {
+                    Id = aspuser.Id,
+                    Name = aspuser.Name ?? "",
+                    AboutMe = aspuser.AboutMe ?? "",
+                    Email = aspuser.Email ?? "",
+                    BirthDate = (DateTime)aspuser.DateOfBirth != default ? (DateTime)aspuser.DateOfBirth : new DateTime(),
+                    GenderId = (int)aspuser.GenderId,
+                    Gender = aspuser.Gender.Title ?? "",
+                    ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{aspuser.Image}",
+                    PhoneNumber = aspuser.PhoneNumber ?? "",
+                    MaritalStatus = aspuser.MartialStatus ?? "",
+                    Height = (decimal)aspuser.Height,
+                    Weight = (decimal)aspuser.Weight,
+                    BodyType = aspuser.BodyType ?? "",
+                    Eyes = aspuser.Eyes ?? "",
+                    Hair = aspuser.Hair ?? "",
+                    Education = aspuser.Education ?? "",
+                    Profession = aspuser.Profession ?? "",
+                    Interests = aspuser.Interests ?? "",
+                    Hobbies = aspuser.Hobbies ?? "",
 
-        //        responseModel.StatusCode = 200;
-        //        responseModel.ErrorMessage = "";
-        //        responseModel.Data = new DataModel
-        //        {
-        //            Data = userProfile,
-        //            Message = ""
-        //        };
-        //        return responseModel;
+                    //Role = user.Role.RoleName ?? "",
+                    Token = "",
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ResponseModel responseModel = new ResponseModel();
-        //        responseModel.StatusCode = 500;
-        //        responseModel.ErrorMessage = ex.ToString();
-        //        responseModel.Data = new DataModel { Data = "", Message = "" };
-        //        return responseModel;
-        //        throw;
-        //    }
+                };
 
-        //}
+                //if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.PhoneNumber) || user.BirthDate == default || user.GenderId == default)
+                //{
+                //    responseModel.StatusCode = 200;
+                //    responseModel.ErrorMessage = "";
+                //    responseModel.Data = new DataModel
+                //    {
+                //        Data = userProfile,
+                //        Message = ""
+                //    };
+                //    return responseModel;
+                //}
+                //if (user.BirthDate != new DateTime())
+                //{
+                //    await _context.SaveChangesAsync();
+                //}
+
+                responseModel.StatusCode = 200;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel
+                {
+                    Data = userProfile,
+                    Message = ""
+                };
+                return responseModel;
+
+            }
+            catch (Exception ex)
+            {
+                ResponseModel responseModel = new ResponseModel();
+                responseModel.StatusCode = 500;
+                responseModel.ErrorMessage = ex.ToString();
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+                throw;
+            }
+
+        }
 
 
 

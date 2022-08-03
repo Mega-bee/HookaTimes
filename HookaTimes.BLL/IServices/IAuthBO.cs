@@ -16,7 +16,7 @@ namespace HookaTimes.BLL.IServices
 
         //Task<bool> CheckIfVerified(string email);
 
-        //Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request);
+        Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request);
 
         //Task<ResponseModel> ConfirmAccount(string phonenumber);
 
