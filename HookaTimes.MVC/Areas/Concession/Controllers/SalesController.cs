@@ -61,7 +61,7 @@ namespace HookaTimes.MVC.Areas.Concession.Controllers
         {
             FillSalesList();
 
-            return View("~/Areas/Concession/Views/Pages/Sales/Outdoor/Pos.cshtml");
+            return View("~/Areas/Concession/Views/Pages/Sales/Indoor/Pos.cshtml");
         }
 
 
