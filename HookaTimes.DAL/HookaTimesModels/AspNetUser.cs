@@ -13,6 +13,8 @@ namespace HookaTimes.DAL.HookaTimesModels
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
+            BuddyProfiles = new HashSet<BuddyProfile>();
+            PlacesProfiles = new HashSet<PlacesProfile>();
             Roles = new HashSet<AspNetRole>();
         }
 
@@ -52,6 +54,31 @@ namespace HookaTimes.DAL.HookaTimesModels
         public string FirstName { get; set; }
         [StringLength(255)]
         public string LastName { get; set; }
+        [StringLength(255)]
+        public string MartialStatus { get; set; }
+        [Column(TypeName = "decimal(18, 10)")]
+        public decimal? Height { get; set; }
+        [Column(TypeName = "decimal(8, 2)")]
+        public decimal? Weight { get; set; }
+        [StringLength(255)]
+        public string BodyType { get; set; }
+        [StringLength(255)]
+        public string Eyes { get; set; }
+        [StringLength(255)]
+        public string Hair { get; set; }
+        [StringLength(1000)]
+        public string Education { get; set; }
+        [StringLength(1000)]
+        public string Profession { get; set; }
+        [StringLength(1000)]
+        public string Interests { get; set; }
+        [StringLength(1000)]
+        public string Hobbies { get; set; }
+        public string AboutMe { get; set; }
+        [StringLength(255)]
+        public string Longitude { get; set; }
+        [StringLength(255)]
+        public string Latitude { get; set; }
 
         [ForeignKey("GenderId")]
         [InverseProperty("AspNetUsers")]
@@ -62,6 +89,10 @@ namespace HookaTimes.DAL.HookaTimesModels
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<BuddyProfile> BuddyProfiles { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<PlacesProfile> PlacesProfiles { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("Users")]

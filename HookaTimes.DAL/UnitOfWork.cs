@@ -26,6 +26,9 @@ namespace HookaTimes.DAL
         //private IProfileRepos profileRepos;
 
         private IUserRepos userRepos;
+        private IPlaceReposiotry placeReposiotry;
+        private IBuddyRepository buddyRepository;
+        private IFavoritePlaceRepository favoritePlaceRepository;
 
 
         #endregion
@@ -34,7 +37,10 @@ namespace HookaTimes.DAL
 
         #region public 
         //public IProfileRepos ProfileRepos => profileRepos ?? new ProfileRepos(_context);
-        public IUserRepos UserRepos => UserRepos ?? new UserRepos(_context);
+        public IUserRepos UserRepos => userRepos ?? new UserRepos(_context);
+        public IPlaceReposiotry PlaceRepository => placeReposiotry ?? new PlaceRepo(_context);
+        public IBuddyRepository BuddyRepository => buddyRepository ?? new BuddyRepo(_context);
+        public IFavoritePlaceRepository FavoritePlaceRepository => favoritePlaceRepository ?? new FavoritePlaceRepo(_context);
 
 
         #endregion
