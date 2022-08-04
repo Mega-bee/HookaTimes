@@ -51,7 +51,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public int? Gender { get; set; }
         public bool? IsAvailable { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? BirthDate { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public int? MaritalStatus { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("BuddyProfiles")]

@@ -55,15 +55,15 @@ namespace HookaTimes.API.Controllers
             return Ok(await _auth.RefreshFcmToken(uid, token));
         }
 
-        //[HttpPut]
-        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        //public async Task<IActionResult> CompleteProfile([FromForm] CompleteProfile_VM model)
-        //{
-        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-        //    ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
-        //    return Ok(completeProfile);
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        public async Task<IActionResult> UpdateProfile([FromForm] CompleteProfile_VM model)
+        {
+            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+            ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
+            return Ok(completeProfile);
 
-        //}
+        }
 
 
         //[HttpGet]

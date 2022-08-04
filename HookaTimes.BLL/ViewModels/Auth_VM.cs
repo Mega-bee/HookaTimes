@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.ViewModels
 {
@@ -37,9 +33,7 @@ namespace HookaTimes.BLL.ViewModels
         [Required]
         public string Password { get; set; }
 
-        [Required]
-        [Compare("Password", ErrorMessage = "Passwords don't match")]
-        public string ConfirmPassword { get; set; }
+
 
         [Required]
         public string FirstName { get; set; }
@@ -59,7 +53,7 @@ namespace HookaTimes.BLL.ViewModels
 
     public partial class Profile_VM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         // public string Uid { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
@@ -73,6 +67,22 @@ namespace HookaTimes.BLL.ViewModels
         public DateTime BirthDate { get; set; }
         public string Token { get; set; }
         public bool IsProfileComplete { get; set; }
+
+
+        public IFormFile ImageFile { get; set; }
+        public string Image { get; set; }
+        public string AboutMe { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string MaritalStatus { get; set; }
+        public decimal? Height { get; set; }
+        public decimal Weight { get; set; }
+        public string BodyType { get; set; }
+        public string Eyes { get; set; }
+        public string Hair { get; set; }
+        public string Education { get; set; }
+        public string Profession { get; set; }
+        public string Interests { get; set; }
+        public string Hobbies { get; set; }
 
     }
 
@@ -132,12 +142,27 @@ namespace HookaTimes.BLL.ViewModels
 
     public partial class CompleteProfile_VM
     {
+        public IFormFile ImageFile { get; set; }
         public string Image { get; set; }
         public string Name { get; set; }
-        public int GenderId { get; set; }
+        public string AboutMe { get; set; }
+        [Required]
+        public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime Birthdate { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public int GenderId { get; set; }
+        public string MaritalStatus { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
+        public string BodyType { get; set; }
+        public string Eyes { get; set; }
+        public string Hair { get; set; }
+        public string Education { get; set; }
+        public string Profession { get; set; }
+        public string Interests { get; set; }
+        public string Hobbies { get; set; }
+
+
     }
 
 }

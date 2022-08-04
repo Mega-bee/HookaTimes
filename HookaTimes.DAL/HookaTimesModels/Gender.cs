@@ -9,19 +9,11 @@ namespace HookaTimes.DAL.HookaTimesModels
     [Table("Gender")]
     public partial class Gender
     {
-        public Gender()
-        {
-            AspNetUsers = new HashSet<AspNetUser>();
-        }
-
         [Key]
         public int Id { get; set; }
         [Column("TItle")]
         [StringLength(31)]
         public string Title { get; set; }
         public bool? IsDeleted { get; set; }
-
-        [InverseProperty("Gender")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }
