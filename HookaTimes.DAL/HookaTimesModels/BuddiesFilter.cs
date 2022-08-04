@@ -6,14 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HookaTimes.DAL.HookaTimesModels
 {
-    [Table("Gender")]
-    public partial class Gender
+    [Table("BuddiesFilter")]
+    public partial class BuddiesFilter
     {
         [Key]
         public int Id { get; set; }
-        [Column("TItle")]
-        [StringLength(31)]
-        public string Title { get; set; }
         public bool? IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
+        [StringLength(10)]
+        public string Title { get; set; }
     }
 }

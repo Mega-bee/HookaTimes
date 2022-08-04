@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HookaTimes.DAL.Data;
+using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using RestSharp;
-
 //using HookaTimes.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using HookaTimes.DAL.Data;
-using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.BLL.Utilities
 {
@@ -39,27 +37,15 @@ namespace HookaTimes.BLL.Utilities
             return result;
         }
 
-        //public static List<Claim> GenerateClaims(ApplicationUser res, AspNetRole role)
-        //{
-        //    var claims = new List<Claim>()
-        //        {
-        //        new Claim(JwtRegisteredClaimNames.Email , res.Email ),
-        //        new Claim(ClaimTypes.Name , res.UserName),
-        //        new Claim("UID",res.Id),
-        //        new Claim(ClaimTypes.Role , role.RoleName),
-        //        new Claim(ClaimTypes.NameIdentifier, res.Id),
-        //        };
-        //    return claims;
-        //}
 
-        public static List<Claim> GenerateClaims(ApplicationUser res, IList<string> roles)
+
+        public static List<Claim> GenerateClaims(ApplicationUser res, IList<string> roles, BuddyProfile buddy)
         {
             var claims = new List<Claim>()
                 {
-                //new Claim(JwtRegisteredClaimNames.Email , res.Email ),
+                new Claim(JwtRegisteredClaimNames.Email , res.Email),
                 new Claim(ClaimTypes.Name , res.UserName),
-                new Claim("UID",res.Id),
-                //new Claim(ClaimTypes.Role , role.Name),
+                new Claim("BuddyID",buddy.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, res.Id),
                 };
             foreach (var role in roles)

@@ -13,6 +13,8 @@ namespace HookaTimes.DAL.HookaTimesModels
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
+            BuddyProfiles = new HashSet<BuddyProfile>();
+            PlacesProfiles = new HashSet<PlacesProfile>();
             Roles = new HashSet<AspNetRole>();
         }
 
@@ -36,32 +38,22 @@ namespace HookaTimes.DAL.HookaTimesModels
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
-        [Column(TypeName = "date")]
-        public DateTime? DateOfBirth { get; set; }
-        [StringLength(511)]
-        public string Image { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreatedDate { get; set; }
-        public int? GenderId { get; set; }
         [StringLength(255)]
         public string FcmToken { get; set; }
         public bool? IsDeleted { get; set; }
-        [StringLength(256)]
-        public string Name { get; set; }
-        [StringLength(255)]
-        public string FirstName { get; set; }
-        [StringLength(255)]
-        public string LastName { get; set; }
 
-        [ForeignKey("GenderId")]
-        [InverseProperty("AspNetUsers")]
-        public virtual Gender Gender { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<BuddyProfile> BuddyProfiles { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<PlacesProfile> PlacesProfiles { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("Users")]
