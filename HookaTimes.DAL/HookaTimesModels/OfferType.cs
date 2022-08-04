@@ -6,14 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HookaTimes.DAL.HookaTimesModels
 {
-    [Table("Gender")]
-    public partial class Gender
+    [Table("OfferType")]
+    public partial class OfferType
     {
+        public OfferType()
+        {
+            PlaceOffers = new HashSet<PlaceOffer>();
+        }
+
         [Key]
         public int Id { get; set; }
-        [Column("TItle")]
-        [StringLength(31)]
+        [StringLength(255)]
         public string Title { get; set; }
-        public bool? IsDeleted { get; set; }
+
+        [InverseProperty("Type")]
+        public virtual ICollection<PlaceOffer> PlaceOffers { get; set; }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
+using HookaTimes.BLL.ViewModels;
+using HookaTimes.DAL;
+using HookaTimes.DAL.Data;
+using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using RestSharp;
-using HookaTimes.DAL;
 //using HookaTimes.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -14,12 +18,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using HookaTimes.DAL.Data;
-using System.Web;
-using HookaTimes.BLL.IServices;
-using HookaTimes.BLL.Utilities;
-using HookaTimes.BLL.ViewModels;
-using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.BLL.Service
 {
@@ -38,7 +36,7 @@ namespace HookaTimes.BLL.Service
             _roleManager = roleManager;
         }
 
-
+        #region SignIn
         public async Task<ResponseModel> EmailSignIn(EmailSignIn_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
@@ -66,8 +64,10 @@ namespace HookaTimes.BLL.Service
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
+
+            BuddyProfile buddy = _context.BuddyProfiles.Where(x => x.UserId == res.Id).FirstOrDefault();
             var roles = await _userManager.GetRolesAsync(res);
-            var claims = Tools.GenerateClaims(res, roles);
+            var claims = Tools.GenerateClaims(res, roles, buddy);
             string JwtToken = Tools.GenerateJWT(claims);
 
             responseModel.StatusCode = 200;
@@ -79,6 +79,8 @@ namespace HookaTimes.BLL.Service
             };
             return responseModel;
         }
+
+        #endregion
 
         public async Task<ResponseModel> RefreshFcmToken(string uid, string token)
         {
@@ -144,7 +146,7 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = "", Message = "" };
             return responseModel;
         }
-
+        #region UpdateProfile
         public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
         {
 
@@ -162,22 +164,22 @@ namespace HookaTimes.BLL.Service
                     return responseModel;
                 }
 
-                aspuser.Name = model.Name;
-                aspuser.AboutMe = model.AboutMe;
-                aspuser.Email = model.Email;
-                aspuser.PhoneNumber = model.PhoneNumber;
-                aspuser.DateOfBirth = model.Birthdate;
-                aspuser.GenderId = model.GenderId;
-                aspuser.MartialStatus = model.MaritalStatus;
-                aspuser.Height = model.Height;
-                aspuser.Weight = model.Weight;
-                aspuser.BodyType = model.BodyType;
-                aspuser.Eyes = model.Eyes;
-                aspuser.Hair = model.Hair;
-                aspuser.Education = model.Education;
-                aspuser.Profession = model.Profession;
-                aspuser.Interests = model.Interests;
-                aspuser.Hobbies = model.Hobbies;
+                //aspuser.Name = model.Name;
+                //aspuser.AboutMe = model.AboutMe;
+                //aspuser.Email = model.Email;
+                //aspuser.PhoneNumber = model.PhoneNumber;
+                //aspuser.DateOfBirth = model.Birthdate;
+                //aspuser.GenderId = model.GenderId;
+                //aspuser.MartialStatus = model.MaritalStatus;
+                //aspuser.Height = model.Height;
+                //aspuser.Weight = model.Weight;
+                //aspuser.BodyType = model.BodyType;
+                //aspuser.Eyes = model.Eyes;
+                //aspuser.Hair = model.Hair;
+                //aspuser.Education = model.Education;
+                //aspuser.Profession = model.Profession;
+                //aspuser.Interests = model.Interests;
+                //aspuser.Hobbies = model.Hobbies;
 
                 //if (!string.IsNullOrEmpty(model.Name))
                 //{
@@ -197,12 +199,12 @@ namespace HookaTimes.BLL.Service
                 //}
 
                 IFormFile file = model.ImageFile;
-                if (file != null)
-                {
-                    string NewFileName = await Helpers.SaveFile("wwwroot/uploads", file);
+                //if (file != null)
+                //{
+                //    string NewFileName = await Helpers.SaveFile("wwwroot/uploads", file);
 
-                    aspuser.Image = NewFileName;
-                }
+                //    aspuser.Image = NewFileName;
+                //}
 
 
                 await _context.SaveChangesAsync();
@@ -210,24 +212,24 @@ namespace HookaTimes.BLL.Service
                 Profile_VM userProfile = new Profile_VM()
                 {
                     Id = aspuser.Id,
-                    Name = aspuser.Name ?? "",
-                    AboutMe = aspuser.AboutMe ?? "",
-                    Email = aspuser.Email ?? "",
-                    BirthDate = (DateTime)aspuser.DateOfBirth != default ? (DateTime)aspuser.DateOfBirth : new DateTime(),
-                    GenderId = (int)aspuser.GenderId,
-                    Gender = aspuser.Gender.Title ?? "",
-                    ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{aspuser.Image}",
-                    PhoneNumber = aspuser.PhoneNumber ?? "",
-                    MaritalStatus = aspuser.MartialStatus ?? "",
-                    Height = (decimal)aspuser.Height,
-                    Weight = (decimal)aspuser.Weight,
-                    BodyType = aspuser.BodyType ?? "",
-                    Eyes = aspuser.Eyes ?? "",
-                    Hair = aspuser.Hair ?? "",
-                    Education = aspuser.Education ?? "",
-                    Profession = aspuser.Profession ?? "",
-                    Interests = aspuser.Interests ?? "",
-                    Hobbies = aspuser.Hobbies ?? "",
+                    //Name = aspuser.Name ?? "",
+                    //AboutMe = aspuser.AboutMe ?? "",
+                    //Email = aspuser.Email ?? "",
+                    //BirthDate = (DateTime)aspuser.DateOfBirth != default ? (DateTime)aspuser.DateOfBirth : new DateTime(),
+                    //GenderId = (int)aspuser.GenderId,
+                    //Gender = aspuser.Gender.Title ?? "",
+                    //ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{aspuser.Image}",
+                    //PhoneNumber = aspuser.PhoneNumber ?? "",
+                    //MaritalStatus = aspuser.MartialStatus ?? "",
+                    //Height = (decimal)aspuser.Height,
+                    //Weight = (decimal)aspuser.Weight,
+                    //BodyType = aspuser.BodyType ?? "",
+                    //Eyes = aspuser.Eyes ?? "",
+                    //Hair = aspuser.Hair ?? "",
+                    //Education = aspuser.Education ?? "",
+                    //Profession = aspuser.Profession ?? "",
+                    //Interests = aspuser.Interests ?? "",
+                    //Hobbies = aspuser.Hobbies ?? "",
 
                     //Role = user.Role.RoleName ?? "",
                     Token = "",
@@ -272,8 +274,11 @@ namespace HookaTimes.BLL.Service
 
         }
 
+        #endregion
 
 
+
+        #region SignUp
         public async Task<ResponseModel> SignUpWithEmail(EmailSignUp_VM model, HttpRequest Request)
         {
             await CheckRoles();
@@ -288,8 +293,6 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
 
-
-
             IdentityResult res = await CreateUser(model);
 
             if (!res.Succeeded)
@@ -303,12 +306,14 @@ namespace HookaTimes.BLL.Service
                 };
             }
 
+            //Create buddy Profile
+            BuddyProfile buddy = await CreateBuddyProfile(model);
 
+            //Get the Identity User Profile so it can get its claims and roles
             ApplicationUser newUser = await _userManager.FindByEmailAsync(model.Email);
 
-
             var roles = await _userManager.GetRolesAsync(newUser);
-            var claims = Tools.GenerateClaims(newUser, roles);
+            var claims = Tools.GenerateClaims(newUser, roles, buddy);
             string JwtToken = Tools.GenerateJWT(claims);
 
             responseModel.StatusCode = 200;
@@ -328,14 +333,13 @@ namespace HookaTimes.BLL.Service
 
             user.PhoneNumber = model.PhoneNumber;
             user.Email = model.Email;
-            user.NormalizedEmail = model.Email;
             user.UserName = model.Email;
-            user.NormalizedUserName = model.Email;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+            user.CreatedDate = DateTime.UtcNow;
+            user.IsDeleted = false;
+            user.PhoneNumberConfirmed = true;
+            user.EmailConfirmed = true;
             IdentityResult res = await _userManager.CreateAsync(user, model.Password);
             await _userManager.AddToRoleAsync(user, AppSetting.UserRole);
-
             // check if user creation succeeded
             return res;
         }
@@ -351,6 +355,99 @@ namespace HookaTimes.BLL.Service
                 await _roleManager.CreateAsync(new IdentityRole { Name = AppSetting.AdminRole, NormalizedName = AppSetting.AdminRoleNormalized });
             }
         }
+
+        public async Task<BuddyProfile> CreateBuddyProfile(EmailSignUp_VM model)
+        {
+            // create user profile and add role based on roleId
+            BuddyProfile newProfile = new BuddyProfile();
+            newProfile.UserId = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
+            newProfile.IsDeleted = false;
+            newProfile.CreatedDate = DateTime.UtcNow;
+            newProfile.FirstName = model.FirstName;
+            newProfile.LastName = model.LastName;
+            // add the characteristics to the BuddyProfiles
+            await _context.BuddyProfiles.AddAsync(newProfile);
+            await _context.SaveChangesAsync();
+            return newProfile;
+        }
+
+        public string GenerateJWT(List<Claim> claims)
+        {
+            SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fdjfhjehfjhfuehfbhvdbvjjoq8327483rgh"));
+            JwtSecurityToken token = new JwtSecurityToken(
+               issuer: "https://localhost:44310",
+               audience: "https://localhost:44310",
+               claims: claims,
+               notBefore: DateTime.Now,
+               expires: DateTime.Now.AddYears(1),
+               signingCredentials: new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256)
+               );
+            string JwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return JwtToken;
+        }
+
+        #endregion
+
+        #region Reset Pass
+        ///// Reset pass with sms
+
+
+        //public async Task<ResponseModel> SendChangePasswordToken(string Email)
+        //{
+
+        //    ResponseModel responseModel = new ResponseModel();
+        //    var UID = _context.AspNetUsers.Where(x => x.Email == Email).FirstOrDefault().Id;
+        //    //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    var user = await _userManager.FindByIdAsync(UID);
+
+        //    if (user is null)
+        //    {
+        //        responseModel.StatusCode = 404;
+        //        responseModel.ErrorMessage = "User was not Found";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+
+        //    var token = await _userManager.GenerateUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose");
+
+        //    string content = $"Please Enter This Pin To Reset your Password :\n {token}";
+
+        //    _sms.SendSMS(user.PhoneNumber, content);
+
+        //    // _SMSManager.SendResetPasswordToken(token, user.PhoneNumber);
+        //    return NoContent();
+        //}
+
+
+
+
+        //[HttpPost("resetPassword")]
+        ////[ServiceFilter(typeof(ModelValidationFilter))]
+        //public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordDto_VM dto)
+        //{
+        //    var UID = _context.AspNetUsers.Where(x => x.PhoneNumber == dto.PhoneNumber).FirstOrDefault().Id;
+        //    //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    var user = await _userManager.FindByIdAsync(UID);
+
+        //    if (user is null)
+        //        return UnprocessableEntity("invalid user token");//actually user not found
+
+        //    if (dto.NewPassword != dto.ConfirmPassword)
+        //        return BadRequest(new { message = "Passwords don't match" });
+
+        //    var tokenVerified = await _userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose", dto.Token);
+
+        //    if (!tokenVerified)
+        //        return UnprocessableEntity("invalid user token");
+
+        //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);//new token for reseting password
+        //    var result = await _userManager.ResetPasswordAsync(user, token, dto.NewPassword);
+        //    if (!result.Succeeded)
+        //        return UnprocessableEntity("weak password");
+
+        //    return NoContent();
+        //}
+        #endregion
 
         //public async Task<ResponseModel> EmailSignIn(EmailSignIn_VM model, HttpRequest Request)
         //{
@@ -511,20 +608,6 @@ namespace HookaTimes.BLL.Service
         //    return claims;
         //}
 
-        public string GenerateJWT(List<Claim> claims)
-        {
-            SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fdjfhjehfjhfuehfbhvdbvjjoq8327483rgh"));
-            JwtSecurityToken token = new JwtSecurityToken(
-               issuer: "https://localhost:44310",
-               audience: "https://localhost:44310",
-               claims: claims,
-               notBefore: DateTime.Now,
-               expires: DateTime.Now.AddYears(1),
-               signingCredentials: new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256)
-               );
-            string JwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return JwtToken;
-        }
 
 
 
