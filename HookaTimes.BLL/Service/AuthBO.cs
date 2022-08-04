@@ -146,13 +146,14 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = "", Message = "" };
             return responseModel;
         }
+
         #region UpdateProfile
         public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
         {
 
             try
             {
-                AspNetUser aspuser = _context.AspNetUsers.Where(x => x.Id == uid).FirstOrDefault();
+                ApplicationUser aspuser = await _userManager.FindByIdAsync(uid);
                 //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
                 ResponseModel responseModel = new ResponseModel();
 
@@ -164,60 +165,49 @@ namespace HookaTimes.BLL.Service
                     return responseModel;
                 }
 
-                //aspuser.Name = model.Name;
-                //aspuser.AboutMe = model.AboutMe;
-                //aspuser.Email = model.Email;
-                //aspuser.PhoneNumber = model.PhoneNumber;
-                //aspuser.DateOfBirth = model.Birthdate;
-                //aspuser.GenderId = model.GenderId;
-                //aspuser.MartialStatus = model.MaritalStatus;
-                //aspuser.Height = model.Height;
-                //aspuser.Weight = model.Weight;
-                //aspuser.BodyType = model.BodyType;
-                //aspuser.Eyes = model.Eyes;
-                //aspuser.Hair = model.Hair;
-                //aspuser.Education = model.Education;
-                //aspuser.Profession = model.Profession;
-                //aspuser.Interests = model.Interests;
-                //aspuser.Hobbies = model.Hobbies;
+                BuddyProfile currProfile = new BuddyProfile()
+                {
+                    Profession = model.Profession,
+                    Weight = model.Weight,
+                    MaritalStatus = model.MaritalStatus,
+                    Longitude = model.Longitude,
+                    About = model.AboutMe,
+                    BodyType = model.BodyType,
+                    Education = model.Education,
+                    CreatedDate = DateTime.UtcNow,
+                    DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime(),
+                    Eyes = model.Eyes,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Gender = model.GenderId,
+                    Hair = model.Hair,
+                    Height = model.Height,
+                    Hobbies = model.Hobbies,
+                    Interests = model.Interests,
+                    Latitude = model.Latitude,
 
-                //if (!string.IsNullOrEmpty(model.Name))
-                //{
-                //    user.Name = model.Name;
-                //}
-                //if (model.Birthdate != default)
-                //{
-                //    user.BirthDate = model.Birthdate;
-                //}
-                //else
-                //{
-                //    user.BirthDate = new DateTime();
-                //}
-                //if (model.GenderId != default)
-                //{
-                //    user.GenderId = model.GenderId;
-                //}
+                };
+
 
                 IFormFile file = model.ImageFile;
-                //if (file != null)
-                //{
-                //    string NewFileName = await Helpers.SaveFile("wwwroot/uploads", file);
+                if (file != null)
+                {
+                    string NewFileName = await Helpers.SaveFile("wwwroot/Images/Buddies", file);
 
-                //    aspuser.Image = NewFileName;
-                //}
+                    currProfile.Image = NewFileName;
+                }
 
 
                 await _context.SaveChangesAsync();
 
                 Profile_VM userProfile = new Profile_VM()
                 {
-                    Id = aspuser.Id,
-                    //Name = aspuser.Name ?? "",
-                    //AboutMe = aspuser.AboutMe ?? "",
-                    //Email = aspuser.Email ?? "",
-                    //BirthDate = (DateTime)aspuser.DateOfBirth != default ? (DateTime)aspuser.DateOfBirth : new DateTime(),
-                    //GenderId = (int)aspuser.GenderId,
-                    //Gender = aspuser.Gender.Title ?? "",
+                    Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
+                    AboutMe = currProfile.About ?? "",
+                    Email = aspuser.Email ?? "",
+                    BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
+                    //GenderId = (int)currProfile.Gender,
+                    //Gender = currProfile.Gender ?? "",
                     //ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{aspuser.Image}",
                     //PhoneNumber = aspuser.PhoneNumber ?? "",
                     //MaritalStatus = aspuser.MartialStatus ?? "",
@@ -232,26 +222,9 @@ namespace HookaTimes.BLL.Service
                     //Hobbies = aspuser.Hobbies ?? "",
 
                     //Role = user.Role.RoleName ?? "",
-                    Token = "",
+                    //Token = "",
 
                 };
-
-                //if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.PhoneNumber) || user.BirthDate == default || user.GenderId == default)
-                //{
-                //    responseModel.StatusCode = 200;
-                //    responseModel.ErrorMessage = "";
-                //    responseModel.Data = new DataModel
-                //    {
-                //        Data = userProfile,
-                //        Message = ""
-                //    };
-                //    return responseModel;
-                //}
-                //if (user.BirthDate != new DateTime())
-                //{
-                //    await _context.SaveChangesAsync();
-                //}
-
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel

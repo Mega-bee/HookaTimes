@@ -51,40 +51,7 @@ namespace HookaTimes.BLL.ViewModels
 
     }
 
-    public partial class Profile_VM
-    {
-        public string Id { get; set; }
-        // public string Uid { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string ImageUrl { get; set; }
-        public string Role { get; set; }
-        public string Email { get; set; }
-        // public int OrderListId { get; set; }
-        // public bool IsActive { get; set; }
-        public string Gender { get; set; }
-        public int GenderId { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Token { get; set; }
-        public bool IsProfileComplete { get; set; }
 
-
-        public IFormFile ImageFile { get; set; }
-        public string Image { get; set; }
-        public string AboutMe { get; set; }
-        public DateTime Birthdate { get; set; }
-        public string MaritalStatus { get; set; }
-        public decimal? Height { get; set; }
-        public decimal Weight { get; set; }
-        public string BodyType { get; set; }
-        public string Eyes { get; set; }
-        public string Hair { get; set; }
-        public string Education { get; set; }
-        public string Profession { get; set; }
-        public string Interests { get; set; }
-        public string Hobbies { get; set; }
-
-    }
 
     public partial class EmailSignIn_VM
     {
@@ -140,19 +107,29 @@ namespace HookaTimes.BLL.ViewModels
         public bool Email { get; set; }
     }
 
-    public partial class CompleteProfile_VM
+    public partial class Profile_VM
     {
-        public IFormFile ImageFile { get; set; }
-        public string Image { get; set; }
+        //public string Id { get; set; }
+        // public string Uid { get; set; }
         public string Name { get; set; }
-        public string AboutMe { get; set; }
-        [Required]
-        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public DateTime Birthdate { get; set; }
+        public string ImageUrl { get; set; }
+        public string Role { get; set; }
+        public string Email { get; set; }
+
+        public string Gender { get; set; }
         public int GenderId { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Token { get; set; }
+
+        //public IFormFile ImageFile { get; set; }
+        //public string Image { get; set; }
+        public string AboutMe { get; set; }
+        public DateTime Birthdate { get; set; }
         public string MaritalStatus { get; set; }
-        public decimal Height { get; set; }
+        public decimal? Height { get; set; }
         public decimal Weight { get; set; }
         public string BodyType { get; set; }
         public string Eyes { get; set; }
@@ -161,6 +138,31 @@ namespace HookaTimes.BLL.ViewModels
         public string Profession { get; set; }
         public string Interests { get; set; }
         public string Hobbies { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+
+    }
+    public partial class CompleteProfile_VM
+    {
+        public IFormFile ImageFile { get; set; }
+        public string Image { get; set; }
+        public string AboutMe { get; set; }
+        public DateTime Birthdate { get; set; }
+        public int GenderId { get; set; }
+        public int MaritalStatus { get; set; }
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
+        public int BodyType { get; set; }
+        public int Eyes { get; set; }
+        public int Hair { get; set; }
+        public int Education { get; set; }
+        public int Profession { get; set; }
+        public string Interests { get; set; }
+        public string Hobbies { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
 
     }

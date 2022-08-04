@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using HookaTimes.BLL.IServices;
-using HookaTimes.BLL.Service;
+﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace HookaTimes.API.Controllers
 {
@@ -59,7 +54,7 @@ namespace HookaTimes.API.Controllers
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         public async Task<IActionResult> UpdateProfile([FromForm] CompleteProfile_VM model)
         {
-            string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+            string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
             return Ok(completeProfile);
 
