@@ -1,0 +1,11 @@
+<svg id="Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="58" viewBox="0 0 67 58">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Clip_2" data-name="Clip 2" d="M0,0H67V58H0Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <path id="Clip_2-2" data-name="Clip 2" d="M0,0H67V58H0Z" fill="none"/>
+  <g id="Logo-2" data-name="Logo" clip-path="url(#clip-path)">
+    <path id="Fill_1" data-name="Fill 1" d="M48.157,0C42.236,0,36.956,7.8,33.5,20.008,30.048,7.8,24.765,0,18.845,0,8.439,0,0,25.968,0,58H8.376c0-29.744,4.689-53.857,10.469-53.857S29.314,26.4,29.314,53.858h8.375c0-27.456,4.687-49.715,10.469-49.715S58.627,28.256,58.627,58H67C67,25.968,58.564,0,48.157,0" fill="#ffbc0d"/>
+  </g>
+</svg>

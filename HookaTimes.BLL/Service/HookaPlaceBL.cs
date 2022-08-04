@@ -29,6 +29,7 @@ namespace HookaTimes.BLL.Service
                 Cuisine = p.Cuisine.Title,
                 Id = p.Id,
                 Image = $"{request.Scheme}://{request.Host}/Images/Places/{p.Image}",
+                Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating
             }).ToListAsync();
@@ -65,6 +66,14 @@ namespace HookaTimes.BLL.Service
                 {
                     Id = m.Id,
                     Image = $"{request.Scheme}://{request.Host}/Images/Menus/{m.Image}"
+                }).ToList(),
+                Reviews = p.PlaceReviews.Where(r => r.IsDeleted == false).Select(r => new HookaPlaceReview_VM
+                {
+                    CreatedDate = r.CreatedDate,
+                    Description = r.Description,
+                    Id = r.Id,
+                    Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
+
                 }).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,

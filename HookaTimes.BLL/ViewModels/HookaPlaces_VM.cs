@@ -13,6 +13,7 @@ namespace HookaTimes.BLL.ViewModels
         public string Location { get; set; }
         public string Cuisine { get; set; }
         public float Rating { get; set; }
+        public string Name { get; set; }
     }
 
     public partial class HookaPlaceInfo_VM
@@ -29,6 +30,7 @@ namespace HookaTimes.BLL.ViewModels
         public List<HookaPlaceFavorite_VM> Favorites { get; set; }
         public List<HookaPlaceImage_VM> Albums { get; set; }
         public List<HookaPlaceImage_VM> Menus { get; set; }
+        public List<HookaPlaceReview_VM> Reviews { get; set; }
     }
 
     public partial class HookaPlaceFavorite_VM
@@ -38,12 +40,13 @@ namespace HookaTimes.BLL.ViewModels
         public bool? IsAvailable { get; set; }
     }
 
-    public partial class HookaPlaceReview
+    public partial class HookaPlaceReview_VM
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public float Rating { get; set; }
+        public string Description { get; set; }
     }
 
     public partial class HookaPlaceImage_VM
