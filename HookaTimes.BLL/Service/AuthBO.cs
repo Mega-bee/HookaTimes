@@ -500,7 +500,6 @@ namespace HookaTimes.BLL.Service
 
 
 
-
         #region OTP
         public async Task<ResponseModel> GenerateOtp(string phone)
         {

@@ -52,6 +52,7 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> SignUpWithEmail(EmailSignUp_VM model, HttpRequest Request);
 
         Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model);
+
         //Task<ResponseModel> UpdateProfile(UpdateProfile_VM updatedProfile, string uid, HttpRequest Request);
     }
 }
