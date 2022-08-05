@@ -116,11 +116,11 @@ namespace HookaTimes.BLL.Service
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
                     PlaceProfileId = placeId,
-
+                     
                 };
                 await _uow.FavoritePlaceRepository.Create(favorite);
                 responseModel.ErrorMessage = "";
-                responseModel.StatusCode = 200;
+                responseModel.StatusCode = 201;
                 responseModel.Data = new DataModel { Data = "", Message = "Place added to favorites" };
                 return responseModel;
             }

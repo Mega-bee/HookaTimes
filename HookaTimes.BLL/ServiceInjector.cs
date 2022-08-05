@@ -41,6 +41,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();
             _services.AddScoped<IGenericRepos<BuddyProfile>, GenericRepos<BuddyProfile>>();
+            _services.AddScoped<IGenericRepos<Invitation>, GenericRepos<Invitation>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

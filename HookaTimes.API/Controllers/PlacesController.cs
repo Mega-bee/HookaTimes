@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,8 @@ namespace HookaTimes.API.Controllers
             string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Ok(await _hookaPlaceBL.AddToFavorites(uid, placeId));
         }
+
+  
 
 
     }

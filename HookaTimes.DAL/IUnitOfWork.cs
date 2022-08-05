@@ -14,6 +14,7 @@ namespace HookaTimes.DAL
         IPlaceReposiotry PlaceRepository { get; }
         IBuddyRepository BuddyRepository { get; }
         IFavoritePlaceRepository FavoritePlaceRepository { get; }
+        IInvitationRepository InvitationRepository { get; }
 
 
         void Save();
