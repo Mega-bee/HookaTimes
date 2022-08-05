@@ -4,6 +4,8 @@ using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +39,59 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
+
+        public async Task<ResponseModel> GetSentInvitations(HttpRequest request, int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            var invitationList = await _uow.InvitationRepository.GetAllWithPredicateAndIncludes(x => x.FromBuddyId == userBuddyId, x => x.Place).ToListAsync();
+            List<SentInvitation_VM> invitations = invitationList.GroupBy(x => x.PlaceId).Select(x => new SentInvitation_VM
+            {
+                PlaceId = (int)x.Select(i => i.PlaceId).FirstOrDefault(),
+                BuddiesCount = x.Count(),
+                PlaceName = x.Select(i => i.Place.Title).FirstOrDefault(),
+                Image = $"{request.Scheme}://{request.Host}/Images/Places/{ x.Select(i => i.Place.Image).FirstOrDefault()}",
+                Rating = (float)x.Select(i => i.Place.Rating).FirstOrDefault()
+
+            }).ToList();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = invitations, Message = "" };
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetRecievedInvitations(HttpRequest request, int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId).Select(i => new Invitation_VM
+            {
+                Description = i.Description ?? "",
+                FromBuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
+                InvitationStatusId = (int)i.InvitationStatusId,
+                FromBuddyRating = 0,
+                InvitationStatus = i.InvitationStatus.Title,
+                Id = i.Id,
+                FromBuddyImage = $"{request.Scheme}://{request.Host}/Images/Buddies/{ i.FromBuddy.Image}",
+
+            }).ToListAsync();
+
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = invitations, Message = "" };
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetInvitationOptions()
+        {
+            ResponseModel responseModel = new ResponseModel();
+            List<InvitationOption_VM> options = await _uow.InvitationOptionRepository.GetAll(x => x.IsDeleted == false).Select(x => new InvitationOption_VM
+            {
+                Id = x.Id,
+                Title = x.Title,
+            }).ToListAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = options, Message = "" };
+            return responseModel;
+        }
+
     }
 }

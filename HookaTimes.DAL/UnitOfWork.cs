@@ -31,6 +31,7 @@ namespace HookaTimes.DAL
         private IFavoritePlaceRepository favoritePlaceRepository;
         private IPlaceReviewRepo placeReviewRepository;
         private IInvitationRepository invitationRepository;
+        private IInvitationOptionRepository invitationOptionRepository;
 
 
 
@@ -46,6 +47,7 @@ namespace HookaTimes.DAL
         public IFavoritePlaceRepository FavoritePlaceRepository => favoritePlaceRepository ?? new FavoritePlaceRepo(_context);
         public IPlaceReviewRepo PlaceReviewRepository => placeReviewRepository ?? new PlaceReviewRepo(_context);
         public IInvitationRepository InvitationRepository => invitationRepository ?? new InvitationRepo(_context);
+        public IInvitationOptionRepository InvitationOptionRepository => invitationOptionRepository ?? new InvitationOptionRepo(_context);
 
 
         #endregion

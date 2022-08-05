@@ -41,7 +41,7 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<ResponseModel> InviteBuddy(int userBuddyId, Invitation_VM model)
+        public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
             bool buddyExists = _uow.BuddyRepository.CheckIfExists(x => x.Id == model.ToBuddyId);
@@ -71,7 +71,8 @@ namespace HookaTimes.BLL.Service
                 IsDeleted = false,
                 InvitationOptionId = model.OptionId,
                 Description = model.Description,
-                 InvitationStatusId = 1
+                 InvitationStatusId = 1,
+                  PlaceId = model.PlaceId,
             };
             await _uow.InvitationRepository.Create(invitation);
             responseModel.ErrorMessage = "";

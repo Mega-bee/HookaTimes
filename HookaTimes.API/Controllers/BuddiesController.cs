@@ -34,10 +34,10 @@ namespace HookaTimes.API.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> InviteBuddy([FromForm] Invitation_VM model)
+        public async Task<IActionResult> InviteBuddy([FromForm] SendInvitation_VM model)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userBuddyId = Convert.ToInt32(identity.FindFirst("ClaimName").Value);
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
             return Ok(await _hookaBuddyBL.InviteBuddy(userBuddyId, model));
         }
     }
