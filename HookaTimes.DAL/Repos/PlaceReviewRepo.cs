@@ -1,4 +1,5 @@
 ﻿using HookaTimes.DAL.Data;
+using HookaTimes.DAL.HookaTimesModels;
 using HookaTimes.DAL.Services;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HookaTimes.DAL.Repos
 {
-    public class PlaceReviewRepo : GenericRepos<PlaceReviewRepo>, IPlaceReviewRepo
+    public class PlaceReviewRepo : GenericRepos<PlaceReview>, IPlaceReviewRepo
     {
         public PlaceReviewRepo(HookaDbContext context) : base(context)
         {

@@ -17,13 +17,10 @@ namespace HookaTimes.BLL.Service
 {
     public class HookaPlaceBL : BaseBO, IHookaPlaceBL
     {
-        private readonly HookaDbContext _context;
-        private readonly UnitOfWork _uow;
 
-        public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, HookaDbContext context, UnitOfWork uow) : base(unit, mapper, notificationHelper)
+
+        public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
         {
-            _context = context;
-            _uow = uow;
         }
 
         public async Task<ResponseModel> GetHookaPlaces(HttpRequest request)
@@ -161,7 +158,7 @@ namespace HookaTimes.BLL.Service
 
         //}
 
-        public async Task<ResponseModel> AddReview(HookaPlaceReview_VM model, HttpRequest request, int id, int buddyId)
+        public async Task<ResponseModel> AddReview(CreateReview_VM model, HttpRequest request, int id, int buddyId)
         {
             //PlacesProfile placesProfile = _context.PlacesProfiles.Where(x => x.Id == id).FirstOrDefault();
 
@@ -186,7 +183,7 @@ namespace HookaTimes.BLL.Service
                 Description = model.Description
             };
 
-            await _context.SaveChangesAsync();
+            await _uow.PlaceReviewRepository.Create(placeReview);
 
             //HookaPlaceInfo_VM hookaProfile = new HookaPlaceInfo_VM
             //{
