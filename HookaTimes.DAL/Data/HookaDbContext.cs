@@ -24,6 +24,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<BuddiesFilter> BuddiesFilters { get; set; }
         public virtual DbSet<BuddyProfile> BuddyProfiles { get; set; }
         public virtual DbSet<Cuisine> Cuisines { get; set; }
+        public virtual DbSet<EmailOtp> EmailOtps { get; set; }
         public virtual DbSet<FavoriteUserPlace> FavoriteUserPlaces { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<Invitation> Invitations { get; set; }
@@ -135,8 +136,6 @@ namespace HookaTimes.DAL.Data
 
             modelBuilder.Entity<PlaceMenu>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.PlaceProfile)
                     .WithMany(p => p.PlaceMenus)
                     .HasForeignKey(d => d.PlaceProfileId)

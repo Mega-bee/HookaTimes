@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -174,23 +175,20 @@ namespace HookaTimes.BLL.Service
                     AboutMe = currProfile.About ?? "",
                     Email = aspuser.Email ?? "",
                     BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
-                    //GenderId = (int)currProfile.Gender,
-                    //Gender = currProfile.Gender ?? "",
-                    //ImageUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{aspuser.Image}",
-                    //PhoneNumber = aspuser.PhoneNumber ?? "",
-                    //MaritalStatus = aspuser.MartialStatus ?? "",
-                    //Height = (decimal)aspuser.Height,
-                    //Weight = (decimal)aspuser.Weight,
-                    //BodyType = aspuser.BodyType ?? "",
-                    //Eyes = aspuser.Eyes ?? "",
-                    //Hair = aspuser.Hair ?? "",
+                    GenderId = (int)currProfile.GenderId,
+                    Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
+                    ImageUrl = $"{Request.Scheme}://{Request.Host}/Buddies/{currProfile.Image}",
+                    MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
+                    Height = (decimal)currProfile.Height,
+                    Weight = (decimal)currProfile.Weight,
+                    BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
+                    Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
+                    Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
                     //Education = aspuser.Education ?? "",
                     //Profession = aspuser.Profession ?? "",
                     //Interests = aspuser.Interests ?? "",
                     //Hobbies = aspuser.Hobbies ?? "",
 
-                    //Role = user.Role.RoleName ?? "",
-                    //Token = "",
 
                 };
                 responseModel.StatusCode = 200;
@@ -501,48 +499,49 @@ namespace HookaTimes.BLL.Service
 
 
         #region OTP
-        public async Task<ResponseModel> GenerateOtp(string phone)
+        public async Task<ResponseModel> GenerateOtp(string Email)
         {
             ResponseModel responseModel = new ResponseModel();
             try
             {
-                phone = Helpers.RemoveCountryCode(phone);
+                //phone = Helpers.RemoveCountryCode(phone);
 
-                var currphoneOtp = await _context.PhoneOtps.Where(x => x.PhoneNumber == phone).FirstOrDefaultAsync();
+                var currphoneOtp = await _context.EmailOtps.Where(x => x.Email == Email).FirstOrDefaultAsync();
                 if (currphoneOtp != null)
                 {
-                    var resend = await ResendOtp(phone);
+                    var resend = await ResendOtp(Email);
 
                     responseModel.StatusCode = 200;
                     responseModel.ErrorMessage = "";
                     responseModel.Data = new DataModel
                     {
                         Data = "",
-                        Message = "Otp has been Sent again to phone"
+                        Message = "Otp has been Sent again to Email"
                     };
                     return responseModel;
                 }
                 var otp = Helpers.Generate_otp();
 
-                PhoneOtp phoneOtp = new PhoneOtp()
+                EmailOtp emailOtp = new EmailOtp()
                 {
+                    Email = Email,
                     Otp = otp,
-                    PhoneNumber = phone
                 };
 
-                await _context.PhoneOtps.AddAsync(phoneOtp);
+                await _context.EmailOtps.AddAsync(emailOtp);
                 await _context.SaveChangesAsync();
 
-                string content = $"your One-Time Password is : {otp}";
+                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
-                Helpers.SendSMS(phone, content);
+                //Helpers.SendSMS(phone, content);
+                await Tools.SendEmailAsync(Email, "Hooka OTP", content);
 
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
                 {
                     Data = "",
-                    Message = "Otp has been Sent to phone"
+                    Message = "Otp has been Sent to you email"
                 };
                 return responseModel;
             }
@@ -561,16 +560,16 @@ namespace HookaTimes.BLL.Service
         }
 
 
-        public async Task<ResponseModel> ConfirmOtp(string otp, string phone)
+        public async Task<ResponseModel> ConfirmOtp(string otp, string Email)
         {
             ResponseModel responseModel = new ResponseModel();
             try
             {
-                phone = Helpers.RemoveCountryCode(phone);
+                //phone = Helpers.RemoveCountryCode(phone);
 
-                var phoneOtp = await _context.PhoneOtps.Where(x => x.PhoneNumber == phone).FirstOrDefaultAsync();
+                var EmailOtp = await _context.EmailOtps.Where(x => x.Email == Email).FirstOrDefaultAsync();
 
-                int dbotp = Convert.ToInt32(phoneOtp.Otp);
+                int dbotp = Convert.ToInt32(EmailOtp.Otp);
                 int useotp = Convert.ToInt32(otp);
 
                 if (dbotp == useotp)
@@ -589,7 +588,7 @@ namespace HookaTimes.BLL.Service
                 {
                     // generate otp again
                     var newotp = Helpers.Generate_otp();
-                    phoneOtp.Otp = newotp;
+                    EmailOtp.Otp = newotp;
                     responseModel.StatusCode = 401;
                     responseModel.ErrorMessage = "";
                     responseModel.Data = new DataModel
@@ -614,33 +613,35 @@ namespace HookaTimes.BLL.Service
         }
 
 
-        public async Task<ResponseModel> ResendOtp(string phone)
+        public async Task<ResponseModel> ResendOtp(string Email)
         {
             ResponseModel responseModel = new ResponseModel();
 
             try
             {
 
-                phone = Helpers.RemoveCountryCode(phone);
+                //phone = Helpers.RemoveCountryCode(phone);
 
 
-                var phoneOtp = await _context.PhoneOtps.Where(x => x.PhoneNumber == phone).FirstOrDefaultAsync();
+                var EmailOtp = await _context.EmailOtps.Where(x => x.Email == Email).FirstOrDefaultAsync();
 
 
                 var otp = Helpers.Generate_otp();
 
-                phoneOtp.Otp = otp;
+                EmailOtp.Otp = otp;
 
                 await _context.SaveChangesAsync();
-                string content = $"your One-Time Password is : {otp}";
-                Helpers.SendSMS(phone, content);
+                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
+
+                //Helpers.SendSMS(phone, content);
+                await Tools.SendEmailAsync(Email, "Hooka OTP", content);
 
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
                 {
                     Data = "",
-                    Message = "Otp has been Resent to phone"
+                    Message = "Otp has been Resent to your Email"
                 };
                 return responseModel;
             }

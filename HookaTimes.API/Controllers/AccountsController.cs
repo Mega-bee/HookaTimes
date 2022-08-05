@@ -39,10 +39,10 @@ namespace HookaTimes.API.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> ConsumeChangePasswordToken([FromForm] ConsumeChangePasswordToken_VM)
+        public async Task<IActionResult> ConsumeChangePasswordToken([FromForm] ConsumeChangePasswordToken_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
-            ResponseModel ConsumeChangePasswordToken = await _auth.SendChangePasswordToken(identifier);
+            ResponseModel ConsumeChangePasswordToken = await _auth.ConsumeChangePasswordToken(model);
             return Ok(ConsumeChangePasswordToken);
         }
         #endregion
