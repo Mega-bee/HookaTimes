@@ -1,7 +1,9 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -38,6 +40,14 @@ namespace HookaTimes.API.Controllers
             return Ok(await _hookaPlaceBL.AddToFavorites(uid, placeId));
         }
 
+        [HttpPost("{placeId}")]
+        public async Task<IActionResult> AddReview([FromRoute] int placeId, [FromForm] HookaPlaceReview_VM review)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("ClaimName").Value);
+            //HookaPlaceReview_VM review = new HookaPlaceReview_VM();
+            return Ok(await _hookaPlaceBL.AddReview(review, Request, placeId, userBuddyId));
+        }
 
     }
 }

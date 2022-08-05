@@ -38,12 +38,13 @@ namespace HookaTimes.BLL.ViewModels
         public bool? IsAvailable { get; set; }
     }
 
-    public partial class HookaPlaceReview
+    public partial class HookaPlaceReview_VM
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string CreatedDate { get; set; }
         public float Rating { get; set; }
+        public string Description { get; set; }
     }
 
     public partial class HookaPlaceImage_VM
