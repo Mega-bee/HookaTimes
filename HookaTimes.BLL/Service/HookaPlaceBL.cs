@@ -73,7 +73,7 @@ namespace HookaTimes.BLL.Service
                     Description = r.Description,
                     Id = r.Id,
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
-
+                     Rating = (float)(r.Rating ?? 0)
                 }).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
