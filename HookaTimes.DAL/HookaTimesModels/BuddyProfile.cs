@@ -48,12 +48,15 @@ namespace HookaTimes.DAL.HookaTimesModels
         public DateTime? CreatedDate { get; set; }
         [StringLength(511)]
         public string Image { get; set; }
-        public int? Gender { get; set; }
+        public int? GenderId { get; set; }
         public bool? IsAvailable { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DateOfBirth { get; set; }
         public int? MaritalStatus { get; set; }
 
+        [ForeignKey("GenderId")]
+        [InverseProperty("BuddyProfiles")]
+        public virtual Gender Gender { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("BuddyProfiles")]
         public virtual AspNetUser User { get; set; }

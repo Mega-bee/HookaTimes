@@ -28,6 +28,9 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("InvitationOptionId")]
         [InverseProperty("Invitations")]
         public virtual InvitationOption InvitationOption { get; set; }
+        [ForeignKey("InvitationStatusId")]
+        [InverseProperty("Invitations")]
+        public virtual InvitationStatus InvitationStatus { get; set; }
         [ForeignKey("ToBuddyId")]
         [InverseProperty("InvitationToBuddies")]
         public virtual BuddyProfile ToBuddy { get; set; }

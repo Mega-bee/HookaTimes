@@ -6,22 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HookaTimes.DAL.HookaTimesModels
 {
-    [Table("Gender")]
-    public partial class Gender
+    [Table("InvitationStatus")]
+    public partial class InvitationStatus
     {
-        public Gender()
+        public InvitationStatus()
         {
-            BuddyProfiles = new HashSet<BuddyProfile>();
+            Invitations = new HashSet<Invitation>();
         }
 
         [Key]
         public int Id { get; set; }
-        [Column("TItle")]
-        [StringLength(31)]
+        [StringLength(255)]
         public string Title { get; set; }
         public bool? IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
 
-        [InverseProperty("Gender")]
-        public virtual ICollection<BuddyProfile> BuddyProfiles { get; set; }
+        [InverseProperty("InvitationStatus")]
+        public virtual ICollection<Invitation> Invitations { get; set; }
     }
 }

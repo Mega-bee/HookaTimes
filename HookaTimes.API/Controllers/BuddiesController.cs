@@ -1,7 +1,9 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,7 +24,7 @@ namespace HookaTimes.API.Controllers
         public async Task<IActionResult> GetAllBuddies()
         {
             string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return Ok(await _hookaBuddyBL.GetBuddies(Request,uid));
+            return Ok(await _hookaBuddyBL.GetBuddies(Request, uid));
         }
 
         //[HttpGet("{id}")]
@@ -31,11 +33,12 @@ namespace HookaTimes.API.Controllers
         //    return Ok(await _hookaBuddyBL.GetB(Request, id));
         //}
 
-        //[HttpPut("{placeId}")]
-        //public async Task<IActionResult> ToggleFavorite([FromRoute] int placeId)
-        //{
-        //    string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    return Ok(await _hookaPlaceBL.AddToFavorites(uid, placeId));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> InviteBuddy([FromForm] Invitation_VM model)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("ClaimName").Value);
+            return Ok(await _hookaBuddyBL.InviteBuddy(userBuddyId, model));
+        }
     }
 }
