@@ -27,9 +27,9 @@ namespace HookaTimes.BLL.Service
 
             List<HookaBuddy_VM> buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Id != buddyId).Select(x => new HookaBuddy_VM
             {
-                About = x.About,
+                About = x.About ?? "",
                 Id = x.Id,
-                IsAvailable = x.IsAvailable,
+                IsAvailable = x.IsAvailable ?? false,
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}/Images/Buddies/{x.Image}"
                 //Rating = x.Ra
