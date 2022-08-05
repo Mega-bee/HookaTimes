@@ -28,6 +28,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<Invitation> Invitations { get; set; }
         public virtual DbSet<InvitationOption> InvitationOptions { get; set; }
+        public virtual DbSet<InvitationStatus> InvitationStatuses { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
         public virtual DbSet<PhoneOtp> PhoneOtps { get; set; }
@@ -112,6 +113,11 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.Invitations)
                     .HasForeignKey(d => d.InvitationOptionId)
                     .HasConstraintName("FK_Invitation_InvitationOption");
+
+                entity.HasOne(d => d.InvitationStatus)
+                    .WithMany(p => p.Invitations)
+                    .HasForeignKey(d => d.InvitationStatusId)
+                    .HasConstraintName("FK_Invitation_InvitationStatus");
 
                 entity.HasOne(d => d.ToBuddy)
                     .WithMany(p => p.InvitationToBuddies)
