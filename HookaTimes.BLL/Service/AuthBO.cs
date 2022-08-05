@@ -179,7 +179,7 @@ namespace HookaTimes.BLL.Service
                     Eyes = model.Eyes,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Gender = model.GenderId,
+                    GenderId = model.GenderId,
                     Hair = model.Hair,
                     Height = model.Height,
                     Hobbies = model.Hobbies,
@@ -338,6 +338,8 @@ namespace HookaTimes.BLL.Service
             newProfile.CreatedDate = DateTime.UtcNow;
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
+            newProfile.IsAvailable = true;
+            //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
             await _context.SaveChangesAsync();
