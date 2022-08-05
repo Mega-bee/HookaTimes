@@ -339,6 +339,7 @@ namespace HookaTimes.BLL.Service
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
             newProfile.IsAvailable = true;
+            newProfile.Image = "use-placeholder.png";
             //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
