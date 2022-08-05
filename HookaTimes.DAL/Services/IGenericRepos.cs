@@ -10,10 +10,14 @@ namespace HookaTimes.DAL.Services
     public interface IGenericRepos<T>
     {
         IQueryable<T> GetAll();
+        IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
 
         Task<T> GetById(int Id);
+        bool CheckIfExists(Expression<Func<T, bool>> predicate);
 
         Task<T> GetById(string id);
+
+        Task<T> GetFirst(Expression<Func<T, bool>> predicate);
 
         Task<T> Create(T entity);
 

@@ -49,6 +49,11 @@ namespace HookaTimes.DAL.Repos
             return _context.Set<T>().AsNoTracking();
         }
 
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            return GetAll().Where(predicate);
+        }
+
         public IQueryable<T> GetAllWithInclude(params Expression<Func<T, object>>[] includes)
         {
             var query = includes.Aggregate(GetAll(), (current, includeProperty) => current.Include(includeProperty)).AsNoTracking();
@@ -63,6 +68,19 @@ namespace HookaTimes.DAL.Repos
         public async Task<T> GetById(string id)
         {
             return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<T> GetFirst(Expression<Func<T, bool>> predicate)
+        {
+            var query = await GetAll().Where(predicate).FirstOrDefaultAsync();
+            return query;
+            //return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).SingleOrDefault(predicate);
+        }
+     
+
+        public bool CheckIfExists(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().Where(predicate).Any();
         }
 
         public async Task<T> Update(T entity)
