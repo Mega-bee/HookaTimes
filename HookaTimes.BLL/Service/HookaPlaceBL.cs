@@ -3,6 +3,7 @@ using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.DAL;
+using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ namespace HookaTimes.BLL.Service
 {
     public class HookaPlaceBL : BaseBO, IHookaPlaceBL
     {
+
+
         public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
         {
         }
@@ -124,6 +127,87 @@ namespace HookaTimes.BLL.Service
                 responseModel.Data = new DataModel { Data = "", Message = "Place added to favorites" };
                 return responseModel;
             }
+        }
+
+        //public async Task<ResponseModel> AddReview(HookaPlaceReview_VM model, HttpRequest request, int id, int BuddyId)
+        //{
+
+        //    PlaceReview placeReview = _context.PlaceReviews.Where(x => x.PlaceProfileId == id).FirstOrDefault();
+        //    ResponseModel responseModel = new ResponseModel();
+
+        //    if (placeReview is null)
+        //    {
+        //        responseModel.StatusCode = 404;
+        //        responseModel.ErrorMessage = "Place was not Found";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+
+        //    placeReview.IsDeleted = false;
+        //    placeReview.CreatedDate = DateTime.UtcNow;
+        //    placeReview.BuddyId = BuddyId;
+        //    placeReview.Rating = model.Rating;
+        //    placeReview.Description = model.Description;
+
+        //    await _context.SaveChangesAsync();
+
+        //    HookaPlaceInfo_VM hookaProfile = new HookaPlaceInfo_VM
+        //    {
+        //        Id = placeReview.Id,
+        //    };
+
+        //    responseModel.StatusCode = 200;
+        //    responseModel.ErrorMessage = "";
+        //    responseModel.Data = new DataModel
+        //    {
+        //        Data = hookaProfile,
+        //        Message = ""
+        //    };
+        //    return responseModel;
+
+        //}
+
+        public async Task<ResponseModel> AddReview(CreateReview_VM model, HttpRequest request, int id, int buddyId)
+        {
+            //PlacesProfile placesProfile = _context.PlacesProfiles.Where(x => x.Id == id).FirstOrDefault();
+
+            bool placesProfile = _uow.PlaceRepository.CheckIfExists(x => x.Id == id);
+            ResponseModel responseModel = new ResponseModel();
+
+            if (placesProfile is false)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "Place was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            PlaceReview placeReview = new PlaceReview
+            {
+                IsDeleted = false,
+                CreatedDate = DateTime.Now,
+                BuddyId = buddyId,
+                PlaceProfileId = id,
+                Rating = model.Rating,
+                Description = model.Description
+            };
+
+            await _uow.PlaceReviewRepository.Create(placeReview);
+
+            //HookaPlaceInfo_VM hookaProfile = new HookaPlaceInfo_VM
+            //{
+            //    Id = placeReview.Id,
+            //};
+
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "";
+            responseModel.Data = new DataModel
+            {
+                Data = "",
+                Message = "Review added successfuly"
+            };
+            return responseModel;
+
         }
 
     }
