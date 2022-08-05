@@ -27,6 +27,7 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
+    <Folder Include="wwwroot\Images\Menus\" />
   </ItemGroup>
 
 </Project>
