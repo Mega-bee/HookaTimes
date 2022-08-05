@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace HookaTimes.BLL.ViewModels
@@ -165,6 +164,14 @@ namespace HookaTimes.BLL.ViewModels
         public string LastName { get; set; }
 
 
+    }
+
+    public partial class ConsumeChangePasswordToken_VM
+    {
+        public string Password { get; set; }
+
+        public string Email { get; set; }
+        public string Token { get; set; }
     }
 
 }

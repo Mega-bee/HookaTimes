@@ -105,10 +105,10 @@ namespace HookaTimes.BLL.Utilities
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddParameter("undefined",
-                "{\"tags\":[\"Tileo\"],\"sender\":{\"email\":\"" +
-                "YallaJeye@gmail.com" + "\"},\"to\":[{\"email\":\"" + toEmail + "\",\"name\":\"" +
-                toEmail + "\"}],\"cc\":[{\"email\":\"YallaJeye@gmail.com\",\"name\":\"Yalla Jeye\"}," +
-                "{\"email\":\"YallaJeye@gmail.com \",\"name\":\"Yalla Jeye\"}],\"htmlContent\":\"" +
+                "{\"tags\":[\"Hooka Times\"],\"sender\":{\"email\":\"" +
+                "info@arenasystem.co" + "\"},\"to\":[{\"email\":\"" + toEmail + "\",\"name\":\"" +
+                toEmail + "\"}],\"cc\":[{\"email\":\"info@arenasystem.co\",\"name\":\"Hooka Times\"}," +
+                "{\"email\":\"info@arenasystem.co \",\"name\":\"Hooka Times\"}],\"htmlContent\":\"" +
                 content + "\",\"textContent\":\"" + content + "\",\"replyTo\":{\"email\":\"" +
                 toEmail + "\"},\"subject\":\"" +
                 subject + "\"}", ParameterType.RequestBody);

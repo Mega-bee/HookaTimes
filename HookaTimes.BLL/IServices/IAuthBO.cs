@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using HookaTimes.DAL.Data;
-using HookaTimes.DAL.HookaTimesModels;
 //using HookaTimes.DAL.Models;
 
 namespace HookaTimes.BLL.IServices
@@ -32,7 +30,7 @@ namespace HookaTimes.BLL.IServices
 
         //Task<ResponseModel> EmailSignIn(EmailSignIn_VM model, HttpRequest Request);
 
-        Task<ResponseModel> ForgetPassword(string identifier, HttpRequest Request);
+        Task<ResponseModel> SendChangePasswordToken(string identifier);
 
         //List<Claim> GenerateClaims(ApplicationUser res, AspNetRole role);
 
@@ -49,11 +47,11 @@ namespace HookaTimes.BLL.IServices
 
         Task<ResponseModel> ResetPassword(ResetPassword_VM model, string uid);
 
-        Task<ResponseModel> ResetPasswordFromEmail(ResetPasswordFromEmail_VM model);
+        //Task<ResponseModel> ResetPasswordFromEmail(ResetPasswordFromEmail_VM model);
 
         Task<ResponseModel> SignUpWithEmail(EmailSignUp_VM model, HttpRequest Request);
 
-
+        Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model);
         //Task<ResponseModel> UpdateProfile(UpdateProfile_VM updatedProfile, string uid, HttpRequest Request);
     }
 }
