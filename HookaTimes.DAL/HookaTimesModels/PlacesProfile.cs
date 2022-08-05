@@ -12,6 +12,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         public PlacesProfile()
         {
             FavoriteUserPlaces = new HashSet<FavoriteUserPlace>();
+            Invitations = new HashSet<Invitation>();
             PlaceAlbums = new HashSet<PlaceAlbum>();
             PlaceMenus = new HashSet<PlaceMenu>();
             PlaceOffers = new HashSet<PlaceOffer>();
@@ -56,6 +57,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public virtual AspNetUser User { get; set; }
         [InverseProperty("PlaceProfile")]
         public virtual ICollection<FavoriteUserPlace> FavoriteUserPlaces { get; set; }
+        [InverseProperty("Place")]
+        public virtual ICollection<Invitation> Invitations { get; set; }
         [InverseProperty("PlaceProfile")]
         public virtual ICollection<PlaceAlbum> PlaceAlbums { get; set; }
         [InverseProperty("PlaceProfile")]

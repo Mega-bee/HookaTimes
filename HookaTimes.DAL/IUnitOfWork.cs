@@ -17,6 +17,7 @@ namespace HookaTimes.DAL
 
         IPlaceReviewRepo PlaceReviewRepository { get; }
         IInvitationRepository InvitationRepository { get; }
+        IInvitationOptionRepository InvitationOptionRepository { get; }
 
 
 
