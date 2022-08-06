@@ -47,5 +47,13 @@ namespace HookaTimes.API.Controllers
         {
             return Ok(await _invitationBL.GetInvitationOptions());
         }
+
+        [HttpGet("{placeId}")]
+        public async Task<IActionResult> GetPlaceInvtations([FromRoute] int placeId)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _invitationBL.GetPlaceInvitations(Request, placeId, userBuddyId));
+        }
     }
 }

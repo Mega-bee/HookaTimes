@@ -64,12 +64,12 @@ namespace HookaTimes.BLL.Service
             List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId).Select(i => new Invitation_VM
             {
                 Description = i.Description ?? "",
-                FromBuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
+                BuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
                 InvitationStatusId = (int)i.InvitationStatusId,
-                FromBuddyRating = 0,
+                BuddyRating = 0,
                 InvitationStatus = i.InvitationStatus.Title,
                 Id = i.Id,
-                FromBuddyImage = $"{request.Scheme}://{request.Host}/Images/Buddies/{ i.FromBuddy.Image}",
+                BuddyImage = $"{request.Scheme}://{request.Host}/Images/Buddies/{ i.FromBuddy.Image}",
 
             }).ToListAsync();
 
@@ -90,6 +90,33 @@ namespace HookaTimes.BLL.Service
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
             responseModel.Data = new DataModel { Data = options, Message = "" };
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetPlaceInvitations(HttpRequest request, int placeId, int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            PlaceInvitation_VM invitations = await _uow.PlaceRepository.GetAll(p => p.Id == placeId).Select(p => new PlaceInvitation_VM
+            {
+                PlaceId = p.Id,
+                PlaceLocation = p.Location.Title,
+                PlaceName = p.Title,
+                PlaceRating = (float)p.Rating,
+                Buddies = p.Invitations.Where(p => p.FromBuddyId == userBuddyId).Select(i => new Invitation_VM
+                {
+                    Description = i.Description ?? "",
+                    BuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
+                    InvitationStatusId = (int)i.InvitationStatusId,
+                    BuddyRating = 0,
+                    InvitationStatus = i.InvitationStatus.Title,
+                    Id = i.Id,
+                    BuddyImage = $"{request.Scheme}://{request.Host}/Images/Buddies/{i.FromBuddy.Image}",
+                }).ToList(),
+
+            }).FirstOrDefaultAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = invitations, Message = "" };
             return responseModel;
         }
 

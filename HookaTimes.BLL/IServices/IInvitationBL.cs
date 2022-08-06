@@ -10,5 +10,6 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> GetSentInvitations(HttpRequest request, int userBuddyId);
         Task<ResponseModel> GetInvitationOptions();
         Task<ResponseModel> GetRecievedInvitations(HttpRequest request, int userBuddyId);
+        Task<ResponseModel> GetPlaceInvitations(HttpRequest request, int placeId, int userBuddyId);
     }
 }
