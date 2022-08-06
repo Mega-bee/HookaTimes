@@ -28,9 +28,9 @@ namespace HookaTimes.BLL.ViewModels
     public partial class Invitation_VM
     {
         public int Id { get; set; }
-        public string FromBuddyName { get; set; }
-        public string FromBuddyImage { get; set; }
-        public float FromBuddyRating { get; set; }
+        public string BuddyName { get; set; }
+        public string BuddyImage { get; set; }
+        public float BuddyRating { get; set; }
         public int InvitationStatusId { get; set; }
         public string InvitationStatus { get; set; }
         public string Description { get; set; }
@@ -40,5 +40,15 @@ namespace HookaTimes.BLL.ViewModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
+    }
+
+    public partial class PlaceInvitation_VM
+    {
+        public int PlaceId { get; set; }
+        public string PlaceName { get; set; }
+        public string PlaceLocation { get; set; }
+        public float PlaceRating { get; set; }
+        public List<Invitation_VM> Buddies { get; set; }
+
     }
 }
