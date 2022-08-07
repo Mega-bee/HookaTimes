@@ -1,6 +1,8 @@
-﻿using HookaTimes.DAL.HookaTimesModels;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.DAL.Data
 {
@@ -40,14 +42,6 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<PlaceReview> PlaceReviews { get; set; }
         public virtual DbSet<PlacesProfile> PlacesProfiles { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //                optionsBuilder.UseSqlServer("Data Source=tiaragroup.database.windows.net;Initial Catalog=HookaTimes;User Id=adminall;Password=P@ssw0rd@123");
-            //            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -119,6 +113,11 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.Invitations)
                     .HasForeignKey(d => d.InvitationStatusId)
                     .HasConstraintName("FK_Invitation_InvitationStatus");
+
+                entity.HasOne(d => d.Place)
+                    .WithMany(p => p.Invitations)
+                    .HasForeignKey(d => d.PlaceId)
+                    .HasConstraintName("FK_Invitation_PlacesProfile");
 
                 entity.HasOne(d => d.ToBuddy)
                     .WithMany(p => p.InvitationToBuddies)
