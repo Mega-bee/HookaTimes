@@ -1,10 +1,12 @@
 ﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace HookaTimes.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
 
     public class OffersController : APIBaseController
     {
