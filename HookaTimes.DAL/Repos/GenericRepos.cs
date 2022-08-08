@@ -1,13 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
+﻿using HookaTimes.DAL.Data;
 //using HookaTimes.DAL.Models;
 using HookaTimes.DAL.Services;
-using HookaTimes.DAL.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace HookaTimes.DAL.Repos
 {
@@ -44,6 +42,7 @@ namespace HookaTimes.DAL.Repos
 
             }
         }
+
         public IQueryable<T> GetAll()
         {
             return _context.Set<T>().AsNoTracking();
@@ -76,11 +75,11 @@ namespace HookaTimes.DAL.Repos
             return query;
             //return includes.Aggregate(query, (current, includeProperty) => current.Include(includeProperty)).SingleOrDefault(predicate);
         }
-     
 
-        public bool CheckIfExists(Expression<Func<T, bool>> predicate)
+
+        public async Task<bool> CheckIfExists(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Where(predicate).Any();
+            return await _context.Set<T>().Where(predicate).AnyAsync();
         }
 
         public async Task<T> Update(T entity)

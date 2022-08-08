@@ -1,23 +1,14 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HookaTimes.DAL;
-
-using HookaTimes.DAL.Repos;
-using HookaTimes.DAL.Services;
 //using HookaTimes.DAL.Models;
-using HookaTimes.BLL.Utilities.Logging;
-using HookaTimes.BLL.ViewModels;
-using HookaTimes.BLL;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Service;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.Utilities.ActionFilters;
+using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
+using HookaTimes.DAL.Repos;
+using HookaTimes.DAL.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HookaTimes.BLL
 {
@@ -37,6 +28,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IHookaPlaceBL, HookaPlaceBL>();
             _services.AddScoped<IHookaBuddyBL, HookaBuddyBL>();
             _services.AddScoped<IInvitationBL, InvitationBL>();
+            _services.AddScoped<IOfferBL, OfferBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
@@ -44,6 +36,8 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<BuddyProfile>, GenericRepos<BuddyProfile>>();
             _services.AddScoped<IGenericRepos<Invitation>, GenericRepos<Invitation>>();
             _services.AddScoped<IGenericRepos<InvitationOption>, GenericRepos<InvitationOption>>();
+            _services.AddScoped<IGenericRepos<OfferType>, GenericRepos<OfferType>>();
+            _services.AddScoped<IGenericRepos<PlaceOffer>, GenericRepos<PlaceOffer>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

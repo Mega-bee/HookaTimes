@@ -23,6 +23,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public bool? IsDeleted { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreatedDate { get; set; }
+        [StringLength(511)]
+        public string Title { get; set; }
 
         [ForeignKey("PlaceProfileId")]
         [InverseProperty("PlaceOffers")]

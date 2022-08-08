@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Service
@@ -44,8 +43,8 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
-            bool buddyExists = _uow.BuddyRepository.CheckIfExists(x => x.Id == model.ToBuddyId);
-            bool placeExists = _uow.BuddyRepository.CheckIfExists(x => x.Id == model.PlaceId);
+            bool buddyExists = await _uow.BuddyRepository.CheckIfExists(x => x.Id == model.ToBuddyId);
+            bool placeExists = await _uow.BuddyRepository.CheckIfExists(x => x.Id == model.PlaceId);
             DateTime invitationDateTime = Convert.ToDateTime(model.Date + " " + model.Time);
             if (!buddyExists)
             {
@@ -71,8 +70,8 @@ namespace HookaTimes.BLL.Service
                 IsDeleted = false,
                 InvitationOptionId = model.OptionId,
                 Description = model.Description,
-                 InvitationStatusId = 1,
-                  PlaceId = model.PlaceId,
+                InvitationStatusId = 1,
+                PlaceId = model.PlaceId,
             };
             await _uow.InvitationRepository.Create(invitation);
             responseModel.ErrorMessage = "";

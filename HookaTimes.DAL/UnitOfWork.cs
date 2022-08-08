@@ -1,12 +1,8 @@
 ﻿//using HookaTimes.DAL.Models;
+using HookaTimes.DAL.Data;
+using HookaTimes.DAL.Repos;
 using HookaTimes.DAL.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HookaTimes.DAL.Repos;
-using HookaTimes.DAL.Data;
 
 namespace HookaTimes.DAL
 {
@@ -32,6 +28,8 @@ namespace HookaTimes.DAL
         private IPlaceReviewRepo placeReviewRepository;
         private IInvitationRepository invitationRepository;
         private IInvitationOptionRepository invitationOptionRepository;
+        private IPlaceOfferRepository placeOfferRepository;
+        private IOfferTypeRepository offerTypeRepository;
 
 
 
@@ -48,6 +46,9 @@ namespace HookaTimes.DAL
         public IPlaceReviewRepo PlaceReviewRepository => placeReviewRepository ?? new PlaceReviewRepo(_context);
         public IInvitationRepository InvitationRepository => invitationRepository ?? new InvitationRepo(_context);
         public IInvitationOptionRepository InvitationOptionRepository => invitationOptionRepository ?? new InvitationOptionRepo(_context);
+        public IPlaceOfferRepository PlaceOfferRepository => placeOfferRepository ?? new PlaceOfferRepo(_context);
+        public IOfferTypeRepository OfferTypeRepository => offerTypeRepository ?? new OfferTypeRepo(_context);
+
 
 
         #endregion

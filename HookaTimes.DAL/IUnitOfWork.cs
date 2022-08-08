@@ -1,9 +1,4 @@
 ﻿using HookaTimes.DAL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HookaTimes.DAL
 {
@@ -19,7 +14,9 @@ namespace HookaTimes.DAL
         IInvitationRepository InvitationRepository { get; }
         IInvitationOptionRepository InvitationOptionRepository { get; }
 
+        IPlaceOfferRepository PlaceOfferRepository { get; }
 
+        IOfferTypeRepository OfferTypeRepository { get; }
 
         void Save();
     }
