@@ -71,7 +71,7 @@ namespace HookaTimes.BLL.Service
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
-            responseModel.Data = new DataModel { Data = "", Message = "" };
+            responseModel.Data = new DataModel { Data = offer, Message = "" };
             return responseModel;
 
         }
