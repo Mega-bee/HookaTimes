@@ -84,10 +84,10 @@ namespace HookaTimes.API.Controllers
         #region OTP
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> GenerateOtp([FromForm] string phone)
+        public async Task<IActionResult> GenerateOtp([FromForm] string Email)
         {
 
-            ResponseModel GenerateOtp = await _auth.GenerateOtp(phone);
+            ResponseModel GenerateOtp = await _auth.GenerateOtp(Email);
             return Ok(GenerateOtp);
 
 
@@ -96,10 +96,10 @@ namespace HookaTimes.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmOtp([FromForm] string otp, [FromForm] string phone)
+        public async Task<IActionResult> ConfirmOtp([FromForm] string otp, [FromForm] string Email)
         {
 
-            ResponseModel ConfirmOtp = await _auth.ConfirmOtp(otp, phone);
+            ResponseModel ConfirmOtp = await _auth.ConfirmOtp(otp, Email);
             return Ok(ConfirmOtp);
 
         }
@@ -108,9 +108,9 @@ namespace HookaTimes.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ResendOtp([FromForm] string phone)
+        public async Task<IActionResult> ResendOtp([FromForm] string Email)
         {
-            ResponseModel ResendOtp = await _auth.ResendOtp(phone);
+            ResponseModel ResendOtp = await _auth.ResendOtp(Email);
             return Ok(ResendOtp);
         }
         #endregion

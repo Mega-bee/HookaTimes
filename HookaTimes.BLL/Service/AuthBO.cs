@@ -304,7 +304,7 @@ namespace HookaTimes.BLL.Service
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
             newProfile.IsAvailable = true;
-            newProfile.Image = "use-placeholder.png";
+            newProfile.Image = "Images/Buddies/use-placeholder.png";
             //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
@@ -511,14 +511,14 @@ namespace HookaTimes.BLL.Service
                 {
                     var resend = await ResendOtp(Email);
 
-                    responseModel.StatusCode = 200;
-                    responseModel.ErrorMessage = "";
-                    responseModel.Data = new DataModel
-                    {
-                        Data = "",
-                        Message = "Otp has been Sent again to Email"
-                    };
-                    return responseModel;
+                    //responseModel.StatusCode = 200;
+                    //responseModel.ErrorMessage = "";
+                    //responseModel.Data = new DataModel
+                    //{
+                    //    Data = "",
+                    //    Message = "Otp has been Sent again to Email"
+                    //};
+                    return resend;
                 }
                 var otp = Helpers.Generate_otp();
 
@@ -534,8 +534,18 @@ namespace HookaTimes.BLL.Service
                 string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
                 //Helpers.SendSMS(phone, content);
-                await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-
+                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                if (!EmailSent)
+                {
+                    responseModel.StatusCode = 400;
+                    responseModel.ErrorMessage = "";
+                    responseModel.Data = new DataModel
+                    {
+                        Data = "",
+                        Message = "Email Was Not Sent"
+                    };
+                    return responseModel;
+                }
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -634,8 +644,18 @@ namespace HookaTimes.BLL.Service
                 string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
                 //Helpers.SendSMS(phone, content);
-                await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-
+                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                if (!EmailSent)
+                {
+                    responseModel.StatusCode = 400;
+                    responseModel.ErrorMessage = "";
+                    responseModel.Data = new DataModel
+                    {
+                        Data = "",
+                        Message = "Email Was Not Sent"
+                    };
+                    return responseModel;
+                }
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel

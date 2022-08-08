@@ -102,15 +102,15 @@ namespace HookaTimes.BLL.Utilities
         {
             var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
             var request = new RestRequest(Method.POST);
-            request.AddHeader("api-key", "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");
+            request.AddHeader("api-key", "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");
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddParameter("undefined",
                 "{\"tags\":[\"Hooka Times\"],\"sender\":{\"email\":\"" +
                 "info@arenasystem.co" + "\"},\"to\":[{\"email\":\"" + toEmail + "\",\"name\":\"" +
-                toEmail + "\"}],\"cc\":[{\"email\":\"info@arenasystem.co\",\"name\":\"Hooka Times\"}," +
-                "{\"email\":\"info@arenasystem.co \",\"name\":\"Hooka Times\"}],\"htmlContent\":\"" +
-                content + "\",\"textContent\":\"" + content + "\",\"replyTo\":{\"email\":\"" +
+                toEmail + "\"}],\"cc\":[{\"email\":\"info@arenasystem.co\",\"name\":\"HookaTimes\"}," +
+                "{\"email\":\"info@arenasystem.co \",\"name\":\"HookaTimes\"}],\"htmlContent\":\"" +
+                content + "\",\"textContent\":\"" + "hiiii" + "\",\"replyTo\":{\"email\":\"" +
                 toEmail + "\"},\"subject\":\"" +
                 subject + "\"}", ParameterType.RequestBody);
 

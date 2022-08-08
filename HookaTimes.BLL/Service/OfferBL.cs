@@ -25,14 +25,14 @@ namespace HookaTimes.BLL.Service
             List<OfferList_VM> offers = await _uow.PlaceOfferRepository.GetAllWithPredicateAndIncludes(x => x.IsDeleted == false, x => x.PlaceProfile).Select(o => new OfferList_VM
             {
                 Id = o.Id,
-                Image = $"{request.Scheme}://{request.Host}/Images/Places/PlaceOffers/{o.Image}",
+                Image = $"{request.Scheme}://{request.Host}/{o.Image}",
                 Rating = (float)o.PlaceProfile.Rating,
                 RestaurantTitle = o.PlaceProfile.Title,
                 Title = o.Title,
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
-            responseModel.Data = new DataModel { Data = "", Message = "" };
+            responseModel.Data = new DataModel { Data = offers, Message = "" };
             return responseModel;
 
         }
@@ -56,7 +56,7 @@ namespace HookaTimes.BLL.Service
                 Cuisine = o.PlaceProfile.Cuisine.Title,
                 Discount = o.Discount.ToString(),
                 ExpiryDate = o.ExpiryDate.Value,
-                Image = $"{request.Scheme}://{request.Host}/Images/Places/PlaceOffers/{o.Image}",
+                Image = $"{request.Scheme}://{request.Host}/{o.Image}",
                 Latitude = o.PlaceProfile.Latitude,
                 Longitude = o.PlaceProfile.Longitude,
                 Location = o.PlaceProfile.Location.Title,
@@ -71,7 +71,7 @@ namespace HookaTimes.BLL.Service
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
-            responseModel.Data = new DataModel { Data = "", Message = "" };
+            responseModel.Data = new DataModel { Data = offer, Message = "" };
             return responseModel;
 
         }
