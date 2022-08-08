@@ -29,7 +29,7 @@ namespace HookaTimes.BLL.Service
             {
                 Cuisine = p.Cuisine.Title,
                 Id = p.Id,
-                Image = $"{request.Scheme}://{request.Host}/Images/Places/{p.Image}",
+                Image = $"{request.Scheme}://{request.Host}{p.Image}",
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating
@@ -48,25 +48,25 @@ namespace HookaTimes.BLL.Service
             {
                 Cuisine = p.Cuisine.Title,
                 Id = p.Id,
-                Image = $"{request.Scheme}://{request.Host}/Images/Places/{p.Image}",
+                Image = $"{request.Scheme}://{request.Host}{p.Image}",
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
                 Albums = p.PlaceAlbums.Where(a => a.IsDeleted == false).Select(a => new HookaPlaceImage_VM
                 {
                     Id = a.Id,
-                    Image = $"{request.Scheme}://{request.Host}/Images/Albums/{a.Image}",
+                    Image = $"{request.Scheme}://{request.Host}{a.Image}",
                 }).ToList(),
                 Description = p.Description,
                 Favorites = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false).Select(f => new HookaPlaceFavorite_VM
                 {
                     Id = f.Id,
-                    Image = $"{request.Scheme}://{request.Host}/Images/Buddies/{f.Buddy.Image}",
+                    Image = $"{request.Scheme}://{request.Host}{f.Buddy.Image}",
                     IsAvailable = f.Buddy.IsAvailable
                 }).ToList(),
                 Menus = p.PlaceMenus.Where(m => m.IsDeleted == false).Select(m => new HookaPlaceImage_VM
                 {
                     Id = m.Id,
-                    Image = $"{request.Scheme}://{request.Host}/Images/Menus/{m.Image}"
+                    Image = $"{request.Scheme}://{request.Host}{m.Image}"
                 }).ToList(),
                 Reviews = p.PlaceReviews.Where(r => r.IsDeleted == false).Select(r => new HookaPlaceReview_VM
                 {
