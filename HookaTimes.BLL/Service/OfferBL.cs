@@ -32,7 +32,7 @@ namespace HookaTimes.BLL.Service
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
-            responseModel.Data = new DataModel { Data = "", Message = "" };
+            responseModel.Data = new DataModel { Data = offers, Message = "" };
             return responseModel;
 
         }
