@@ -3,14 +3,12 @@ using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.DAL;
-using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Service
@@ -76,7 +74,7 @@ namespace HookaTimes.BLL.Service
                     Description = r.Description,
                     Id = r.Id,
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
-                     Rating = (float)r.Rating
+                    Rating = (float)r.Rating
                 }).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
@@ -91,7 +89,7 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> AddToFavorites(string uid, int placeId)
         {
             ResponseModel responseModel = new ResponseModel();
-            bool placeExists = _uow.BuddyRepository.CheckIfExists(x => x.Id == placeId);
+            bool placeExists = await _uow.BuddyRepository.CheckIfExists(x => x.Id == placeId);
             int buddyId = await _uow.BuddyRepository.GetAll(b => b.UserId == uid).Select(b => b.Id).FirstOrDefaultAsync();
             FavoriteUserPlace favorite = null;
             if (!placeExists)
@@ -119,7 +117,7 @@ namespace HookaTimes.BLL.Service
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
                     PlaceProfileId = placeId,
-                     
+
                 };
                 await _uow.FavoritePlaceRepository.Create(favorite);
                 responseModel.ErrorMessage = "";
@@ -171,7 +169,7 @@ namespace HookaTimes.BLL.Service
         {
             //PlacesProfile placesProfile = _context.PlacesProfiles.Where(x => x.Id == id).FirstOrDefault();
 
-            bool placesProfile = _uow.PlaceRepository.CheckIfExists(x => x.Id == id);
+            bool placesProfile = await _uow.PlaceRepository.CheckIfExists(x => x.Id == id);
             ResponseModel responseModel = new ResponseModel();
 
             if (placesProfile is false)
