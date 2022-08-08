@@ -1,10 +1,12 @@
 ﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace HookaTimes.API.Controllers
 {
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
 
     public class OffersController : APIBaseController
     {
@@ -27,7 +29,7 @@ namespace HookaTimes.API.Controllers
 
         #region OfferById
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOfferById([FromRoute] int id)
         {
             ResponseModel model = await _offer.GetOfferById(id, Request);
