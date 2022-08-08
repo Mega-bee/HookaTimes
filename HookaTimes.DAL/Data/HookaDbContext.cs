@@ -1,6 +1,8 @@
-﻿using HookaTimes.DAL.HookaTimesModels;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.DAL.Data
 {
@@ -39,15 +41,8 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<PlaceOffer> PlaceOffers { get; set; }
         public virtual DbSet<PlaceReview> PlaceReviews { get; set; }
         public virtual DbSet<PlacesProfile> PlacesProfiles { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //                optionsBuilder.UseSqlServer("Data Source=tiaragroup.database.windows.net;Initial Catalog=HookaTimes;User Id=adminall;Password=P@ssw0rd@123");
-            //            }
-        }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -189,6 +184,14 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.PlacesProfiles)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_PlacesProfile_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasOne(d => d.ProductCategory)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.ProductCategoryId)
+                    .HasConstraintName("FK_Product_ProductCategory");
             });
 
             OnModelCreatingPartial(modelBuilder);

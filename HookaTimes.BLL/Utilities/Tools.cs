@@ -18,10 +18,11 @@ namespace HookaTimes.BLL.Utilities
     {
         public static async Task<string> SaveImage(this IFormFile formFile, string folderName)
         {
-            string path = Path.Combine("wwwroot", "Images", folderName, Guid.NewGuid().ToString() + ".jpg");
+            string path = Path.Combine("wwwroot", "Images", folderName, Guid.NewGuid().ToString() + formFile.FileName);
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 await formFile.CopyToAsync(fs);
+                
             }
             return path;
         }
