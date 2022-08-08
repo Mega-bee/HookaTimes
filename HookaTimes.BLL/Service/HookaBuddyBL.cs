@@ -30,7 +30,7 @@ namespace HookaTimes.BLL.Service
                 Id = x.Id,
                 IsAvailable = x.IsAvailable ?? false,
                 Name = x.FirstName + " " + x.LastName,
-                Image = $"{request.Scheme}://{request.Host}/Images/Buddies/{x.Image}"
+                Image = $"{request.Scheme}://{request.Host}{x.Image}"
                 //Rating = x.Ra
             }).ToListAsync();
             responseModel.ErrorMessage = "";
