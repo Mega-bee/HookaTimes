@@ -27,7 +27,7 @@ namespace HookaTimes.API.Controllers
 
         #region OfferById
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOfferById([FromRoute] int id)
         {
             ResponseModel model = await _offer.GetOfferById(id, Request);
