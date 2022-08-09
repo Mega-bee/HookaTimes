@@ -25,6 +25,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<BuddiesFilter> BuddiesFilters { get; set; }
         public virtual DbSet<BuddyProfile> BuddyProfiles { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cuisine> Cuisines { get; set; }
         public virtual DbSet<EmailOtp> EmailOtps { get; set; }
         public virtual DbSet<FavoriteUserPlace> FavoriteUserPlaces { get; set; }
@@ -43,6 +44,8 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<PlacesProfile> PlacesProfiles { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+
+ 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -83,6 +86,19 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.BuddyProfiles)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_BuddyProfile_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Cart>(entity =>
+            {
+                entity.HasOne(d => d.Buddy)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.BuddyId)
+                    .HasConstraintName("FK_Cart_BuddyProfile");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Cart_Product");
             });
 
             modelBuilder.Entity<FavoriteUserPlace>(entity =>

@@ -30,6 +30,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IInvitationBL, InvitationBL>();
             _services.AddScoped<IProductBL, ProductBL>();
             _services.AddScoped<IOfferBL, OfferBL>();
+            _services.AddScoped<ICartBL, CartBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
@@ -42,6 +43,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<ProductCategory>, GenericRepos<ProductCategory>>();
             _services.AddScoped<IGenericRepos<Product>, GenericRepos<Product>>();
             _services.AddScoped<IGenericRepos<PlaceOffer>, GenericRepos<PlaceOffer>>();
+            _services.AddScoped<IGenericRepos<Cart>, GenericRepos<Cart>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

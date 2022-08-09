@@ -9,6 +9,11 @@ namespace HookaTimes.DAL.HookaTimesModels
     [Table("Product")]
     public partial class Product
     {
+        public Product()
+        {
+            Carts = new HashSet<Cart>();
+        }
+
         [Key]
         public int Id { get; set; }
         public int? ProductCategoryId { get; set; }
@@ -37,5 +42,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("ProductCategoryId")]
         [InverseProperty("Products")]
         public virtual ProductCategory ProductCategory { get; set; }
+        [InverseProperty("Product")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }
