@@ -17,6 +17,8 @@ namespace HookaTimes.DAL
         IPlaceOfferRepository PlaceOfferRepository { get; }
 
         IOfferTypeRepository OfferTypeRepository { get; }
+        IProductRepository ProductRepository { get; }
+        IProductCategoryRepository ProductCategoryRepository { get; }
 
         void Save();
     }

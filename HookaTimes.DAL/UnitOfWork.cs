@@ -30,6 +30,8 @@ namespace HookaTimes.DAL
         private IInvitationOptionRepository invitationOptionRepository;
         private IPlaceOfferRepository placeOfferRepository;
         private IOfferTypeRepository offerTypeRepository;
+        private IProductCategoryRepository productCategoryRepository;
+        private IProductRepository productRepository;
 
 
 
@@ -48,6 +50,8 @@ namespace HookaTimes.DAL
         public IInvitationOptionRepository InvitationOptionRepository => invitationOptionRepository ?? new InvitationOptionRepo(_context);
         public IPlaceOfferRepository PlaceOfferRepository => placeOfferRepository ?? new PlaceOfferRepo(_context);
         public IOfferTypeRepository OfferTypeRepository => offerTypeRepository ?? new OfferTypeRepo(_context);
+        public IProductCategoryRepository ProductCategoryRepository => productCategoryRepository ?? new ProductCategoryRepo(_context);
+        public IProductRepository ProductRepository => productRepository ?? new ProductRepo(_context);
 
 
 

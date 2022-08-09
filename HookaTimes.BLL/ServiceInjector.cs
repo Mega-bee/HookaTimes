@@ -38,6 +38,9 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<InvitationOption>, GenericRepos<InvitationOption>>();
             _services.AddScoped<IGenericRepos<OfferType>, GenericRepos<OfferType>>();
             _services.AddScoped<IGenericRepos<PlaceOffer>, GenericRepos<PlaceOffer>>();
+            _services.AddScoped<IGenericRepos<ProductCategory>, GenericRepos<ProductCategory>>();
+            _services.AddScoped<IGenericRepos<Product>, GenericRepos<Product>>();
+            _services.AddScoped<IGenericRepos<PlaceOffer>, GenericRepos<PlaceOffer>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 
