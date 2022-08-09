@@ -28,6 +28,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IHookaPlaceBL, HookaPlaceBL>();
             _services.AddScoped<IHookaBuddyBL, HookaBuddyBL>();
             _services.AddScoped<IInvitationBL, InvitationBL>();
+            _services.AddScoped<IProductBL, ProductBL>();
             _services.AddScoped<IOfferBL, OfferBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();

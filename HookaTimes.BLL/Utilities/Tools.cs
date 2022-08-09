@@ -22,7 +22,7 @@ namespace HookaTimes.BLL.Utilities
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 await formFile.CopyToAsync(fs);
-                
+
             }
             return path;
         }
@@ -102,7 +102,7 @@ namespace HookaTimes.BLL.Utilities
         {
             var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
             var request = new RestRequest(Method.POST);
-            request.AddHeader("api-key", "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");
+            request.AddHeader("api-key", "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");
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddParameter("undefined",
