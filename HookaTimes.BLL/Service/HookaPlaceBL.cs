@@ -40,7 +40,7 @@ namespace HookaTimes.BLL.Service
             return responseModel;
         }
 
-        public async Task<ResponseModel> GetHookaPlace(HttpRequest request, int id)
+        public async Task<ResponseModel> GetHookaPlace(HttpRequest request, int userBuddyId, int id)
         {
             ResponseModel responseModel = new ResponseModel();
 
@@ -57,6 +57,7 @@ namespace HookaTimes.BLL.Service
                     Image = $"{request.Scheme}://{request.Host}{a.Image}",
                 }).ToList(),
                 Description = p.Description,
+                IsFavorite = p.FavoriteUserPlaces.Any(f => f.BuddyId == userBuddyId && f.IsDeleted == false),
                 Favorites = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false).Select(f => new HookaPlaceFavorite_VM
                 {
                     Id = f.Id,

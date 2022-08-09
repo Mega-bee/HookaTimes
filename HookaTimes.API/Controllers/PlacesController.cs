@@ -30,7 +30,9 @@ namespace HookaTimes.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPlace([FromRoute] int id)
         {
-            return Ok(await _hookaPlaceBL.GetHookaPlace(Request, id));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _hookaPlaceBL.GetHookaPlace(Request,userBuddyId, id));
         }
 
         [HttpPut("{placeId}")]

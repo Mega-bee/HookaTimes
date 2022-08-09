@@ -27,6 +27,7 @@ namespace HookaTimes.BLL.ViewModels
         public string OpeningFrom { get; set; }
         public string OpeningTo { get; set; }
         public string Description { get; set; }
+        public bool IsFavorite { get; set; }
         public List<HookaPlaceFavorite_VM> Favorites { get; set; }
         public List<HookaPlaceImage_VM> Albums { get; set; }
         public List<HookaPlaceImage_VM> Menus { get; set; }
