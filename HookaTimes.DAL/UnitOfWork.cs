@@ -32,6 +32,7 @@ namespace HookaTimes.DAL
         private IOfferTypeRepository offerTypeRepository;
         private IProductCategoryRepository productCategoryRepository;
         private IProductRepository productRepository;
+        private ICartRepository cartRepository;
 
 
 
@@ -52,6 +53,7 @@ namespace HookaTimes.DAL
         public IOfferTypeRepository OfferTypeRepository => offerTypeRepository ?? new OfferTypeRepo(_context);
         public IProductCategoryRepository ProductCategoryRepository => productCategoryRepository ?? new ProductCategoryRepo(_context);
         public IProductRepository ProductRepository => productRepository ?? new ProductRepo(_context);
+        public ICartRepository CartRepository => cartRepository ?? new CartRepo(_context);
 
 
 

@@ -19,6 +19,7 @@ namespace HookaTimes.DAL
         IOfferTypeRepository OfferTypeRepository { get; }
         IProductRepository ProductRepository { get; }
         IProductCategoryRepository ProductCategoryRepository { get; }
+        ICartRepository CartRepository { get; }
 
         void Save();
     }

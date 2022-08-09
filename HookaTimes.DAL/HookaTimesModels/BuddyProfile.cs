@@ -11,6 +11,7 @@ namespace HookaTimes.DAL.HookaTimesModels
     {
         public BuddyProfile()
         {
+            Carts = new HashSet<Cart>();
             FavoriteUserPlaces = new HashSet<FavoriteUserPlace>();
             InvitationFromBuddies = new HashSet<Invitation>();
             InvitationToBuddies = new HashSet<Invitation>();
@@ -57,6 +58,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("UserId")]
         [InverseProperty("BuddyProfiles")]
         public virtual AspNetUser User { get; set; }
+        [InverseProperty("Buddy")]
+        public virtual ICollection<Cart> Carts { get; set; }
         [InverseProperty("Buddy")]
         public virtual ICollection<FavoriteUserPlace> FavoriteUserPlaces { get; set; }
         [InverseProperty("FromBuddy")]
