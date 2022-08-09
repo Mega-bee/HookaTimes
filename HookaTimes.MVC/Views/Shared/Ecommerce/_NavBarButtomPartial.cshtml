@@ -1,278 +1,336 @@
-﻿  <div class="site-header__nav-panel">
-                    <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
-                    <div class="nav-panel nav-panel--sticky" data-sticky-mode="pullToShow">
-                        <div class="nav-panel__container container">
-                            <div class="nav-panel__row">
-                                <div class="nav-panel__logo">
-                                    <a href="/">
-                                        <!-- logo -->
-                                     <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
-                                        <!-- logo / end -->
-                                    </a>
-                                </div>
-                                <!-- .nav-links -->
-                                <div class="nav-panel__nav-links nav-links">
-                                    <ul class="nav-links__list">
-                                        <li class="nav-links__item  nav-links__item--has-submenu ">
-                                            <a class="nav-links__item-link" href="/">
-                                                <div class="nav-links__item-body">
-                                                    Home
-                                                   @* <svg class="nav-links__item-arrow" width="9px" height="6px">
-                                                        <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-down-9x6"></use>
-                                                    </svg>*@
-                                                </div>
-                                            </a>
-                                            
-                                        </li>
-                                        <li class="nav-links__item  nav-links__item--has-submenu ">
-                                            <a class="nav-links__item-link" href="#products">
-                                                <div class="nav-links__item-body">
-                                                    Products
-                                                  
-                                                </div>
-                                            </a>
-                                            
-                                        </li>
-                                        <li class="nav-links__item  nav-links__item--has-submenu ">
-                                            <a class="nav-links__item-link" asp-controller="Home" asp-action="HookaPlaces">
-                                                <div class="nav-links__item-body">
-                                                    Hooka Places
-                                                   
-                                                </div>
-                                            </a>
-                 
-                                        </li>
-                                        <li class="nav-links__item  nav-links__item--has-submenu ">
-                                            <a class="nav-links__item-link" href="#">
-                                                <div class="nav-links__item-body">
-                                                    Became A Partner
-                                                   
-                                                </div>
-                                            </a>
-                                           
-                                        </li>
-                                        <li class="nav-links__item  nav-links__item--has-submenu ">
-                                            <a class="nav-links__item-link" href="#">
-                                                <div class="nav-links__item-body">
-                                                    Careers
-            
-                                                </div>
-                                            </a>
-                                          
-                                        </li>
-                                      
-                                    </ul>
-                                </div>
-                                <!-- .nav-links / end -->
-                                <div class="nav-panel__indicators">
-                                    <div class="indicator indicator--trigger--click">
-                                        <button type="button" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg class="indicator__icon" width="20px" height="20px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
-                                                </svg>
-                                                <svg class="indicator__icon indicator__icon--open" width="20px" height="20px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-20"></use>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <div class="indicator__dropdown">
-                                            <div class="search search--location--indicator ">
-                                                <div class="search__body">
-                                                    <form class="search__form" action="">
-                                                        <input class="search__input" name="search" @*placeholder="Search over 10,000 products"*@ aria-label="Site search" type="text" autocomplete="off">
-                                                        <button class="search__button search__button--type--submit" type="submit">
-                                                            <svg width="20px" height="20px">
-                                                                <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="search__border"></div>
-                                                    </form>
-                                                    <div class="search__suggestions suggestions suggestions--location--indicator"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="indicator">
-                                        <a asp-controller="home" asp-action="WishList" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#heart-20"></use>
-                                                </svg>
-                                                <span class="indicator__value">0</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="indicator indicator--trigger--click">
-                                        <a href="cart.html" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cart-20"></use>
-                                                </svg>
-                                                <span class="indicator__value">3</span>
-                                            </span>
-                                        </a>
-                                        <div class="indicator__dropdown">
-                                            <!-- .dropcart -->
-                                            <div class="dropcart dropcart--style--dropdown">
-                                                <div class="dropcart__body">
-                                                    <div class="dropcart__products-list">
-                                                        <div class="dropcart__product">
-                                                            <div class="product-image dropcart__product-image">
-                                                                <a href="product.html" class="product-image__body">
-                                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="dropcart__product-info">
-                                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                                <ul class="dropcart__product-options">
-                                                                    <li>Capsule: Apple</li>
-@*                                                                    <li>Material: Aluminium</li>
-*@                                                                </ul>
-                                                                <div class="dropcart__product-meta">
-                                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                                    <span class="dropcart__product-price">150 AED</span>
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                                <svg width="10px" height="10px">
-                                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <div class="dropcart__product">
-                                                            <div class="product-image dropcart__product-image">
-                                                                <a href="product.html" class="product-image__body">
-                                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="dropcart__product-info">
-                                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                                <ul class="dropcart__product-options">
-                                                                    <li>Capsule: Apple</li>
-@*                                                                    <li>Material: Aluminium</li>
-*@                                                                </ul>
-                                                                <div class="dropcart__product-meta">
-                                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                                    <span class="dropcart__product-price">150 AED</span>
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                                <svg width="10px" height="10px">
-                                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
+﻿<style>
+    .h-menu {
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
 
-                                                        <div class="dropcart__product">
-                                                            <div class="product-image dropcart__product-image">
-                                                                <a href="product.html" class="product-image__body">
-                                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="dropcart__product-info">
-                                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                                <ul class="dropcart__product-options">
-                                                                    <li>Capsule: Apple</li>
-@*                                                                    <li>Material: Aluminium</li>
-*@                                                                </ul>
-                                                                <div class="dropcart__product-meta">
-                                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                                    <span class="dropcart__product-price">150 AED</span>
-                                                                </div>
-                                                            </div>
-                                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                                <svg width="10px" height="10px">
-                                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
+    .navigation-center-items {
+    display: flex;
+     justify-content: center;
+    align-items: flex-start;
+    flex: 0 0 auto;
+    }
 
-                                                    </div>
-                                                    <div class="dropcart__totals">
-                                                        <table>
-                                                            <tr>
-                                                                <th>Subtotal</th>
-                                                                <td>450 AED</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Delivery</th>
-                                                                <td>10 AED</td>
-                                                            </tr>
-                                                           @* <tr>
-                                                                <th>Tax</th>
-                                                                <td>$0.00</td>
-                                                            </tr>*@
-                                                            <tr>
-                                                                <th>Total</th>
-                                                                <td>460 AED</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                    <div class="dropcart__buttons">
-                                                        <a class="btn btn-secondary" asp-controller="home" asp-action="Cart">View Cart</a>
-                                                        <a class="btn btn-primary" asp-controller="home" asp-action="Checkout">Checkout</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- .dropcart / end -->
-                                        </div>
-                                    </div>
-                                    <div class="indicator indicator--trigger--click">
-                                        <a href="account-login.html" class="indicator__button">
-                                            <span class="indicator__area">
-                                                <svg width="20px" height="20px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#person-20"></use>
-                                                </svg>
-                                            </span>
-                                        </a>
-                                        <div class="indicator__dropdown">
-                                            <div class="account-menu">
-                                                <form class="account-menu__form">
-                                                    <div class="account-menu__form-title">Log In to Your Account</div>
-                                                    <div class="form-group">
-                                                        <label for="header-signin-email" class="sr-only">Email address</label>
-                                                        <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="header-signin-password" class="sr-only">Password</label>
-                                                        <div class="account-menu__form-forgot">
-                                                            <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
-                                                            <a href="" class="account-menu__form-forgot-link">Forgot?</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group account-menu__form-button">
-                                                        <button type="submit" class="btn btn-primary btn-sm">Login</button>
-                                                    </div>
-                                                    <div class="account-menu__form-link"><a asp-controller="Home" asp-action="Login">Create An Account</a></div>
-                                                </form>
-                                                <div class="account-menu__divider"></div>
-                                                <a href="account-dashboard.html" class="account-menu__user">
-                                                    <div class="account-menu__user-avatar">
-                                                        <img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">
-                                                    </div>
-                                                    <div class="account-menu__user-info">
-                                                        <div class="account-menu__user-name">Badih</div>
-                                                        <div class="account-menu__user-email">HookaTimes@gcel.come</div>
-                                                    </div>
+    .navigation-item {
+    margin-right: 1.2em;
+    margin-left: 1.2em;
+    padding: 1em 1.2em;
+    font-size: 0.94em;
+    line-height: 1.22;
+    font-weight: 500;
+    }
+
+    .navigation-item.w--current {
+    padding-bottom: 0.15em;
+    border-bottom: 0.2em solid #fdcf51;
+    }
+
+    .navigation-item_text {
+    margin-right: -1.2em;
+    margin-left: -1.2em;
+    color: #000;
+    }
+
+</style>
+
+<div class="site-header__nav-panel">
+    <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
+    <div class="nav-panel nav-panel--sticky" data-sticky-mode="pullToShow">
+        <div class="nav-panel__container container">
+            <div class="nav-panel__row">
+                <div class="nav-panel__logo">
+                    <a href="/">
+                        <!-- logo -->
+                        <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
+                        <!-- logo / end -->
+                    </a>
+                </div>
+                <!-- .nav-links -->
+                <div class="h-menu">
+                    <nav role="navigation" class="navigation-center-items w-nav-menu">
+                        <a href="/" aria-current="page" class="navigation-item w-inline-block w--current">
+                            <div class="navigation-item_text">Home</div>
+                        </a>
+                        <a href="/" class="navigation-item w-inline-block">
+                            <div class="navigation-item_text">Products</div>
+                        </a>
+                        <a href="/" class="navigation-item w-inline-block">
+                            <div class="navigation-item_text">Hooka Places</div>
+                        </a>
+                        <a href="/" class="navigation-item w-inline-block">
+                            <div class="navigation-item_text">Become a Partner</div>
+                        </a>
+                        <a href="/projects" class="navigation-item w-inline-block">
+                            <div class="navigation-item_text">Careers</div>
+                        </a>
+                    </nav>
+                </div>
+
+                @*<div class="nav-panel__nav-links nav-links">
+                <ul class="nav-links__list">
+                <li class="nav-links__item  nav-links__item--has-submenu ">
+                <a class="nav-links__item-link" href="/">
+                <div class="nav-links__item-body">
+                Home
+
+                </div>
+                </a>
+
+                </li>
+                <li class="nav-links__item  nav-links__item--has-submenu ">
+                <a class="nav-links__item-link" href="#products">
+                <div class="nav-links__item-body">
+                Products
+
+                </div>
+                </a>
+
+                </li>
+                <li class="nav-links__item  nav-links__item--has-submenu ">
+                <a class="nav-links__item-link" asp-controller="Home" asp-action="HookaPlaces">
+                <div class="nav-links__item-body">
+                Hooka Places
+
+                </div>
+                </a>
+
+                </li>
+                <li class="nav-links__item  nav-links__item--has-submenu ">
+                <a class="nav-links__item-link" href="#">
+                <div class="nav-links__item-body">
+                Became A Partner
+
+                </div>
+                </a>
+
+                </li>
+                <li class="nav-links__item  nav-links__item--has-submenu ">
+                <a class="nav-links__item-link" href="#">
+                <div class="nav-links__item-body">
+                Careers
+
+                </div>
+                </a>
+
+                </li>
+
+                </ul>
+                </div>*@
+                <!-- .nav-links / end -->
+                <div class="nav-panel__indicators">
+                    @*<div class="indicator indicator--trigger--click">
+                    <button type="button" class="indicator__button">
+                    <span class="indicator__area">
+                    <svg class="indicator__icon" width="20px" height="20px">
+                    <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
+                    </svg>
+                    <svg class="indicator__icon indicator__icon--open" width="20px" height="20px">
+                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-20"></use>
+                    </svg>
+                    </span>
+                    </button>
+                    <div class="indicator__dropdown">
+                    <div class="search search--location--indicator ">
+                    <div class="search__body">
+                    <form class="search__form" action="">
+                    <input class="search__input" name="search" aria-label="Site search" type="text" autocomplete="off">
+                    <button class="search__button search__button--type--submit" type="submit">
+                    <svg width="20px" height="20px">
+                    <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
+                    </svg>
+                    </button>
+                    <div class="search__border"></div>
+                    </form>
+                    <div class="search__suggestions suggestions suggestions--location--indicator"></div>
+                    </div>
+                    </div>
+                    </div>
+                    </div> *@
+                    <div class="indicator">
+                        <a asp-controller="home" asp-action="WishList" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#heart-20"></use>
+                                </svg>
+                                <span class="indicator__value">0</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="indicator indicator--trigger--click">
+                        <a href="cart.html" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cart-20"></use>
+                                </svg>
+                                <span class="indicator__value">3</span>
+                            </span>
+                        </a>
+                        <div class="indicator__dropdown">
+                            <!-- .dropcart -->
+                            <div class="dropcart dropcart--style--dropdown">
+                                <div class="dropcart__body">
+                                    <div class="dropcart__products-list">
+                                        <div class="dropcart__product">
+                                            <div class="product-image dropcart__product-image">
+                                                <a href="product.html" class="product-image__body">
+                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
                                                 </a>
-                                                <div class="account-menu__divider"></div>
-                                                <ul class="account-menu__links">
-                                                    <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
-                                                    <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
-                                                    <li><a asp-controller="Home" asp-action="Addresses" >Addresses</a></li>
-                                                    <li><a asp-controller="Home" asp-action="Password">Password</a></li>
-                                                </ul>
-                                                <div class="account-menu__divider"></div>
-                                                <ul class="account-menu__links">
-                                                    <li><a asp-controller="Home" asp-action="Login">Logout</a></li>
-                                                </ul>
                                             </div>
+                                            <div class="dropcart__product-info">
+                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
+                                                <ul class="dropcart__product-options">
+                                                    <li>Capsule: Apple</li>
+                                                    @*                                                                    <li>Material: Aluminium</li>
+                                                    *@
+                                                </ul>
+                                                <div class="dropcart__product-meta">
+                                                    <span class="dropcart__product-quantity">2</span> ×
+                                                    <span class="dropcart__product-price">150 AED</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                <svg width="10px" height="10px">
+                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                </svg>
+                                            </button>
                                         </div>
+
+                                        <div class="dropcart__product">
+                                            <div class="product-image dropcart__product-image">
+                                                <a href="product.html" class="product-image__body">
+                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="dropcart__product-info">
+                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
+                                                <ul class="dropcart__product-options">
+                                                    <li>Capsule: Apple</li>
+                                                    @*                                                                    <li>Material: Aluminium</li>
+                                                    *@
+                                                </ul>
+                                                <div class="dropcart__product-meta">
+                                                    <span class="dropcart__product-quantity">2</span> ×
+                                                    <span class="dropcart__product-price">150 AED</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                <svg width="10px" height="10px">
+                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        <div class="dropcart__product">
+                                            <div class="product-image dropcart__product-image">
+                                                <a href="product.html" class="product-image__body">
+                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="dropcart__product-info">
+                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
+                                                <ul class="dropcart__product-options">
+                                                    <li>Capsule: Apple</li>
+                                                    @*                                                                    <li>Material: Aluminium</li>
+                                                    *@
+                                                </ul>
+                                                <div class="dropcart__product-meta">
+                                                    <span class="dropcart__product-quantity">2</span> ×
+                                                    <span class="dropcart__product-price">150 AED</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                <svg width="10px" height="10px">
+                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <div class="dropcart__totals">
+                                        <table>
+                                            <tr>
+                                                <th>Subtotal</th>
+                                                <td>450 AED</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Delivery</th>
+                                                <td>10 AED</td>
+                                            </tr>
+                                            @* <tr>
+                                            <th>Tax</th>
+                                            <td>$0.00</td>
+                                            </tr>*@
+                                            <tr>
+                                                <th>Total</th>
+                                                <td>460 AED</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="dropcart__buttons">
+                                        <a class="btn btn-secondary" asp-controller="home" asp-action="Cart">View Cart</a>
+                                        <a class="btn btn-primary" asp-controller="home" asp-action="Checkout">Checkout</a>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- .dropcart / end -->
+                        </div>
+                    </div>
+                    <div class="indicator indicator--trigger--click">
+                        <a href="account-login.html" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#person-20"></use>
+                                </svg>
+                            </span>
+                        </a>
+                        <div class="indicator__dropdown">
+                            <div class="account-menu">
+                                <form class="account-menu__form">
+                                    <div class="account-menu__form-title">Log In to Your Account</div>
+                                    <div class="form-group">
+                                        <label for="header-signin-email" class="sr-only">Email address</label>
+                                        <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="header-signin-password" class="sr-only">Password</label>
+                                        <div class="account-menu__form-forgot">
+                                            <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
+                                            <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group account-menu__form-button">
+                                        <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                                    </div>
+                                    <div class="account-menu__form-link"><a asp-controller="Home" asp-action="Login">Create An Account</a></div>
+                                </form>
+                                <div class="account-menu__divider"></div>
+                                <a href="account-dashboard.html" class="account-menu__user">
+                                    <div class="account-menu__user-avatar">
+                                        <img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">
+                                    </div>
+                                    <div class="account-menu__user-info">
+                                        <div class="account-menu__user-name">Badih</div>
+                                        <div class="account-menu__user-email">HookaTimes@gcel.come</div>
+                                    </div>
+                                </a>
+                                <div class="account-menu__divider"></div>
+                                <ul class="account-menu__links">
+                                    <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
+                                    <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
+                                    <li><a asp-controller="Home" asp-action="Addresses">Addresses</a></li>
+                                    <li><a asp-controller="Home" asp-action="Password">Password</a></li>
+                                </ul>
+                                <div class="account-menu__divider"></div>
+                                <ul class="account-menu__links">
+                                    <li><a asp-controller="Home" asp-action="Login">Logout</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
