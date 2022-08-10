@@ -7084,7 +7084,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 .about-us__body {
   background: #fff;
-  min-height: 380px;
+  min-height: 0px;
   margin-top: -380px;
   border-radius: 4px 4px 0 0;
   padding: 75px 92px;

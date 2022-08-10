@@ -39,6 +39,11 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
+        public IActionResult Careers()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult QuickView()
         {
