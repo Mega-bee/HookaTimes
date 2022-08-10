@@ -25,6 +25,15 @@ namespace HookaTimes.API.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
             return Ok(await _cartBL.AddToCart(userBuddyId, quantity, productId));
-        } 
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetCartSummary()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _cartBL.GetCartSummary(Request,userBuddyId));
+        }
     }
 }
