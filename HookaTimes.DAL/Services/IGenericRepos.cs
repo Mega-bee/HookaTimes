@@ -9,7 +9,7 @@ namespace HookaTimes.DAL.Services
     {
         IQueryable<T> GetAll();
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
-
+        Task<T> Add(T entity);
         Task<T> GetById(int Id);
         //bool CheckIfExists(Expression<Func<T, bool>> predicate);
         Task<bool> CheckIfExists(Expression<Func<T, bool>> predicate);

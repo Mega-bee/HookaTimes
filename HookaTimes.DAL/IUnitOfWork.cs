@@ -1,4 +1,5 @@
 ﻿using HookaTimes.DAL.Services;
+using System.Threading.Tasks;
 
 namespace HookaTimes.DAL
 {
@@ -24,5 +25,6 @@ namespace HookaTimes.DAL
         IBuddyProfileEducationRepository BuddyProfileEducationRepository { get; }
         IBuddyProfileExperienceRepository BuddyProfileExperienceRepository { get; }
         void Save();
+        Task SaveAsync();
     }
 }
