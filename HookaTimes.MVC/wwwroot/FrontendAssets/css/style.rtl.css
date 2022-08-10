@@ -2783,6 +2783,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   font-size: 13px;
   text-decoration: line-through;
 }
+.product-card__buttons.is--buddy {
+    position: absolute;
+    top: auto;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+}
 
 .product-card__buttons {
     display: -webkit-box;
@@ -2797,9 +2804,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     left: auto;
     right: 0%;
 }
-    .product-card__buttons > *:first-child {
-        /*margin-left: auto;*/
-    }
+
+.product-card__buttons > *:first-child {
+    /*margin-left: auto;*/
+}
 .product-card__buttons > * + * {
   margin-right: 4px;
 }
