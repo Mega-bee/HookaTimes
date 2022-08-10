@@ -32,9 +32,6 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("InvitationStatusId")]
         [InverseProperty("Invitations")]
         public virtual InvitationStatus InvitationStatus { get; set; }
-        [ForeignKey("PlaceId")]
-        [InverseProperty("Invitations")]
-        public virtual PlacesProfile Place { get; set; }
         [ForeignKey("ToBuddyId")]
         [InverseProperty("InvitationToBuddies")]
         public virtual BuddyProfile ToBuddy { get; set; }

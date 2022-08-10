@@ -33,8 +33,6 @@
     <Folder Include="logs\" />
     <Folder Include="wwwroot\Images\Albums\" />
     <Folder Include="wwwroot\Images\Menus\" />
-    <Folder Include="wwwroot\Images\Buddies\" />
-    <Folder Include="wwwroot\Images\Places\" />
   </ItemGroup>
 
 </Project>
