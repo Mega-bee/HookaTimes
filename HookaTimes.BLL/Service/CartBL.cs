@@ -33,11 +33,11 @@ namespace HookaTimes.BLL.Service
                 };
                 return responseModel;
             }
-            bool isProductInCart = await _uow.CartRepository.CheckIfExists(p => p.BuddyId == userBuddyId && p.Id == productId);
+            bool isProductInCart = await _uow.CartRepository.CheckIfExists(p => p.BuddyId == userBuddyId && p.ProductId == productId);
             if (isProductInCart)
             {
                 var currCartItem = await _uow.CartRepository.GetFirst(x => x.ProductId == productId && x.BuddyId == userBuddyId);
-                currCartItem.Quantity = quantity;
+                currCartItem.Quantity += quantity;
                 await _uow.CartRepository.Update(currCartItem);
                 responseModel.ErrorMessage = "";
                 responseModel.StatusCode = 201;
