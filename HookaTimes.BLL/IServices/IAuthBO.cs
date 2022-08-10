@@ -38,6 +38,7 @@ namespace HookaTimes.BLL.IServices
 
 
         Task<ResponseModel> GenerateOtp(string phone);
+        Task<ResponseModel> IsAvailableToggle(int buddyId);
 
         //Task<ResponseModel> GetUserProfile(string uid, HttpRequest Request);
 
