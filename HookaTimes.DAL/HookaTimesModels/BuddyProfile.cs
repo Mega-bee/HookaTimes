@@ -11,6 +11,9 @@ namespace HookaTimes.DAL.HookaTimesModels
     {
         public BuddyProfile()
         {
+            BuddyProfileAddresses = new HashSet<BuddyProfileAddress>();
+            BuddyProfileEducations = new HashSet<BuddyProfileEducation>();
+            BuddyProfileExperiences = new HashSet<BuddyProfileExperience>();
             Carts = new HashSet<Cart>();
             FavoriteUserPlaces = new HashSet<FavoriteUserPlace>();
             InvitationFromBuddies = new HashSet<Invitation>();
@@ -29,17 +32,13 @@ namespace HookaTimes.DAL.HookaTimesModels
         public int? BodyType { get; set; }
         public int? Eyes { get; set; }
         public int? Hair { get; set; }
-        public int? Education { get; set; }
-        public int? Profession { get; set; }
+        [StringLength(255)]
+        public string Profession { get; set; }
         [StringLength(255)]
         public string Interests { get; set; }
-        [StringLength(255)]
+        [StringLength(1023)]
         public string Hobbies { get; set; }
         public string About { get; set; }
-        [StringLength(255)]
-        public string Longitude { get; set; }
-        [StringLength(255)]
-        public string Latitude { get; set; }
         [StringLength(255)]
         public string FirstName { get; set; }
         [StringLength(255)]
@@ -54,10 +53,22 @@ namespace HookaTimes.DAL.HookaTimesModels
         [Column(TypeName = "datetime")]
         public DateTime? DateOfBirth { get; set; }
         public int? MaritalStatus { get; set; }
+        [StringLength(255)]
+        public string SocialMediaLink1 { get; set; }
+        [StringLength(255)]
+        public string SocialMediaLink2 { get; set; }
+        [StringLength(255)]
+        public string SocialMediaLink3 { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("BuddyProfiles")]
         public virtual AspNetUser User { get; set; }
+        [InverseProperty("BuddyProfile")]
+        public virtual ICollection<BuddyProfileAddress> BuddyProfileAddresses { get; set; }
+        [InverseProperty("BuddyProfile")]
+        public virtual ICollection<BuddyProfileEducation> BuddyProfileEducations { get; set; }
+        [InverseProperty("BuddyProfile")]
+        public virtual ICollection<BuddyProfileExperience> BuddyProfileExperiences { get; set; }
         [InverseProperty("Buddy")]
         public virtual ICollection<Cart> Carts { get; set; }
         [InverseProperty("Buddy")]

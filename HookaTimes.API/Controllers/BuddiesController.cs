@@ -27,11 +27,14 @@ namespace HookaTimes.API.Controllers
             return Ok(await _hookaBuddyBL.GetBuddies(Request, uid));
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetBuddy([FromRoute] int id)
-        //{
-        //    return Ok(await _hookaBuddyBL.GetB(Request, id));
-        //}
+
+        [HttpGet("{buddyId}")]
+        public async Task<IActionResult> GetBuddyProfile([FromRoute] int buddyId)
+        {
+            return Ok(await _hookaBuddyBL.GetBuddy(buddyId, Request));
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> InviteBuddy([FromForm] SendInvitation_VM model)

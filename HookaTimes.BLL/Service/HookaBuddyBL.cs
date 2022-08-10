@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -38,6 +39,78 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = buddies, Message = "" };
             return responseModel;
 
+        }
+        public async Task<ResponseModel> GetBuddy(int BuddyId, HttpRequest Request)
+        {
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
+
+
+            Profile_VM userProfile = new Profile_VM()
+            {
+                ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}",
+                Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
+                Email = currProfile.User.Email,
+                PhoneNumber = currProfile.User.PhoneNumber,
+                BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
+                GenderId = (int)currProfile.GenderId,
+                Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
+                AboutMe = currProfile.About ?? "",
+                Hobbies = currProfile.Hobbies ?? "",
+                MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
+                Height = (decimal)currProfile.Height,
+                Weight = (decimal)currProfile.Weight,
+                BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
+                Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
+                Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
+                SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "",
+                SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "",
+                SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "",
+                Interests = currProfile.Interests ?? "",
+                Profession = currProfile.Profession ?? "",
+                FirstName = currProfile.FirstName ?? "",
+                LastName = currProfile.LastName ?? "",
+                Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
+                {
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude,
+                    Title = x.Title
+                }).ToList(),
+                Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+                {
+                    Degree = x.Degree,
+                    StudiedFrom = x.StudiedFrom,
+                    StudiedTo = x.StudiedTo,
+                    University = x.University
+                }).ToList(),
+                Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+                {
+                    Place = x.Place,
+                    Position = x.Position,
+                    WorkedFrom = x.WorkedFrom,
+                    WorkedTo = x.WorkedTo
+                }).ToList()
+            };
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "";
+            responseModel.Data = new DataModel
+            {
+                Data = userProfile,
+                Message = ""
+            };
+            return responseModel;
         }
 
         public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)

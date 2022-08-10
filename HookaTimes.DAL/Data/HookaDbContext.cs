@@ -25,6 +25,9 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<BuddiesFilter> BuddiesFilters { get; set; }
         public virtual DbSet<BuddyProfile> BuddyProfiles { get; set; }
+        public virtual DbSet<BuddyProfileAddress> BuddyProfileAddresses { get; set; }
+        public virtual DbSet<BuddyProfileEducation> BuddyProfileEducations { get; set; }
+        public virtual DbSet<BuddyProfileExperience> BuddyProfileExperiences { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Cuisine> Cuisines { get; set; }
         public virtual DbSet<EmailOtp> EmailOtps { get; set; }
@@ -45,7 +48,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
- 
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -86,6 +89,30 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.BuddyProfiles)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_BuddyProfile_AspNetUsers");
+            });
+
+            modelBuilder.Entity<BuddyProfileAddress>(entity =>
+            {
+                entity.HasOne(d => d.BuddyProfile)
+                    .WithMany(p => p.BuddyProfileAddresses)
+                    .HasForeignKey(d => d.BuddyProfileId)
+                    .HasConstraintName("FK_BuddyProfileAddress_BuddyProfile");
+            });
+
+            modelBuilder.Entity<BuddyProfileEducation>(entity =>
+            {
+                entity.HasOne(d => d.BuddyProfile)
+                    .WithMany(p => p.BuddyProfileEducations)
+                    .HasForeignKey(d => d.BuddyProfileId)
+                    .HasConstraintName("FK_BuddyProfileEducation_BuddyProfile");
+            });
+
+            modelBuilder.Entity<BuddyProfileExperience>(entity =>
+            {
+                entity.HasOne(d => d.BuddyProfile)
+                    .WithMany(p => p.BuddyProfileExperiences)
+                    .HasForeignKey(d => d.BuddyProfileId)
+                    .HasConstraintName("FK_BuddyProfileExperience_BuddyProfile");
             });
 
             modelBuilder.Entity<Cart>(entity =>

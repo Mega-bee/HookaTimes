@@ -20,7 +20,9 @@ namespace HookaTimes.DAL
         IProductRepository ProductRepository { get; }
         IProductCategoryRepository ProductCategoryRepository { get; }
         ICartRepository CartRepository { get; }
-
+        IBuddyProfileAddressRepository BuddyProfileAddressRepository { get; }
+        IBuddyProfileEducationRepository BuddyProfileEducationRepository { get; }
+        IBuddyProfileExperienceRepository BuddyProfileExperienceRepository { get; }
         void Save();
     }
 }

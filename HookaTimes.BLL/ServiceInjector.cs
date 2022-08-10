@@ -44,6 +44,9 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<Product>, GenericRepos<Product>>();
             _services.AddScoped<IGenericRepos<PlaceOffer>, GenericRepos<PlaceOffer>>();
             _services.AddScoped<IGenericRepos<Cart>, GenericRepos<Cart>>();
+            _services.AddScoped<IGenericRepos<BuddyProfileExperience>, GenericRepos<BuddyProfileExperience>>();
+            _services.AddScoped<IGenericRepos<BuddyProfileEducation>, GenericRepos<BuddyProfileEducation>>();
+            _services.AddScoped<IGenericRepos<BuddyProfileAddress>, GenericRepos<BuddyProfileAddress>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

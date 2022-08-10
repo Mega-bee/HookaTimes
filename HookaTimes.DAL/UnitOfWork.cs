@@ -3,6 +3,7 @@ using HookaTimes.DAL.Data;
 using HookaTimes.DAL.Repos;
 using HookaTimes.DAL.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace HookaTimes.DAL
 {
@@ -33,7 +34,9 @@ namespace HookaTimes.DAL
         private IProductCategoryRepository productCategoryRepository;
         private IProductRepository productRepository;
         private ICartRepository cartRepository;
-
+        private IBuddyProfileAddressRepository buddyProfileAddressRepository;
+        private IBuddyProfileEducationRepository buddyProfileEducationRepository;
+        private IBuddyProfileExperienceRepository buddyProfileExperienceRepository;
 
 
         #endregion
@@ -54,7 +57,9 @@ namespace HookaTimes.DAL
         public IProductCategoryRepository ProductCategoryRepository => productCategoryRepository ?? new ProductCategoryRepo(_context);
         public IProductRepository ProductRepository => productRepository ?? new ProductRepo(_context);
         public ICartRepository CartRepository => cartRepository ?? new CartRepo(_context);
-
+        public IBuddyProfileAddressRepository BuddyProfileAddressRepository => buddyProfileAddressRepository ?? new BuddyProfileAddressRepo(_context);
+        public IBuddyProfileEducationRepository BuddyProfileEducationRepository => buddyProfileEducationRepository ?? new BuddyProfileEducationRepo(_context);
+        public IBuddyProfileExperienceRepository BuddyProfileExperienceRepository => buddyProfileExperienceRepository ?? new BuddyProfileExperienceRepo(_context);
 
 
         #endregion
@@ -71,6 +76,11 @@ namespace HookaTimes.DAL
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async virtual Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

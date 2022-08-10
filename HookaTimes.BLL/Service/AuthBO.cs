@@ -114,19 +114,94 @@ namespace HookaTimes.BLL.Service
 
         #endregion
 
+        #region GetProfile
+        public async Task<ResponseModel> GetProfile(int BuddyId, HttpRequest Request)
+        {
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
 
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
+
+
+            Profile_VM userProfile = new Profile_VM()
+            {
+                ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}",
+                Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
+                Email = currProfile.User.Email,
+                PhoneNumber = currProfile.User.PhoneNumber,
+                BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
+                GenderId = (int)currProfile.GenderId,
+                Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
+                AboutMe = currProfile.About ?? "",
+                Hobbies = currProfile.Hobbies ?? "",
+                MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
+                Height = (decimal)currProfile.Height,
+                Weight = (decimal)currProfile.Weight,
+                BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
+                Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
+                Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
+                SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "",
+                SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "",
+                SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "",
+                Interests = currProfile.Interests ?? "",
+                Profession = currProfile.Profession ?? "",
+                FirstName = currProfile.FirstName ?? "",
+                LastName = currProfile.LastName ?? "",
+                Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
+                {
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude,
+                    Title = x.Title
+                }).ToList(),
+                Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+                {
+                    Degree = x.Degree,
+                    StudiedFrom = x.StudiedFrom,
+                    StudiedTo = x.StudiedTo,
+                    University = x.University
+                }).ToList(),
+                Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+                {
+                    Place = x.Place,
+                    Position = x.Position,
+                    WorkedFrom = x.WorkedFrom,
+                    WorkedTo = x.WorkedTo
+                }).ToList()
+            };
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "";
+            responseModel.Data = new DataModel
+            {
+                Data = userProfile,
+                Message = ""
+            };
+            return responseModel;
+        }
+        #endregion
 
         #region UpdateProfile
-        public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
+        public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request)
         {
 
             try
             {
-                ApplicationUser aspuser = await _userManager.FindByIdAsync(uid);
+
+                bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
                 //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
                 ResponseModel responseModel = new ResponseModel();
 
-                if (aspuser == null)
+                if (!profileExist)
                 {
                     responseModel.StatusCode = 404;
                     responseModel.ErrorMessage = "User was not Found";
@@ -134,28 +209,27 @@ namespace HookaTimes.BLL.Service
                     return responseModel;
                 }
 
-                BuddyProfile currProfile = new BuddyProfile()
-                {
-                    Profession = model.Profession,
-                    Weight = model.Weight,
-                    MaritalStatus = model.MaritalStatus,
-                    Longitude = model.Longitude,
-                    About = model.AboutMe,
-                    BodyType = model.BodyType,
-                    Education = model.Education,
-                    CreatedDate = DateTime.UtcNow,
-                    DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime(),
-                    Eyes = model.Eyes,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    GenderId = model.GenderId,
-                    Hair = model.Hair,
-                    Height = model.Height,
-                    Hobbies = model.Hobbies,
-                    Interests = model.Interests,
-                    Latitude = model.Latitude,
+                BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
 
-                };
+                currProfile.Profession = model.Profession;
+                currProfile.Weight = model.Weight;
+                currProfile.MaritalStatus = model.MaritalStatus;
+                currProfile.About = model.AboutMe;
+                currProfile.BodyType = model.BodyType;
+                currProfile.CreatedDate = DateTime.UtcNow;
+                currProfile.DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime();
+                currProfile.Eyes = model.Eyes;
+                currProfile.FirstName = model.FirstName;
+                currProfile.LastName = model.LastName;
+                currProfile.GenderId = model.GenderId;
+                currProfile.Hair = model.Hair;
+                currProfile.Height = model.Height;
+                currProfile.Hobbies = model.Hobbies;
+                currProfile.Interests = model.Interests;
+                currProfile.SocialMediaLink2 = model.SocialMediaLink1;
+                currProfile.SocialMediaLink1 = model.SocialMediaLink2;
+                currProfile.SocialMediaLink3 = model.SocialMediaLink3;
+
 
 
                 IFormFile file = model.ImageFile;
@@ -166,30 +240,115 @@ namespace HookaTimes.BLL.Service
                     currProfile.Image = NewFileName;
                 }
 
+                await _context.SaveChangesAsync();
+
+                if (model.Education.Count > 0)
+                {
+
+                    foreach (var edu in model.Education)
+                    {
+                        BuddyProfileEducation newedu = new BuddyProfileEducation()
+                        {
+                            BuddyProfileId = BuddyId,
+                            Degree = edu.Degree,
+                            StudiedFrom = edu.StudiedFrom,
+                            StudiedTo = edu.StudiedTo,
+                            University = edu.University,
+                        };
+                        //await _uow.
+
+
+                    }
+
+                }
+
+
+                if (model.Experience.Count > 0)
+                {
+
+                    foreach (var exp in model.Experience)
+                    {
+                        BuddyProfileExperience newedu = new BuddyProfileExperience()
+                        {
+                            BuddyProfileId = BuddyId,
+                            Place = exp.Place,
+                            Position = exp.Position,
+                            WorkedFrom = exp.WorkedFrom,
+                            WorkedTo = exp.WorkedTo,
+                        };
+                        //await _uow.
+
+
+                    }
+
+                }
+
+                if (model.Addresses.Count > 0)
+                {
+
+                    foreach (var add in model.Addresses)
+                    {
+                        BuddyProfileAddress newedu = new BuddyProfileAddress()
+                        {
+                            BuddyProfileId = BuddyId,
+                            Latitude = add.Latitude,
+                            Longitude = add.Longitude,
+                            Title = add.Title,
+                        };
+                        //await _uow.
+
+
+                    }
+
+                }
+
 
                 await _context.SaveChangesAsync();
 
                 Profile_VM userProfile = new Profile_VM()
                 {
+                    ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}",
                     Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
-                    AboutMe = currProfile.About ?? "",
-                    Email = aspuser.Email ?? "",
+                    Email = currProfile.User.Email,
+                    PhoneNumber = currProfile.User.PhoneNumber,
                     BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
                     GenderId = (int)currProfile.GenderId,
                     Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
-                    ImageUrl = $"{Request.Scheme}://{Request.Host}/Buddies/{currProfile.Image}",
+                    AboutMe = currProfile.About ?? "",
+                    Hobbies = currProfile.Hobbies ?? "",
                     MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
                     Height = (decimal)currProfile.Height,
                     Weight = (decimal)currProfile.Weight,
                     BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
                     Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
                     Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
-                    //Education = aspuser.Education ?? "",
-                    //Profession = aspuser.Profession ?? "",
-                    //Interests = aspuser.Interests ?? "",
-                    //Hobbies = aspuser.Hobbies ?? "",
-
-
+                    SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "",
+                    SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "",
+                    SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "",
+                    Interests = currProfile.Interests ?? "",
+                    Profession = currProfile.Profession ?? "",
+                    FirstName = currProfile.FirstName ?? "",
+                    LastName = currProfile.LastName ?? "",
+                    Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
+                    {
+                        Latitude = x.Latitude,
+                        Longitude = x.Longitude,
+                        Title = x.Title
+                    }).ToList(),
+                    Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+                    {
+                        Degree = x.Degree,
+                        StudiedFrom = x.StudiedFrom,
+                        StudiedTo = x.StudiedTo,
+                        University = x.University
+                    }).ToList(),
+                    Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+                    {
+                        Place = x.Place,
+                        Position = x.Position,
+                        WorkedFrom = x.WorkedFrom,
+                        WorkedTo = x.WorkedTo
+                    }).ToList()
                 };
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
