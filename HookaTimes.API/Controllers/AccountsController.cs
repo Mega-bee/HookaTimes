@@ -134,6 +134,17 @@ namespace HookaTimes.API.Controllers
         }
         #endregion
 
+        #region Available Toggle
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        public async Task<IActionResult> IsAvailableToggle()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _auth.IsAvailableToggle(userBuddyId));
+        }
+        #endregion
+
         //[HttpGet]
         //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         //public async Task<IActionResult> GetUserProfile()

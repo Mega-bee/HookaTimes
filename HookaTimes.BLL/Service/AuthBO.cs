@@ -114,6 +114,7 @@ namespace HookaTimes.BLL.Service
 
         #endregion
 
+
         #region GetProfile
         public async Task<ResponseModel> GetProfile(int BuddyId, HttpRequest Request)
         {
@@ -188,6 +189,7 @@ namespace HookaTimes.BLL.Service
             return responseModel;
         }
         #endregion
+
 
         #region UpdateProfile
         public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request)
@@ -656,7 +658,6 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
-
         #region OTP
         public async Task<ResponseModel> GenerateOtp(string Email)
         {
@@ -838,6 +839,27 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
+        #region Available Toggle
+        public async Task<ResponseModel> IsAvailableToggle(int buddyId)
+        {
+            var responseModel = new ResponseModel();
+            BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.Id == buddyId && x.IsDeleted == false);
+            if (buddy==null)
+            {
+                responseModel.ErrorMessage = "User was not found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+            }
+
+            buddy.IsAvailable=!buddy.IsAvailable;
+            
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = "", Message = $"{((bool)buddy.IsAvailable ? "Available": "Not Available")}"};
+            return responseModel;
+        }
+
+        #endregion
 
 
 
