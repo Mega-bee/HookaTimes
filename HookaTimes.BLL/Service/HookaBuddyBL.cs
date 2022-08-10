@@ -58,51 +58,51 @@ namespace HookaTimes.BLL.Service
             BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
 
 
-            Profile_VM userProfile = new Profile_VM()
+            Profile_VM userProfile = new Profile_VM();
+
+            userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
+            userProfile.Name = currProfile.FirstName + " " + currProfile.LastName ?? "";
+            userProfile.Email = currProfile.User.Email ?? "";
+            userProfile.PhoneNumber = currProfile.User.PhoneNumber ?? "";
+            userProfile.BirthDate = currProfile.DateOfBirth != default ? currProfile.DateOfBirth : new DateTime();
+            userProfile.GenderId = currProfile.GenderId;
+            userProfile.Gender = currProfile.GenderId != null ? Enum.GetName(typeof(GenderEnum), currProfile.GenderId) : "";
+            userProfile.AboutMe = currProfile.About ?? "";
+            userProfile.Hobbies = currProfile.Hobbies ?? "";
+            userProfile.MaritalStatus = currProfile.MaritalStatus != null ? Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) : "";
+            userProfile.Height = currProfile.Height != default ? currProfile.Height : default;
+            userProfile.Weight = currProfile.Weight != default ? currProfile.Weight : default;
+            userProfile.BodyType = currProfile.BodyType != null ? Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) : "";
+            userProfile.Eyes = currProfile.Eyes != null ? Enum.GetName(typeof(EyeEnum), currProfile.Eyes) : "";
+            userProfile.Hair = currProfile.Hair != null ? Enum.GetName(typeof(HairEnum), currProfile.Hair) : "";
+            userProfile.SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "";
+            userProfile.SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "";
+            userProfile.SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "";
+            userProfile.Interests = currProfile.Interests ?? "";
+            userProfile.Profession = currProfile.Profession ?? "";
+            userProfile.FirstName = currProfile.FirstName ?? "";
+            userProfile.LastName = currProfile.LastName ?? "";
+            userProfile.Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
             {
-                ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}",
-                Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
-                Email = currProfile.User.Email,
-                PhoneNumber = currProfile.User.PhoneNumber,
-                BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
-                GenderId = (int)currProfile.GenderId,
-                Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
-                AboutMe = currProfile.About ?? "",
-                Hobbies = currProfile.Hobbies ?? "",
-                MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
-                Height = (decimal)currProfile.Height,
-                Weight = (decimal)currProfile.Weight,
-                BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
-                Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
-                Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
-                SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "",
-                SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "",
-                SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "",
-                Interests = currProfile.Interests ?? "",
-                Profession = currProfile.Profession ?? "",
-                FirstName = currProfile.FirstName ?? "",
-                LastName = currProfile.LastName ?? "",
-                Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
-                {
-                    Latitude = x.Latitude,
-                    Longitude = x.Longitude,
-                    Title = x.Title
-                }).ToList(),
-                Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
-                {
-                    Degree = x.Degree,
-                    StudiedFrom = x.StudiedFrom,
-                    StudiedTo = x.StudiedTo,
-                    University = x.University
-                }).ToList(),
-                Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
-                {
-                    Place = x.Place,
-                    Position = x.Position,
-                    WorkedFrom = x.WorkedFrom,
-                    WorkedTo = x.WorkedTo
-                }).ToList()
-            };
+                Latitude = x.Latitude,
+                Longitude = x.Longitude,
+                Title = x.Title
+            }).ToList();
+            userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+            {
+                Degree = x.Degree,
+                StudiedFrom = x.StudiedFrom,
+                StudiedTo = x.StudiedTo,
+                University = x.University
+            }).ToList();
+            userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+            {
+                Place = x.Place,
+                Position = x.Position,
+                WorkedFrom = x.WorkedFrom,
+                WorkedTo = x.WorkedTo
+            }).ToList();
+
             responseModel.StatusCode = 200;
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
@@ -111,8 +111,8 @@ namespace HookaTimes.BLL.Service
                 Message = ""
             };
             return responseModel;
-        }
 
+        }
         public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)
         {
             ResponseModel responseModel = new ResponseModel();

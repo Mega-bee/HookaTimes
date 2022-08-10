@@ -119,14 +119,14 @@ namespace HookaTimes.BLL.ViewModels
         public string Email { get; set; }
 
         public string Gender { get; set; }
-        public int GenderId { get; set; }
-        public DateTime BirthDate { get; set; }
+        public int? GenderId { get; set; }
+        public DateTime? BirthDate { get; set; }
 
 
         public string AboutMe { get; set; }
         public string MaritalStatus { get; set; }
         public decimal? Height { get; set; }
-        public decimal Weight { get; set; }
+        public decimal? Weight { get; set; }
         public string BodyType { get; set; }
         public string Eyes { get; set; }
         public string Hair { get; set; }

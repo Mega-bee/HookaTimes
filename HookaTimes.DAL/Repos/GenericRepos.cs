@@ -32,6 +32,20 @@ namespace HookaTimes.DAL.Repos
             return entity;
         }
 
+
+        public async Task<T> Add(T entity) // without Save
+        {
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return entity;
+        }
+
         public async Task Delete(int id)
         {
             T t = await GetById(id);
