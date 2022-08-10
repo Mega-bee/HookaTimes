@@ -30,6 +30,8 @@ namespace HookaTimes.DAL
         private IBuddyRepository buddyRepository;
         private IFavoritePlaceRepository favoritePlaceRepository;
         private IPlaceReviewRepo placeReviewRepository;
+        private ISentNotificationRepo sentNotificationRepository;
+        private IInvDetailRepo invDetailRepository;
 
 
         #endregion
@@ -43,6 +45,8 @@ namespace HookaTimes.DAL
         public IBuddyRepository BuddyRepository => buddyRepository ?? new BuddyRepo(_context);
         public IFavoritePlaceRepository FavoritePlaceRepository => favoritePlaceRepository ?? new FavoritePlaceRepo(_context);
         public IPlaceReviewRepo PlaceReviewRepository => placeReviewRepository ?? new PlaceReviewRepo(_context);
+        public ISentNotificationRepo SentNotificationsRepository => SentNotificationsRepository ?? new SentNotificationRepo(_context);
+        public IInvDetailRepo InvDetailRepository => InvDetailRepository ?? new InvDetailRepo(_context);
 
 
         #endregion

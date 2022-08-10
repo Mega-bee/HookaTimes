@@ -36,6 +36,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IAuthBO, AuthBO>();
             _services.AddScoped<IHookaPlaceBL, HookaPlaceBL>();
             _services.AddScoped<IHookaBuddyBL, HookaBuddyBL>();
+            _services.AddScoped<IHookaNotificationBL, HookaNotificationBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
