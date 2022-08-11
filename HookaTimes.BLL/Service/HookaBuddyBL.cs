@@ -20,7 +20,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> GetBuddies(HttpRequest request,int userBuddyId, string uid)
+        public async Task<ResponseModel> GetBuddies(HttpRequest request, int userBuddyId, string uid)
         {
             ResponseModel responseModel = new ResponseModel();
             int buddyId = await _uow.BuddyRepository.GetAll(b => b.UserId == uid).Select(b => b.Id).FirstOrDefaultAsync();
@@ -32,7 +32,7 @@ namespace HookaTimes.BLL.Service
                 IsAvailable = x.IsAvailable ?? false,
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}{x.Image}",
-                 HasPendingInvite = x.InvitationToBuddies.Where(i=> i.IsDeleted == false && i.FromBuddyId == userBuddyId && i.InvitationStatusId == 1).Any(),
+                HasPendingInvite = x.InvitationToBuddies.Where(i => i.IsDeleted == false && i.FromBuddyId == userBuddyId && i.InvitationStatusId == 1).Any(),
                 //Rating = x.Ra
             }).ToListAsync();
             responseModel.ErrorMessage = "";
@@ -56,7 +56,7 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
 
-            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, y => y.BuddyProfileAddresses, y => y.BuddyProfileEducations, y => y.BuddyProfileExperiences).FirstOrDefaultAsync();
 
 
             Profile_VM userProfile = new Profile_VM();
@@ -83,25 +83,25 @@ namespace HookaTimes.BLL.Service
             userProfile.Profession = currProfile.Profession ?? "";
             userProfile.FirstName = currProfile.FirstName ?? "";
             userProfile.LastName = currProfile.LastName ?? "";
-            userProfile.Addresses = currProfile.BuddyProfileAddresses.Select(x => new BuddyProfileAddressVM
+            userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
             {
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
-                Title = x.Title
+                Title = x.Title,
             }).ToList();
             userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
             {
                 Degree = x.Degree,
                 StudiedFrom = x.StudiedFrom,
                 StudiedTo = x.StudiedTo,
-                University = x.University
+                University = x.University,
             }).ToList();
             userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
             {
                 Place = x.Place,
                 Position = x.Position,
                 WorkedFrom = x.WorkedFrom,
-                WorkedTo = x.WorkedTo
+                WorkedTo = x.WorkedTo,
             }).ToList();
 
             responseModel.StatusCode = 200;

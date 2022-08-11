@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using HookaTimes.DAL.HookaTimesModels;
+using System.Collections.Generic;
 
 namespace HookaTimes.DAL.Data
 {
@@ -50,6 +48,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<PlacesProfile> PlacesProfiles { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -112,7 +112,8 @@ namespace HookaTimes.DAL.Repos
         public async Task<T> Update(T entity)
         {
             //_context.Set<T>().Update(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            //_context.Entry(entity).State = EntityState.Modified; // before core 
+            _context.Attach(entity).State = EntityState.Modified; // After core 
             //_context.Entry(entity).CurrentValues.SetValues(entity);
 
             await _context.SaveChangesAsync();
