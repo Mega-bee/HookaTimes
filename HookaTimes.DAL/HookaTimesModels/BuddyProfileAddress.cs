@@ -18,6 +18,9 @@ namespace HookaTimes.DAL.HookaTimesModels
         public string Latitude { get; set; }
         [StringLength(255)]
         public string Title { get; set; }
+        public bool? IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
 
         [ForeignKey("BuddyProfileId")]
         [InverseProperty("BuddyProfileAddresses")]
