@@ -12,6 +12,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         public Product()
         {
             Carts = new HashSet<Cart>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         [Key]
@@ -44,5 +45,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         public virtual ProductCategory ProductCategory { get; set; }
         [InverseProperty("Product")]
         public virtual ICollection<Cart> Carts { get; set; }
+        [InverseProperty("Product")]
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

@@ -6,31 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HookaTimes.DAL.HookaTimesModels
 {
-    [Table("BuddyProfileAddress")]
-    public partial class BuddyProfileAddress
+    [Table("OrderStatus")]
+    public partial class OrderStatus
     {
-        public BuddyProfileAddress()
+        public OrderStatus()
         {
             Orders = new HashSet<Order>();
         }
 
         [Key]
         public int Id { get; set; }
-        public int? BuddyProfileId { get; set; }
-        [StringLength(255)]
-        public string Longitude { get; set; }
-        [StringLength(255)]
-        public string Latitude { get; set; }
         [StringLength(255)]
         public string Title { get; set; }
         public bool? IsDeleted { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreatedDate { get; set; }
 
-        [ForeignKey("BuddyProfileId")]
-        [InverseProperty("BuddyProfileAddresses")]
-        public virtual BuddyProfile BuddyProfile { get; set; }
-        [InverseProperty("Address")]
+        [InverseProperty("OrderStatus")]
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

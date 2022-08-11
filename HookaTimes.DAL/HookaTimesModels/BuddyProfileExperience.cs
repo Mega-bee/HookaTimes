@@ -21,6 +21,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         [Column("workedTo")]
         [StringLength(255)]
         public string WorkedTo { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
 
         [ForeignKey("BuddyProfileId")]
         [InverseProperty("BuddyProfileExperiences")]
