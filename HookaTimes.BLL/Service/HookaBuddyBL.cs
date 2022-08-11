@@ -20,7 +20,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> GetBuddies(HttpRequest request,int userBuddyId, string uid)
+        public async Task<ResponseModel> GetBuddies(HttpRequest request, int userBuddyId, string uid)
         {
             ResponseModel responseModel = new ResponseModel();
             int buddyId = await _uow.BuddyRepository.GetAll(b => b.UserId == uid).Select(b => b.Id).FirstOrDefaultAsync();
@@ -32,7 +32,7 @@ namespace HookaTimes.BLL.Service
                 IsAvailable = x.IsAvailable ?? false,
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}{x.Image}",
-                 HasPendingInvite = x.InvitationToBuddies.Where(i=> i.IsDeleted == false && i.FromBuddyId == userBuddyId && i.InvitationStatusId == 1).Any(),
+                HasPendingInvite = x.InvitationToBuddies.Where(i => i.IsDeleted == false && i.FromBuddyId == userBuddyId && i.InvitationStatusId == 1).Any(),
                 //Rating = x.Ra
             }).ToListAsync();
             responseModel.ErrorMessage = "";

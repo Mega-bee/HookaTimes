@@ -131,7 +131,7 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
 
-            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User).FirstOrDefaultAsync();
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, x => x.BuddyProfileAddresses, x => x.BuddyProfileEducations, x => x.BuddyProfileExperiences).FirstOrDefaultAsync();
 
 
             Profile_VM userProfile = new Profile_VM();
