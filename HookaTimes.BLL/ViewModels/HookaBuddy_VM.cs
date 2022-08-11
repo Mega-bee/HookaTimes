@@ -14,5 +14,6 @@ namespace HookaTimes.BLL.ViewModels
         public bool? IsAvailable { get; set; }
         public float Rating { get; set; }
         public string Image { get; set; }
+        public bool HasPendingInvite { get; set; }
     }
 }

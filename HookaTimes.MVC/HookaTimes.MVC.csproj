@@ -29,6 +29,7 @@
     <Folder Include="wwwroot\FrontendAssets\Videos\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
     <Folder Include="wwwroot\Images\Menus\" />
+    <Folder Include="wwwroot\Images\Products\" />
   </ItemGroup>
 
 </Project>

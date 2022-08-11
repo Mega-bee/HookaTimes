@@ -2,6 +2,7 @@
 using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -72,10 +73,13 @@ namespace HookaTimes.API.Controllers
         #region UpdateProfile
         [HttpPut]
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> UpdateProfile([FromForm] CompleteProfile_VM model)
+        public async Task<IActionResult> UpdateProfile([FromBody] CompleteProfile_VM model)
         {
-            string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            ResponseModel completeProfile = await _auth.CompleteProfile(model, uid, Request);
+            //string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+
+            ResponseModel completeProfile = await _auth.CompleteProfile(model, userBuddyId, Request);
             return Ok(completeProfile);
 
         }
@@ -115,6 +119,31 @@ namespace HookaTimes.API.Controllers
         }
         #endregion
 
+        #region GetProfile
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        public async Task<IActionResult> GetProfile()
+        {
+            //string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+
+            ResponseModel buddy = await _auth.GetProfile(userBuddyId, Request);
+            return Ok(buddy);
+
+        }
+        #endregion
+
+        #region Available Toggle
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        public async Task<IActionResult> IsAvailableToggle()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _auth.IsAvailableToggle(userBuddyId));
+        }
+        #endregion
 
         //[HttpGet]
         //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]

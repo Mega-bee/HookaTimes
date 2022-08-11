@@ -3,6 +3,7 @@
 using HookaTimes.DAL.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -30,6 +31,32 @@ namespace HookaTimes.DAL.Repos
                 throw;
             }
             return entity;
+        }
+
+
+        public async Task<T> Add(T entity) // without Save
+        {
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return entity;
+        }
+
+        public async Task AddRange(List<T> entities) // without Save
+        {
+            try
+            {
+                await _context.Set<T>().AddRangeAsync(entities);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task Delete(int id)
@@ -85,7 +112,8 @@ namespace HookaTimes.DAL.Repos
         public async Task<T> Update(T entity)
         {
             //_context.Set<T>().Update(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            //_context.Entry(entity).State = EntityState.Modified; // before core 
+            _context.Attach(entity).State = EntityState.Modified; // After core 
             //_context.Entry(entity).CurrentValues.SetValues(entity);
 
             await _context.SaveChangesAsync();
