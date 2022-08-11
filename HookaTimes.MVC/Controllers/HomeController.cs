@@ -44,6 +44,11 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
+        public IActionResult BecomePartner()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult QuickView()
         {

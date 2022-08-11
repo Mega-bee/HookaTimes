@@ -4,6 +4,119 @@
 
 
 <style>
+
+ /*
+// .get-app_form
+*/
+
+.get-app_form{
+    margin: 0 0 15px;
+}
+.div-block-77 {
+    display: flex;
+    justify-content: flex-start;
+    grid-column-gap: 3em;
+    grid-row-gap: 3em;
+}
+.w-radio {
+    display: block;
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+.w-form-formradioinput--inputType-custom {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-color: #ccc;
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+    border-right-color: #ccc;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    width: 12px;
+    height: 12px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+.w-radio-input {
+    margin: 4px3px 0 0;
+    margin-top: 3px ;
+    line-height: normal;
+    float: left;
+    margin-left: -20px;
+}
+.div-block-78 {
+    display: flex;
+}
+.text-field-3 {
+    margin-bottom: 0px;
+    width:100%;
+}
+.w-input, .w-select {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+.submit-button-3 {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    background-color: #fdcf51;
+    display: inline-block;
+    padding: 9px 15px;
+    color: white;
+    border: 0;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 0;
+}
+.w-form-done {
+    display: none;
+    padding: 20px;
+    text-align: center;
+    background-color: #dddddd;
+}
+.w-form-fail {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffdede;
+}
+
+
+ /*
+// .rate button
+*/
+.rate-card_wrap {
+    display: flex;
+    padding: 0.5em 1em 0.5em 1.2em;
+    align-items: center;
+    grid-column-gap: 0.8em;
+    grid-row-gap: 0.8em;
+    background-color: #fdcf51;
+}
+.rate-number {
+    font-size: 1.3em;
+    line-height: 1.2;
+    font-weight: 600;
+}
+.rate-icon {
+    width: 13px;
+}
+
+
     .slidersCustom {
         background-position: center;
         background-size: contain;
@@ -27,6 +140,7 @@
     }
 
     ._1-6-h2 {
+        color:#000;
         margin-top: 0px;
         margin-bottom: 0px;
         font-size: 1.6em;
@@ -38,6 +152,15 @@
         padding: 4em;
         background-color: #fff;
         box-shadow: 8px 8px 20px 0 rgb(0 0 0 / 20%);
+    }
+
+    .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
+    margin-bottom: 0px;
+    }
+
+
+    .block-products__list {
+            width:100%;
     }
 
     .product-card__buttons > *:first-child {
@@ -75,6 +198,11 @@
         line-height: 1.2;
         font-weight: 600;
     }
+
+    a:hover {
+    color: #ffd333 !important;
+    text-decoration: none;
+}
 
     .post-card__content.is--cuisines {
         color: #706f6f;
@@ -124,10 +252,10 @@
             margin: 1em 6px;
         }
 
-  .white-background{
-      box-shadow: none;
-      padding: 4em 0em;
-  }
+        .white-background{
+          box-shadow: none;
+          padding: 4em 0em;
+      }
 
         .get-app_inside-wrap {
             flex-direction: column;
@@ -136,6 +264,7 @@
 
         .get-app_img-wrap {
             width: 100% !important;
+            margin-left: 0rem;
         }
 
         .get-app_content-wrap {
@@ -487,6 +616,32 @@
         </div>
         </div>*@
     <!-- .block-features / end -->
+
+     <!-- .get-app -->
+    <div class="get-app_section">
+        <div class="container">
+            <div class="get-app_inside-wrap">
+                <div class="get-app_img-wrap">
+                    <img alt="get-hooka-app" src="https://b.zmtcdn.com/web/home/dining/53bf8be00487075667c5f49d4fd677651588271050.png" loading="auto" class="app-image">
+                </div>
+                <div class="get-app_content-wrap">
+                    <h2 class="get-app_title">Get the Hooka app</h2>
+                    <p class="get-app_p">We will send you a link, open it on your phone to download the app</p>
+                    <div class="1-margin">
+                        <div class="get-app_form"><form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get" aria-label="Email Form 2"><div class="div-block-77"><label class="w-radio"><div class="w-form-formradioinput w-form-formradioinput--inputType-custom app-link w-radio-input"></div><input type="radio" data-name="Radio 3" id="radio-3" name="radio" value="Radio" style="opacity:0;position:absolute;z-index:-1"><span class="w-form-label" for="radio-3">Email</span></label><label class="w-radio"><div class="w-form-formradioinput w-form-formradioinput--inputType-custom app-link w-radio-input w--redirected-checked"></div><input type="radio" data-name="Radio 3" id="radio-3" name="radio" value="Radio" style="opacity:0;position:absolute;z-index:-1"><span class="w-form-label" for="radio-3">Phone</span></label></div><div class="div-block-78"><input type="text" class="text-field-3 w-input" maxlength="256" name="field-3" data-name="Field 3" placeholder="Example Text" id="field-3" required=""><input type="submit" value="Share app link" data-wait="Please wait..." class="submit-button-3 w-button"></div></form><div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form 2 success"><div>Thank you! Your submission has been received!</div></div><div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form 2 failure"><div>Oops! Something went wrong while submitting the form.</div></div></div>
+                    </div>
+                    <p class="get-app_light-p">Download app from</p>
+                    <div class="download-flex">
+                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/23e930757c3df49840c482a8638bf5c31556001144.png" loading="lazy" class="app-store_image"></a>
+                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/9f0c85a5e33adb783fa0aef667075f9e1556003622.png" loading="lazy" class="app-store_image"></a>
+
+            </div>
+           </div>
+       </div>
+   </div>
+</div>
+<!-- .get-app / end -->
+
     <!-- .block-products -->
     <div class="block block-products block-products--layout--large-last" id="products" data-mobile-grid-columns="2">
         <div class="container">
@@ -662,7 +817,7 @@
                             </div>
                         </div>
 
-                        <div class="block-products__list-item">
+                      @*  <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
@@ -672,7 +827,7 @@
                                 </button>
                                 <div class="product-card__image product-image">
                                     <a href="product.html" class="product-image__body">
-                                        @*<img class="product-image__img" src="~/FrontendAssets/images/products/product-3.jpg" alt="">*@
+                                       <img class="product-image__img" src="~/FrontendAssets/images/products/product-3.jpg" alt="">
                                         <img class="product-image__img" src="~/FrontendAssets/images/products/charchoal_637639932941301781.png" alt="">
                                     </a>
                                 </div>
@@ -793,17 +948,17 @@
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                         </button>
-                                        @*  <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
+                                         <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
                                             <svg width="16px" height="16px">
                                             <use xlink:href="/FrontendAssets/images/sprite.svg#compare-16"></use>
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                            </button>*@
+                                            </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="block-products__list-item">
+                        </div>*@
+                       @* <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
@@ -811,9 +966,9 @@
                                     </svg>
                                     <span class="fake-svg-icon"></span>
                                 </button>
-                                @*  <div class="product-card__badges-list">
+                                 <div class="product-card__badges-list">
                                     <div class="product-card__badge product-card__badge--sale">Sale</div>
-                                    </div>*@
+                                    </div>
                                 <div class="product-card__image product-image">
                                     <a href="product.html" class="product-image__body">
                                         <img class="product-image__img" src="~/FrontendAssets/images/products/pipe_637489186939750111.jpg" alt="">
@@ -924,10 +1079,10 @@
                                     <div class="product-card__availability">
                                         Availability: <span class="text-success">In Stock</span>
                                     </div>
-                                    @*<div class="product-card__prices">
+                                    <div class="product-card__prices">
                                         <span class="product-card__new-price">$949.00</span>
                                         <span class="product-card__old-price">$1189.00</span>
-                                        </div>*@
+                                        </div>
                                     <div class="product-card__prices">
                                         10 AED
                                     </div>
@@ -940,17 +1095,17 @@
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                         </button>
-                                        @* <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
+                                         <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
                                             <svg width="16px" height="16px">
                                             <use xlink:href="/FrontendAssets/images/sprite.svg#compare-16"></use>
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                            </button>*@
+                                            </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="block-products__list-item">
+                        </div>*@
+                       @* <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
@@ -1080,17 +1235,17 @@
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                         </button>
-                                        @*  <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
+                                          <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
                                             <svg width="16px" height="16px">
                                             <use xlink:href="/FrontendAssets/images/sprite.svg#compare-16"></use>
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                            </button>*@
+                                            </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="block-products__list-item">
+                        </div>*@
+                        @*<div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
@@ -1220,24 +1375,25 @@
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                         </button>
-                                        @*<button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
+                                        <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
                                             <svg width="16px" height="16px">
                                             <use xlink:href="/FrontendAssets/images/sprite.svg#compare-16"></use>
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                            </button>*@
+                                            </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="block-products__list-item">
+                        </div>*@
+                        @*<div class="
+                        block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
-                                @* <button class="product-card__quickview" type="button">
+                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#quickview-16"></use>
                                     </svg>
                                     <span class="fake-svg-icon"></span>
-                                    </button>*@
+                                    </button>
                                 <div class="product-card__image product-image">
                                     <a href="product.html" class="product-image__body">
                                         <img class="product-image__img" src="~/FrontendAssets/images/products/capsule box_637639933834006807.jpg" alt="">
@@ -1360,16 +1516,16 @@
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
                                         </button>
-                                        @* <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
+                                         <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
                                             <svg width="16px" height="16px">
                                             <use xlink:href="/FrontendAssets/images/sprite.svg#compare-16"></use>
                                             </svg>
                                             <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                                            </button>*@
+                                            </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     @*  <div class="block-products__featured">
                         <div class="block-products__featured-item">
@@ -1536,12 +1692,12 @@
     </div>
 </div>*@
 <!-- .block-banner / end -->
-<!-- .block-posts -->
+<!-- .block-places -->
 <div class="block block-posts" data-layout="grid-3" data-mobile-columns="1">
     <div class="container">
       <div class="white-background">
         <div class="block-header">
-            <img src="https://uploads-ssl.webflow.com/62d93fe56471ce4a6284ae8f/62d94d34860393c6dfcf9a9f_Path%2032.svg" loading="lazy" alt="" class="icons">
+            <img src="/FrontendAssets/images/svg/Group 36.svg" loading="lazy" alt="" class="icons">
             <h2 class="_1-6-h2">HookaTimes Places</h2>
         </div>
         <div class="block-products__body">
@@ -1765,37 +1921,15 @@
             </div>
         </div>
     </div>
-    <!-- .block-posts / end -->
-    <!-- .get-app -->
-    <div class="get-app_section">
-        <div class="container">
-            <div class="get-app_inside-wrap">
-                <div class="get-app_img-wrap">
-                    <img alt="get-hooka-app" src="https://b.zmtcdn.com/web/home/dining/53bf8be00487075667c5f49d4fd677651588271050.png" loading="auto" class="app-image">
-                </div>
-                <div class="get-app_content-wrap">
-                    <h2 class="get-app_title">Get the Hooka app</h2>
-                    <p class="get-app_p">We will send you a link, open it on your phone to download the app</p>
-                    <div class="1-margin">
-                    </div>
-                    <p class="get-app_light-p">Download app from</p>
-                    <div class="download-flex">
-                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/23e930757c3df49840c482a8638bf5c31556001144.png" loading="lazy" class="app-store_image"></a>
-                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/9f0c85a5e33adb783fa0aef667075f9e1556003622.png" loading="lazy" class="app-store_image"></a>
+    <!-- .block-places / end -->
 
-            </div>
-           </div>
-       </div>
-   </div>
-</div>
-<!-- .get-app / end -->
 
 <!-- .block-buddies -->
 <div class="block block-posts" data-layout="grid-3" data-mobile-columns="1">
     <div class="container">
       <div class="white-background">
         <div class="block-header">
-            <img src="https://uploads-ssl.webflow.com/62d93fe56471ce4a6284ae8f/62d94d34860393c6dfcf9a9f_Path%2032.svg" loading="lazy" alt="" class="icons">
+            <img src="/FrontendAssets/images/svg/Group 41.svg" loading="lazy" alt="" class="icons">
             <h2 class="_1-6-h2">Hooka Buddies </h2>
         </div>
         <div class="block-products__body">

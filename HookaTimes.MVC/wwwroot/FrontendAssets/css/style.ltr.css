@@ -1190,6 +1190,31 @@ h6 {
     padding: 1.375rem;
   }
 }
+
+
+/*
+// .rate button
+*/
+.rate-card_wrap {
+    display: flex;
+    padding: 0.5em 1em 0.5em 1.2em;
+    align-items: center;
+    grid-column-gap: 0.8em;
+    grid-row-gap: 0.8em;
+    background-color: #fdcf51;
+}
+
+.rate-number {
+    font-size: 1.3em;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.rate-icon {
+    width: 13px;
+}
+
+
 /*
 // .card-table
 */
@@ -2289,8 +2314,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   color: #adadad;
 }
 
+a:hover {
+    color: #ffd333 !important;
+    text-decoration: none;
+}
+
 .post-card__name {
-  font-size: 20px;
+  font-size: 1.2em;
   line-height: 1.125;
   font-weight: 500;
 }
@@ -12382,6 +12412,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .block-products__list {
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

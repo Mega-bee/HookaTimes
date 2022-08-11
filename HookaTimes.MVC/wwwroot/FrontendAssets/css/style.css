@@ -2476,7 +2476,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   z-index: 1;
 }
 .post-card__image:hover ::before {
-  opacity: 1;
+  opacity: 0 !important;
 }
 
 .post-card__category {
@@ -2492,13 +2492,19 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   color: #1a66ff;
 }
 
+a:hover {
+    color: #ffd333 !important;
+    text-decoration: none;
+}
+
+
 .post-card__date {
   font-size: 14px;
   color: #adadad;
 }
 
 .post-card__name {
-  font-size: 20px;
+  font-size: 1.2em ;
   line-height: 1.125;
   font-weight: 500;
 }
@@ -7700,6 +7706,29 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
             justify-content: center;
   }
 }
+
+/*
+// .rate button
+*/
+.rate-card_wrap {
+    display: flex;
+    padding: 0.5em 1em 0.5em 1.2em;
+    align-items: center;
+    grid-column-gap: 0.8em;
+    grid-row-gap: 0.8em;
+    background-color: #fdcf51;
+}
+.rate-number {
+    font-size: 1.3em;
+    line-height: 1.2;
+    font-weight: 600;
+}
+.rate-icon {
+    width: 13px;
+}
+
+
+
 /*
 // .site-footer
 */
@@ -13816,6 +13845,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .block-products__list {
+    width:100% !important;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
