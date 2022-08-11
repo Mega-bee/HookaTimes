@@ -3,6 +3,7 @@
 using HookaTimes.DAL.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -44,6 +45,18 @@ namespace HookaTimes.DAL.Repos
                 throw;
             }
             return entity;
+        }
+
+        public async Task AddRange(List<T> entities) // without Save
+        {
+            try
+            {
+                await _context.Set<T>().AddRangeAsync(entities);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task Delete(int id)

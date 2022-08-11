@@ -36,6 +36,9 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<InvitationStatus> InvitationStatuses { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
         public virtual DbSet<PhoneOtp> PhoneOtps { get; set; }
         public virtual DbSet<PlaceAlbum> PlaceAlbums { get; set; }
         public virtual DbSet<PlaceFilter> PlaceFilters { get; set; }
@@ -46,14 +49,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //                optionsBuilder.UseSqlServer("Data Source=tiaragroup.database.windows.net;Initial Catalog=HookaTimes;User Id=adminall;Password=P@ssw0rd@123");
-            //            }
-        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -172,6 +168,37 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.InvitationToBuddies)
                     .HasForeignKey(d => d.ToBuddyId)
                     .HasConstraintName("FK_Invitation_BuddyProfile1");
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.AddressId)
+                    .HasConstraintName("FK_Order_BuddyProfileAddress");
+
+                entity.HasOne(d => d.Buddy)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.BuddyId)
+                    .HasConstraintName("FK_Order_BuddyProfile");
+
+                entity.HasOne(d => d.OrderStatus)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.OrderStatusId)
+                    .HasConstraintName("FK_Order_OrderStatus");
+            });
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderItems)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK_OrderItem_Order");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.OrderItems)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_OrderItem_Product");
             });
 
             modelBuilder.Entity<PlaceAlbum>(entity =>

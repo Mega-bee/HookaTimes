@@ -31,6 +31,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IProductBL, ProductBL>();
             _services.AddScoped<IOfferBL, OfferBL>();
             _services.AddScoped<ICartBL, CartBL>();
+            _services.AddScoped<IOrderBL, OrderBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
@@ -47,6 +48,8 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<BuddyProfileExperience>, GenericRepos<BuddyProfileExperience>>();
             _services.AddScoped<IGenericRepos<BuddyProfileEducation>, GenericRepos<BuddyProfileEducation>>();
             _services.AddScoped<IGenericRepos<BuddyProfileAddress>, GenericRepos<BuddyProfileAddress>>();
+            _services.AddScoped<IGenericRepos<Order>, GenericRepos<Order>>();
+            _services.AddScoped<IGenericRepos<OrderItem>, GenericRepos<OrderItem>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 
