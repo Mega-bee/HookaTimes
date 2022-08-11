@@ -164,7 +164,7 @@ namespace HookaTimes.BLL.ViewModels
         public string SocialMediaLink1 { get; set; }
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }
-        public List<BuddyProfileAddressVM> Addresses { get; set; }
+        public List<BuddyProfileAddressPutVM> Addresses { get; set; }
         public List<BuddyProfileEducationVM> Education { get; set; }
         public List<BuddyProfileExperienceVM> Experience { get; set; }
 
@@ -180,6 +180,12 @@ namespace HookaTimes.BLL.ViewModels
     }
 
 
+    public partial class BuddyProfileAddressPutVM : BuddyProfileAddressVM
+    {
+        public bool IsDeleted { get; set; }
+        public bool IsAdded { get; set; }
+    }
+
     public partial class BuddyProfileEducationVM
     {
 
@@ -191,6 +197,7 @@ namespace HookaTimes.BLL.ViewModels
         public string StudiedFrom { get; set; }
         [StringLength(255)]
         public string StudiedTo { get; set; }
+
     }
 
 
@@ -204,6 +211,7 @@ namespace HookaTimes.BLL.ViewModels
         public string WorkedFrom { get; set; }
         [StringLength(255)]
         public string WorkedTo { get; set; }
+
     }
 
     public partial class ConsumeChangePasswordToken_VM

@@ -20,6 +20,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public string StudiedFrom { get; set; }
         [StringLength(255)]
         public string StudiedTo { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
 
         [ForeignKey("BuddyProfileId")]
         [InverseProperty("BuddyProfileEducations")]
