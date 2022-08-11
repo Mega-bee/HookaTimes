@@ -33,6 +33,24 @@
     color: #000;
     }
 
+    .contact-button {
+        margin-right:3em;
+   padding: 0.8em;
+    background-color: #fdcf51;
+    -webkit-transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+    transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+    color: #000;
+    text-decoration: none;
+}
+.button-text {
+    font-size: 0.94em;
+}
+.nav-panel__indicators {
+
+
+    align-items: center;
+}
+
 </style>
 
 <div class="site-header__nav-panel">
@@ -65,6 +83,7 @@
                         <a asp-action="Careers" asp-controller="home" class="navigation-item w-inline-block">
                             <div class="navigation-item_text">Careers</div>
                         </a>
+
                     </nav>
                 </div>
 
@@ -148,6 +167,8 @@
                     </div>
                     </div>
                     </div> *@
+                     <a href="/" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
+
                     <div class="indicator">
                         <a asp-controller="home" asp-action="WishList" class="indicator__button">
                             <span class="indicator__area">
