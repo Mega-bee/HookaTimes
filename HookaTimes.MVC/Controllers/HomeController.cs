@@ -3,25 +3,55 @@ using System.Diagnostics;
 using HookaTimes.MVC.Models;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
+using System.Security.Claims;
+using HookaTimes.BLL.ViewModels.Frontend;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HookaTimes.MVC.Controllers
 {
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHookaPlaceBL _hookaPlaceBL;
+        private readonly IHookaBuddyBL _hookaBuddyBL;
+        private readonly IProductBL _productBL;
 
-        public HomeController(ILogger<HomeController> logger, IHookaPlaceBL hookaPlaceBL)
+        public HomeController(ILogger<HomeController> logger, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL hookaBuddyBL, IProductBL productBL)
         {
             _logger = logger;
             _hookaPlaceBL = hookaPlaceBL;
+            _hookaBuddyBL = hookaBuddyBL;
+            _productBL = productBL;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var res = await _hookaPlaceBL.GetHookaPlaces(Request);
-            List<HookaPlaces_VM> places = (List<HookaPlaces_VM>)res.Data.Data;
-            return View(places.Take(6));
+            int userBuddyId = 0;
+            string uid = "";
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if(identity!.IsAuthenticated)
+            {
+                uid = User.FindFirst(ClaimTypes.NameIdentifier)!.Value!;
+
+                userBuddyId = Convert.ToInt32(identity!.FindFirst("BuddyID")!.Value);
+            }
+       
+            var placesRes = await _hookaPlaceBL.GetHookaPlaces(Request);
+            var buddiesRes = await _hookaBuddyBL.GetBuddies(Request,userBuddyId,uid);
+            var productsRes = await _productBL.GetAllCategories(Request);
+            List<HookaPlaces_VM> places = (List<HookaPlaces_VM>)placesRes.Data.Data;
+            List<HookaBuddy_VM> buddies = (List<HookaBuddy_VM>)buddiesRes.Data.Data;
+            List<ProductCategories_VM> products = (List<ProductCategories_VM>)productsRes.Data.Data;
+            HomePage_VM dto = new HomePage_VM()
+            {
+                 Buddies = buddies.Take(6).ToList(),
+                  Categories = products.Take(6).ToList(),
+                   Places = places.Take(6).ToList(),
+            };
+            return View(dto);
         }  
         
         public IActionResult HookaPlaces()
