@@ -20,7 +20,6 @@ namespace HookaTimes.BLL.Service
         public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
         {
         }
-
         public async Task<ResponseModel> GetHookaPlaces(HttpRequest request)
         {
             ResponseModel responseModel = new ResponseModel();

@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using HookaTimes.MVC.Models;
+using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 
 namespace HookaTimes.MVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHookaPlaceBL _hookaPlaceBL;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHookaPlaceBL hookaPlaceBL)
         {
             _logger = logger;
+            _hookaPlaceBL = hookaPlaceBL;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var res = await _hookaPlaceBL.GetHookaPlaces(Request);
+            List<HookaPlaces_VM> places = (List<HookaPlaces_VM>)res.Data.Data;
+            return View(places.Take(6));
         }  
         
         public IActionResult HookaPlaces()
