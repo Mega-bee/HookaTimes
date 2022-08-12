@@ -16,8 +16,13 @@ namespace HookaTimes.MVC.Controllers
         public IActionResult Index()
         {
             return View();
-        }  
-        
+        }
+
+        public IActionResult HookaProducts()
+        {
+            return View();
+        }
+
         public IActionResult HookaPlaces()
         {
             return View();
