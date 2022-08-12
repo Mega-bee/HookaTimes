@@ -71,11 +71,17 @@ namespace HookaTimes.BLL.Service
             var claims = Tools.GenerateClaims(res, roles, buddy);
             string JwtToken = Tools.GenerateJWT(claims);
 
+
+
             responseModel.StatusCode = 200;
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = JwtToken,
+                Data = new
+                {
+                    Token = JwtToken,
+                    Name = buddy.FirstName
+                },
                 Message = ""
             };
             return responseModel;
@@ -462,8 +468,11 @@ namespace HookaTimes.BLL.Service
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = JwtToken,
-                Message = ""
+                Data = new
+                {
+                    Token = JwtToken,
+                    Name = buddy.FirstName
+                },
             };
             return responseModel;
         }
