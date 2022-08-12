@@ -17,6 +17,8 @@
         public string Description { get; set; }
         public string Image { get; set; }
         public decimal? CustomerInitialPrice { get; set; }
+        public bool? IsInWishlist { get; set; }
+        public bool? IsInCart { get; set; }
     }
 
 

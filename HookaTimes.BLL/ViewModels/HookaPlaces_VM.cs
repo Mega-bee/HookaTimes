@@ -53,5 +53,7 @@ namespace HookaTimes.BLL.ViewModels
         public string Image { get; set; }
     }
 
+  
+
 
 }

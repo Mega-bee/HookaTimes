@@ -68,6 +68,22 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
+
+        public async Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId,HttpRequest request)
+        {
+            List<Product_VM> products = await _uow.ProductCategoryRepository.GetAll(x =>  x.IsDeleted == false).Select(c => new Product_VM
+            {
+                Category = c.Title,
+                 IsInCart = c.Products.Where(p=> p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci=> ci.BuddyId == userBuddyId),
+                 IsInWishlist = false,
+                Title = c.Title,
+                CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p=> p.CustomerFinalPrice).FirstOrDefault(),
+                Description = c.Description,
+                Id = c.Id,
+                Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p=> p.IsDeleted == false).Select(p=> p.Image).FirstOrDefault()}",
+            }).Take(6).ToListAsync();
+            return products;
+        }
         #endregion
 
 

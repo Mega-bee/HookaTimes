@@ -32,7 +32,8 @@ namespace HookaTimes.BLL.Service
                 Image = $"{request.Scheme}://{request.Host}{p.Image}",
                 Name = p.Title,
                 Location = p.Location.Title,
-                Rating = (float)p.Rating
+                Rating = (float)p.Rating,
+                 
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
@@ -208,6 +209,8 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
+
+     
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.IServices
@@ -8,5 +9,6 @@ namespace HookaTimes.BLL.IServices
     {
         Task<ResponseModel> GetAllCategories(HttpRequest request);
         Task<ResponseModel> GetProductsByCategoryId(int id, HttpRequest request);
+        Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request);
     }
 }

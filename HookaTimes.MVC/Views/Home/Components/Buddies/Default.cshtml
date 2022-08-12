@@ -1,0 +1,39 @@
+﻿@model List<Buddy_VM>
+<div class="block block-posts" data-layout="grid-3" data-mobile-columns="1">
+    <div class="container">
+        <div class="white-background">
+            <div class="block-header">
+                <img src="/FrontendAssets/images/svg/Group 41.svg" loading="lazy" alt="" class="icons">
+                <h2 class="_1-6-h2">Hooka Buddies </h2>
+            </div>
+            <div class="block-products__body">
+                <div class="block-products__list" style="width: 100%;">
+                    @foreach (var item in Model)
+                    {
+                        <div class="block-products__list-item">
+                            <div class="product-card product-card--hidden-actions custom-hooka-card">
+                                <div class="product-card__buttons custom-hooka-card-buttons "></div>
+                                <div class="post-card__image">
+                                    <a href="product.html" class="product-image__body">
+                                        <img class="product-image__img" src="@item.Image" alt="">
+                                    </a>
+                                </div>
+                                <div class="post-card__info">
+                                    <div class="post-card__name">
+                                        <a href="">@item.Name </a>
+                                    </div>
+                                    <div class="post-card__content is--cuisines"> @item.Profession </div>
+                                    <div class="post-card__content is--location"> @item.Address </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <a href="/" class="see-all_button w-button">See All</a>
+        </div>
+    </div>
+</div>
+
+     
