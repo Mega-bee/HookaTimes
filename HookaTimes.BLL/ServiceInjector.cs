@@ -33,6 +33,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<ICartBL, CartBL>();
             _services.AddScoped<IOrderBL, OrderBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
+            _services.AddScoped<IEmailSender, EmailService>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();

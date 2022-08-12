@@ -28,13 +28,15 @@ namespace HookaTimes.BLL.Service
         private readonly HookaDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailSender _emailSender;
 
-        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager) : base(unit, mapper, notificationHelper)
+        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender) : base(unit, mapper, notificationHelper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _roleManager = roleManager;
+            _emailSender = emailSender;
         }
 
         #region SignIn
@@ -743,21 +745,21 @@ namespace HookaTimes.BLL.Service
                 await _context.EmailOtps.AddAsync(emailOtp);
                 await _context.SaveChangesAsync();
 
-                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
-
+                string content = $"<p>Dear hooka buddy</p> <br/> <p>Your verification pin is : <strong>{otp}</strong> </p> <br/> <p>Thank you for choosing Hooka Times</p>";
+                _emailSender.Send(Email, "Hooka otp", content);
                 //Helpers.SendSMS(phone, content);
-                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                if (!EmailSent)
-                {
-                    responseModel.StatusCode = 400;
-                    responseModel.ErrorMessage = "";
-                    responseModel.Data = new DataModel
-                    {
-                        Data = "",
-                        Message = "Email Was Not Sent"
-                    };
-                    return responseModel;
-                }
+                //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                //if (!EmailSent)
+                //{
+                //    responseModel.StatusCode = 400;
+                //    responseModel.ErrorMessage = "";
+                //    responseModel.Data = new DataModel
+                //    {
+                //        Data = "",
+                //        Message = "Email Was Not Sent"
+                //    };
+                //    return responseModel;
+                //}
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -853,21 +855,22 @@ namespace HookaTimes.BLL.Service
                 EmailOtp.Otp = otp;
 
                 await _context.SaveChangesAsync();
-                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
+                string content = $"<p>Dear hooka buddy</p> <br/> <p>Your verification pin is : <strong>{otp}</strong> </p> <br/> <p>Thank you for choosing Hooka Times</p>";
+                _emailSender.Send(Email, "Hooka otp", content);
 
                 //Helpers.SendSMS(phone, content);
-                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                if (!EmailSent)
-                {
-                    responseModel.StatusCode = 400;
-                    responseModel.ErrorMessage = "";
-                    responseModel.Data = new DataModel
-                    {
-                        Data = "",
-                        Message = "Email Was Not Sent"
-                    };
-                    return responseModel;
-                }
+                //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                //if (!EmailSent)
+                //{
+                //    responseModel.StatusCode = 400;
+                //    responseModel.ErrorMessage = "";
+                //    responseModel.Data = new DataModel
+                //    {
+                //        Data = "",
+                //        Message = "Email Was Not Sent"
+                //    };
+                //    return responseModel;
+                //}
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
