@@ -21,7 +21,7 @@ namespace HookaTimes.API.Controllers
         }
 
         [HttpPut("{invitationId}")]
-        public async Task<IActionResult> SetInvitationStatus([FromRoute] int invitationId,[FromForm] int statusId)
+        public async Task<IActionResult> SetInvitationStatus([FromRoute] int invitationId, [FromForm] int statusId)
         {
             return Ok(await _invitationBL.SetInvitationStatus(statusId, invitationId));
         }
@@ -31,7 +31,7 @@ namespace HookaTimes.API.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
-            return Ok(await _invitationBL.GetSentInvitations(Request,userBuddyId));
+            return Ok(await _invitationBL.GetSentInvitations(Request, userBuddyId));
         }
 
         [HttpGet]

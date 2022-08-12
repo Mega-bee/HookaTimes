@@ -6,10 +6,8 @@ using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Service
@@ -49,7 +47,7 @@ namespace HookaTimes.BLL.Service
                 PlaceId = (int)x.Select(i => i.PlaceId).FirstOrDefault(),
                 BuddiesCount = x.Count(),
                 PlaceName = x.Select(i => i.Place.Title).FirstOrDefault(),
-                Image = $"{request.Scheme}://{request.Host}{ x.Select(i => i.Place.Image).FirstOrDefault()}",
+                Image = $"{request.Scheme}://{request.Host}{x.Select(i => i.Place.Image).FirstOrDefault()}",
                 Rating = (float)x.Select(i => i.Place.Rating).FirstOrDefault()
 
             }).ToList();
@@ -69,7 +67,7 @@ namespace HookaTimes.BLL.Service
                 BuddyRating = 0,
                 InvitationStatus = i.InvitationStatus.Title,
                 Id = i.Id,
-                BuddyImage = $"{request.Scheme}://{request.Host}{ i.FromBuddy.Image}",
+                BuddyImage = $"{request.Scheme}://{request.Host}{i.FromBuddy.Image}",
 
             }).ToListAsync();
 
