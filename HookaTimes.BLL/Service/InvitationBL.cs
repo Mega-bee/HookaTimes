@@ -100,6 +100,7 @@ namespace HookaTimes.BLL.Service
             {
                 PlaceId = p.Id,
                 PlaceLocation = p.Location.Title,
+                 PlaceImage = $"{request.Scheme}://{request.Host}{p.Image}",
                 PlaceName = p.Title,
                 PlaceRating = (float)p.Rating,
                 Buddies = p.Invitations.Where(p => p.FromBuddyId == userBuddyId).Select(i => new Invitation_VM
