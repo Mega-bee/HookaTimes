@@ -1,0 +1,632 @@
+﻿
+@{ ViewData["Title"] = "Product";
+}
+
+
+<style>
+    .icons {
+        width: 3em;
+        height: 3em;
+        margin-right: 0.4em;
+    }
+
+    ._1-6-h2 {
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1.6em;
+        line-height: 1.23;
+        font-weight: 600;
+    }
+
+    .product-card__buttons>*:first-child {
+        margin-right: 0px;
+        margin-left: auto;
+    }
+
+    .product-card__buttons {
+        flex-direction: column;
+        margin-top: 0px;
+        align-items: flex-end
+    }
+
+    .product-card__info {
+        margin-bottom: 1.4em;
+    }
+
+    .product-image__img.is--featured {
+        width: 95%;
+        height: 20em;
+    }
+
+    .product-card__image.product-image.is--featured {
+        height: 20em;
+    }
+
+    .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
+        margin-bottom: 0px ;
+
+    }
+
+    .block-products-carousel{
+        pointer-events: all;
+    }
+
+
+</style>
+
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+                    <div class="page-header__breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/">Products</a>
+                        <svg class="breadcrumb-arrow" width="6px" height="9px">
+                            <use
+                                xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"
+                            ></use>
+                        </svg>
+                    </li>
+                
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Hooka Witty
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        </div>
+    </div>
+    <div class="block">
+        <div class="container">
+            <div
+                class="product product--layout--standard"
+                data-layout="standard"
+            >
+                <div class="product__content">
+                    <!-- .product__gallery -->
+                    <div class="product__gallery">
+                        <div class="product-gallery">
+                            <div class="product-gallery__featured">
+                                <button class="product-gallery__zoom">
+                                    <svg width="24px" height="24px">
+                                        <use
+                                            xlink:href="images/sprite.svg#zoom-in-24"
+                                        ></use>
+                                    </svg>
+                                </button>
+                                <div
+                                    class="owl-carousel owl-loaded owl-drag"
+                                    id="product-image"
+                                >
+                                    <div class="owl-stage-outer">
+                                        <div
+                                            class="owl-stage"
+                                            style="
+                                                transform: translate3d(
+                                                    0px,
+                                                    0px,
+                                                    0px
+                                                );
+                                                transition: all 0s ease 0s;
+                                                width: 2205px;
+                                            "
+                                        >
+                                            <div
+                                                class="owl-item active"
+                                                style="width: 441px"
+                                            >
+                                                <div
+                                                    class="product-image product-image--location--gallery"
+                                                >
+                                                    <!--
+                                The data-width and data-height attributes must contain the size of a larger version
+                                of the product image.
+
+                                If you do not know the image size, you can remove the data-width and data-height
+                                attribute, in which case the width and height will be obtained from the naturalWidth
+                                and naturalHeight property of img.product-image__img.
+                                -->
+                                                    <a
+                                                        href="images/products/product-16.jpg"
+                                                        data-width="700"
+                                                        data-height="700"
+                                                        class="product-image__body"
+                                                        target="_blank"
+                                                        ><img
+                                                            class="product-image__img"
+                                                            src="images/products/product-16.jpg"
+                                                            alt=""
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="owl-item"
+                                                style="width: 441px"
+                                            >
+                                                <div
+                                                    class="product-image product-image--location--gallery"
+                                                >
+                                                    <!--
+                                The data-width and data-height attributes must contain the size of a larger version
+                                of the product image.
+
+                                If you do not know the image size, you can remove the data-width and data-height
+                                attribute, in which case the width and height will be obtained from the naturalWidth
+                                and naturalHeight property of img.product-image__img.
+                                -->
+                                                    <a
+                                                        href="images/products/product-16-1.jpg"
+                                                        data-width="700"
+                                                        data-height="700"
+                                                        class="product-image__body"
+                                                        target="_blank"
+                                                        ><img
+                                                            class="product-image__img"
+                                                            src="images/products/product-16-1.jpg"
+                                                            alt=""
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="owl-item"
+                                                style="width: 441px"
+                                            >
+                                                <div
+                                                    class="product-image product-image--location--gallery"
+                                                >
+                                                    <!--
+                                The data-width and data-height attributes must contain the size of a larger version
+                                of the product image.
+
+                                If you do not know the image size, you can remove the data-width and data-height
+                                attribute, in which case the width and height will be obtained from the naturalWidth
+                                and naturalHeight property of img.product-image__img.
+                                -->
+                                                    <a
+                                                        href="images/products/product-16-2.jpg"
+                                                        data-width="700"
+                                                        data-height="700"
+                                                        class="product-image__body"
+                                                        target="_blank"
+                                                        ><img
+                                                            class="product-image__img"
+                                                            src="images/products/product-16-2.jpg"
+                                                            alt=""
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="owl-item"
+                                                style="width: 441px"
+                                            >
+                                                <div
+                                                    class="product-image product-image--location--gallery"
+                                                >
+                                                    <!--
+                                The data-width and data-height attributes must contain the size of a larger version
+                                of the product image.
+
+                                If you do not know the image size, you can remove the data-width and data-height
+                                attribute, in which case the width and height will be obtained from the naturalWidth
+                                and naturalHeight property of img.product-image__img.
+                                -->
+                                                    <a
+                                                        href="images/products/product-16-3.jpg"
+                                                        data-width="700"
+                                                        data-height="700"
+                                                        class="product-image__body"
+                                                        target="_blank"
+                                                        ><img
+                                                            class="product-image__img"
+                                                            src="images/products/product-16-3.jpg"
+                                                            alt=""
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="owl-item"
+                                                style="width: 441px"
+                                            >
+                                                <div
+                                                    class="product-image product-image--location--gallery"
+                                                >
+                                                    <!--
+                                The data-width and data-height attributes must contain the size of a larger version
+                                of the product image.
+
+                                If you do not know the image size, you can remove the data-width and data-height
+                                attribute, in which case the width and height will be obtained from the naturalWidth
+                                and naturalHeight property of img.product-image__img.
+                                -->
+                                                    <a
+                                                        href="images/products/product-16-4.jpg"
+                                                        data-width="700"
+                                                        data-height="700"
+                                                        class="product-image__body"
+                                                        target="_blank"
+                                                        ><img
+                                                            class="product-image__img"
+                                                            src="images/products/product-16-4.jpg"
+                                                            alt=""
+                                                    /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-nav disabled">
+                                        <button
+                                            type="button"
+                                            role="presentation"
+                                            class="owl-prev"
+                                        >
+                                            <span aria-label="Previous"
+                                                >‹</span
+                                            ></button
+                                        ><button
+                                            type="button"
+                                            role="presentation"
+                                            class="owl-next"
+                                        >
+                                            <span aria-label="Next">›</span>
+                                        </button>
+                                    </div>
+                                    <div class="owl-dots disabled"></div>
+                                </div>
+                            </div>
+                            <div class="product-gallery__carousel">
+                                <div
+                                    class="owl-carousel owl-loaded owl-drag"
+                                    id="product-carousel"
+                                >
+                                    <div class="owl-stage-outer">
+                                        <div
+                                            class="owl-stage"
+                                            style="
+                                                transform: translate3d(
+                                                    0px,
+                                                    0px,
+                                                    0px
+                                                );
+                                                transition: all 0s ease 0s;
+                                                width: 569px;
+                                            "
+                                        >
+                                            <div
+                                                class="owl-item active"
+                                                style="
+                                                    width: 103.75px;
+                                                    margin-right: 10px;
+                                                "
+                                            >
+                                                <a
+                                                    href="images/products/product-16.jpg"
+                                                    class="product-image product-gallery__carousel-item product-gallery__carousel-item--active"
+                                                    ><div
+                                                        class="product-image__body"
+                                                    >
+                                                        <img
+                                                            class="product-image__img product-gallery__carousel-image"
+                                                            src="images/products/product-16.jpg"
+                                                            alt=""
+                                                        /></div
+                                                ></a>
+                                            </div>
+                                            <div
+                                                class="owl-item active"
+                                                style="
+                                                    width: 103.75px;
+                                                    margin-right: 10px;
+                                                "
+                                            >
+                                                <a
+                                                    href="images/products/product-16-1.jpg"
+                                                    class="product-image product-gallery__carousel-item"
+                                                    ><div
+                                                        class="product-image__body"
+                                                    >
+                                                        <img
+                                                            class="product-image__img product-gallery__carousel-image"
+                                                            src="images/products/product-16-1.jpg"
+                                                            alt=""
+                                                        /></div
+                                                ></a>
+                                            </div>
+                                            <div
+                                                class="owl-item active"
+                                                style="
+                                                    width: 103.75px;
+                                                    margin-right: 10px;
+                                                "
+                                            >
+                                                <a
+                                                    href="images/products/product-16-2.jpg"
+                                                    class="product-image product-gallery__carousel-item"
+                                                    ><div
+                                                        class="product-image__body"
+                                                    >
+                                                        <img
+                                                            class="product-image__img product-gallery__carousel-image"
+                                                            src="images/products/product-16-2.jpg"
+                                                            alt=""
+                                                        /></div
+                                                ></a>
+                                            </div>
+                                            <div
+                                                class="owl-item active"
+                                                style="
+                                                    width: 103.75px;
+                                                    margin-right: 10px;
+                                                "
+                                            >
+                                                <a
+                                                    href="images/products/product-16-3.jpg"
+                                                    class="product-image product-gallery__carousel-item"
+                                                    ><div
+                                                        class="product-image__body"
+                                                    >
+                                                        <img
+                                                            class="product-image__img product-gallery__carousel-image"
+                                                            src="images/products/product-16-3.jpg"
+                                                            alt=""
+                                                        /></div
+                                                ></a>
+                                            </div>
+                                            <div
+                                                class="owl-item"
+                                                style="
+                                                    width: 103.75px;
+                                                    margin-right: 10px;
+                                                "
+                                            >
+                                                <a
+                                                    href="images/products/product-16-4.jpg"
+                                                    class="product-image product-gallery__carousel-item"
+                                                    ><div
+                                                        class="product-image__body"
+                                                    >
+                                                        <img
+                                                            class="product-image__img product-gallery__carousel-image"
+                                                            src="images/products/product-16-4.jpg"
+                                                            alt=""
+                                                        /></div
+                                                ></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-nav disabled">
+                                        <button
+                                            type="button"
+                                            role="presentation"
+                                            class="owl-prev"
+                                        >
+                                            <span aria-label="Previous"
+                                                >‹</span
+                                            ></button
+                                        ><button
+                                            type="button"
+                                            role="presentation"
+                                            class="owl-next"
+                                        >
+                                            <span aria-label="Next">›</span>
+                                        </button>
+                                    </div>
+                                    <div class="owl-dots disabled"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .product__gallery / end --><!-- .product__info -->
+                    <div class="product__info">
+                        <div class="product__wishlist-compare">
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-light btn-svg-icon"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title=""
+                                data-original-title="Wishlist"
+                            >
+                                <svg width="16px" height="16px">
+                                    <use
+                                        xlink:href="images/sprite.svg#wishlist-16"
+                                    ></use>
+                                </svg>
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-light btn-svg-icon"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title=""
+                                data-original-title="Compare"
+                            >
+                                <svg width="16px" height="16px">
+                                    <use
+                                        xlink:href="images/sprite.svg#compare-16"
+                                    ></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <h1 class="product__name">
+                            Hooka Witty
+                        </h1>
+                        <div class="product__description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Curabitur ornare, mi in ornare elementum,
+                            libero nibh lacinia urna, quis convallis lorem erat
+                            at purus. Maecenas eu varius nisi.
+                        </div>
+                        <ul class="product__meta">
+                       
+                        </ul>
+                    </div>
+                    <!-- .product__info / end --><!-- .product__sidebar -->
+                    <div class="product__sidebar">
+                        <div class="product__availability">
+                            Availability:
+                            <span class="text-success">In Stock</span>
+                        </div>
+                        <div class="product__prices">$1,499.00</div>
+                        <!-- .product__options -->
+                        <form class="product__options">
+                            <div class="form-group product__option">
+                                <label class="product__option-label"
+                                    >Flavors</label
+                                >
+                                <div class="input-radio-color">
+                                    <div class="input-radio-color__list">
+                                        <label
+                                            class="input-radio-color__item input-radio-color__item--white"
+                                            style="color: #fff"
+                                            data-toggle="tooltip"
+                                            title=""
+                                            data-original-title="White"
+                                            ><input type="radio" name="color" />
+                                            <span></span
+                                        ></label>
+                                        <label
+                                            class="input-radio-color__item"
+                                            style="color: #ffd333"
+                                            data-toggle="tooltip"
+                                            title=""
+                                            data-original-title="Yellow"
+                                            ><input type="radio" name="color" />
+                                            <span></span
+                                        ></label>
+                                        <label
+                                            class="input-radio-color__item"
+                                            style="color: #ff4040"
+                                            data-toggle="tooltip"
+                                            title=""
+                                            data-original-title="Red"
+                                            ><input type="radio" name="color" />
+                                            <span></span
+                                        ></label>
+                                        <label
+                                            class="input-radio-color__item input-radio-color__item--disabled"
+                                            style="color: #4080ff"
+                                            data-toggle="tooltip"
+                                            title=""
+                                            data-original-title="Blue"
+                                            ><input
+                                                type="radio"
+                                                name="color"
+                                                disabled="disabled" />
+                                            <span></span
+                                        ></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group product__option">
+                                <label
+                                    class="product__option-label"
+                                    for="product-quantity"
+                                    >Quantity</label
+                                >
+                                <div class="product__actions">
+                                    <div class="product__actions-item">
+                                        <div
+                                            class="input-number product__quantity"
+                                        >
+                                            <input
+                                                id="product-quantity"
+                                                class="input-number__input form-control form-control-lg"
+                                                type="number"
+                                                min="1"
+                                                value="1"
+                                            />
+                                            <div
+                                                class="input-number__add"
+                                            ></div>
+                                            <div
+                                                class="input-number__sub"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="product__actions-item product__actions-item--addtocart"
+                                    >
+                                        <button class="btn btn-primary btn-lg">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="product__actions-item product__actions-item--wishlist"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary btn-svg-icon btn-lg"
+                                            data-toggle="tooltip"
+                                            title=""
+                                            data-original-title="Wishlist"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
+                                            <path id="Path_28" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"></path>
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- .product__options / end -->
+                    </div>
+                    <!-- .product__end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .block-products-carousel -->
+    <div
+        class="block block-products-carousel"
+        data-layout="grid-5"
+        data-mobile-grid-columns="2"
+    >
+        <div class="container">
+            <div class="block-header">
+                <h3 class="block-header__title">Related Products</h3>
+                <div class="block-header__divider"></div>
+            </div>
+            <div class="block-products__list">
+                        <div class="block-products__list-item">
+                            <div class="product-card product-card--hidden-actions ">
+                                <div class="product-card__buttons">
+                                    <button style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2.3em" height="2.3em" viewBox="0 0 36.242 28.383">
+                                            <g id="Group_28" data-name="Group 28" transform="translate(-3361.077 -60.856)">
+                                                <path id="Path_27" data-name="Path 27" d="M3396.975,65.154a.569.569,0,0,0-.447-.216h-27.885l-.779-3.419a.568.568,0,0,0-.554-.443h-5.443a.569.569,0,1,0,0,1.138h4.988l4.624,20.3a.569.569,0,0,0,.555.443h1.525a3.6,3.6,0,1,0,5.247,0h7.087a3.6,3.6,0,1,0,5.248,0h1.638a.57.57,0,0,0,0-1.139h-20.291l-.817-3.586h21.93a.569.569,0,0,0,.553-.436l2.927-12.159A.573.573,0,0,0,3396.975,65.154ZM3378.643,85.42a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3378.643,85.42Zm12.335,0a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3390.978,85.42ZM3379.513,77.1l-.841-4.941h7.215l-.877,4.941Zm-1.034-6.08-.842-4.941h9.328l-.876,4.941Zm-2-4.941.841,4.941h-7.3l-1.126-4.941Zm-6.2,6.08h7.231l.841,4.941h-6.947Zm22.865,4.941h-6.986l.877-4.941h7.3Zm1.464-6.08h-7.371l.876-4.941h7.684Z" fill="#030404" stroke="#030404" stroke-miterlimit="10" stroke-width="0.44"></path>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button>
+                                    <button style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 27.954 25.959">
+                                            <path id="Path_28" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    <button style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 28.098 29.753">
+                                            <path id="Path_31" data-name="Path 31" d="M2737.652,1473.083a5.135,5.135,0,0,0-2.312.548,5.17,5.17,0,0,0-.972.636,5.23,5.23,0,0,0-.8.83l-1.983-1.107-1.983-1.108-1.984-1.108-1.983-1.107c.047-.134.088-.27.124-.408s.066-.279.09-.421.043-.287.055-.433.019-.293.019-.441-.006-.3-.019-.444-.031-.291-.056-.433-.055-.283-.092-.421-.078-.276-.126-.411l1.981-1.106,1.982-1.106,1.981-1.106,1.982-1.107a5.152,5.152,0,0,0,.8.836,5.239,5.239,0,0,0,.973.639,5.162,5.162,0,1,0-2.842-4.61c0,.149.006.3.018.445s.032.291.056.434.056.283.092.422.079.274.127.407l-1.98,1.107-1.98,1.106-1.98,1.106-1.98,1.106a5.153,5.153,0,0,0-6.1-1.62,5.193,5.193,0,0,0-2.749,2.748,5.157,5.157,0,0,0,0,4.016,5.17,5.17,0,0,0,5.972,3.01,5.118,5.118,0,0,0,1.109-.409,5.225,5.225,0,0,0,1.781-1.479l1.982,1.107,1.981,1.108,1.982,1.108,1.981,1.108c-.048.134-.09.272-.128.412s-.068.281-.094.425-.045.29-.058.437-.02.3-.02.446a5.159,5.159,0,0,0,8.812,3.649,5.145,5.145,0,0,0,1.513-3.649,5.127,5.127,0,0,0-.407-2.008,5.169,5.169,0,0,0-4.761-3.154Z" transform="translate(-2715.161 -1454.093)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="0.878"></path>
+                                        </svg>
+                                    </button>                                </div> <div class="product-card__image product-image is--featured">
+                                    <a class="product-image__body" href="/home/Product">  <img class="product-image__img is--featured" src="/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
+                                    </a>
+                                </div>
+                                <div class="product-card__info">
+                                    <div class="product-card__name">
+                                        <a href="product.html">HOOKA WITTY</a>
+                                    </div>
+                                    <div class="product-card__prices"> 75 AED </div>  
+                                </div>                            </div>
+                        </div>
+                   
+                
+   
+                    </div>
+        </div>
+    </div>
+    <!-- .block-products-carousel / end -->
+</div>
+

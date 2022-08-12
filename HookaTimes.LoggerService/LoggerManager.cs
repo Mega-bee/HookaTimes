@@ -1,10 +1,5 @@
-﻿using NLog;
-using HookaTimes.BLL.Utilities.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HookaTimes.BLL.Utilities.Logging;
+using NLog;
 
 namespace HookaTimes.LoggerService
 {

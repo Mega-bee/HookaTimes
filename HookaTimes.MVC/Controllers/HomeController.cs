@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HookaTimes.MVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using HookaTimes.MVC.Models;
 
 namespace HookaTimes.MVC.Controllers
 {
@@ -16,8 +16,18 @@ namespace HookaTimes.MVC.Controllers
         public IActionResult Index()
         {
             return View();
-        }  
-        
+        }
+
+        public IActionResult HookaBuddies()
+        {
+            return View();
+        }
+
+        public IActionResult HookaProducts()
+        {
+            return View();
+        }
+
         public IActionResult HookaPlaces()
         {
             return View();
@@ -32,8 +42,8 @@ namespace HookaTimes.MVC.Controllers
         public IActionResult Cart()
         {
             return View();
-        }   
-        
+        }
+
         public IActionResult Checkout()
         {
             return View();
@@ -52,7 +62,7 @@ namespace HookaTimes.MVC.Controllers
         [HttpGet]
         public ActionResult QuickView()
         {
-          
+
 
             return PartialView("~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml", null);
         }
@@ -80,14 +90,14 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-      
+
 
         public IActionResult EditProfile()
         {
             return View();
         }
 
-      
+
         public IActionResult OrderHistory()
         {
             return View();
@@ -98,6 +108,16 @@ namespace HookaTimes.MVC.Controllers
         }
 
         public IActionResult Password()
+        {
+            return View();
+        }
+
+        public IActionResult Product()
+        {
+            return View();
+        }
+
+        public IActionResult Place()
         {
             return View();
         }

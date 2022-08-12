@@ -1,41 +1,17 @@
-
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using HookaTimes.BLL;
+using HookaTimes.BLL.Hubs;
+using HookaTimes.BLL.Utilities.Extensions;
+using HookaTimes.BLL.Utilities.Logging;
+using HookaTimes.LoggerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HookaTimes.BLL;
-using HookaTimes.DAL;
-using HookaTimes.DAL.Repos;
-using HookaTimes.DAL.Services;
-
 using Microsoft.IdentityModel.Logging;
-using System.IO;
 using NLog;
-using HookaTimes.BLL.Utilities.Logging;
-using HookaTimes.LoggerService;
-using HookaTimes.BLL.Utilities.Extensions;
-using Microsoft.Extensions.Primitives;
-
-using HookaTimes.BLL.Hubs;
-using HookaTimes.BLL.Utilities;
-using HookaTimes.DAL.Data;
-using HookaTimes.BLL.Utilities.ActionFilters;
+using System.IO;
 
 namespace HookaTimes.API
 {
@@ -84,11 +60,11 @@ namespace HookaTimes.API
             }
             app.ConfigureCustomExceptionMiddleware();
             app.UseSwagger();
-            if(env.IsProduction())
+            if (env.IsProduction())
             {
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/webapi/swagger/v1/swagger.json", "HookaTimes v1"));
             }
-       
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

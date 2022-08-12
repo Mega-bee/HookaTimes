@@ -13,6 +13,12 @@
     flex: 0 0 auto;
     }
 
+    .contact-button:hover{
+        color:#000 !important;
+    }
+
+    
+
     .navigation-item {
     margin-right: 1.2em;
     margin-left: 1.2em;
@@ -32,6 +38,26 @@
     margin-left: -1.2em;
     color: #000;
     }
+
+    .contact-button {
+            border-color: #fdcf51;
+
+        margin-right:3em;
+   padding: 0.8em;
+    background-color: #fdcf51;
+    -webkit-transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+    transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+    color: #000;
+    text-decoration: none;
+}
+.button-text {
+    font-size: 0.94em;
+}
+.nav-panel__indicators {
+
+
+    align-items: center;
+}
 
 </style>
 
@@ -53,7 +79,7 @@
                         <a href="/" aria-current="page" class="navigation-item w-inline-block w--current">
                             <div class="navigation-item_text">Home</div>
                         </a>
-                        <a href="/" class="navigation-item w-inline-block">
+                        <a asp-action="HookaProducts" asp-controller="home" class="navigation-item w-inline-block">
                             <div class="navigation-item_text">Products</div>
                         </a>
                         <a asp-action="hookaplaces" asp-controller="home" class="navigation-item w-inline-block">
@@ -65,6 +91,7 @@
                         <a asp-action="Careers" asp-controller="home" class="navigation-item w-inline-block">
                             <div class="navigation-item_text">Careers</div>
                         </a>
+
                     </nav>
                 </div>
 
@@ -148,6 +175,8 @@
                     </div>
                     </div>
                     </div> *@
+                     <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
+
                     <div class="indicator">
                         <a asp-controller="home" asp-action="WishList" class="indicator__button">
                             <span class="indicator__area">

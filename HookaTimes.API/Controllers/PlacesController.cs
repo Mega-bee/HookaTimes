@@ -32,7 +32,7 @@ namespace HookaTimes.API.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
-            return Ok(await _hookaPlaceBL.GetHookaPlace(Request,userBuddyId, id));
+            return Ok(await _hookaPlaceBL.GetHookaPlace(Request, userBuddyId, id));
         }
 
         [HttpPut("{placeId}")]
