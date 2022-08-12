@@ -13,6 +13,12 @@
     flex: 0 0 auto;
     }
 
+    .contact-button:hover{
+        color:#000 !important;
+    }
+
+    
+
     .navigation-item {
     margin-right: 1.2em;
     margin-left: 1.2em;
@@ -34,6 +40,8 @@
     }
 
     .contact-button {
+            border-color: #fdcf51;
+
         margin-right:3em;
    padding: 0.8em;
     background-color: #fdcf51;
@@ -167,7 +175,7 @@
                     </div>
                     </div>
                     </div> *@
-                     <a href="/" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
+                     <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
 
                     <div class="indicator">
                         <a asp-controller="home" asp-action="WishList" class="indicator__button">

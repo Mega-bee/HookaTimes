@@ -1,6 +1,7 @@
 ﻿@{ ViewData["Title"] = "Home"; }
 <style>
     .see-all_button {
+        border-color:#fdcf51;
         margin-top: 4em;
         margin-right: auto;
         margin-left: auto;
@@ -554,7 +555,7 @@
                                 </button>*@ @* <div class="product-card__badges-list">
                                     <div class="product-card__badge product-card__badge--hot">Hot</div>
                                 </div>*@ <div class="product-card__image product-image is--featured">
-                                    <a href="product.html" class="product-image__body"> @*<img class="product-image__img" src="~/FrontendAssets/images/products/product-2.jpg" alt="">*@ <img class="product-image__img is--featured" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
+                                    <a  asp-action="Product" asp-controller="home" class="product-image__body"> @*<img class="product-image__img" src="~/FrontendAssets/images/products/product-2.jpg" alt="">*@ <img class="product-image__img is--featured" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
                                     </a>
                                 </div>
                                 <div class="product-card__info">
@@ -662,7 +663,10 @@
                                     <div class="product-card__prices"> 75 AED </div>
                                 </div>*@
                             </div>
-                        </div> @* <div class="block-products__list-item">
+                        </div>
+                   
+                
+                        @* <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
                                 <button class="product-card__quickview" type="button">
                                     <svg width="16px" height="16px">
@@ -1495,7 +1499,7 @@
                         </div>
                     </div>*@
                 </div>
-                <a href="/" class="see-all_button w-button">See All</a>
+                <button href="/" class="see-all_button w-button">See All</button>
             </div>
         </div>
     </div>
@@ -1554,7 +1558,7 @@
                                 </div>
                                 <div class="post-card__info">
                                     <div class="post-card__name">
-                                        <a href="">VINCENZIO</a>
+                                        <a asp-action="Place" asp-controller="home">VINCENZIO</a>
                                     </div>
                                     <div class="post-card__content is--cuisines"> Italian, Pizza, Salad... </div>
                                     <div class="post-card__content is--location"> Dubai, Downtown District </div>
@@ -1563,7 +1567,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/" class="see-all_button w-button">See All</a> @* <div class="block-posts__slider">
+                <button href="/" class="see-all_button w-button">See All</button> @* <div class="block-posts__slider">
                     <div class="owl-carousel">
                         <div class="post-card  ">
                             <div class="post-card__image">
@@ -1726,7 +1730,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/" class="see-all_button w-button">See All</a>
+                <button href="/" class="see-all_button w-button">See All</button>
             </div>
         </div>
     </div>
