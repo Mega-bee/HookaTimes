@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -61,7 +62,7 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> GetRecievedInvitations(HttpRequest request, int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
-            List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId).Select(i => new Invitation_VM
+            List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId&& x.InvitationStatusId == (int)InvitationStatusEnums.Pending).Select(i => new Invitation_VM
             {
                 Description = i.Description ?? "",
                 BuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
@@ -106,12 +107,12 @@ namespace HookaTimes.BLL.Service
                 Buddies = p.Invitations.Where(p => p.FromBuddyId == userBuddyId).Select(i => new Invitation_VM
                 {
                     Description = i.Description ?? "",
-                    BuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
+                    BuddyName = i.ToBuddy.FirstName + " " + i.ToBuddy.LastName,
                     InvitationStatusId = (int)i.InvitationStatusId,
                     BuddyRating = 0,
                     InvitationStatus = i.InvitationStatus.Title,
                     Id = i.Id,
-                    BuddyImage = $"{request.Scheme}://{request.Host}{i.FromBuddy.Image}",
+                    BuddyImage = $"{request.Scheme}://{request.Host}{i.ToBuddy.Image}",
                 }).ToList(),
 
             }).FirstOrDefaultAsync();
