@@ -163,6 +163,7 @@ namespace HookaTimes.BLL.Service
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
                 Title = x.Title,
+                Id = x.Id
 
 
 
@@ -173,6 +174,7 @@ namespace HookaTimes.BLL.Service
                 StudiedFrom = x.StudiedFrom,
                 StudiedTo = x.StudiedTo,
                 University = x.University,
+                Id = x.Id
 
             }).ToList();
             userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
@@ -181,6 +183,7 @@ namespace HookaTimes.BLL.Service
                 Position = x.Position,
                 WorkedFrom = x.WorkedFrom,
                 WorkedTo = x.WorkedTo,
+                Id = x.Id
 
             }).ToList();
             responseModel.StatusCode = 200;
@@ -232,8 +235,8 @@ namespace HookaTimes.BLL.Service
                 currProfile.Height = model.Height;
                 currProfile.Hobbies = model.Hobbies;
                 currProfile.Interests = model.Interests;
-                currProfile.SocialMediaLink2 = model.SocialMediaLink1;
-                currProfile.SocialMediaLink1 = model.SocialMediaLink2;
+                currProfile.SocialMediaLink1 = model.SocialMediaLink1;
+                currProfile.SocialMediaLink2 = model.SocialMediaLink2;
                 currProfile.SocialMediaLink3 = model.SocialMediaLink3;
 
 
@@ -253,19 +256,24 @@ namespace HookaTimes.BLL.Service
 
                     foreach (var edu in model.Education)
                     {
-
-                        BuddyProfileEducation newedu = new BuddyProfileEducation()
+                        if (edu.Id == 0)
                         {
-                            BuddyProfileId = BuddyId,
-                            Degree = edu.Degree,
-                            StudiedFrom = edu.StudiedFrom,
-                            StudiedTo = edu.StudiedTo,
-                            University = edu.University,
-                            CreatedDate = DateTime.UtcNow
+                            BuddyProfileEducation newedu = new BuddyProfileEducation()
+                            {
+                                BuddyProfileId = BuddyId,
+                                Degree = edu.Degree,
+                                StudiedFrom = edu.StudiedFrom,
+                                StudiedTo = edu.StudiedTo,
+                                University = edu.University,
+                                CreatedDate = DateTime.UtcNow
 
-                        };
-                        await _uow.BuddyProfileEducationRepository.Create(newedu);
-
+                            };
+                            await _uow.BuddyProfileEducationRepository.Create(newedu);
+                        }
+                        else if (edu.IsDeleted == true)
+                        {
+                            await _uow.BuddyProfileEducationRepository.Delete(edu.Id);
+                        }
 
                     }
 
@@ -279,19 +287,27 @@ namespace HookaTimes.BLL.Service
 
                     foreach (var exp in model.Experience)
                     {
-                        BuddyProfileExperience newedu = new BuddyProfileExperience()
+
+
+                        if (exp.Id == 0)
                         {
-                            BuddyProfileId = BuddyId,
-                            Place = exp.Place,
-                            Position = exp.Position,
-                            WorkedFrom = exp.WorkedFrom,
-                            WorkedTo = exp.WorkedTo,
-                            CreatedDate = DateTime.UtcNow
+                            BuddyProfileExperience newedu = new BuddyProfileExperience()
+                            {
+                                BuddyProfileId = BuddyId,
+                                Place = exp.Place,
+                                Position = exp.Position,
+                                WorkedFrom = exp.WorkedFrom,
+                                WorkedTo = exp.WorkedTo,
+                                CreatedDate = DateTime.UtcNow
 
-                        };
-                        await _uow.BuddyProfileExperienceRepository.Create(newedu);
+                            };
+                            await _uow.BuddyProfileExperienceRepository.Create(newedu);
+                        }
 
-
+                        else if (exp.IsDeleted == true)
+                        {
+                            await _uow.BuddyProfileExperienceRepository.Delete(exp.Id);
+                        }
 
                     }
 
@@ -302,23 +318,27 @@ namespace HookaTimes.BLL.Service
 
                     foreach (var add in model.Addresses)
                     {
-                        if (add.IsDeleted == true)
+
+                        BuddyProfileAddress newedu = new BuddyProfileAddress();
+
+                        if (add.Id == 0)
                         {
-                            //await _uow.BuddyProfileAddressRepository.
+                            newedu.BuddyProfileId = BuddyId;
+                            newedu.Latitude = add.Latitude;
+                            newedu.Longitude = add.Longitude;
+                            newedu.Title = add.Title;
+                            newedu.IsDeleted = false;
+                            newedu.CreatedDate = DateTime.UtcNow;
+                            await _uow.BuddyProfileAddressRepository.Create(newedu);
+
                         }
-                        BuddyProfileAddress newedu = new BuddyProfileAddress()
+
+                        else if (add.IsDeleted == true)
                         {
-                            BuddyProfileId = BuddyId,
-                            Latitude = add.Latitude,
-                            Longitude = add.Longitude,
-                            Title = add.Title,
-                            IsDeleted = false,
-                            CreatedDate = DateTime.UtcNow
-
-                        };
-                        await _uow.BuddyProfileAddressRepository.Create(newedu);
-
-
+                            newedu = await _uow.BuddyProfileAddressRepository.GetFirst(x => x.Id == add.Id);
+                            newedu.IsDeleted = true;
+                            await _uow.BuddyProfileAddressRepository.Update(newedu);
+                        }
                     }
 
                 }
@@ -349,28 +369,31 @@ namespace HookaTimes.BLL.Service
                 userProfile.Profession = currProfile.Profession ?? "";
                 userProfile.FirstName = currProfile.FirstName ?? "";
                 userProfile.LastName = currProfile.LastName ?? "";
-                userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
+                userProfile.Addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
                 {
                     Latitude = x.Latitude,
                     Longitude = x.Longitude,
                     Title = x.Title,
-                }).ToList();
-                userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+                    Id = x.Id,
+                }).ToListAsync();
+                userProfile.Education = await _uow.BuddyProfileEducationRepository.GetAll().Select(x => new BuddyProfileEducationVM
                 {
                     Degree = x.Degree,
                     StudiedFrom = x.StudiedFrom,
                     StudiedTo = x.StudiedTo,
                     University = x.University,
+                    Id = x.Id
 
-                }).ToList();
-                userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+                }).ToListAsync();
+                userProfile.Experience = await _uow.BuddyProfileExperienceRepository.GetAll().Select(x => new BuddyProfileExperienceVM
                 {
                     Place = x.Place,
                     Position = x.Position,
                     WorkedFrom = x.WorkedFrom,
                     WorkedTo = x.WorkedTo,
+                    Id = x.Id
 
-                }).ToList();
+                }).ToListAsync();
 
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";

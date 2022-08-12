@@ -88,6 +88,7 @@ namespace HookaTimes.BLL.Service
                 Latitude = x.Latitude,
                 Longitude = x.Longitude,
                 Title = x.Title,
+                Id = x.Id,
             }).ToList();
             userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
             {
@@ -95,6 +96,7 @@ namespace HookaTimes.BLL.Service
                 StudiedFrom = x.StudiedFrom,
                 StudiedTo = x.StudiedTo,
                 University = x.University,
+                Id = x.Id
             }).ToList();
             userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
             {
@@ -102,6 +104,7 @@ namespace HookaTimes.BLL.Service
                 Position = x.Position,
                 WorkedFrom = x.WorkedFrom,
                 WorkedTo = x.WorkedTo,
+                Id = x.Id
             }).ToList();
 
             responseModel.StatusCode = 200;
