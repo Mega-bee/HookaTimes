@@ -470,7 +470,7 @@ namespace HookaTimes.BLL.Service
             {
                 Data = new
                 {
-                    Token = JwtToken,
+                    //Token = JwtToken,
                     Name = buddy.FirstName
                 },
             };
