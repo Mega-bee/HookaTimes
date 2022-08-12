@@ -14,12 +14,12 @@ namespace HookaTimes.BLL.IServices
 
         //Task<bool> CheckIfVerified(string email);
 
-        Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request);
+        Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request);
 
         //Task<ResponseModel> ConfirmAccount(string phonenumber);
 
         //Task<ResponseModel> ConfirmEmail(string email, string token);
-
+        Task<ResponseModel> GetProfile(int BuddyId, HttpRequest Request);
         Task<ResponseModel> ConfirmOtp(string otp, string phone);
 
         //Task<AspNetUser> CreateProfile(EmailSignUp_VM model, int roleId);
@@ -38,6 +38,7 @@ namespace HookaTimes.BLL.IServices
 
 
         Task<ResponseModel> GenerateOtp(string phone);
+        Task<ResponseModel> IsAvailableToggle(int buddyId);
 
         //Task<ResponseModel> GetUserProfile(string uid, HttpRequest Request);
 

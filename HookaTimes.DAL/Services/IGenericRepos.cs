@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace HookaTimes.DAL.Services
     {
         IQueryable<T> GetAll();
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
-
+        Task<T> Add(T entity);
+        Task AddRange(List<T> entities);
         Task<T> GetById(int Id);
         //bool CheckIfExists(Expression<Func<T, bool>> predicate);
         Task<bool> CheckIfExists(Expression<Func<T, bool>> predicate);

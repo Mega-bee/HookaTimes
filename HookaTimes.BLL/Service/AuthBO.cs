@@ -71,11 +71,17 @@ namespace HookaTimes.BLL.Service
             var claims = Tools.GenerateClaims(res, roles, buddy);
             string JwtToken = Tools.GenerateJWT(claims);
 
+
+
             responseModel.StatusCode = 200;
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = JwtToken,
+                Data = new
+                {
+                    Token = JwtToken,
+                    Name = buddy.FirstName
+                },
                 Message = ""
             };
             return responseModel;
@@ -115,18 +121,102 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
+        #region GetProfile
+        public async Task<ResponseModel> GetProfile(int BuddyId, HttpRequest Request)
+        {
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, x => x.BuddyProfileAddresses, x => x.BuddyProfileEducations, x => x.BuddyProfileExperiences).FirstOrDefaultAsync();
+
+
+            Profile_VM userProfile = new Profile_VM();
+
+            userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
+            userProfile.Name = currProfile.FirstName + " " + currProfile.LastName ?? "";
+            userProfile.Email = currProfile.User.Email ?? "";
+            userProfile.PhoneNumber = currProfile.User.PhoneNumber ?? "";
+            userProfile.BirthDate = currProfile.DateOfBirth != default ? currProfile.DateOfBirth : new DateTime();
+            userProfile.GenderId = currProfile.GenderId;
+            userProfile.Gender = currProfile.GenderId != null ? Enum.GetName(typeof(GenderEnum), currProfile.GenderId) : "";
+            userProfile.AboutMe = currProfile.About ?? "";
+            userProfile.Hobbies = currProfile.Hobbies ?? "";
+            userProfile.MaritalStatus = currProfile.MaritalStatus != null ? Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) : "";
+            userProfile.Height = currProfile.Height != default ? currProfile.Height : default;
+            userProfile.Weight = currProfile.Weight != default ? currProfile.Weight : default;
+            userProfile.BodyType = currProfile.BodyType != null ? Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) : "";
+            userProfile.Eyes = currProfile.Eyes != null ? Enum.GetName(typeof(EyeEnum), currProfile.Eyes) : "";
+            userProfile.Hair = currProfile.Hair != null ? Enum.GetName(typeof(HairEnum), currProfile.Hair) : "";
+            userProfile.SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "";
+            userProfile.SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "";
+            userProfile.SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "";
+            userProfile.Interests = currProfile.Interests ?? "";
+            userProfile.Profession = currProfile.Profession ?? "";
+            userProfile.FirstName = currProfile.FirstName ?? "";
+            userProfile.LastName = currProfile.LastName ?? "";
+            userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
+            {
+                Latitude = x.Latitude,
+                Longitude = x.Longitude,
+                Title = x.Title,
+                Id = x.Id
+
+
+
+            }).ToList();
+            userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+            {
+                Degree = x.Degree,
+                StudiedFrom = x.StudiedFrom,
+                StudiedTo = x.StudiedTo,
+                University = x.University,
+                Id = x.Id
+
+            }).ToList();
+            userProfile.Experience = currProfile.BuddyProfileExperiences.Select(x => new BuddyProfileExperienceVM
+            {
+                Place = x.Place,
+                Position = x.Position,
+                WorkedFrom = x.WorkedFrom,
+                WorkedTo = x.WorkedTo,
+                Id = x.Id
+
+            }).ToList();
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "";
+            responseModel.Data = new DataModel
+            {
+                Data = userProfile,
+                Message = ""
+            };
+            return responseModel;
+        }
+        #endregion
+
 
         #region UpdateProfile
-        public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, string uid, HttpRequest Request)
+        public async Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request)
         {
 
             try
             {
-                ApplicationUser aspuser = await _userManager.FindByIdAsync(uid);
+
+                bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
                 //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
                 ResponseModel responseModel = new ResponseModel();
 
-                if (aspuser == null)
+                if (!profileExist)
                 {
                     responseModel.StatusCode = 404;
                     responseModel.ErrorMessage = "User was not Found";
@@ -134,28 +224,27 @@ namespace HookaTimes.BLL.Service
                     return responseModel;
                 }
 
-                BuddyProfile currProfile = new BuddyProfile()
-                {
-                    Profession = model.Profession,
-                    Weight = model.Weight,
-                    MaritalStatus = model.MaritalStatus,
-                    Longitude = model.Longitude,
-                    About = model.AboutMe,
-                    BodyType = model.BodyType,
-                    Education = model.Education,
-                    CreatedDate = DateTime.UtcNow,
-                    DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime(),
-                    Eyes = model.Eyes,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    GenderId = model.GenderId,
-                    Hair = model.Hair,
-                    Height = model.Height,
-                    Hobbies = model.Hobbies,
-                    Interests = model.Interests,
-                    Latitude = model.Latitude,
+                BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, y => y.BuddyProfileAddresses, y => y.BuddyProfileEducations, y => y.BuddyProfileExperiences).FirstOrDefaultAsync();
 
-                };
+                currProfile.Profession = model.Profession;
+                currProfile.Weight = model.Weight;
+                currProfile.MaritalStatus = model.MaritalStatus;
+                currProfile.About = model.AboutMe;
+                currProfile.BodyType = model.BodyType;
+                currProfile.CreatedDate = DateTime.UtcNow;
+                currProfile.DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime();
+                currProfile.Eyes = model.Eyes;
+                currProfile.FirstName = model.FirstName;
+                currProfile.LastName = model.LastName;
+                currProfile.GenderId = model.GenderId;
+                currProfile.Hair = model.Hair;
+                currProfile.Height = model.Height;
+                currProfile.Hobbies = model.Hobbies;
+                currProfile.Interests = model.Interests;
+                currProfile.SocialMediaLink1 = model.SocialMediaLink1;
+                currProfile.SocialMediaLink2 = model.SocialMediaLink2;
+                currProfile.SocialMediaLink3 = model.SocialMediaLink3;
+
 
 
                 IFormFile file = model.ImageFile;
@@ -166,31 +255,152 @@ namespace HookaTimes.BLL.Service
                     currProfile.Image = NewFileName;
                 }
 
-
                 await _context.SaveChangesAsync();
 
-                Profile_VM userProfile = new Profile_VM()
+                if (model.Education.Count > 0)
                 {
-                    Name = currProfile.FirstName + " " + currProfile.LastName ?? "",
-                    AboutMe = currProfile.About ?? "",
-                    Email = aspuser.Email ?? "",
-                    BirthDate = (DateTime)currProfile.DateOfBirth != default ? (DateTime)currProfile.DateOfBirth : new DateTime(),
-                    GenderId = (int)currProfile.GenderId,
-                    Gender = Enum.GetName(typeof(GenderEnum), currProfile.GenderId) ?? "",
-                    ImageUrl = $"{Request.Scheme}://{Request.Host}/Buddies/{currProfile.Image}",
-                    MaritalStatus = Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) ?? "",
-                    Height = (decimal)currProfile.Height,
-                    Weight = (decimal)currProfile.Weight,
-                    BodyType = Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) ?? "",
-                    Eyes = Enum.GetName(typeof(EyeEnum), currProfile.Eyes) ?? "",
-                    Hair = Enum.GetName(typeof(HairEnum), currProfile.Hair) ?? "",
-                    //Education = aspuser.Education ?? "",
-                    //Profession = aspuser.Profession ?? "",
-                    //Interests = aspuser.Interests ?? "",
-                    //Hobbies = aspuser.Hobbies ?? "",
+
+                    foreach (var edu in model.Education)
+                    {
+                        if (edu.Id == 0)
+                        {
+                            BuddyProfileEducation newedu = new BuddyProfileEducation()
+                            {
+                                BuddyProfileId = BuddyId,
+                                Degree = edu.Degree,
+                                StudiedFrom = edu.StudiedFrom,
+                                StudiedTo = edu.StudiedTo,
+                                University = edu.University,
+                                CreatedDate = DateTime.UtcNow
+
+                            };
+                            await _uow.BuddyProfileEducationRepository.Create(newedu);
+                        }
+                        else if (edu.IsDeleted == true)
+                        {
+                            await _uow.BuddyProfileEducationRepository.Delete(edu.Id);
+                        }
+
+                    }
 
 
-                };
+
+                }
+
+
+                if (model.Experience.Count > 0)
+                {
+
+                    foreach (var exp in model.Experience)
+                    {
+
+
+                        if (exp.Id == 0)
+                        {
+                            BuddyProfileExperience newedu = new BuddyProfileExperience()
+                            {
+                                BuddyProfileId = BuddyId,
+                                Place = exp.Place,
+                                Position = exp.Position,
+                                WorkedFrom = exp.WorkedFrom,
+                                WorkedTo = exp.WorkedTo,
+                                CreatedDate = DateTime.UtcNow
+
+                            };
+                            await _uow.BuddyProfileExperienceRepository.Create(newedu);
+                        }
+
+                        else if (exp.IsDeleted == true)
+                        {
+                            await _uow.BuddyProfileExperienceRepository.Delete(exp.Id);
+                        }
+
+                    }
+
+                }
+
+                if (model.Addresses.Count > 0)
+                {
+
+                    foreach (var add in model.Addresses)
+                    {
+
+                        BuddyProfileAddress newedu = new BuddyProfileAddress();
+
+                        if (add.Id == 0)
+                        {
+                            newedu.BuddyProfileId = BuddyId;
+                            newedu.Latitude = add.Latitude;
+                            newedu.Longitude = add.Longitude;
+                            newedu.Title = add.Title;
+                            newedu.IsDeleted = false;
+                            newedu.CreatedDate = DateTime.UtcNow;
+                            await _uow.BuddyProfileAddressRepository.Create(newedu);
+
+                        }
+
+                        else if (add.IsDeleted == true)
+                        {
+                            newedu = await _uow.BuddyProfileAddressRepository.GetFirst(x => x.Id == add.Id);
+                            newedu.IsDeleted = true;
+                            await _uow.BuddyProfileAddressRepository.Update(newedu);
+                        }
+                    }
+
+                }
+
+
+                await _context.SaveChangesAsync();
+                Profile_VM userProfile = new Profile_VM();
+
+                userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
+                userProfile.Name = currProfile.FirstName + " " + currProfile.LastName ?? "";
+                userProfile.Email = currProfile.User.Email ?? "";
+                userProfile.PhoneNumber = currProfile.User.PhoneNumber ?? "";
+                userProfile.BirthDate = currProfile.DateOfBirth != default ? currProfile.DateOfBirth : new DateTime();
+                userProfile.GenderId = currProfile.GenderId;
+                userProfile.Gender = currProfile.GenderId != null ? Enum.GetName(typeof(GenderEnum), currProfile.GenderId) : "";
+                userProfile.AboutMe = currProfile.About ?? "";
+                userProfile.Hobbies = currProfile.Hobbies ?? "";
+                userProfile.MaritalStatus = currProfile.MaritalStatus != null ? Enum.GetName(typeof(MaritalStatusEnum), currProfile.MaritalStatus) : "";
+                userProfile.Height = currProfile.Height != default ? currProfile.Height : default;
+                userProfile.Weight = currProfile.Weight != default ? currProfile.Weight : default;
+                userProfile.BodyType = currProfile.BodyType != null ? Enum.GetName(typeof(BodyTypeEnum), currProfile.BodyType) : "";
+                userProfile.Eyes = currProfile.Eyes != null ? Enum.GetName(typeof(EyeEnum), currProfile.Eyes) : "";
+                userProfile.Hair = currProfile.Hair != null ? Enum.GetName(typeof(HairEnum), currProfile.Hair) : "";
+                userProfile.SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "";
+                userProfile.SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "";
+                userProfile.SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "";
+                userProfile.Interests = currProfile.Interests ?? "";
+                userProfile.Profession = currProfile.Profession ?? "";
+                userProfile.FirstName = currProfile.FirstName ?? "";
+                userProfile.LastName = currProfile.LastName ?? "";
+                userProfile.Addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
+                {
+                    Latitude = x.Latitude,
+                    Longitude = x.Longitude,
+                    Title = x.Title,
+                    Id = x.Id,
+                }).ToListAsync();
+                userProfile.Education = await _uow.BuddyProfileEducationRepository.GetAll().Select(x => new BuddyProfileEducationVM
+                {
+                    Degree = x.Degree,
+                    StudiedFrom = x.StudiedFrom,
+                    StudiedTo = x.StudiedTo,
+                    University = x.University,
+                    Id = x.Id
+
+                }).ToListAsync();
+                userProfile.Experience = await _uow.BuddyProfileExperienceRepository.GetAll().Select(x => new BuddyProfileExperienceVM
+                {
+                    Place = x.Place,
+                    Position = x.Position,
+                    WorkedFrom = x.WorkedFrom,
+                    WorkedTo = x.WorkedTo,
+                    Id = x.Id
+
+                }).ToListAsync();
+
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -258,8 +468,11 @@ namespace HookaTimes.BLL.Service
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = JwtToken,
-                Message = ""
+                Data = new
+                {
+                    //Token = JwtToken,
+                    Name = buddy.FirstName
+                },
             };
             return responseModel;
         }
@@ -497,7 +710,6 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
-
         #region OTP
         public async Task<ResponseModel> GenerateOtp(string Email)
         {
@@ -679,9 +891,27 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
+        #region Available Toggle
+        public async Task<ResponseModel> IsAvailableToggle(int buddyId)
+        {
+            var responseModel = new ResponseModel();
+            BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.Id == buddyId && x.IsDeleted == false);
+            if (buddy == null)
+            {
+                responseModel.ErrorMessage = "User was not found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+            }
 
+            buddy.IsAvailable = !buddy.IsAvailable;
 
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = "", Message = $"{((bool)buddy.IsAvailable ? "Available" : "Not Available")}" };
+            return responseModel;
+        }
 
+        #endregion
 
     }
 }

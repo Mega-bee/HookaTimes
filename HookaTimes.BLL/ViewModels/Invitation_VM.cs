@@ -42,6 +42,7 @@ namespace HookaTimes.BLL.ViewModels
     {
         public int PlaceId { get; set; }
         public string PlaceName { get; set; }
+        public string PlaceImage { get; set; }
         public string PlaceLocation { get; set; }
         public float PlaceRating { get; set; }
         public List<Invitation_VM> Buddies { get; set; }
