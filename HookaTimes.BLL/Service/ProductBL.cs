@@ -2,9 +2,11 @@
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,19 +71,38 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId,HttpRequest request)
+        public async Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request, int take = 0)
         {
-            List<Product_VM> products = await _uow.ProductCategoryRepository.GetAll(x =>  x.IsDeleted == false).Select(c => new Product_VM
+            var query =  _uow.ProductCategoryRepository.GetAll(x => x.IsDeleted == false);
+            List<Product_VM> products = Array.Empty<Product_VM>().ToList();
+            if(take == 0)
             {
-                Category = c.Title,
-                 IsInCart = c.Products.Where(p=> p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci=> ci.BuddyId == userBuddyId),
-                 IsInWishlist = false,
-                Title = c.Title,
-                CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p=> p.CustomerFinalPrice).FirstOrDefault(),
-                Description = c.Description,
-                Id = c.Id,
-                Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p=> p.IsDeleted == false).Select(p=> p.Image).FirstOrDefault()}",
-            }).Take(6).ToListAsync();
+                products = await query.Select(c => new Product_VM
+                {
+                    Category = c.Title,
+                    IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
+                    IsInWishlist = false,
+                    Title = c.Title,
+                    CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
+                    Description = c.Description,
+                    Id = c.Id,
+                    Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
+                }).ToListAsync();
+            } else
+            {
+                products = await query.Select(c => new Product_VM
+                {
+                    Category = c.Title,
+                    IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
+                    IsInWishlist = false,
+                    Title = c.Title,
+                    CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
+                    Description = c.Description,
+                    Id = c.Id,
+                    Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
+                }).Take(take).ToListAsync();
+            }
+          
             return products;
         }
         #endregion

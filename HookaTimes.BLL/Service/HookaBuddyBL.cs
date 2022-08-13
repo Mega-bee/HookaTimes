@@ -157,18 +157,36 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = "", Message = "Invitation Sent Succesfully" };
             return responseModel;
         }
-        public async Task<List<Buddy_VM>> GetBuddiesMVC(HttpRequest request, int userBuddyId)
+        public async Task<List<Buddy_VM>> GetBuddiesMVC(HttpRequest request, int userBuddyId,int take = 0)
         {
-            List<Buddy_VM> buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Id != userBuddyId).Select(x => new Buddy_VM
+            var query = _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Id != userBuddyId);
+            List<Buddy_VM> buddies = Array.Empty<Buddy_VM>().ToList();
+            if (take == 0)
             {
-                Profession = x.Profession??"",
-                Id = x.Id,
-                Name = x.FirstName + " " + x.LastName,
-                Image = $"{request.Scheme}://{request.Host}{x.Image}",
-                 Rating= 0,
-                  Address = x.BuddyProfileAddresses.Where(a=> a.IsDeleted == false).Select(a=> a.Title).FirstOrDefault() ?? "",
-                   
-            }).Take(6).ToListAsync();
+                buddies = await query.Select(x => new Buddy_VM
+                {
+                    Profession = x.Profession ?? "",
+                    Id = x.Id,
+                    Name = x.FirstName + " " + x.LastName,
+                    Image = $"{request.Scheme}://{request.Host}{x.Image}",
+                    Rating = 0,
+                    Address = x.BuddyProfileAddresses.Where(a => a.IsDeleted == false).Select(a => a.Title).FirstOrDefault() ?? "",
+
+                }).ToListAsync();
+            }
+            else
+            {
+                buddies = await query.Select(x => new Buddy_VM
+                {
+                    Profession = x.Profession ?? "",
+                    Id = x.Id,
+                    Name = x.FirstName + " " + x.LastName,
+                    Image = $"{request.Scheme}://{request.Host}{x.Image}",
+                    Rating = 0,
+                    Address = x.BuddyProfileAddresses.Where(a => a.IsDeleted == false).Select(a => a.Title).FirstOrDefault() ?? "",
+
+                }).Take(take).ToListAsync();
+            }
             return buddies;
         }
     }

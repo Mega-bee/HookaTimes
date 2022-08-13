@@ -10,4 +10,6 @@
         public string Image { get; set; }
         public bool HasPendingInvite { get; set; }
     }
+
+
 }

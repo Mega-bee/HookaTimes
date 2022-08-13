@@ -26,6 +26,7 @@ namespace HookaTimes.DAL
         IBuddyProfileExperienceRepository BuddyProfileExperienceRepository { get; }
         IOrderRepository OrderRepository { get; }
         IOrderItemRepository OrderItemRepository { get; }
+        ICuisineRepository CuisineRepository { get; }
         void Save();
         Task SaveAsync();
     }

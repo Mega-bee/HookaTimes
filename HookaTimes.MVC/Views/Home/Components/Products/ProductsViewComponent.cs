@@ -25,7 +25,7 @@ namespace CharbelFrennPortolfio.Views.Home.Components.Contact
             {
                 userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
             }
-            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request);
+            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request,6);
             return View(products);
         }
     }

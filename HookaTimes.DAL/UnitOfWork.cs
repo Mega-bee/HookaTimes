@@ -39,6 +39,7 @@ namespace HookaTimes.DAL
         private IBuddyProfileExperienceRepository buddyProfileExperienceRepository;
         private IOrderRepository orderRepository;
         private IOrderItemRepository orderItemRepository;
+        private ICuisineRepository cuisineRepository;
 
 
         #endregion
@@ -64,6 +65,7 @@ namespace HookaTimes.DAL
         public IBuddyProfileExperienceRepository BuddyProfileExperienceRepository => buddyProfileExperienceRepository ?? new BuddyProfileExperienceRepo(_context);
         public IOrderRepository OrderRepository => orderRepository ?? new OrderRepo(_context);
         public IOrderItemRepository OrderItemRepository => orderItemRepository ?? new OrderItemRepo(_context);
+        public ICuisineRepository CuisineRepository => cuisineRepository ?? new CuisineRepo(_context);
 
 
         #endregion

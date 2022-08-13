@@ -24,7 +24,7 @@ namespace CharbelFrennPortolfio.Views.Home.Components.Services
             {
                  userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
             }
-            var items = await _hookaBuddyBl.GetBuddiesMVC(Request,userBuddyId);
+            var items = await _hookaBuddyBl.GetBuddiesMVC(Request,userBuddyId,6);
             return View(items);
         }
     }
