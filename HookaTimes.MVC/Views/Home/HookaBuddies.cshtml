@@ -149,6 +149,109 @@
                                 </h4>
                                 <div class="widget-filters__list">
                                     <div class="widget-filters__item">
+                                        <div class="filter" data-collapse-item="">
+                                            <button type="button"
+                                                    class="filter__title"
+                                                    data-collapse-trigger="">
+                                                Sort by
+                                                <svg class="filter__arrow"
+                                                     width="12px"
+                                                     height="7px">
+                                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                </svg>
+                                            </button>
+                                            <div class="filter__body"
+                                                 data-collapse-content=""
+                                                 style="">
+                                                <div class="filter__container">
+                                                    <div class="filter-list">
+                                                        <div class="filter-list__list">
+
+                                                            <label class="filter-list__item">
+                                                                <span class="filter-list__input input-radio">
+                                                                    <span class="input-radio__body">
+                                                                        <input class="input-radio__input"
+                                                                               name="sortBy"
+                                                                               value="1"
+                                                                               type="radio" />
+                                                                        <span class="input-radio__circle"></span>
+                                                                    </span>
+                                                                </span><span class="filter-list__title">Rating: High to Low </span>
+                                                            </label>
+
+
+                                                            <label class="filter-list__item">
+                                                                <span class="filter-list__input input-radio">
+                                                                    <span class="input-radio__body">
+                                                                        <input class="input-radio__input"
+                                                                               name="sortBy"
+                                                                               value="2"
+                                                                               type="radio" />
+                                                                        <span class="input-radio__circle"></span>
+                                                                    </span>
+                                                                </span><span class="filter-list__title">Nearest to me </span>
+                                                            </label>
+
+                                                     @*       <label class="filter-list__item">
+                                                                <span class="filter-list__input input-radio">
+                                                                    <span class="input-radio__body">
+                                                                        <input class="input-radio__input"
+                                                                               name="sortBy"
+                                                                               value="3"
+                                                                               type="radio" />
+                                                                        <span class="input-radio__circle"></span>
+                                                                    </span>
+                                                                </span><span class="filter-list__title">Available </span>
+                                                            </label>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                         <div class="widget-filters__item">
+                                        <div class="filter" data-collapse-item="">
+                                            <button type="button"
+                                                    class="filter__title"
+                                                    data-collapse-trigger="">
+                                                Filter By
+                                                <svg class="filter__arrow"
+                                                     width="12px"
+                                                     height="7px">
+                                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                </svg>
+                                            </button>
+                                            <div class="filter__body"
+                                                 data-collapse-content=""
+                                                 style="">
+                                                <div class="filter__container">
+                                                    <div class="filter-list">
+                                                        <div class="filter-list__list">
+                                                        
+                                                                <label class="filter-list__item">
+                                                                    <span class="filter-list__input input-check">
+                                                                        <span class="input-check__body">
+                                                                            <input class="input-check__input" name="filterBy"
+                                                                               type="checkbox" value="1" />
+                                                                            <span class="input-check__box"></span>
+                                                                            <svg class="input-check__icon"
+                                                                             width="9px"
+                                                                             height="7px">
+                                                                                <use xlink:href="images/sprite.svg#check-9x7"></use>
+                                                                            </svg>
+                                                                        </span>
+                                                                    </span><span class="filter-list__title">Available </span>
+                                                                </label>
+                                                            
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 @*   <div class="widget-filters__item">
                                         <div class="filter filter--opened"
                                              data-collapse-item="">
                                             <button type="button"
@@ -860,13 +963,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="widget-filters__actions d-flex">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button id="filter-btn" class="btn btn-primary btn-sm">
                                         Filter
                                     </button>
-                                    <button class="btn btn-secondary btn-sm">
+                                    <button id="reset-filter-btn" class="btn btn-secondary btn-sm">
                                         Reset
                                     </button>
                                 </div>
@@ -918,6 +1021,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="items-container">
                         <div class="products-view__list products-list"
                              data-layout="grid-3-sidebar"
                              data-with-features="false"
@@ -925,30 +1029,13 @@
                             <div class="products-list__body">
                                 @foreach (var item in Model)
                                 {
-                                    <div class="block-products__list-item">
-                                        <div class="product-card product-card--hidden-actions custom-hooka-card">
-                                            <div class="product-card__buttons custom-hooka-card-buttons "></div>
-                                            <div class="post-card__image">
-                                                <a href="product.html" class="product-image__body">
-                                                    <img class="product-image__img" src="@item.Image" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="post-card__info">
-                                                <div class="post-card__name">
-                                                    <a href="">@item.Name </a>
-                                                </div>
-                                                <div class="post-card__content is--cuisines"> @item.Profession </div>
-                                                <div class="post-card__content is--location"> @item.Address</div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <partial name="../shared/Ecommerce/_HookaBuddyPartial.cshtml" model="item" />
-
                                 }
 
 
                             </div>
 
+                        </div>
                         </div>
                         <div class="products-view__pagination">
                             <ul class="pagination justify-content-center">
@@ -995,3 +1082,7 @@
 
 
 </div>
+
+ @section Scripts {
+     <script src="~/FrontendAssets/js/search-buddies.js"></script>
+ }

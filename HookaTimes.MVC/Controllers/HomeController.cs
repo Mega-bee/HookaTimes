@@ -49,6 +49,22 @@ namespace HookaTimes.MVC.Controllers
             return View(buddies);
         }
 
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult HookaBuddiesSearch([FromQuery] int sortBy, [FromQuery] int filterBy)
+        {
+            int userBuddyId = 0;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity!.IsAuthenticated)
+            {
+                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+            }
+            return ViewComponent("BuddiesSearchResult", new {userBuddyId, sortBy, filterBy });
+        }
+
+
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         [AllowAnonymous]
 
@@ -77,6 +93,12 @@ namespace HookaTimes.MVC.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult HookaPlacesSearch([FromQuery] List<int> cuisines, [FromQuery] int sortBy)
+        {
+
+            return ViewComponent("PlacesSearchResult",new {cuisines,sortBy});
+        }
         public IActionResult WishList()
         {
             return View();
