@@ -52,6 +52,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<Order>, GenericRepos<Order>>();
             _services.AddScoped<IGenericRepos<OrderItem>, GenericRepos<OrderItem>>();
             _services.AddScoped<IGenericRepos<Cuisine>, GenericRepos<Cuisine>>();
+            _services.AddScoped<IGenericRepos<VirtualCart>, GenericRepos<VirtualCart>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

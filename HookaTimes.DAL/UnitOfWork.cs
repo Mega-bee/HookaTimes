@@ -40,6 +40,7 @@ namespace HookaTimes.DAL
         private IOrderRepository orderRepository;
         private IOrderItemRepository orderItemRepository;
         private ICuisineRepository cuisineRepository;
+        private IVirtualCartRepository virtualCartRepository;
 
 
         #endregion
@@ -66,6 +67,7 @@ namespace HookaTimes.DAL
         public IOrderRepository OrderRepository => orderRepository ?? new OrderRepo(_context);
         public IOrderItemRepository OrderItemRepository => orderItemRepository ?? new OrderItemRepo(_context);
         public ICuisineRepository CuisineRepository => cuisineRepository ?? new CuisineRepo(_context);
+        public IVirtualCartRepository VirtualCartRepository => virtualCartRepository ?? new VirtualCartRepo(_context);
 
 
         #endregion

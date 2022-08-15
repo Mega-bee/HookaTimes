@@ -27,14 +27,14 @@ namespace HookaTimes.MVC.Controllers
             _productBL = productBL;
         }
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
 
         public async Task<IActionResult> HookaBuddies()
@@ -50,7 +50,7 @@ namespace HookaTimes.MVC.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
         [HttpGet]
         public IActionResult HookaBuddiesSearch([FromQuery] int sortBy, [FromQuery] int filterBy)
@@ -65,7 +65,7 @@ namespace HookaTimes.MVC.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
 
         public async Task<IActionResult> HookaProducts()
@@ -178,9 +178,10 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult Product()
+        public async Task<IActionResult> Product(int id)
         {
-            return View();
+            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id);
+            return View(prod);
         }
 
         public IActionResult Place()

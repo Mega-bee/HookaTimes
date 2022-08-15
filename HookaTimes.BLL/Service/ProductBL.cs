@@ -105,6 +105,25 @@ namespace HookaTimes.BLL.Service
           
             return products;
         }
+
+        public async Task<ViewHookaProduct_VM> GetCategoryProductsMVC(int categoryId)
+        {
+            ViewHookaProduct_VM product = await _uow.ProductCategoryRepository.GetAll(x => x.Id == categoryId && x.IsDeleted == false).Select(c => new ViewHookaProduct_VM
+            {
+                CategoryId = c.Id,
+                CategoryTitle = c.Title,
+                 CategoryImage = c.Image,
+                Products = c.Products.Where(p => p.IsDeleted == false).Select(p => new HookaProduct_VM
+                {
+                    Title = p.Title,
+                    CustomerFinalPrice = p.CustomerFinalPrice,
+                    Id = p.Id,
+                    Image = p.Image,
+                     Description = p.Description
+                }).ToList()
+            }).FirstOrDefaultAsync();
+            return product;
+        }
         #endregion
 
 

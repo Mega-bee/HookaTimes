@@ -24,9 +24,9 @@ namespace HookaTimes.DAL.HookaTimesModels
 
         [Key]
         public int Id { get; set; }
+        public double? Rating { get; set; }
         [StringLength(450)]
         public string UserId { get; set; }
-        public double? Rating { get; set; }
         [Column(TypeName = "decimal(18, 10)")]
         public decimal? Height { get; set; }
         [Column(TypeName = "decimal(8, 2)")]

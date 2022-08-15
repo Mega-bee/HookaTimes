@@ -15,6 +15,7 @@ namespace HookaTimes.BLL.ViewModels
     {
         public int? ItemId { get; set; }
         public int? Quantity { get; set; }
+        public string CategoryName { get; set; }
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
         public decimal? ProductPrice { get; set; }

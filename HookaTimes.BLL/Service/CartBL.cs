@@ -20,6 +20,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
+
         public async Task<ResponseModel> AddToCart(int userBuddyId, int quantity, int productId)
         {
             ResponseModel responseModel = new ResponseModel();
@@ -69,12 +70,12 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<ResponseModel> GetCartSummary(HttpRequest request,int userBuddyId)
+        public async Task<ResponseModel> GetCartSummary(HttpRequest request, int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
             CartSummary_VM cartSummary = new CartSummary_VM()
             {
-                 
+
                 Items = await _uow.CartRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new CartItem_VM
                 {
                     ItemId = c.ProductId,
@@ -85,13 +86,48 @@ namespace HookaTimes.BLL.Service
                     ProductImage = $"{request.Scheme}://{request.Host}/{c.Product.Image}",
                 }).ToListAsync(),
             };
-            cartSummary.TotalPrice = cartSummary.Items.Sum(x=> x.TotalPrice);
+            cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
             responseModel.Data = new DataModel()
             {
                 Data = cartSummary,
                 Message = ""
+            };
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            bool isInCart = await _uow.VirtualCartRepository.CheckIfExists(x => x.SessionCartId == cartSessionId && x.ProductId == productId);
+            if (isInCart)
+            {
+                var currCartItem = await _uow.VirtualCartRepository.GetFirst(x => x.ProductId == productId && x.SessionCartId == cartSessionId);
+                currCartItem.Quantity += quantity;
+                await _uow.VirtualCartRepository.Update(currCartItem);
+                responseModel.ErrorMessage = "";
+                responseModel.StatusCode = 201;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = "Product quantity updated"
+                };
+                return responseModel;
+            }
+            VirtualCart cartItem = new VirtualCart()
+            {
+                SessionCartId = cartSessionId,
+                ProductId = productId,
+                Quantity = quantity
+            };
+            await _uow.VirtualCartRepository.Create(cartItem);
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 201;
+            responseModel.Data = new DataModel()
+            {
+                Data = "",
+                Message = "Product added to cart"
             };
             return responseModel;
         }
