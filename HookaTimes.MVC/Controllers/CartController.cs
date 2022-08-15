@@ -50,6 +50,32 @@ namespace HookaTimes.MVC.Controllers
            
         }
 
+        [HttpDelete]
+        [AllowAnonymous]
+        public async Task<IActionResult> RemoveItemFromCart([FromForm] int productId)
+        {
+            try
+            {
+                int userBuddyId = 0;
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                if (identity!.IsAuthenticated)
+                {
+                    userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                  
+                }
+                string cartSessionId = Request.Cookies["CartSessionId"]!;
+                
+
+                return Ok(await _cartBL.RemoveItemFromCart(productId, userBuddyId, cartSessionId));
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {

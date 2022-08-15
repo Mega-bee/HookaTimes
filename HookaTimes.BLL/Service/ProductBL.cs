@@ -85,7 +85,8 @@ namespace HookaTimes.BLL.Service
                     Title = c.Title,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
-                    Id = c.Id,
+                    Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
+                     CategoryId = c.Id,
                     Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
                 }).ToListAsync();
             } else

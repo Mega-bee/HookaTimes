@@ -3,10 +3,10 @@
 <div class="block-products__list-item ">
     <div class="product-card product-card--hidden-actions ">
         <div class="product-card__buttons">
-            <button style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.3em" height="2.3em" viewBox="0 0 36.242 28.383">
-                    <g id="Group_28" data-name="Group 28" transform="translate(-3361.077 -60.856)">
-                        <path id="Path_27" data-name="Path 27" d="M3396.975,65.154a.569.569,0,0,0-.447-.216h-27.885l-.779-3.419a.568.568,0,0,0-.554-.443h-5.443a.569.569,0,1,0,0,1.138h4.988l4.624,20.3a.569.569,0,0,0,.555.443h1.525a3.6,3.6,0,1,0,5.247,0h7.087a3.6,3.6,0,1,0,5.248,0h1.638a.57.57,0,0,0,0-1.139h-20.291l-.817-3.586h21.93a.569.569,0,0,0,.553-.436l2.927-12.159A.573.573,0,0,0,3396.975,65.154ZM3378.643,85.42a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3378.643,85.42Zm12.335,0a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3390.978,85.42ZM3379.513,77.1l-.841-4.941h7.215l-.877,4.941Zm-1.034-6.08-.842-4.941h9.328l-.876,4.941Zm-2-4.941.841,4.941h-7.3l-1.126-4.941Zm-6.2,6.08h7.231l.841,4.941h-6.947Zm22.865,4.941h-6.986l.877-4.941h7.3Zm1.464-6.08h-7.371l.876-4.941h7.684Z" fill="#030404" stroke="#030404" stroke-miterlimit="10" stroke-width="0.44"></path>
+            <button data-productId="@Model.Id" style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist add-to-cart-btn" type="button">
+                <svg data-productId="@Model.Id" xmlns="http://www.w3.org/2000/svg" width="2.3em" height="2.3em" viewBox="0 0 36.242 28.383">
+                    <g data-productId="@Model.Id" id="Group_28" data-name="Group 28" transform="translate(-3361.077 -60.856)">
+                        <path id="Path_27" data-productId="@Model.Id" data-name="Path 27" d="M3396.975,65.154a.569.569,0,0,0-.447-.216h-27.885l-.779-3.419a.568.568,0,0,0-.554-.443h-5.443a.569.569,0,1,0,0,1.138h4.988l4.624,20.3a.569.569,0,0,0,.555.443h1.525a3.6,3.6,0,1,0,5.247,0h7.087a3.6,3.6,0,1,0,5.248,0h1.638a.57.57,0,0,0,0-1.139h-20.291l-.817-3.586h21.93a.569.569,0,0,0,.553-.436l2.927-12.159A.573.573,0,0,0,3396.975,65.154ZM3378.643,85.42a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3378.643,85.42Zm12.335,0a2.461,2.461,0,1,1-2.461-2.46A2.464,2.464,0,0,1,3390.978,85.42ZM3379.513,77.1l-.841-4.941h7.215l-.877,4.941Zm-1.034-6.08-.842-4.941h9.328l-.876,4.941Zm-2-4.941.841,4.941h-7.3l-1.126-4.941Zm-6.2,6.08h7.231l.841,4.941h-6.947Zm22.865,4.941h-6.986l.877-4.941h7.3Zm1.464-6.08h-7.371l.876-4.941h7.684Z" fill="#030404" stroke="#030404" stroke-miterlimit="10" stroke-width="0.44"></path>
                     </g>
                 </svg>
             </button>
@@ -22,7 +22,7 @@
                 </svg>
             </button>
         </div> <div class="product-card__image product-image is--featured">
-            <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.Id" class="product-image__body">
+            <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.CategoryId" class="product-image__body">
                 <img class="product-image__img is--featured" src="@Model.Image" alt="">
             </a>
         </div>

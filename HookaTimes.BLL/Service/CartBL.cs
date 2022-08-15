@@ -131,7 +131,47 @@ namespace HookaTimes.BLL.Service
             return cartSummary;
         }
     
-           
+        public async Task<ResponseModel> RemoveItemFromCart(int productId,int userBuddyId, string cartSessionId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            bool productExists = await _uow.ProductRepository.CheckIfExists(p => p.Id == productId);
+            if (!productExists)
+            {
+                responseModel.ErrorMessage = "Product not found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = ""
+                };
+                return responseModel;
+            }
+            if(userBuddyId > 0)
+            {
+                var currItem = await _uow.CartRepository.GetFirst(x => x.BuddyId == userBuddyId && x.ProductId == productId);
+                await _uow.CartRepository.Delete(currItem.Id);
+                responseModel.ErrorMessage = "Product not found";
+                responseModel.StatusCode = 200;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = "Item removed from cart"
+                };
+                return responseModel;
+            } else
+            {
+                var currItem = await _uow.VirtualCartRepository.GetFirst(x => x.SessionCartId == cartSessionId && x.ProductId == productId);
+                await _uow.VirtualCartRepository.Delete(currItem.Id);
+                responseModel.ErrorMessage = "Product not found";
+                responseModel.StatusCode = 200;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = "Item removed from cart"
+                };
+                return responseModel;
+            }
+        }
         
         public async Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity)
         {
