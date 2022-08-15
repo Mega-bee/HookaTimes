@@ -3,9 +3,11 @@ using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -36,6 +38,8 @@ namespace HookaTimes.BLL.Service
             _context = context;
             _roleManager = roleManager;
         }
+
+        #region API
 
         #region SignIn
         public async Task<ResponseModel> EmailSignIn(EmailSignIn_VM model)
@@ -517,7 +521,7 @@ namespace HookaTimes.BLL.Service
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
             newProfile.IsAvailable = true;
-            newProfile.Image = "Images/Buddies/use-placeholder.png";
+            newProfile.Image = "Images/Buddies/user-placeholder.png";
             //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
@@ -912,6 +916,177 @@ namespace HookaTimes.BLL.Service
         }
 
         #endregion
+
+        #endregion
+
+        #region MVC
+
+        #region SignIn
+        public async Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model)
+        {
+
+            ApplicationUser res = await _userManager.FindByEmailAsync(model.Email);
+            if (res == null)
+            {
+                return null;
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(res, model.Password, isPersistent: false, lockoutOnFailure: false);
+            if (!result.Succeeded)
+            {
+                return null;
+            }
+            BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == res.Id);
+            var roles = await _userManager.GetRolesAsync(res);
+
+            var claims = Tools.GenerateClaimsMVC(res, roles, buddy);
+
+            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return identity;
+
+            //string JwtToken = Tools.GenerateJWT(claims);
+
+            /////// adding claims to db
+            //var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(res);
+
+            //var claimResult = claimsPrincipal.Claims.ToList();
+
+            //if (claims != null && claims.Count > 0)
+            //{
+            //    await _userManager.AddClaimsAsync(res, claims.ToList());
+
+            //}
+
+            //await _signInManager.RefreshSignInAsync(res);
+
+
+            //return identity;
+
+
+
+
+
+        }
+
+
+
+
+        #endregion
+
+
+        #region Buddy
+        public async Task<BuddyProfile> GetBuddyById(string UserId)
+        {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return null;
+            }
+            BuddyProfile Buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == UserId);
+
+            return Buddy;
+        }
+
+
+        public async Task<NavBuddy_VM> GetNavBuddyProfile(string UserId)
+        {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return null;
+            }
+            NavBuddy_VM Buddy = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => new NavBuddy_VM
+            {
+                Email = x.User.Email,
+                FirstName = x.FirstName,
+                Image = x.Image
+            }).FirstOrDefaultAsync();
+
+            return Buddy;
+        }
+        #endregion
+
+        #region SignUp
+
+        public async Task<ClaimsIdentity> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
+        {
+            await CheckRoles();
+
+            ApplicationUser oldUser = await _userManager.FindByEmailAsync(model.Email);
+            if (oldUser != null)
+            {
+                return null;
+            }
+
+            IdentityResult res = await CreateUserMVC(model);
+
+            if (!res.Succeeded)
+            {
+                return null;
+            }
+
+            //Create buddy Profile
+            BuddyProfile buddy = await CreateBuddyProfileMVC(model);
+
+            //Get the Identity User Profile so it can get its claims and roles
+            ApplicationUser newUser = await _userManager.FindByEmailAsync(model.Email);
+
+            var roles = await _userManager.GetRolesAsync(newUser);
+            var claims = Tools.GenerateClaimsMVC(newUser, roles, buddy);
+
+            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return identity;
+
+        }
+
+
+
+        public async Task<IdentityResult> CreateUserMVC(EmailSignUpMVC_VM model)
+        {
+            ApplicationUser user = new ApplicationUser();
+
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.CreatedDate = DateTime.UtcNow;
+            user.IsDeleted = false;
+            user.PhoneNumberConfirmed = true;
+            user.EmailConfirmed = true;
+            IdentityResult res = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, AppSetting.UserRole);
+            // check if user creation succeeded
+            return res;
+        }
+
+
+
+        public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model)
+        {
+            // create user profile and add role based on roleId
+            BuddyProfile newProfile = new BuddyProfile();
+            newProfile.UserId = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
+            newProfile.IsDeleted = false;
+            newProfile.CreatedDate = DateTime.UtcNow;
+            newProfile.FirstName = model.FirstName;
+            newProfile.LastName = model.LastName;
+            newProfile.IsAvailable = true;
+            newProfile.Image = "Images/Buddies/user-placeholder.png";
+            //newProfile.GenderId = 1;
+            // add the characteristics to the BuddyProfiles
+            await _context.BuddyProfiles.AddAsync(newProfile);
+            await _context.SaveChangesAsync();
+            return newProfile;
+        }
+
+
+
+        #endregion
+
+
+
+
+        #endregion
+
 
     }
 }

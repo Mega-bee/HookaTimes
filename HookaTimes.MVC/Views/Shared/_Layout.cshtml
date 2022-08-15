@@ -28,7 +28,8 @@
         <header class="site__header d-lg-block d-none">
             <div class="site-header">
                 @*<partial name="~/Views/Shared/Ecommerce/_NavBarTopPartial.cshtml" />*@
-                <partial name="~/Views/Shared/Ecommerce/_NavBarButtomPartial.cshtml" />
+                @*<partial name="~/Views/Shared/Ecommerce/_NavBarButtomPartial.cshtml" />*@
+                @await Component.InvokeAsync("NavBarComp")
             </div>
         </header>
     @RenderBody()

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CharbelFrennPortolfio.Views.Home.Components.Works
+namespace HookaTimes.MVC.Views.Home.Components.Places
 {
     public class PlacesViewComponent : ViewComponent
     {

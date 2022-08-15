@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureDbContext(builder.Configuration);
-builder.Services.ConfigureAuthentication();
+builder.Services.ConfigureAuthenticationMVC();
 new ServiceInjector(builder.Services).Render();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 var mvcBuilder = builder.Services.AddRazorPages();
@@ -32,6 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -45,6 +46,15 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 });
+var cookiePolicyOptions = new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+};
+
+
+
+app.UseCookiePolicy(cookiePolicyOptions);
+
 
 
 app.Run();

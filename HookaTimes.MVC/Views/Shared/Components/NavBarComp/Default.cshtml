@@ -3,16 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager;
 @model EmailSignInMVC_VM
 @{
-
-    string UserImage = "";
-    string UserName = "";
-    string UserEmail = "";
-    if (SignInManager.IsSignedIn(User))
-    {
-        UserImage = User.Claims.Where(x => x.Type == "BuddyImage").FirstOrDefault()!.Value.ToString();
-        UserName = User.Claims.Where(x => x.Type == "BuddyName").FirstOrDefault()!.Value.ToString();
-        UserEmail = User.Claims.Where(x => x.Type == "nameidentifier").FirstOrDefault()!.Value.ToString();
-    }
+    var buddy = (NavBuddy_VM)ViewBag.Buddy;
 }
 <style>
     .h-menu {
@@ -110,86 +101,10 @@
                     </nav>
                 </div>
 
-                @*<div class="nav-panel__nav-links nav-links">
-                <ul class="nav-links__list">
-                <li class="nav-links__item  nav-links__item--has-submenu ">
-                <a class="nav-links__item-link" href="/">
-                <div class="nav-links__item-body">
-                Home
 
-                </div>
-                </a>
-
-                </li>
-                <li class="nav-links__item  nav-links__item--has-submenu ">
-                <a class="nav-links__item-link" href="#products">
-                <div class="nav-links__item-body">
-                Products
-
-                </div>
-                </a>
-
-                </li>
-                <li class="nav-links__item  nav-links__item--has-submenu ">
-                <a class="nav-links__item-link" asp-controller="Home" asp-action="HookaPlaces">
-                <div class="nav-links__item-body">
-                Hooka Places
-
-                </div>
-                </a>
-
-                </li>
-                <li class="nav-links__item  nav-links__item--has-submenu ">
-                <a class="nav-links__item-link" href="#">
-                <div class="nav-links__item-body">
-                Became A Partner
-
-                </div>
-                </a>
-
-                </li>
-                <li class="nav-links__item  nav-links__item--has-submenu ">
-                <a class="nav-links__item-link" href="#">
-                <div class="nav-links__item-body">
-                Careers
-
-                </div>
-                </a>
-
-                </li>
-
-                </ul>
-                </div>*@
                 <!-- .nav-links / end -->
                 <div class="nav-panel__indicators">
-                    @*<div class="indicator indicator--trigger--click">
-                    <button type="button" class="indicator__button">
-                    <span class="indicator__area">
-                    <svg class="indicator__icon" width="20px" height="20px">
-                    <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
-                    </svg>
-                    <svg class="indicator__icon indicator__icon--open" width="20px" height="20px">
-                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-20"></use>
-                    </svg>
-                    </span>
-                    </button>
-                    <div class="indicator__dropdown">
-                    <div class="search search--location--indicator ">
-                    <div class="search__body">
-                    <form class="search__form" action="">
-                    <input class="search__input" name="search" aria-label="Site search" type="text" autocomplete="off">
-                    <button class="search__button search__button--type--submit" type="submit">
-                    <svg width="20px" height="20px">
-                    <use xlink:href="/FrontendAssets/images/sprite.svg#search-20"></use>
-                    </svg>
-                    </button>
-                    <div class="search__border"></div>
-                    </form>
-                    <div class="search__suggestions suggestions suggestions--location--indicator"></div>
-                    </div>
-                    </div>
-                    </div>
-                    </div> *@
+
                     <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
 
                     <div class="indicator">
@@ -313,7 +228,7 @@
                                         </table>
                                     </div>
                                     <div class="dropcart__buttons">
-                                        <a class="btn btn-secondary" asp-controller="Cart" asp-action="Index">View Cart</a>
+                                        <a class="btn btn-secondary" asp-controller="home" asp-action="Cart">View Cart</a>
                                         <a class="btn btn-primary" asp-controller="home" asp-action="Checkout">Checkout</a>
                                     </div>
                                 </div>
@@ -354,7 +269,7 @@
                                         <div class="form-group account-menu__form-button">
                                             <button type="submit" class="btn btn-primary btn-sm">Login</button>
                                         </div>
-                                        <div class="account-menu__form-link"><a asp-controller="Account" asp-action="Login">Create An Account</a></div>
+                                        <div class="account-menu__form-link"><a asp-controller="Account" asp-action="SignUp">Create An Account</a></div>
                                     </form>
                                 }
 
@@ -367,11 +282,11 @@
                                     <a href="account-dashboard.html" class="account-menu__user">
                                         <div class="account-menu__user-avatar">
                                             @*<img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">*@
-                                            <img src="~@UserImage" alt="">
+                                            <img src="@buddy.Image" alt="">
                                         </div>
                                         <div class="account-menu__user-info">
-                                            <div class="account-menu__user-name">@UserName</div>
-                                            <div class="account-menu__user-email">@UserEmail</div>
+                                            <div class="account-menu__user-name">@buddy.FirstName</div>
+                                            <div class="account-menu__user-email">@buddy.Email</div>
                                         </div>
                                     </a>
                                     <div class="account-menu__divider"></div>
@@ -382,10 +297,15 @@
                                         <li><a asp-controller="Home" asp-action="Password">Password</a></li>
                                     </ul>
                                     <div class="account-menu__divider"></div>
+                                    <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
+                                        <ul class="account-menu__links">
+                                            <li><a id="logoutbtn">Logout</a></li>
+                                        </ul>
 
-                                    <ul class="account-menu__links">
-                                        <li><a asp-controller="Account" asp-action="LogOut">Logout</a></li>
-                                    </ul>
+                                    </form>
+                                    @* <ul class="account-menu__links">
+                                <li><a>Logout</a></li>
+                                </ul>*@
                                 }
                             </div>
 
@@ -396,3 +316,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    const form = document.querySelector('#logoutForm');
+    const btn = document.querySelector('#logoutbtn');
+
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        form.submit();
+    });
+
+
+</script>

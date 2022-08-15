@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HookaTimes.BLL.ViewModels.Website
+﻿namespace HookaTimes.BLL.ViewModels.Website
 {
     public partial class Buddy_VM
     {
@@ -14,5 +8,13 @@ namespace HookaTimes.BLL.ViewModels.Website
         public string Image { get; set; }
         public string Profession { get; set; }
         public string Address { get; set; }
+    }
+
+
+    public partial class NavBuddy_VM
+    {
+        public string FirstName { get; set; }
+        public string Image { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -45,7 +44,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
             }
-            List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request,userBuddyId);
+            List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request, userBuddyId);
             return View(buddies);
         }
 

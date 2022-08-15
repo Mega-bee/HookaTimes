@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Sign Up";
+}
+@model EmailSignUpMVC_VM
+
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">Sign Up</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title">
+                <h1>My Account</h1>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="container">
+            <div class="row">
+             
+                <div class="col-md-6 d-flex flex-column  mt-4 mt-md-0" style="margin:auto 0 auto 0">
+                    <div class="card flex-grow-1 mb-0">
+                        <div class="card-body">
+                            <h3 class="card-title">Create a new account</h3>
+                            <form asp-controller="Account" asp-action="SignUp" method="post" role="form">
+
+                                <div class="form-group">
+                                    <label asp-for="FirstName">First Name</label>
+                                    <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="LastName">Last Name</label>
+                                    <input asp-for="LastName" type="text" class="form-control" placeholder="last Name">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label  asp-for="Email" >Email address</label>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                                </div>
+
+                               
+                                <div class="form-group">
+                                    <label asp-for="Password">Password</label>
+                                    <input asp-for ="Password"  type="password" class="form-control" placeholder="Password">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Password">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-4">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
