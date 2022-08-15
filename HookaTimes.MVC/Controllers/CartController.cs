@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -48,5 +49,20 @@ namespace HookaTimes.MVC.Controllers
             }
            
         }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
+        {
+            int userBuddyId = 0;
+            string cartSessionId = Request.Cookies["CartSessionId"];
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity!.IsAuthenticated)
+            {
+                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+               
+            }
+          CartSummary_VM cartSummary = await _cartBL.GetCartSummaryMVC(userBuddyId,cartSessionId);
+            return View(cartSummary);
+        } 
     }
 }

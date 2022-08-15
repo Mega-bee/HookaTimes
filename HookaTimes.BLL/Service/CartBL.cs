@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Abstractions;
 
 namespace HookaTimes.BLL.Service
 {
@@ -96,7 +97,42 @@ namespace HookaTimes.BLL.Service
             };
             return responseModel;
         }
-
+        public async Task<CartSummary_VM> GetCartSummaryMVC(int userBuddyId, string cartSessionId)
+        {
+            CartSummary_VM cartSummary = new CartSummary_VM()
+            {
+                Items = Array.Empty<CartItem_VM>().ToList(),
+                TotalPrice = 0,
+            };
+            if (userBuddyId > 0)
+            {
+                cartSummary.Items = await _uow.CartRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new CartItem_VM
+                {
+                    ItemId = c.ProductId,
+                    ProductName = c.Product.Title,
+                    ProductPrice = c.Product.CustomerFinalPrice,
+                    Quantity = c.Quantity,
+                    TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                    ProductImage = c.Product.ProductCategory.Image,
+                }).ToListAsync();
+                cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
+                return cartSummary;
+            }
+            cartSummary.Items = await _uow.VirtualCartRepository.GetAll(c => c.SessionCartId == cartSessionId).Select(c => new CartItem_VM
+            {
+                ItemId = c.ProductId,
+                ProductName = c.Product.Title,
+                ProductPrice = c.Product.CustomerFinalPrice,
+                Quantity = c.Quantity,
+                TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                ProductImage = c.Product.ProductCategory.Image,
+            }).ToListAsync();
+            cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
+            return cartSummary;
+        }
+    
+           
+        
         public async Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity)
         {
             ResponseModel responseModel = new ResponseModel();
