@@ -2,7 +2,6 @@
 using HookaTimes.BLL.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
 namespace HookaTimes.MVC.Views.Home.Components.Buddies
 {
     public class BuddiesViewComponent : ViewComponent

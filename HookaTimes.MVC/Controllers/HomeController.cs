@@ -179,10 +179,7 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult Password()
-        {
-            return View();
-        }
+
 
         public async Task<IActionResult> Product(int id)
         {

@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="/FrontendAssets/css/style.ltr.css">
     <!-- font - fontawesome -->
     <link rel="stylesheet" href="/FrontendAssets/vendor/fontawesome/css/all.min.css">
-    <!-- font - stroyka -->
-    <link rel="stylesheet" href="/FrontendAssets/fonts/stroyka/stroyka.css">
+    @*<!-- font - stroyka -->
+    <link rel="stylesheet" href="/FrontendAssets/fonts/stroyka/stroyka.css">*@
 </head>
 <body>
 
@@ -32,15 +32,17 @@
                 @await Component.InvokeAsync("NavBarComp")
             </div>
         </header>
-    @RenderBody()
+        @RenderBody()
         <partial name="~/Views/Shared/Ecommerce/_FooterPartial.cshtml" />
     </div>
-     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />
+
     @await RenderSectionAsync("Scripts", required: false)
-        <!-- js -->
-     <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
+    <!-- js -->
+    <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
     <script src="/FrontendAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/FrontendAssets/vendor/owl-carousel/owl.carousel.min.js"></script>
     <script src="/FrontendAssets/vendor/nouislider/nouislider.min.js"></script>
@@ -56,5 +58,13 @@
     <script>
         svg4everybody();
     </script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @*Toaster*@
+
+    @*<link href="/FrontendAssets/Plugins/VanillaToasts-master/vanillatoasts.css" rel="stylesheet"/>
+    <script src="/FrontendAssets/js/vanillatoasts.js" type="text/javascript"></script>*@
+
 </body>
 </html>

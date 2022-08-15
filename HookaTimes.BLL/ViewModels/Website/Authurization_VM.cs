@@ -19,15 +19,18 @@ namespace HookaTimes.BLL.ViewModels.Website
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
+        [Required]
         [StringLength(100)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [StringLength(100)]
         [Display(Name = "Last Name")]
+        [Required]
 
         public string LastName { get; set; }
+
         [Display(Name = "Phone Number")]
+        [Required]
 
         public string PhoneNumber { get; set; }
     }
@@ -41,5 +44,29 @@ namespace HookaTimes.BLL.ViewModels.Website
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+    }
+
+
+
+    public partial class PasswordMVC_VM
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+
+        public string CurrentPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+
+        public string NewPassword { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }

@@ -1,0 +1,21 @@
+﻿@if (TempData["success"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: result.errorMessage
+        })
+    </script>
+}
+else if (TempData["error"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: result.errorMessage
+        })
+    </script>
+   
+}

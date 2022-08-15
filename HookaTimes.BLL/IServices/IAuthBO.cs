@@ -64,12 +64,14 @@ namespace HookaTimes.BLL.IServices
         ///////////////////////////////////////////////MVC//////////////////////////////////////////
         //Task<bool> EmailSignInMVC(EmailSignInMVC_VM model);
 
-        Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model);
+        Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model, string wishlistSessionId, string cartSessionId);
 
         Task<int> GetBuddyById(string UserId);
 
         Task<NavBuddy_VM> GetNavBuddyProfile(string UserId);
 
-        Task<ClaimsIdentity> SignUpWithEmailMVC(EmailSignUpMVC_VM model);
+        Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model, string wishlistSessionId, string cartSessionId);
+
+        Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model);
     }
 }
