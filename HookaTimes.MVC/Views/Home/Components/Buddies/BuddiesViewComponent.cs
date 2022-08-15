@@ -27,11 +27,10 @@ namespace HookaTimes.MVC.Views.Home.Components.Buddies
             //}
             int BuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
-            var buddy = await _auth.GetBuddyById(UserId);
-            if (buddy != null)
-            {
-                BuddyId = buddy.Id;
-            }
+            BuddyId = await _auth.GetBuddyById(UserId);
+
+
+
             var items = await _hookaBuddyBl.GetBuddiesMVC(Request, BuddyId, 6);
             return View(items);
         }

@@ -976,13 +976,13 @@ namespace HookaTimes.BLL.Service
 
 
         #region Buddy
-        public async Task<BuddyProfile> GetBuddyById(string UserId)
+        public async Task<int> GetBuddyById(string UserId)
         {
             if (string.IsNullOrEmpty(UserId))
             {
-                return null;
+                return 0;
             }
-            BuddyProfile Buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == UserId);
+            int Buddy = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => x.Id).FirstOrDefaultAsync();
 
             return Buddy;
         }
@@ -1007,7 +1007,7 @@ namespace HookaTimes.BLL.Service
 
         #region SignUp
 
-        public async Task<ClaimsIdentity> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
+        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
         {
             await CheckRoles();
 
@@ -1024,18 +1024,9 @@ namespace HookaTimes.BLL.Service
                 return null;
             }
 
-            //Create buddy Profile
-            BuddyProfile buddy = await CreateBuddyProfileMVC(model);
 
-            //Get the Identity User Profile so it can get its claims and roles
-            ApplicationUser newUser = await _userManager.FindByEmailAsync(model.Email);
 
-            var roles = await _userManager.GetRolesAsync(newUser);
-            var claims = Tools.GenerateClaimsMVC(newUser, roles, buddy);
-
-            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return identity;
+            return res;
 
         }
 

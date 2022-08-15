@@ -26,7 +26,7 @@ namespace HookaTimes.MVC.Controllers
             _productBL = productBL;
         }
 
-        //[Authorize (Roles = "User")]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -150,10 +150,7 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult Password()
-        {
-            return View();
-        }
+
 
         public IActionResult Product()
         {
