@@ -4,7 +4,6 @@ using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -27,14 +26,14 @@ namespace HookaTimes.MVC.Controllers
             _productBL = productBL;
         }
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        //[Authorize (Roles = "User")]
         [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        [Authorize]
         [AllowAnonymous]
 
         public async Task<IActionResult> HookaBuddies()
@@ -45,7 +44,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
             }
-            List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request,userBuddyId);
+            List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request, userBuddyId);
             return View(buddies);
         }
 

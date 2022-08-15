@@ -1,30 +1,38 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
-namespace CharbelFrennPortolfio.Views.Home.Components.Services
+namespace HookaTimes.MVC.Views.Home.Components.Buddies
 {
     public class BuddiesViewComponent : ViewComponent
     {
         private readonly IHookaBuddyBL _hookaBuddyBl;
+        private readonly IAuthBO _auth;
 
-        public BuddiesViewComponent(IHookaBuddyBL hookaBuddyBl)
+        public BuddiesViewComponent(IHookaBuddyBL hookaBuddyBl, IAuthBO auth)
         {
             _hookaBuddyBl = hookaBuddyBl;
+            _auth = auth;
         }
+
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int userBuddyId = 0;
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity!.IsAuthenticated)
+            //int userBuddyId = 0;
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            //if (identity!.IsAuthenticated)
+            //{
+            //    userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")?.Value);
+            //}
+            int BuddyId = 0;
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            var buddy = await _auth.GetBuddyById(UserId);
+            if (buddy != null)
             {
-                 userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                BuddyId = buddy.Id;
             }
-            var items = await _hookaBuddyBl.GetBuddiesMVC(Request,userBuddyId,6);
+            var items = await _hookaBuddyBl.GetBuddiesMVC(Request, BuddyId, 6);
             return View(items);
         }
     }

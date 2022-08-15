@@ -1,31 +1,34 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
-namespace CharbelFrennPortolfio.Views.Home.Components.Contact
+namespace HookaTimes.MVC.Views.Home.Components.Products
 {
     public class ProductsViewComponent : ViewComponent
     {
         private readonly IProductBL _productBL;
+        private readonly IAuthBO _auth;
 
-        public ProductsViewComponent(IProductBL productBL)
+        public ProductsViewComponent(IProductBL productBL, IAuthBO auth)
         {
             _productBL = productBL;
+            _auth = auth;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int userBuddyId = 0;
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity!.IsAuthenticated)
+            int BuddyId = 0;
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            var buddy = await _auth.GetBuddyById(UserId);
+            if (buddy != null)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                BuddyId = buddy.Id;
             }
-            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request,6);
+
+
+            List<Product_VM> products = await _productBL.GetAllProductsMVC(BuddyId, Request, 6);
             return View(products);
         }
     }
