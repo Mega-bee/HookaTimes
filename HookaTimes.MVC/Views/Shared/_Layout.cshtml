@@ -32,15 +32,17 @@
                 @await Component.InvokeAsync("NavBarComp")
             </div>
         </header>
-    @RenderBody()
+        @RenderBody()
         <partial name="~/Views/Shared/Ecommerce/_FooterPartial.cshtml" />
     </div>
-     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />
+
     @await RenderSectionAsync("Scripts", required: false)
-        <!-- js -->
-     <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
+    <!-- js -->
+    <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
     <script src="/FrontendAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/FrontendAssets/vendor/owl-carousel/owl.carousel.min.js"></script>
     <script src="/FrontendAssets/vendor/nouislider/nouislider.min.js"></script>
@@ -60,6 +62,13 @@
     <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+    @*Toaster*@
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="css/eggy.css" />
+    <!-- Progressbar Styles -->
+    <link rel="stylesheet" href="css/progressbar.css" />
+    <!-- Themes -->
+    <link rel="stylesheet" href="css/theme.css" />
 
 </body>
 </html>

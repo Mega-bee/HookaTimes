@@ -1,0 +1,24 @@
+﻿@if (TempData["success"] != null)
+{
+    <script>
+        await Eggy({
+            title: 'Success',
+            message: @TempData["success"],
+            position: 'top-right',
+            type: 'success',
+            duration: 3000,
+        });
+    </script>
+}
+else if (TempData["error"] != null)
+{
+    <script>
+        await Eggy({
+            title: 'Error',
+            message: @TempData["error"],
+            position: 'top-right',
+            type: 'error',
+            duration: 3000,
+        });
+    </script>
+}

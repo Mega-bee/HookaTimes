@@ -3,8 +3,6 @@
 function handleAddToCart(e) {
   
     let btn = e.currentTarget;
-    console.log(btn);
-    return;
     e.preventDefault()
     let productId = btn.dataset.productid
 

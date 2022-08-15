@@ -19,12 +19,14 @@ namespace HookaTimes.MVC.Views.Home.Components.Products
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
             int BuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             BuddyId = await _auth.GetBuddyById(UserId);
 
 
-            List<Product_VM> products = await _productBL.GetAllProductsMVC(BuddyId, Request, 6);
+
+            List<Product_VM> products = await _productBL.GetAllProductsMVC(BuddyId, Request, wishlistSessionId, 6);
             return View(products);
         }
     }

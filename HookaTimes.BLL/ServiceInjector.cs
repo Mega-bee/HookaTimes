@@ -34,6 +34,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IOrderBL, OrderBL>();
             _services.AddScoped<ICuisineBL, CuisineBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
+            _services.AddScoped<IWishlistBL, WishlistBL>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();

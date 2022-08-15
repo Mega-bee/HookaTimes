@@ -10,7 +10,7 @@ namespace HookaTimes.BLL.IServices
     {
         Task<ResponseModel> GetAllCategories(HttpRequest request);
         Task<ResponseModel> GetProductsByCategoryId(int id, HttpRequest request);
-        Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request, int take = 0);
+        Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request, string sessionWishlistId, int take = 0);
         Task<ViewHookaProduct_VM> GetCategoryProductsMVC(int categoryId);
     }
 }

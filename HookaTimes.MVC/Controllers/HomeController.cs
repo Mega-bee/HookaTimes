@@ -81,7 +81,8 @@ namespace HookaTimes.MVC.Controllers
                 string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
                 userBuddyId = await _auth.GetBuddyById(UserId);
             }
-            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request);
+            string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
+            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request,wishlistSessionId);
             return View(products);
         }
 

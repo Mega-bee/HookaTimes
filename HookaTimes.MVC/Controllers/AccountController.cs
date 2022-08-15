@@ -185,14 +185,32 @@ namespace HookaTimes.MVC.Controllers
                 var user = await _userManager.FindByIdAsync(UID);
 
                 if (user == null)
+                {
+                    TempData["error"] = "User Was Not Found!";
+
+                    return View(model);
+                }
+                if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
+                {
+
+                    TempData["error"] = "Passwords is same as old!";
                     return View(model);
 
-                if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
-                    return View(model);
+                }
                 if (model.NewPassword == model.CurrentPassword)
+                {
+                    TempData["error"] = "Passwords is same as old!";
+
                     return View(model);
+
+                }
                 if (model.NewPassword != model.ConfirmPassword)
+                {
+                    TempData["error"] = "Passwords don't match!";
+
                     return View(model);
+
+                }
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var encodedToken = Encoding.UTF8.GetBytes(token);
                 var validToken = WebEncoders.Base64UrlEncode(encodedToken);
@@ -201,7 +219,11 @@ namespace HookaTimes.MVC.Controllers
 
                 var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
                 if (result.Succeeded)
-                    return Ok(new { message = "Password has been reset succesfully" });
+                {
+                    TempData["success"] = "Please Login Again";
+                    //return Ok(new { message = "Password has been reset succesfully" });
+                    return RedirectToAction("Index", "Home");
+                }
 
                 return View(model);
             }
