@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Claims;
+using System.Text;
 
 namespace HookaTimes.MVC.Controllers
 {
@@ -169,6 +171,41 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Password(PasswordMVC_VM model)
+        {
+            if (ModelState.IsValid)
+            {
+                string UID = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+                var user = await _userManager.FindByIdAsync(UID);
+
+                if (user == null)
+                    return View(model);
+
+                if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
+                    return View(model);
+                if (model.NewPassword == model.CurrentPassword)
+                    return View(model);
+                if (model.NewPassword != model.ConfirmPassword)
+                    return View(model);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var encodedToken = Encoding.UTF8.GetBytes(token);
+                var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+                var decodedToken = WebEncoders.Base64UrlDecode(validToken);
+                string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+                var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+                if (result.Succeeded)
+                    return Ok(new { message = "Password has been reset succesfully" });
+
+                return View(model);
+            }
+            return View(model);
+        }
 
         #endregion
 
