@@ -121,5 +121,21 @@ namespace HookaTimes.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult Invitations()
+        {
+            return View();
+        }
+
+        public IActionResult InvitationPlace()
+        {
+            return View();
+        }
+
+
+        public IActionResult Buddy()
+        {
+            return View();
+        }
     }
 }
