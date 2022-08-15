@@ -177,6 +177,7 @@ namespace HookaTimes.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Password(PasswordMVC_VM model)
         {
+            //temp
             if (ModelState.IsValid)
             {
                 string UID = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
