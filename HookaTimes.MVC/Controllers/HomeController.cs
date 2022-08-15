@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.MVC.Models;
@@ -16,14 +17,16 @@ namespace HookaTimes.MVC.Controllers
         private readonly IHookaPlaceBL _hookaPlaceBL;
         private readonly IHookaBuddyBL _hookaBuddyBL;
         private readonly IProductBL _productBL;
+        private readonly IAuthBO _auth;
 
-        public HomeController(ILogger<HomeController> logger, ICuisineBL cuisineBl, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL hookaBuddyBL, IProductBL productBL)
+        public HomeController(ILogger<HomeController> logger, ICuisineBL cuisineBl, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL hookaBuddyBL, IProductBL productBL, IAuthBO auth)
         {
             _logger = logger;
             _cuisineBl = cuisineBl;
             _hookaPlaceBL = hookaPlaceBL;
             _hookaBuddyBL = hookaBuddyBL;
             _productBL = productBL;
+            _auth = auth;
         }
 
         [Authorize(Roles = "User")]
@@ -42,7 +45,8 @@ namespace HookaTimes.MVC.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
             }
             List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request, userBuddyId);
             return View(buddies);
@@ -52,13 +56,14 @@ namespace HookaTimes.MVC.Controllers
         [Authorize(Roles = "User")]
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult HookaBuddiesSearch([FromQuery] int sortBy, [FromQuery] int filterBy)
+        public async Task<IActionResult> HookaBuddiesSearch([FromQuery] int sortBy, [FromQuery] int filterBy)
         {
             int userBuddyId = 0;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
             }
             return ViewComponent("BuddiesSearchResult", new {userBuddyId, sortBy, filterBy });
         }
@@ -73,7 +78,8 @@ namespace HookaTimes.MVC.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
             }
             List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request);
             return View(products);

@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace HookaTimes.MVC.Controllers
     public class CartController : Controller
     {
         private readonly ICartBL _cartBL;
+        private readonly IAuthBO _auth;
 
-        public CartController(ICartBL cartBL)
+        public CartController(ICartBL cartBL, IAuthBO auth)
         {
             _cartBL = cartBL;
+            _auth = auth;
         }
 
         [AllowAnonymous]
@@ -23,9 +26,11 @@ namespace HookaTimes.MVC.Controllers
             {
                 int userBuddyId = 0;
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
+              
                 if (identity!.IsAuthenticated)
                 {
-                    userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                    string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                    userBuddyId = await _auth.GetBuddyById(UserId);
                     return Ok(await _cartBL.AddToCart(userBuddyId, quantity, productId));
                 }
                 string cartSessionId = Request.Cookies["CartSessionId"]!;
@@ -60,8 +65,9 @@ namespace HookaTimes.MVC.Controllers
                 var identity = HttpContext.User.Identity as ClaimsIdentity;
                 if (identity!.IsAuthenticated)
                 {
-                    userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
-                  
+                    string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                    userBuddyId = await _auth.GetBuddyById(UserId);
+
                 }
                 string cartSessionId = Request.Cookies["CartSessionId"]!;
                 

@@ -976,15 +976,15 @@ namespace HookaTimes.BLL.Service
 
 
         #region Buddy
-        public async Task<BuddyProfile> GetBuddyById(string UserId)
+        public async Task<int> GetBuddyById(string UserId)
         {
             if (string.IsNullOrEmpty(UserId))
             {
-                return null;
+                return 0;
             }
-            BuddyProfile Buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == UserId);
+             int buddyId = await _uow.BuddyRepository.GetAll(x=> x.UserId == UserId).Select(x=> x.Id).FirstOrDefaultAsync();
 
-            return Buddy;
+            return buddyId;
         }
 
 

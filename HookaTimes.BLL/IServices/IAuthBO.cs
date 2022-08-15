@@ -66,7 +66,7 @@ namespace HookaTimes.BLL.IServices
 
         Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model);
 
-        Task<BuddyProfile> GetBuddyById(string UserId);
+        Task<int> GetBuddyById(string UserId);
 
         Task<NavBuddy_VM> GetNavBuddyProfile(string UserId);
 

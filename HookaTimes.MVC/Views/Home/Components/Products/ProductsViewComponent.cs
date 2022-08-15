@@ -21,11 +21,8 @@ namespace HookaTimes.MVC.Views.Home.Components.Products
         {
             int BuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
-            var buddy = await _auth.GetBuddyById(UserId);
-            if (buddy != null)
-            {
-                BuddyId = buddy.Id;
-            }
+             BuddyId = await _auth.GetBuddyById(UserId);
+            
 
 
             List<Product_VM> products = await _productBL.GetAllProductsMVC(BuddyId, Request, 6);
