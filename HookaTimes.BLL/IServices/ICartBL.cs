@@ -8,5 +8,8 @@ namespace HookaTimes.BLL.IServices
     {
         Task<ResponseModel> AddToCart(int userBuddyId, int quantity, int productId);
         Task<ResponseModel> GetCartSummary(HttpRequest request, int userBuddyId);
+        Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity);
+        Task<CartSummary_VM> GetCartSummaryMVC(int userBuddyId, string cartSessionId);
+        Task<ResponseModel> RemoveItemFromCart(int productId, int userBuddyId, string cartSessionId);
     }
 }

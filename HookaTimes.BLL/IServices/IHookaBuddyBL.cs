@@ -11,6 +11,6 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> GetBuddies(HttpRequest request, int userBuddyId, string uid);
         Task<ResponseModel> GetBuddy(int BuddyId, HttpRequest Request);
         Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model);
-        Task<List<Buddy_VM>> GetBuddiesMVC(HttpRequest request, int userBuddyId, int take = 0);
+        Task<List<Buddy_VM>> GetBuddiesMVC(HttpRequest request, int userBuddyId, int take = 0, int filterBy = 0, int sortBy = 0);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.MVC.Models;
@@ -16,14 +17,16 @@ namespace HookaTimes.MVC.Controllers
         private readonly IHookaPlaceBL _hookaPlaceBL;
         private readonly IHookaBuddyBL _hookaBuddyBL;
         private readonly IProductBL _productBL;
+        private readonly IAuthBO _auth;
 
-        public HomeController(ILogger<HomeController> logger, ICuisineBL cuisineBl, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL hookaBuddyBL, IProductBL productBL)
+        public HomeController(ILogger<HomeController> logger, ICuisineBL cuisineBl, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL hookaBuddyBL, IProductBL productBL, IAuthBO auth)
         {
             _logger = logger;
             _cuisineBl = cuisineBl;
             _hookaPlaceBL = hookaPlaceBL;
             _hookaBuddyBL = hookaBuddyBL;
             _productBL = productBL;
+            _auth = auth;
         }
 
         [Authorize(Roles = "User")]
@@ -33,7 +36,7 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
 
         public async Task<IActionResult> HookaBuddies()
@@ -42,13 +45,31 @@ namespace HookaTimes.MVC.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
             }
             List<Buddy_VM> buddies = await _hookaBuddyBL.GetBuddiesMVC(Request, userBuddyId);
             return View(buddies);
         }
 
-        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+
+        [Authorize(Roles = "User")]
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> HookaBuddiesSearch([FromQuery] int sortBy, [FromQuery] int filterBy)
+        {
+            int userBuddyId = 0;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity!.IsAuthenticated)
+            {
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
+            }
+            return ViewComponent("BuddiesSearchResult", new {userBuddyId, sortBy, filterBy });
+        }
+
+
+        [Authorize(Roles = "User")]
         [AllowAnonymous]
 
         public async Task<IActionResult> HookaProducts()
@@ -57,7 +78,8 @@ namespace HookaTimes.MVC.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
             }
             List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request);
             return View(products);
@@ -76,6 +98,12 @@ namespace HookaTimes.MVC.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult HookaPlacesSearch([FromQuery] List<int> cuisines, [FromQuery] int sortBy)
+        {
+
+            return ViewComponent("PlacesSearchResult",new {cuisines,sortBy});
+        }
         public IActionResult WishList()
         {
             return View();
@@ -152,9 +180,10 @@ namespace HookaTimes.MVC.Controllers
 
 
 
-        public IActionResult Product()
+        public async Task<IActionResult> Product(int id)
         {
-            return View();
+            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id);
+            return View(prod);
         }
 
         public IActionResult Place()

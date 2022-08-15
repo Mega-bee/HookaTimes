@@ -161,54 +161,26 @@
                                                 <div class="filter__container">
                                                     <div class="filter-list">
                                                         <div class="filter-list__list">
+
                                                             <label class="filter-list__item">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
                                                                         <input class="input-radio__input"
-                                                                               name="filter_radio"
-                                                                               type="radio" />
-                                                                        <span class="input-radio__circle"></span>
-                                                                    </span>
-                                                                </span><span class="filter-list__title">Popularity </span>
-                                                            </label>
-                                                            <label class="filter-list__item">
-                                                                <span class="filter-list__input input-radio">
-                                                                    <span class="input-radio__body">
-                                                                        <input class="input-radio__input"
-                                                                               name="filter_radio"
+                                                                               name="sortBy"
+                                                                               value="1"
                                                                                type="radio" />
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span><span class="filter-list__title">Rating: High to Low </span>
                                                             </label>
-                                                            <label class="filter-list__item filter-list__item--disabled">
-                                                                <span class="filter-list__input input-radio">
-                                                                    <span class="input-radio__body">
-                                                                        <input class="input-radio__input"
-                                                                               name="filter_radio"
-                                                                               type="radio"
-                                                                               checked="checked"
-                                                                               disabled="disabled" />
-                                                                        <span class="input-radio__circle"></span>
-                                                                    </span>
-                                                                </span><span class="filter-list__title">Cost: Low to High</span>
-                                                            </label>
-                                                            <label class="filter-list__item filter-list__item--disabled">
-                                                                <span class="filter-list__input input-radio">
-                                                                    <span class="input-radio__body">
-                                                                        <input class="input-radio__input"
-                                                                               name="filter_radio"
-                                                                               type="radio"
-                                                                               disabled="disabled" />
-                                                                        <span class="input-radio__circle"></span>
-                                                                    </span>
-                                                                </span><span class="filter-list__title">Cost: High to Low</span>
-                                                            </label>
+
+
                                                             <label class="filter-list__item">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
                                                                         <input class="input-radio__input"
-                                                                               name="filter_radio"
+                                                                               name="sortBy"
+                                                                               value="2"
                                                                                type="radio" />
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
@@ -243,7 +215,7 @@
                                                                 <label class="filter-list__item">
                                                                     <span class="filter-list__input input-check">
                                                                         <span class="input-check__body">
-                                                                            <input class="input-check__input"
+                                                                            <input class="input-check__input" name="cuisine"
                                                                                type="checkbox" value="@item.Id" />
                                                                             <span class="input-check__box"></span>
                                                                             <svg class="input-check__icon"
@@ -255,7 +227,7 @@
                                                                     </span><span class="filter-list__title">@item.Title </span>
                                                                 </label>
                                                             }
-                                                          
+
 
                                                         </div>
                                                     </div>
@@ -263,100 +235,100 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="widget-filters__item">
-                                        <div class="filter" data-collapse-item="">
-                                            <button type="button"
-                                                    class="filter__title"
-                                                    data-collapse-trigger="">
-                                                Rating
-                                                <svg class="filter__arrow"
-                                                     width="12px"
-                                                     height="7px">
-                                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                </svg>
-                                            </button>
-                                            <div class="filter__body"
-                                                 data-collapse-content=""
-                                                 style="">
-                                                <div class="filter__container">
-                                                    <div class="filter-rating"
-                                                         data-min="Any"
-                                                         data-max="5"
-                                                         data-from="3.0"
-                                                         data-to="4.5">
-                                                        <div class="filter-price__slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr">
-                                                            <div class="noUi-base">
-                                                                <div class="noUi-connects">
-                                                                    <div class="noUi-connect"
-                                                                         style="
-                                                                            transform: translate(
-                                                                                    9%,
-                                                                                    0px
-                                                                                )
-                                                                                scale(
-                                                                                    0.54,
-                                                                                    1
-                                                                                );
-                                                                        "></div>
-                                                                </div>
-                                                                <div class="noUi-origin"
-                                                                     style="
-                                                                        transform: translate(
-                                                                            -910%,
-                                                                            0px
-                                                                        );
-                                                                        z-index: 5;
-                                                                    ">
-                                                                    <div class="noUi-handle noUi-handle-lower"
-                                                                         data-handle="0"
-                                                                         tabindex="0"
-                                                                         role="slider"
-                                                                         aria-orientation="horizontal"
-                                                                         aria-valuemin="3"
-                                                                         aria-valuemax="4.5"
-                                                                         aria-valuenow="3.5"
-                                                                         aria-valuetext="3.5">
-                                                                        <div class="noUi-touch-area"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="noUi-origin"
-                                                                     style="
-                                                                        transform: translate(
-                                                                            -370%,
-                                                                            0px
-                                                                        );
-                                                                        z-index: 4;
-                                                                    ">
-                                                                    <div class="noUi-handle noUi-handle-upper"
-                                                                         data-handle="1"
-                                                                         tabindex="0"
-                                                                         role="slider"
-                                                                         aria-orientation="horizontal"
-                                                                         aria-valuemin="3.0"
-                                                                         aria-valuemax="5"
-                                                                         aria-valuenow="3.5"
-                                                                         aria-valuetext="3.5">
-                                                                        <div class="noUi-touch-area"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="filter-price__title">
-                                                            Rating: <span class="filter-price__min-value">Any</span>
-                                                            – $<span class="filter-price__max-value">5.0</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    @*  <div class="widget-filters__item">
+                                    <div class="filter" data-collapse-item="">
+                                    <button type="button"
+                                    class="filter__title"
+                                    data-collapse-trigger="">
+                                    Rating
+                                    <svg class="filter__arrow"
+                                    width="12px"
+                                    height="7px">
+                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                    </svg>
+                                    </button>
+                                    <div class="filter__body"
+                                    data-collapse-content=""
+                                    style="">
+                                    <div class="filter__container">
+                                    <div class="filter-rating"
+                                    data-min="Any"
+                                    data-max="5"
+                                    data-from="3.0"
+                                    data-to="4.5">
+                                    <div class="filter-price__slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr">
+                                    <div class="noUi-base">
+                                    <div class="noUi-connects">
+                                    <div class="noUi-connect"
+                                    style="
+                                    transform: translate(
+                                    9%,
+                                    0px
+                                    )
+                                    scale(
+                                    0.54,
+                                    1
+                                    );
+                                    "></div>
                                     </div>
+                                    <div class="noUi-origin"
+                                    style="
+                                    transform: translate(
+                                    -910%,
+                                    0px
+                                    );
+                                    z-index: 5;
+                                    ">
+                                    <div class="noUi-handle noUi-handle-lower"
+                                    data-handle="0"
+                                    tabindex="0"
+                                    role="slider"
+                                    aria-orientation="horizontal"
+                                    aria-valuemin="3"
+                                    aria-valuemax="4.5"
+                                    aria-valuenow="3.5"
+                                    aria-valuetext="3.5">
+                                    <div class="noUi-touch-area"></div>
+                                    </div>
+                                    </div>
+                                    <div class="noUi-origin"
+                                    style="
+                                    transform: translate(
+                                    -370%,
+                                    0px
+                                    );
+                                    z-index: 4;
+                                    ">
+                                    <div class="noUi-handle noUi-handle-upper"
+                                    data-handle="1"
+                                    tabindex="0"
+                                    role="slider"
+                                    aria-orientation="horizontal"
+                                    aria-valuemin="3.0"
+                                    aria-valuemax="5"
+                                    aria-valuenow="3.5"
+                                    aria-valuetext="3.5">
+                                    <div class="noUi-touch-area"></div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="filter-price__title">
+                                    Rating: <span class="filter-price__min-value">Any</span>
+                                    – $<span class="filter-price__max-value">5.0</span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>*@
 
                                 </div>
                                 <div class="widget-filters__actions d-flex">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button id="filter-btn" class="btn btn-primary btn-sm">
                                         Filter
                                     </button>
-                                    <button class="btn btn-secondary btn-sm">
+                                    <button id="reset-filter-btn" class="btn btn-secondary btn-sm">
                                         Reset
                                     </button>
                                 </div>
@@ -409,58 +381,74 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="products-view__list products-list"
-                             data-layout="grid-3-sidebar"
-                             data-with-features="false"
-                             data-mobile-grid-columns="2">
-                            <div class="products-list__body">
-                                @foreach (var item in Model.Places)
-                                {
-                                    <partial name="../shared/Ecommerce/_HookaPlacePartial.cshtml" model="item" />
-
-                                }
-
-
+                        @if (Model.Places.Count == 0)
+                        {
+                            <div class="not-found">
+                                <div class="not-found__404">Oops! Error 404</div>
+                                <div class="not-found__content">
+                                    <h1 class="not-found__title">No Places Found</h1>
+                                    <p class="not-found__text">We can't seem to find the places you're looking for.<br>Try to choose other filters.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="products-view__pagination">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link page-link--with-arrow"
+                        }
+                        else
+                        {
+                            <div id="items-container">
+                                <div class="products-view__list products-list"
+                                 data-layout="grid-3-sidebar"
+                                 data-with-features="false"
+                                 data-mobile-grid-columns="2">
+                                    <div class="products-list__body">
+                                        @foreach (var item in Model.Places)
+                                        {
+                                            <partial name="../shared/Ecommerce/_HookaPlacePartial.cshtml" model="item" />
+
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="products-view__pagination">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link page-link--with-arrow"
                                        href=""
                                        aria-label="Previous">
-                                        <svg class="page-link__arrow page-link__arrow--left"
+                                            <svg class="page-link__arrow page-link__arrow--left"
                                              aria-hidden="true"
                                              width="8px"
                                              height="13px">
-                                            <use xlink:href="~/FrontendAssets/images/sprite.svg#arrow-rounded-left-8x13"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link page-link--with-arrow"
+                                                <use xlink:href="~/FrontendAssets/images/sprite.svg#arrow-rounded-left-8x13"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="">1</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="">2 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link page-link--with-arrow"
                                        href=""
                                        aria-label="Next">
-                                        <svg class="page-link__arrow page-link__arrow--right"
+                                            <svg class="page-link__arrow page-link__arrow--right"
                                              aria-hidden="true"
                                              width="8px"
                                              height="13px">
-                                            <use xlink:href="~/FrontendAssets/images/sprite.svg#arrow-rounded-right-8x13"></use>
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                                <use xlink:href="~/FrontendAssets/images/sprite.svg#arrow-rounded-right-8x13"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -470,3 +458,7 @@
 
 
 </div>
+
+@section Scripts {
+    <script src="~/FrontendAssets/js/search-places.js"></script>
+    }

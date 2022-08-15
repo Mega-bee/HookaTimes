@@ -2,7 +2,6 @@
 using HookaTimes.BLL.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
 namespace HookaTimes.MVC.Views.Home.Components.Buddies
 {
     public class BuddiesViewComponent : ViewComponent
@@ -28,9 +27,6 @@ namespace HookaTimes.MVC.Views.Home.Components.Buddies
             int BuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             BuddyId = await _auth.GetBuddyById(UserId);
-
-
-
             var items = await _hookaBuddyBl.GetBuddiesMVC(Request, BuddyId, 6);
             return View(items);
         }

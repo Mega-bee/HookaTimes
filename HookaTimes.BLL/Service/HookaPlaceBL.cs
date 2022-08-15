@@ -2,6 +2,7 @@
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
@@ -209,8 +210,46 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
-     
 
+        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request,int take=0,List<int> cuisines = null,int sortBy = 0)
+        {
+            var query = _uow.PlaceRepository.GetAll(p => p.IsDeleted == false);
+            List<HookaPlaces_VM> places = Array.Empty<HookaPlaces_VM>().ToList();
+    
+            if(cuisines != null)
+            {
+                if(cuisines.Count > 0)
+                {
+                    query = query.Where(p => cuisines.Contains((int)p.CuisineId));
+                }
+            }
+            if(sortBy != default)
+            {
+                switch (sortBy)
+                {
+                    case 1:
+                        query = query.OrderByDescending(p => p.Rating);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if(take>0)
+            {
+                query = query.Take(take);
+            }
+             places = await query.Select(p => new HookaPlaces_VM
+            {
+                Cuisine = p.Cuisine.Title,
+                Id = p.Id,
+                Image = $"{request.Scheme}://{request.Host}{p.Image}",
+                Name = p.Title,
+                Location = p.Location.Title,
+                Rating = (float)p.Rating,
+
+            }).ToListAsync();
+            return places;
+        }
 
     }
 }

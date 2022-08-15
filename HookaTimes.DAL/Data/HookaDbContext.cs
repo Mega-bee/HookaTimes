@@ -1,6 +1,8 @@
-﻿using HookaTimes.DAL.HookaTimesModels;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.DAL.Data
 {
@@ -48,9 +50,11 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<PlacesProfile> PlacesProfiles { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<VirtualCart> VirtualCarts { get; set; }
+        public virtual DbSet<VirtualWishlist> VirtualWishlists { get; set; }
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
 
-
-
+ 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AspNetUser>(entity =>
@@ -267,6 +271,35 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.ProductCategoryId)
                     .HasConstraintName("FK_Product_ProductCategory");
+            });
+
+            modelBuilder.Entity<VirtualCart>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.VirtualCarts)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_VirtualCart_Product");
+            });
+
+            modelBuilder.Entity<VirtualWishlist>(entity =>
+            {
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.VirtualWishlists)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_VirtualWishlist_Product");
+            });
+
+            modelBuilder.Entity<Wishlist>(entity =>
+            {
+                entity.HasOne(d => d.Buddy)
+                    .WithMany(p => p.Wishlists)
+                    .HasForeignKey(d => d.BuddyId)
+                    .HasConstraintName("FK_Wishlist_BuddyProfile");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Wishlists)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Wishlist_Product");
             });
 
             OnModelCreatingPartial(modelBuilder);

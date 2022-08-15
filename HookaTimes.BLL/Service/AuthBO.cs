@@ -982,9 +982,9 @@ namespace HookaTimes.BLL.Service
             {
                 return 0;
             }
-            int Buddy = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => x.Id).FirstOrDefaultAsync();
+            int buddyId = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => x.Id).FirstOrDefaultAsync();
 
-            return Buddy;
+            return buddyId;
         }
 
 
