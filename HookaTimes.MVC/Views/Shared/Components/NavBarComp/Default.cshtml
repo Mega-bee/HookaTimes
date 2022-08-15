@@ -317,14 +317,6 @@
     </div>
 </div>
 
-<script>
-    const form = document.querySelector('#logoutForm');
-    const btn = document.querySelector('#logoutbtn');
-
-    btn.addEventListener('click', (event) => {
-        event.preventDefault();
-        form.submit();
-    });
-
-
-</script>
+@section Scripts {
+    <script src="~/FrontendAssets/js/logout.js" ></script>
+}

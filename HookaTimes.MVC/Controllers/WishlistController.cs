@@ -23,6 +23,8 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
+
+        [AllowAnonymous]
         public async Task<IActionResult> AddToWishlist([FromForm] int productId)
         {
             int userBuddyId = 0;

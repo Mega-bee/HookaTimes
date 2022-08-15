@@ -71,8 +71,9 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request, int take = 0)
+        public async Task<List<Product_VM>> GetAllProductsMVC(int userBuddyId, HttpRequest request,string sessionWishlistId, int take = 0)
         {
+            //c.Products.Where(p => p.IsDeleted == false).FirstOrDefault() != null ? (!string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).Select(p => p.VirtualWishlists.).FirstOrDefault().Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null) : false,
             var query =  _uow.ProductCategoryRepository.GetAll(x => x.IsDeleted == false);
             List<Product_VM> products = Array.Empty<Product_VM>().ToList();
             if(take == 0)
@@ -81,7 +82,7 @@ namespace HookaTimes.BLL.Service
                 {
                     Category = c.Title,
                     IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
-                    IsInWishlist = false,
+                    IsInWishlist = userBuddyId > 0 ? c.Products.Where(p => p.IsDeleted == false).Select(p=> p.Wishlists).FirstOrDefault().Any(w=> w.BuddyId == userBuddyId) : c.Products.Where(p => p.IsDeleted == false).Select(p => p.VirtualWishlists).FirstOrDefault().Any(w => w.WishlistSessionId == sessionWishlistId),
                     Title = c.Title,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
@@ -95,11 +96,12 @@ namespace HookaTimes.BLL.Service
                 {
                     Category = c.Title,
                     IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
-                    IsInWishlist = false,
+                    IsInWishlist = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault() != null ? (!string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null) : false,
                     Title = c.Title,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
-                    Id = c.Id,
+                    Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
+                    CategoryId = c.Id,
                     Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
                 }).Take(take).ToListAsync();
             }
