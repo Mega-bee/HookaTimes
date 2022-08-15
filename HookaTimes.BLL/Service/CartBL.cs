@@ -60,6 +60,7 @@ namespace HookaTimes.BLL.Service
                 Quantity = quantity,
             };
             await _uow.CartRepository.Create(newItem);
+
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel()
@@ -109,6 +110,7 @@ namespace HookaTimes.BLL.Service
                 cartSummary.Items = await _uow.CartRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new CartItem_VM
                 {
                     ItemId = c.ProductId,
+                    CategoryName = c.Product.ProductCategory.Title,
                     ProductName = c.Product.Title,
                     ProductPrice = c.Product.CustomerFinalPrice,
                     Quantity = c.Quantity,
@@ -121,6 +123,7 @@ namespace HookaTimes.BLL.Service
             cartSummary.Items = await _uow.VirtualCartRepository.GetAll(c => c.SessionCartId == cartSessionId).Select(c => new CartItem_VM
             {
                 ItemId = c.ProductId,
+                CategoryName = c.Product.ProductCategory.Title,
                 ProductName = c.Product.Title,
                 ProductPrice = c.Product.CustomerFinalPrice,
                 Quantity = c.Quantity,
@@ -130,8 +133,8 @@ namespace HookaTimes.BLL.Service
             cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
             return cartSummary;
         }
-    
-        public async Task<ResponseModel> RemoveItemFromCart(int productId,int userBuddyId, string cartSessionId)
+
+        public async Task<ResponseModel> RemoveItemFromCart(int productId, int userBuddyId, string cartSessionId)
         {
             ResponseModel responseModel = new ResponseModel();
             bool productExists = await _uow.ProductRepository.CheckIfExists(p => p.Id == productId);
@@ -146,11 +149,11 @@ namespace HookaTimes.BLL.Service
                 };
                 return responseModel;
             }
-            if(userBuddyId > 0)
+            if (userBuddyId > 0)
             {
                 var currItem = await _uow.CartRepository.GetFirst(x => x.BuddyId == userBuddyId && x.ProductId == productId);
                 await _uow.CartRepository.Delete(currItem.Id);
-                responseModel.ErrorMessage = "Product not found";
+                responseModel.ErrorMessage = "";
                 responseModel.StatusCode = 200;
                 responseModel.Data = new DataModel()
                 {
@@ -158,11 +161,12 @@ namespace HookaTimes.BLL.Service
                     Message = "Item removed from cart"
                 };
                 return responseModel;
-            } else
+            }
+            else
             {
                 var currItem = await _uow.VirtualCartRepository.GetFirst(x => x.SessionCartId == cartSessionId && x.ProductId == productId);
                 await _uow.VirtualCartRepository.Delete(currItem.Id);
-                responseModel.ErrorMessage = "Product not found";
+                responseModel.ErrorMessage = "";
                 responseModel.StatusCode = 200;
                 responseModel.Data = new DataModel()
                 {
@@ -172,7 +176,7 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
         }
-        
+
         public async Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity)
         {
             ResponseModel responseModel = new ResponseModel();
@@ -198,6 +202,7 @@ namespace HookaTimes.BLL.Service
                 Quantity = quantity
             };
             await _uow.VirtualCartRepository.Create(cartItem);
+
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel()

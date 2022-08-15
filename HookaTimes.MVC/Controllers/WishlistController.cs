@@ -1,5 +1,7 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Service;
 using HookaTimes.BLL.Utilities;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -18,9 +20,21 @@ namespace HookaTimes.MVC.Controllers
             _wishlistBL = wishlistBL;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            int userBuddyId = 0;
+            string wishlistSessionId = "";
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity!.IsAuthenticated)
+            {
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
+
+            }
+            wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
+            List<Wishlist_VM> items = await _wishlistBL.GetWishlist(userBuddyId,wishlistSessionId);
+            return View(items);
         }
 
 
@@ -50,6 +64,33 @@ namespace HookaTimes.MVC.Controllers
             }
 
             return Ok(await _wishlistBL.AddToWishlist(productId, wishlistSessionId, userBuddyId));
+        }
+
+        [HttpDelete]
+        [AllowAnonymous]
+        public async Task<IActionResult> RemoveItemFromWishlist([FromForm] int productId)
+        {
+            try
+            {
+                int userBuddyId = 0;
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                if (identity!.IsAuthenticated)
+                {
+                    string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                    userBuddyId = await _auth.GetBuddyById(UserId);
+
+                }
+                string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
+
+
+                return Ok(await _wishlistBL.RemoveItemFromWishlist(productId, userBuddyId, wishlistSessionId));
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
     }
 }

@@ -22,5 +22,6 @@ namespace HookaTimes.BLL.ViewModels.Website
         public string Image { get; set; }
         public decimal? CustomerFinalPrice { get; set; }
         public string Description { get; set; }
+        public bool IsInWishlist { get; set; }
     }
 }
