@@ -238,6 +238,23 @@ namespace HookaTimes.MVC.Controllers
 
         #endregion
 
+        #region OrderHistory
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> OrderHistory()
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            List<OrderHistoryMVC_VM> orderHistory = Array.Empty<OrderHistoryMVC_VM>().ToList();
+            if (userBuddyId != 0)
+            {
+                orderHistory = await _auth.GetOrderHistoryMVC(userBuddyId);
+            }
+            return View(orderHistory);
+        }
+        #endregion
 
         //#region Addresses
         //[Authorize(Roles = "User")]

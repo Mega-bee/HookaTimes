@@ -1002,10 +1002,6 @@ namespace HookaTimes.BLL.Service
 
 
         }
-
-
-
-
         #endregion
 
 
@@ -1139,10 +1135,20 @@ namespace HookaTimes.BLL.Service
         #endregion
 
         #region OrderHistory
-        //public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model)
-        //{
+        public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
+        {
 
-        //}
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll().Select(x => new OrderHistoryMVC_VM
+            {
+                Id = x.Id,
+                Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                Status = x.OrderStatus.Title,
+                Total = (decimal)x.Total,
+
+            }).ToListAsync();
+
+            return orderHistory;
+        }
         #endregion
 
 
