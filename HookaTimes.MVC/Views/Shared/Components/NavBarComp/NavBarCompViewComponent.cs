@@ -19,11 +19,11 @@ namespace HookaTimes.MVC.Views.Shared.Components.NavBarComp
         {
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             NavBuddy_VM buddy = await _auth.GetNavBuddyProfile(UserId);
-
+            EmailSignInMVC_VM model = new EmailSignInMVC_VM();
 
             ViewBag.Buddy = buddy;
 
-            return View();
+            return View(model);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using HookaTimes.DAL.HookaTimesModels;
+using System.Collections.Generic;
 
 namespace HookaTimes.DAL.Data
 {
@@ -54,7 +52,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<VirtualWishlist> VirtualWishlists { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
- 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AspNetUser>(entity =>

@@ -922,7 +922,7 @@ namespace HookaTimes.BLL.Service
         #region MVC
 
         #region SignIn
-        public async Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model)
+        public async Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model, string wishlistSessionId, string cartSessionId)
         {
 
             ApplicationUser res = await _userManager.FindByEmailAsync(model.Email);
@@ -936,7 +936,41 @@ namespace HookaTimes.BLL.Service
             {
                 return null;
             }
+
+
+
             BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == res.Id);
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
+                {
+                    BuddyId = buddy.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    Quantity = x.Quantity,
+                    ProductId = x.ProductId,
+
+                }).ToListAsync();
+                if (cartItems.Count > 0)
+                {
+                    await _uow.CartRepository.AddRange(cartItems);
+                    await _uow.SaveAsync();
+                }
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
+                {
+                    BuddyId = buddy.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    ProductId = x.ProductId,
+                    IsDeleted = false
+                }).ToListAsync();
+                if (wishlistItems.Count > 0)
+                {
+                    await _uow.WishlistRepository.AddRange(wishlistItems);
+                    await _uow.SaveAsync();
+                }
+            }
             var roles = await _userManager.GetRolesAsync(res);
 
             var claims = Tools.GenerateClaimsMVC(res, roles, buddy);
@@ -1007,7 +1041,7 @@ namespace HookaTimes.BLL.Service
 
         #region SignUp
 
-        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
+        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model, string wishlistSessionId, string cartSessionId)
         {
             await CheckRoles();
 
@@ -1016,9 +1050,40 @@ namespace HookaTimes.BLL.Service
             {
                 return null;
             }
+            int buddyId = await GetBuddyById(oldUser.Id);
 
             IdentityResult res = await CreateUserMVC(model);
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
+                {
+                    BuddyId = buddyId,
+                    CreatedDate = DateTime.UtcNow,
+                    Quantity = x.Quantity,
+                    ProductId = x.ProductId,
 
+                }).ToListAsync();
+                if (cartItems.Count > 0)
+                {
+                    await _uow.CartRepository.AddRange(cartItems);
+                    await _uow.SaveAsync();
+                }
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
+                {
+                    BuddyId = buddyId,
+                    CreatedDate = DateTime.UtcNow,
+                    ProductId = x.ProductId,
+                    IsDeleted = false
+                }).ToListAsync();
+                if (wishlistItems.Count > 0)
+                {
+                    await _uow.WishlistRepository.AddRange(wishlistItems);
+                    await _uow.SaveAsync();
+                }
+            }
             if (!res.Succeeded)
             {
                 return null;
@@ -1073,7 +1138,12 @@ namespace HookaTimes.BLL.Service
 
         #endregion
 
+        #region OrderHistory
+        //public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model)
+        //{
 
+        //}
+        #endregion
 
 
         #endregion

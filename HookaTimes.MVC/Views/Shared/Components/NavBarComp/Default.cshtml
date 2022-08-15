@@ -1,7 +1,10 @@
 ﻿@using HookaTimes.DAL.Data
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager;
+@if (!SignInManager.IsSignedIn(User))
+{
 @model EmailSignInMVC_VM
+}
 @{
     var buddy = (NavBuddy_VM)ViewBag.Buddy;
 }
@@ -293,7 +296,7 @@
                                     <ul class="account-menu__links">
                                         <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
                                         <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
-                                        <li><a asp-controller="Home" asp-action="Addresses">Addresses</a></li>
+                                        @*<li><a asp-controller="Account" asp-action="Addresses">Addresses</a></li>*@
                                         <li><a asp-controller="Account" asp-action="Password">Password</a></li>
                                     </ul>
                                     <div class="account-menu__divider"></div>

@@ -58,7 +58,10 @@ namespace HookaTimes.MVC.Controllers
             //returnurl = returnurl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                IdentityResult res = await _auth.SignUpWithEmailMVC(model);
+
+                string cartSessionId = Request.Cookies["CartSessionId"]!;
+                string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
+                IdentityResult res = await _auth.SignUpWithEmailMVC(model, wishlistSessionId, cartSessionId);
 
 
 
@@ -122,12 +125,13 @@ namespace HookaTimes.MVC.Controllers
             returnurl = returnurl ?? Url.Content("~/");
             //if (ModelState.IsValid)
             //{
+            string cartSessionId = Request.Cookies["CartSessionId"]!;
+            string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
 
-
-            ClaimsIdentity identity = await _auth.EmailSignInMVC(model);
+            ClaimsIdentity identity = await _auth.EmailSignInMVC(model, wishlistSessionId, cartSessionId);
             if (identity == null)
             {
-                return View(model);
+                return LocalRedirect(returnurl);
 
             }
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
@@ -137,6 +141,7 @@ namespace HookaTimes.MVC.Controllers
 
             User.AddIdentity(identity);
 
+            TempData["success"] = "Please Login Again";
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
                 new AuthenticationProperties());
@@ -220,6 +225,7 @@ namespace HookaTimes.MVC.Controllers
                 var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
                 if (result.Succeeded)
                 {
+                    await _signInManager.SignOutAsync();
                     TempData["success"] = "Please Login Again";
                     //return Ok(new { message = "Password has been reset succesfully" });
                     return RedirectToAction("Index", "Home");
@@ -233,6 +239,39 @@ namespace HookaTimes.MVC.Controllers
         #endregion
 
 
+        //#region Addresses
+        //[Authorize(Roles = "User")]
+        //[HttpGet]
+        //public IActionResult Addresses()
+        //{
+        //    return View();
+        //}
+
+
+        //[Authorize(Roles = "User")]
+        //[HttpGet]
+        //public IActionResult CreateAddress()
+        //{
+        //    return View();
+        //}
+
+
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> EditAddress(PasswordMVC_VM model)
+        //{
+        //    //temp
+        //    if (ModelState.IsValid)
+        //    {
+
+        //    }
+        //    return View(model);
+        //}
+
+
+        //#endregion
 
 
 
