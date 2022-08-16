@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
     const addToWishlistBtns = document.querySelectorAll(".add-to-wishlist-btn");
+    let wishlistCount = document.querySelector(".wishlist-indicator-value") 
 
     function handleAddToWishlist(e) {
 
@@ -27,13 +28,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
             success: function (result) {
              
                 if (result.statusCode == 201) {
+                    wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: result.data.message,
+                    })
+                } else if (result.statusCode == 204) {
+                    wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
                         text: result.data.message,
                     })
                 } else {
-                   
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Fail',
@@ -50,7 +59,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     }
     addToWishlistBtns.forEach((btn) => {
-        console.log(btn)
         btn.addEventListener('click', handleAddToWishlist)
     })
 });

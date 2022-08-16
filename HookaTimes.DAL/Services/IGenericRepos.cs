@@ -10,6 +10,8 @@ namespace HookaTimes.DAL.Services
     {
         IQueryable<T> GetAll();
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
+        IQueryable<T> GetAllWithTracking();
+        IQueryable<T> GetAllWithTracking(Expression<Func<T, bool>> predicate);
         Task<T> Add(T entity);
         Task AddRange(List<T> entities);
         Task<T> GetById(int Id);
@@ -24,6 +26,7 @@ namespace HookaTimes.DAL.Services
         Task<T> Update(T entity);
 
         Task Delete(int id);
+        Task DeleteByPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicateAndIncludes(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetAllWithPredicate(Expression<Func<T, bool>> predicate);

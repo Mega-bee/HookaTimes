@@ -1,23 +1,29 @@
-﻿const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
+﻿import { updateCart } from "../js/update-cart-dropdown.js"
+
+const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
 const dropdownCartItemsContainer = document.querySelector(".dropcart__products-list")
 const itemsCount = document.querySelector(".cart-indicator-value")
 
-function updateCart() {
-    $.ajax({
-        type: 'GET',
-        async: true,
-        //data: data,
-        url: `/Cart/GetCartDropdown`,
-        success: function (result) {
-            let container = document.querySelector('#navbar-cart-container')
-            container.innerHTML = result
-        },
-        fail: function (err) {
-            console.log(err)
-        }
-    })
 
-}
+
+
+//function updateCart() {
+//    $.ajax({
+//        type: 'GET',
+//        async: true,
+//        //data: data,
+//        url: `/Cart/GetCartDropdown`,
+//        success: function (result) {
+//            let container = document.querySelector('.dropcart__body')
+//            container.innerHTML = result;
+          
+//        },
+//        fail: function (err) {
+//            console.log(err)
+//        }
+//    })
+
+//}
 
 
 function handleAddToCart(e) {
@@ -29,7 +35,9 @@ function handleAddToCart(e) {
     let formdata = new FormData()
     formdata.append("productId", productId)
     formdata.append("quantity", 1)
-    
+
+
+
     $.ajax({
         type: 'Post',
         async: true,

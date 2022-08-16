@@ -1,15 +1,18 @@
-﻿const productItems = document.querySelectorAll(".product-item")
+﻿
+import { addToCart } from "../js/add-to-cart-functionality.js"
+
+const productItems = document.querySelectorAll(".product-item")
 const addToCartBtn = document.querySelector("#add-to-cart-btn")
 const quantityEl = document.querySelector("#product-quantity")
 const productFrom = document.querySelector("#product-fom")
 const productDescriptionElement = document.querySelector(".product__description")
 const productPriceElement = document.querySelector(".product__prices")
 const addToWishlistBtn = document.querySelector(".add-to-wishlist-btn")
-
+let wishlistCount = document.querySelector(".wishlist-indicator-value")
 function handleSelectItem(e) {
     for (const item of document.querySelectorAll(".active-item")) {
         if (item.classList.contains("active-item")) item.classList.remove("active-item");
-        
+
     }
     event.currentTarget.classList.add("active-item");
     refreshProduct(event.currentTarget)
@@ -25,46 +28,48 @@ function refreshProduct(product) {
 function handleAddToCart(e) {
     e.preventDefault()
     let qty = quantityEl.value;
-    console.log("hellooooo")
-    console.log("producttttt",document.querySelector(".active-item"))
     let productId = document.querySelector(".active-item").dataset.productid
 
-    let formdata = new FormData() 
-    formdata.append("productId",productId)
+    let formdata = new FormData()
+    formdata.append("productId", productId)
     formdata.append("quantity", qty)
     addToCartBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Add To Cart'
     addToCartBtn.disabled = true;
-    $.ajax({
-        type: 'Post',
-        async: true,
-        processData: false,
-        contentType: false,
-        data: formdata,
-        url: `/Cart/AddToCart`,
-        success: function (result) {
-            addToCartBtn.innerHTML = 'Add To Cart'
-            addToCartBtn.disabled = false;
-            if (result.statusCode == 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
-            }
-           
-        },
-        fail: function (err) {
-            addToCartBtn.innerHTML = 'Add To Cart'
-            addToCartBtn.disabled = false;
-            console.log(err)
-        }
-    })
+    addToCart(formdata)
+    addToCartBtn.innerHTML = 'Add To Cart'
+    addToCartBtn.disabled = false;
+    //$.ajax({
+    //    type: 'Post',
+    //    async: true,
+    //    processData: false,
+    //    contentType: false,
+    //    data: formdata,
+    //    url: `/Cart/AddToCart`,
+    //    success: function (result) {
+    //        addToCartBtn.innerHTML = 'Add To Cart'
+    //        addToCartBtn.disabled = false;
+    //        if (result.statusCode == 201) {
+    //            updateCart()
+    //            Swal.fire({
+    //                icon: 'success',
+    //                title: 'Success',
+    //                text: result.data.message,
+    //            })
+    //        } else {
+    //            Swal.fire({
+    //                icon: 'error',
+    //                title: 'Fail',
+    //                text: result.errorMessage
+    //            })
+    //        }
+
+    //    },
+    //    fail: function (err) {
+    //        addToCartBtn.innerHTML = 'Add To Cart'
+    //        addToCartBtn.disabled = false;
+    //        console.log(err)
+    //    }
+    //})
 
 }
 
@@ -87,13 +92,18 @@ function handleAddToWishlist(e) {
         data: formdata,
         url: `/Wishlist/AddToWishlist`,
         success: function (result) {
+
             if (result.statusCode == 201) {
+                wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: result.data.message,
                 })
+            } else if (result.statusCode == 204) {
+                wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
             } else {
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Fail',
@@ -111,12 +121,12 @@ function handleAddToWishlist(e) {
 
 if (productItems.length) {
     productItems.forEach(el => {
-        el.addEventListener('click',handleSelectItem)
+        el.addEventListener('click', handleSelectItem)
     })
 }
 
 
 
 productFrom.addEventListener("submit", handleAddToCart)
-addToWishlistBtn.addEventListener("click",handleAddToWishlist)
+addToWishlistBtn.addEventListener("click", handleAddToWishlist)
 
