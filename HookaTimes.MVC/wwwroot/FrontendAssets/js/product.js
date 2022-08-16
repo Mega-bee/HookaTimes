@@ -35,7 +35,7 @@ function handleAddToCart(e) {
     formdata.append("quantity", qty)
     addToCartBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Add To Cart'
     addToCartBtn.disabled = true;
-    addToCart(formdata)
+    addToCart(formdata,addToCartBtn)
   
     //$.ajax({
     //    type: 'Post',

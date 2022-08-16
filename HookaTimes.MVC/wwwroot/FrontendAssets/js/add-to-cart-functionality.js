@@ -13,6 +13,7 @@ export function addToCart(data,btn = null) {
 
 
                 updateCart()
+                console.log(btn)
                 if (btn) {
                     btn.innerHTML = 'Add To Cart'
                     btn.disabled = false;
