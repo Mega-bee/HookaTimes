@@ -64,7 +64,7 @@ namespace HookaTimes.MVC.Controllers
         {
 
 
-            return PartialView("~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml", null);
+            return PartialView("~/Views/Shared/Ecommerce/_QuickView.cshtml", null);
         }
 
 
@@ -137,5 +137,7 @@ namespace HookaTimes.MVC.Controllers
         {
             return View();
         }
+
+
     }
 }
