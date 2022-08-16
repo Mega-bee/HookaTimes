@@ -1,3 +1,6 @@
+
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using HookaTimes.BLL;
 using HookaTimes.BLL.Utilities.Extensions;
 using HookaTimes.BLL.Utilities.Logging;
@@ -12,7 +15,8 @@ builder.Services.ConfigureAuthenticationMVC();
 new ServiceInjector(builder.Services).Render();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 var mvcBuilder = builder.Services.AddRazorPages();
-
+builder.Services.AddNotyf(config =>
+{ config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 if (builder.Environment.IsDevelopment())
 {
     mvcBuilder.AddRazorRuntimeCompilation();
@@ -54,7 +58,7 @@ var cookiePolicyOptions = new CookiePolicyOptions
 
 
 app.UseCookiePolicy(cookiePolicyOptions);
-
+app.UseNotyf();
 
 
 app.Run();

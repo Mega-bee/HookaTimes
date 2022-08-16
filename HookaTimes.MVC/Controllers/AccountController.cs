@@ -1,5 +1,7 @@
-﻿using HookaTimes.BLL.IServices;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
+using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
@@ -22,15 +24,20 @@ namespace HookaTimes.MVC.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAuthBO _auth;
+        private readonly IInvitationBL _inv;
+        private readonly INotyfService _notyf;
+
 
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-          RoleManager<IdentityRole> roleManager, IAuthBO auth)
+          RoleManager<IdentityRole> roleManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _auth = auth;
+            _inv = inv;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
@@ -61,7 +68,7 @@ namespace HookaTimes.MVC.Controllers
 
                 string cartSessionId = Request.Cookies["CartSessionId"]!;
                 string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
-                IdentityResult res = await _auth.SignUpWithEmailMVC(model, wishlistSessionId, cartSessionId);
+                IdentityResult res = await _auth.SignUpWithEmailMVC(model);
 
 
 
@@ -72,10 +79,18 @@ namespace HookaTimes.MVC.Controllers
                 }
 
                 //Create buddy Profile
-                BuddyProfile buddy = await _auth.CreateBuddyProfileMVC(model);
-
+                BuddyProfile buddy = await _auth.CreateBuddyProfileMVC(model, wishlistSessionId, cartSessionId);
+                if (!string.IsNullOrEmpty(cartSessionId))
+                {
+                    Response.Cookies.Delete("CartSessionId");
+                }
+                if (!string.IsNullOrEmpty(wishlistSessionId))
+                {
+                    Response.Cookies.Delete("WishlistSessionId");
+                }
                 //Get the Identity User Profile so it can get its claims and roles
                 ApplicationUser newUser = await _userManager.FindByEmailAsync(model.Email);
+
 
                 var roles = await _userManager.GetRolesAsync(newUser);
 
@@ -115,6 +130,7 @@ namespace HookaTimes.MVC.Controllers
         #endregion
 
 
+
         #region Sign IN
         [HttpPost]
         [AllowAnonymous]
@@ -131,8 +147,18 @@ namespace HookaTimes.MVC.Controllers
             ClaimsIdentity identity = await _auth.EmailSignInMVC(model, wishlistSessionId, cartSessionId);
             if (identity == null)
             {
+                //TempData["error"] = "Check your email and pass";
+                _notyf.Error("Invalid Credentials");
                 return LocalRedirect(returnurl);
 
+            }
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                Response.Cookies.Delete("CartSessionId");
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                Response.Cookies.Delete("WishlistSessionId");
             }
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
@@ -141,16 +167,29 @@ namespace HookaTimes.MVC.Controllers
 
             User.AddIdentity(identity);
 
-            TempData["success"] = "Please Login Again";
+            //TempData["success"] = "Please Login Again";
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
                 new AuthenticationProperties());
+
+            _notyf.Success("Welcome To HookaTimes!");
+
             return LocalRedirect(returnurl);
             //}
 
             //return View(model);
 
 
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            //ViewData["ReturnUrl"] = returnurl;
+            EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
+            return View(loginmv);
         }
         #endregion
 
@@ -191,27 +230,30 @@ namespace HookaTimes.MVC.Controllers
 
                 if (user == null)
                 {
-                    TempData["error"] = "User Was Not Found!";
+
+                    _notyf.Error("User Was Not Found!", 6);
+
 
                     return View(model);
                 }
                 if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
                 {
+                    _notyf.Error("Password is same as old!", 6);
 
-                    TempData["error"] = "Passwords is same as old!";
                     return View(model);
 
                 }
                 if (model.NewPassword == model.CurrentPassword)
                 {
-                    TempData["error"] = "Passwords is same as old!";
+                    _notyf.Error("Password is same as old!", 6);
 
                     return View(model);
 
                 }
                 if (model.NewPassword != model.ConfirmPassword)
                 {
-                    TempData["error"] = "Passwords don't match!";
+                    _notyf.Error("Passwords don't match!", 6);
+
 
                     return View(model);
 
@@ -226,6 +268,9 @@ namespace HookaTimes.MVC.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignOutAsync();
+
+                    _notyf.Success("Your password has been changed");
+                    _notyf.Custom("Please Login Again with the new password", 5, "whitesmoke", "fa fa-gear");
                     TempData["success"] = "Please Login Again";
                     //return Ok(new { message = "Password has been reset succesfully" });
                     return RedirectToAction("Index", "Home");
@@ -238,6 +283,79 @@ namespace HookaTimes.MVC.Controllers
 
         #endregion
 
+
+
+        #region OrderHistory
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> OrderHistory()
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            List<OrderHistoryMVC_VM> orderHistory = Array.Empty<OrderHistoryMVC_VM>().ToList();
+            if (userBuddyId != 0)
+            {
+                orderHistory = await _auth.GetOrderHistoryMVC(userBuddyId);
+            }
+            return View(orderHistory);
+        }
+        #endregion
+
+
+
+        #region Invitations
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public async Task<IActionResult> Invitations()
+        {
+
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            ResponseModel invitations = new ResponseModel();
+            ResponseModel invitationsSent = new ResponseModel();
+
+            if (userBuddyId != 0)
+            {
+
+                invitations = await _inv.GetRecievedInvitations(Request, userBuddyId);
+
+                invitationsSent = await _inv.GetSentInvitations(Request, userBuddyId);
+            }
+            ViewBag.InvitationsSent = invitationsSent.Data.Data;
+            return View(invitations.Data.Data);
+        }
+
+
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        public async Task<IActionResult> SetInvitationStatusMVC([FromForm] int statusId, [FromForm] int invitationId)
+        {
+            return Ok(await _inv.SetInvitationStatus(statusId, invitationId));
+
+
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public async Task<IActionResult> InvitationPlace([FromRoute] int id)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            ResponseModel InvitationPlace = new ResponseModel();
+
+
+            if (userBuddyId != 0)
+            {
+                InvitationPlace = await _inv.GetPlaceInvitations(Request, id, userBuddyId);
+            }
+            return View(InvitationPlace.Data.Data);
+        }
+        #endregion
 
         //#region Addresses
         //[Authorize(Roles = "User")]

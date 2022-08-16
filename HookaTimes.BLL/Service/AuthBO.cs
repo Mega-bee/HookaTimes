@@ -954,7 +954,11 @@ namespace HookaTimes.BLL.Service
                 {
                     await _uow.CartRepository.AddRange(cartItems);
                     await _uow.SaveAsync();
+                    List<VirtualCart> virtualCarts = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
+                    await _uow.VirtualCartRepository.DeleteRange(virtualCarts);
                 }
+
+
             }
             if (!string.IsNullOrEmpty(wishlistSessionId))
             {
@@ -969,7 +973,10 @@ namespace HookaTimes.BLL.Service
                 {
                     await _uow.WishlistRepository.AddRange(wishlistItems);
                     await _uow.SaveAsync();
+                    List<VirtualWishlist> virtualWishlists = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == cartSessionId).ToListAsync();
+                    await _uow.VirtualWishlistRepository.DeleteRange(virtualWishlists);
                 }
+
             }
             var roles = await _userManager.GetRolesAsync(res);
 
@@ -1002,10 +1009,6 @@ namespace HookaTimes.BLL.Service
 
 
         }
-
-
-
-
         #endregion
 
 
@@ -1041,7 +1044,7 @@ namespace HookaTimes.BLL.Service
 
         #region SignUp
 
-        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model, string wishlistSessionId, string cartSessionId)
+        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
         {
             await CheckRoles();
 
@@ -1050,40 +1053,10 @@ namespace HookaTimes.BLL.Service
             {
                 return null;
             }
-            int buddyId = await GetBuddyById(oldUser.Id);
+
 
             IdentityResult res = await CreateUserMVC(model);
-            if (!string.IsNullOrEmpty(cartSessionId))
-            {
-                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
-                {
-                    BuddyId = buddyId,
-                    CreatedDate = DateTime.UtcNow,
-                    Quantity = x.Quantity,
-                    ProductId = x.ProductId,
 
-                }).ToListAsync();
-                if (cartItems.Count > 0)
-                {
-                    await _uow.CartRepository.AddRange(cartItems);
-                    await _uow.SaveAsync();
-                }
-            }
-            if (!string.IsNullOrEmpty(wishlistSessionId))
-            {
-                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
-                {
-                    BuddyId = buddyId,
-                    CreatedDate = DateTime.UtcNow,
-                    ProductId = x.ProductId,
-                    IsDeleted = false
-                }).ToListAsync();
-                if (wishlistItems.Count > 0)
-                {
-                    await _uow.WishlistRepository.AddRange(wishlistItems);
-                    await _uow.SaveAsync();
-                }
-            }
             if (!res.Succeeded)
             {
                 return null;
@@ -1116,7 +1089,7 @@ namespace HookaTimes.BLL.Service
 
 
 
-        public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model)
+        public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model, string cartSessionId, string wishlistSessionId)
         {
             // create user profile and add role based on roleId
             BuddyProfile newProfile = new BuddyProfile();
@@ -1131,6 +1104,41 @@ namespace HookaTimes.BLL.Service
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
             await _context.SaveChangesAsync();
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
+                {
+                    BuddyId = newProfile.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    Quantity = x.Quantity,
+                    ProductId = x.ProductId,
+
+                }).ToListAsync();
+                if (cartItems.Count > 0)
+                {
+                    await _uow.CartRepository.AddRange(cartItems);
+                    await _uow.SaveAsync();
+                    List<VirtualCart> virtualCarts = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
+                    await _uow.VirtualCartRepository.DeleteRange(virtualCarts);
+                }
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
+                {
+                    BuddyId = newProfile.Id,
+                    CreatedDate = DateTime.UtcNow,
+                    ProductId = x.ProductId,
+                    IsDeleted = false
+                }).ToListAsync();
+                if (wishlistItems.Count > 0)
+                {
+                    await _uow.WishlistRepository.AddRange(wishlistItems);
+                    await _uow.SaveAsync();
+                    List<VirtualWishlist> virtualWishlists = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == cartSessionId).ToListAsync();
+                    await _uow.VirtualWishlistRepository.DeleteRange(virtualWishlists);
+                }
+            }
             return newProfile;
         }
 
@@ -1139,10 +1147,20 @@ namespace HookaTimes.BLL.Service
         #endregion
 
         #region OrderHistory
-        //public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model)
-        //{
+        public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
+        {
 
-        //}
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll().Select(x => new OrderHistoryMVC_VM
+            {
+                Id = x.Id,
+                Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                Status = x.OrderStatus.Title,
+                Total = (decimal)x.Total,
+
+            }).ToListAsync();
+
+            return orderHistory;
+        }
         #endregion
 
 

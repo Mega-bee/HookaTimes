@@ -112,7 +112,7 @@ namespace HookaTimes.BLL.Utilities.Extensions
                          options.LoginPath = "/Account/Login";
                          //options.LogoutPath = "/Account/Logout";
                          options.LogoutPath = "/Home";
-                         options.AccessDeniedPath = "/Account/AccessDenied";
+                         //options.AccessDeniedPath = "/Account/AccessDenied";
 
                      });
 
@@ -150,5 +150,9 @@ namespace HookaTimes.BLL.Utilities.Extensions
                 });
             });
         }
+
+
+
+
     }
 }

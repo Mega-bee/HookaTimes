@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HookaTimes.BLL.ViewModels
 {
@@ -26,10 +27,13 @@ namespace HookaTimes.BLL.ViewModels
         public int Id { get; set; }
         public string BuddyName { get; set; }
         public string BuddyImage { get; set; }
-        public float BuddyRating { get; set; }
+        public float? BuddyRating { get; set; }
         public int InvitationStatusId { get; set; }
         public string InvitationStatus { get; set; }
         public string Description { get; set; }
+        public string RestaurantName { get; set; }
+        public string InvitationOption { get; set; }
+        public DateTime? InvitationDate { get; set; }
     }
 
     public partial class InvitationOption_VM
