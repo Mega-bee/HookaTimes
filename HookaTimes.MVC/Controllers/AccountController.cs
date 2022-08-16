@@ -1,4 +1,5 @@
-﻿using HookaTimes.BLL.IServices;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
@@ -24,16 +25,19 @@ namespace HookaTimes.MVC.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAuthBO _auth;
         private readonly IInvitationBL _inv;
+        private readonly INotyfService _notyf;
+
 
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-          RoleManager<IdentityRole> roleManager, IAuthBO auth, IInvitationBL inv)
+          RoleManager<IdentityRole> roleManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _auth = auth;
             _inv = inv;
+            _notyf = notyf;
         }
         public IActionResult Index()
         {
@@ -144,7 +148,7 @@ namespace HookaTimes.MVC.Controllers
             if (identity == null)
             {
                 //TempData["error"] = "Check your email and pass";
-
+                _notyf.Error("Invalid Credentials");
                 return LocalRedirect(returnurl);
 
             }
@@ -167,12 +171,25 @@ namespace HookaTimes.MVC.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
                 new AuthenticationProperties());
+
+            _notyf.Success("Welcome To HookaTimes!");
+
             return LocalRedirect(returnurl);
             //}
 
             //return View(model);
 
 
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            //ViewData["ReturnUrl"] = returnurl;
+            EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
+            return View(loginmv);
         }
         #endregion
 
@@ -213,27 +230,30 @@ namespace HookaTimes.MVC.Controllers
 
                 if (user == null)
                 {
-                    TempData["error"] = "User Was Not Found!";
+
+                    _notyf.Error("User Was Not Found!", 6);
+
 
                     return View(model);
                 }
                 if (!await _userManager.CheckPasswordAsync(user, model.CurrentPassword))
                 {
+                    _notyf.Error("Password is same as old!", 6);
 
-                    TempData["error"] = "Passwords is same as old!";
                     return View(model);
 
                 }
                 if (model.NewPassword == model.CurrentPassword)
                 {
-                    TempData["error"] = "Passwords is same as old!";
+                    _notyf.Error("Password is same as old!", 6);
 
                     return View(model);
 
                 }
                 if (model.NewPassword != model.ConfirmPassword)
                 {
-                    TempData["error"] = "Passwords don't match!";
+                    _notyf.Error("Passwords don't match!", 6);
+
 
                     return View(model);
 
@@ -248,6 +268,9 @@ namespace HookaTimes.MVC.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignOutAsync();
+
+                    _notyf.Success("Your password has been changed");
+                    _notyf.Custom("Please Login Again with the new password", 5, "whitesmoke", "fa fa-gear");
                     TempData["success"] = "Please Login Again";
                     //return Ok(new { message = "Password has been reset succesfully" });
                     return RedirectToAction("Index", "Home");

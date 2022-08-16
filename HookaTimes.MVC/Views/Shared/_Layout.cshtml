@@ -80,6 +80,8 @@
     <script type="module" src="~/frontendassets/js/remove-from-cart-functionality.js"></script>
     <script type="module" src="~/frontendassets/js/remove-from-cart-dropdown.js"></script>
     @*Toaster*@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 
 
