@@ -1,6 +1,5 @@
 ﻿using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.IServices
@@ -13,6 +12,5 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> GetRecievedInvitations(HttpRequest request, int userBuddyId);
         Task<ResponseModel> GetPlaceInvitations(HttpRequest request, int placeId, int userBuddyId);
 
-        Task<List<Invitation_VM>> GetRecievedInvitationsMVC(int userBuddyId);
     }
 }

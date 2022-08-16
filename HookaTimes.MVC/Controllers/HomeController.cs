@@ -65,7 +65,7 @@ namespace HookaTimes.MVC.Controllers
                 string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
                 userBuddyId = await _auth.GetBuddyById(UserId);
             }
-            return ViewComponent("BuddiesSearchResult", new {userBuddyId, sortBy, filterBy });
+            return ViewComponent("BuddiesSearchResult", new { userBuddyId, sortBy, filterBy });
         }
 
 
@@ -82,7 +82,7 @@ namespace HookaTimes.MVC.Controllers
                 userBuddyId = await _auth.GetBuddyById(UserId);
             }
             string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
-            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request,wishlistSessionId);
+            List<Product_VM> products = await _productBL.GetAllProductsMVC(userBuddyId, Request, wishlistSessionId);
             return View(products);
         }
 
@@ -103,7 +103,7 @@ namespace HookaTimes.MVC.Controllers
         public IActionResult HookaPlacesSearch([FromQuery] List<int> cuisines, [FromQuery] int sortBy)
         {
 
-            return ViewComponent("PlacesSearchResult",new {cuisines,sortBy});
+            return ViewComponent("PlacesSearchResult", new { cuisines, sortBy });
         }
         public IActionResult WishList()
         {
@@ -164,20 +164,20 @@ namespace HookaTimes.MVC.Controllers
 
 
 
-        public IActionResult EditProfile()
-        {
-            return View();
-        }
+        //public IActionResult EditProfile()
+        //{
+        //    return View();
+        //}
 
 
-        public IActionResult OrderHistory()
-        {
-            return View();
-        }
-        public IActionResult Addresses()
-        {
-            return View();
-        }
+        //public IActionResult OrderHistory()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Addresses()
+        //{
+        //    return View();
+        //}
 
 
 
@@ -187,7 +187,7 @@ namespace HookaTimes.MVC.Controllers
             int BuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             BuddyId = await _auth.GetBuddyById(UserId);
-            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id,wishlistSessionId,BuddyId);
+            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id, wishlistSessionId, BuddyId);
             return View(prod);
         }
 
@@ -196,15 +196,15 @@ namespace HookaTimes.MVC.Controllers
             return View();
         }
 
-        public IActionResult Invitations()
-        {
-            return View();
-        }
+        //public IActionResult Invitations()
+        //{
+        //    return View();
+        //}
 
-        public IActionResult InvitationPlace()
-        {
-            return View();
-        }
+        //public IActionResult InvitationPlace()
+        //{
+        //    return View();
+        //}
 
 
         public IActionResult Buddy()

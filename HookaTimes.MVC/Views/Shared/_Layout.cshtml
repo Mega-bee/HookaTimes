@@ -44,8 +44,15 @@
     <partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- jQuery -->
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <!-- js -->
-    <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
+    @*<script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>*@
     <script src="/FrontendAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/FrontendAssets/vendor/owl-carousel/owl.carousel.min.js"></script>
     <script src="/FrontendAssets/vendor/nouislider/nouislider.min.js"></script>
@@ -65,9 +72,7 @@
     <script>
         svg4everybody();
     </script>
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+  
     @*Toaster*@
 
     @*<link href="/FrontendAssets/Plugins/VanillaToasts-master/vanillatoasts.css" rel="stylesheet"/>

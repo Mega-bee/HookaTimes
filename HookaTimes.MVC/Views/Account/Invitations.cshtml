@@ -1,212 +1,241 @@
 ﻿@{
     ViewData["Title"] = "Invitations";
+
+    List<SentInvitation_VM> InvetationSent = (List<SentInvitation_VM>)ViewBag.InvitationsSent;
 }
 @model List<Invitation_VM>
 <style>
     .product-tabs__item:first-child {
-    margin-left: 0px;
-}
-.post-card__content.is--cuisines {
-    color: #706f6f;
-    font-size: 0.8em;
-    line-height: 1.2;
-    font-weight: 500;
-}
+        margin-left: 0px;
+    }
 
-.wishlist__column--price {
-  text-align: left; 
-  padding-left: 18px;
+    .post-card__content.is--cuisines {
+        color: #706f6f;
+        font-size: 0.8em;
+        line-height: 1.2;
+        font-weight: 500;
+    }
 
-}
+    .wishlist__column--price {
+        text-align: left;
+        padding-left: 18px;
 
-.wishlist__column--stock {
-    text-align: left;
-    width:25%;
-}
+    }
 
-.wishlist__column--product{
-    width:35%;
-}
-.wishlist__column--price{
-    width:35%;
-}
+    .wishlist__column--stock {
+        text-align: left;
+        width: 25%;
+    }
 
+    .wishlist__column--product {
+        width: 35%;
+    }
+
+    .wishlist__column--price {
+        width: 35%;
+    }
+   /* @@media (min-width: 768px){
+    .wishlist__column:last-child {
+             border-right: none;
+        }
+    }
+    */
 
 </style>
 
 <div class="site__body">
 
     <div class="product-tabs product-tabs--sticky">
-    <div class="product-tabs__list">
-        <div class="product-tabs__list-body">
-            <div class="product-tabs__list-container container">
-                <a
-                    href="#tab-description"
-                    class="product-tabs__item product-tabs__item--active"
-                    >Received</a
-                >
-                <a href="#tab-specification" class="product-tabs__item"
-                    >Sent</a
-                >
+        <div class="product-tabs__list">
+            <div class="product-tabs__list-body">
+                <div class="product-tabs__list-container container">
+                    <a href="#tab-description"
+                       class="product-tabs__item product-tabs__item--active">Received</a>
+                    <a href="#tab-specification" class="product-tabs__item">Sent</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="product-tabs__content">
-        <div
-            class="product-tabs__pane product-tabs__pane--active"
-            id="tab-description"
-        >
-            <div class="block">
-    <div class="container">
-        <table class="wishlist">
-            <thead class="wishlist__head">
-                <tr class="wishlist__row">
-                    <th class="wishlist__column wishlist__column--image" style=" text-align: start;">
-                        Image
-                    </th>
-                    <th class="wishlist__column wishlist__column--stock" style=" text-align: start;">
-                        Invite Buddy
-                    </th>
-                    <th class="wishlist__column wishlist__column--product" style=" text-align: start;">
-                        Invite Info
-                    </th>
-                   
-                    <th class="wishlist__column wishlist__column--price"style=" text-align: start;">
-                       Invitation Date
-                    </th>
-                    <th class="wishlist__column wishlist__column--tocart"></th>
-                    <th class="wishlist__column wishlist__column--remove"></th>
-                </tr>
-            </thead>
-            <tbody class="wishlist__body">
-                @foreach (var item in Model)
+        <div class="product-tabs__content">
+            <div class="product-tabs__pane product-tabs__pane--active"
+                 id="tab-description">
+                <div class="block">
+                    <div class="container">
+
+
+                        <table class="wishlist" >
+                            <thead class="wishlist__head">
+                                <tr class="wishlist__row">
+                                    <th class="wishlist__column wishlist__column--image" style=" text-align: start;">
+                                        Image
+                                    </th>
+                                    <th class="wishlist__column wishlist__column--stock" style=" text-align: start;">
+                                        Invite Buddy
+                                    </th>
+                                    <th class="wishlist__column wishlist__column--product" style=" text-align: start;">
+                                        Invite Info
+                                    </th>
+
+                                    <th class="wishlist__column wishlist__column--price" style=" text-align: start;">
+                                        Invitation Date
+                                    </th>
+                                    <th class="wishlist__column wishlist__column--tocart"></th>
+                                    <th class="wishlist__column wishlist__column--remove"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="wishlist__body">
+                                @foreach (var item in Model)
+                                {
+                                
+                                    <tr class="wishlist__row">
+                                        <td class="wishlist__column wishlist__column--image">
+                                            <div class="product-image">
+                                                <a href="" class="product-image__body">
+                                                    <img class="product-image__img"
+                                                     src="@item.BuddyImage"
+                                                     alt="" />
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="wishlist__column wishlist__column--price">
+                                            <div>@item.BuddyName</div>
+                                        </td>
+
+                                        <td class="wishlist__column wishlist__column--product">
+                                            <a href="#" class="wishlist__product-name">@item.RestaurantName</a>
+                                            <div class="post-card__content is--cuisines"> @item.InvitationOption</div>
+                                        </td>
+                                        <td class=" wishlist__column wishlist__column--stock">
+                                            @(item.InvitationDate!.Value.ToString("ddd, dd MMMM") + " at " + item.InvitationDate.Value.ToString("HH:mm:ss"))
+                                        </td>
+                                        @if (item.InvitationStatusId == 1)
+                                        {
+                                            
+                                        
+                                        <td class="wishlist__column wishlist__column--tocart">
+                                            <button type="button" class="btn btn-primary btn-sm setStatusbtn" id="btnAccept" data-invitationId=@item.Id data-statusId=2>
+                                                    Accept
+                                                </button>
+
+                                        </td>
+                                        <td class="wishlist__column wishlist__column--remove">
+                                            <button type="button"
+                                                class="btn btn-light btn-sm btn-svg-icon setStatusbtn" id="btnReject" data-invitationId=@item.Id data-statusId=3>
+                                                <svg width="12px" height="12px">
+                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                         }
+                                        else{
+                                        <td class="wishlist__column wishlist__column--tocart">
+                                                <button type="button" class="btn btn-primary btn-sm" id="btnAccept" style="
+                                                background-color: #fff;
+                                              color:@(item.InvitationStatusId ==2? "#28a745":item.InvitationStatusId ==3?"#dc3545" :"#ffd333");
+                                                border-color:@(item.InvitationStatusId ==2? "#28a745":item.InvitationStatusId ==3?"#dc3545":"#ffd333")
+                                                "
+                                                disabled>
+                                                @item.InvitationStatus
+                                            </button>
+
+                                               
+
+                                        </td>
+
+                                            <td class="wishlist__column wishlist__column--remove">
+                                                <button style=" display:none" type="button"
+                                                class="btn btn-light btn-sm btn-svg-icon">
+                                                    <svg width="12px" height="12px">
+                                                        <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        }
+                                    </tr>
+                                       
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="product-tabs__pane product-tabs__pane--active"
+                 id="tab-specification">
+                <div class="block">
+                    <div class="container">
+                        <table class="wishlist">
+                            <thead class="wishlist__head">
+                                <tr class="wishlist__row">
+                                    <th class="wishlist__column wishlist__column--image" style=" text-align: start;">
+                                        Image
+                                    </th>
+
+                                    <th class="wishlist__column wishlist__column--product" style=" text-align: start;">
+                                        Place Name
+                                    </th>
+                                    <th class="wishlist__column wishlist__column--stock" style=" text-align: start;">
+                                        Buddies
+                                    </th>
+
+
+                                    <th class="wishlist__column wishlist__column--tocart"></th>
+                                    <th class="wishlist__column wishlist__column--remove"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="wishlist__body">
+                                @foreach (var inv in InvetationSent)
                                 {
                                     
                                 
-                <tr class="wishlist__row">
-                    <td class="wishlist__column wishlist__column--image">
-                        <div class="product-image">
-                            <a href="" class="product-image__body"
-                                ><img
-                                    class="product-image__img"
-                                    src="@item.BuddyImage"
-                                    alt=""
-                            /></a>
-                        </div>
-                    </td>
-                     <td class="wishlist__column wishlist__column--price">
-                        <div >@item.BuddyName</div>
-                    </td>
+                                <tr class="wishlist__row">
+                                    <td class="wishlist__column wishlist__column--image">
+                                        <div class="product-image">
+                                            <a href="#" class="product-image__body">
+                                                <img class="product-image__img"
+                                                     src="@inv.Image"
+                                                     alt="" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="wishlist__column wishlist__column--product">
+                                        <a href="" class="wishlist__product-name">@inv.PlaceName</a>
+                                    </td>
+                                    <td class="wishlist__column wishlist__column--price">
+                                        <div>@inv.BuddiesCount</div>
+                                    </td>
 
-                    <td class="wishlist__column wishlist__column--product">
-                        <a href="" class="wishlist__product-name"
-                            >@item.RestaurantName</a
-                        >
-                        <div class="post-card__content is--cuisines"> @item.InvitationOption</div>
-                    </td>
-                    <td class=" wishlist__column wishlist__column--stock">
-                                            @(item.InvitationDate.Value.ToString("ddd, dd MMMM") + " at " + item.InvitationDate.Value.ToString("HH:mm:ss"))   
-                    </td>
-                    <td class="wishlist__column wishlist__column--tocart">
-                        <button type="button" class="btn btn-primary btn-sm">
-                           Accept
-                        </button>
-                    </td>
-                    <td class="wishlist__column wishlist__column--remove">
-                        <button
-                            type="button"
-                            class="btn btn-light btn-sm btn-svg-icon"
-                        >
-                            <svg width="12px" height="12px">
-                                <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
+
+
+                                    <td class="wishlist__column wishlist__column--tocart">
+                                            <a asp-action="InvitationPlace" asp-controller="Account" asp-route-id="@inv.PlaceId" type="button" class="btn btn-primary btn-sm">
+                                            View Details
+                                        </a>
+                                    </td>
+                                    <td  class="wishlist__column wishlist__column--remove">
+                                        <button style=" display:none" type="button"
+                                                class="btn btn-light btn-sm btn-svg-icon">
+                                            <svg width="12px" height="12px">
+                                                <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
                                 }
-            </tbody>
-        </table>
-    </div>
-</div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
 
         </div>
-                <div 
-            class="product-tabs__pane product-tabs__pane--active"
-            id="tab-specification"
-        >
-            <div class="block">
-    <div class="container">
-        <table class="wishlist">
-            <thead class="wishlist__head">
-                <tr class="wishlist__row">
-                    <th class="wishlist__column wishlist__column--image" style=" text-align: start;">
-                        Image
-                    </th>
-
-                    <th class="wishlist__column wishlist__column--product" style=" text-align: start;">
-                       Place Name
-                    </th>
-                     <th class="wishlist__column wishlist__column--stock" style=" text-align: start;">
-                        Buddies
-                    </th>
-                   
-
-                    <th class="wishlist__column wishlist__column--tocart"></th>
-                    <th class="wishlist__column wishlist__column--remove"></th>
-                </tr>
-            </thead>
-            <tbody class="wishlist__body">
-                <tr class="wishlist__row">
-                    <td class="wishlist__column wishlist__column--image">
-                        <div class="product-image">
-                            <a href="" class="product-image__body"
-                                ><img
-                                    class="product-image__img"
-                                    src="images/products/product-1.jpg"
-                                    alt=""
-                            /></a>
-                        </div>
-                    </td>
-                     <td class="wishlist__column wishlist__column--product">
-                        <a href="" class="wishlist__product-name"
-                            >Restaurant Name</a
-                        >
-                    </td>
-                     <td class="wishlist__column wishlist__column--price">
-                        <div >2 buddies</div>
-                    </td>
-
-                   
-                    
-                    <td class="wishlist__column wishlist__column--tocart">
-                        <button type="button" class="btn btn-primary btn-sm">
-                            View Details
-                        </button>
-                    </td>
-                    <td class="wishlist__column wishlist__column--remove">
-                        <button
-                            type="button"
-                            class="btn btn-light btn-sm btn-svg-icon"
-                        >
-                            <svg width="12px" height="12px">
-                                <use
-                                    xlink:href="images/sprite.svg#cross-12"
-                                ></use>
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
     </div>
-</div>
-
-        </div>
-
-
-    </div>
-</div>
 
 
 </div>
+
+
+@section Scripts{
+    <script src="~/frontendassets/js/change-invitation-status.js"></script>
+}

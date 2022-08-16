@@ -27,7 +27,7 @@ namespace HookaTimes.BLL.ViewModels
         public int Id { get; set; }
         public string BuddyName { get; set; }
         public string BuddyImage { get; set; }
-        public float BuddyRating { get; set; }
+        public float? BuddyRating { get; set; }
         public int InvitationStatusId { get; set; }
         public string InvitationStatus { get; set; }
         public string Description { get; set; }

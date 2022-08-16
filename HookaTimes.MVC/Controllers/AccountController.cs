@@ -270,14 +270,45 @@ namespace HookaTimes.MVC.Controllers
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
 
             int userBuddyId = await _auth.GetBuddyById(UserId);
+            ResponseModel invitations = new ResponseModel();
+            ResponseModel invitationsSent = new ResponseModel();
 
-            List<Invitation_VM> invitations = Array.Empty<Invitation_VM>().ToList();
             if (userBuddyId != 0)
             {
 
-                invitations = await _inv.GetRecievedInvitationsMVC(userBuddyId);
+                invitations = await _inv.GetRecievedInvitations(Request, userBuddyId);
+
+                invitationsSent = await _inv.GetSentInvitations(Request, userBuddyId);
             }
-            return View(invitations);
+            ViewBag.InvitationsSent = invitationsSent.Data.Data;
+            return View(invitations.Data.Data);
+        }
+
+
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        public async Task<IActionResult> SetInvitationStatusMVC([FromForm] int statusId, [FromForm] int invitationId)
+        {
+            return Ok(await _inv.SetInvitationStatus(statusId, invitationId));
+
+
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public async Task<IActionResult> InvitationPlace([FromRoute] int id)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            ResponseModel InvitationPlace = new ResponseModel();
+
+
+            if (userBuddyId != 0)
+            {
+                InvitationPlace = await _inv.GetPlaceInvitations(Request, id, userBuddyId);
+            }
+            return View(InvitationPlace.Data.Data);
         }
         #endregion
 
