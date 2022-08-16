@@ -6,28 +6,41 @@
 
 <style>
     .widget-aboutus__socials {
-    margin-top: 0px;
-}
+        margin-top: 0px;
+    }
 
-.table-responsive-sm{
-    padding:2em;
-}
+    .table-responsive-sm {
+        padding: 2em;
+    }
 
-.page-header__title {
-    padding-top: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+    .page-header__title {
+        padding-top: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.block-banner__image {
-    background-color: #ebebeb;}
+    .block-banner__image {
+        background-color: #ebebeb;
+    }
+
+    .product-card__quickview {
+        position: relative;
+        top: auto;
+        font-size: 1em;
+        padding: 7px;
+        cursor: pointer;
+        border-color: #ffd333;
+        background: #ffd333;
+        color: #3d464d;
+        fill: #3d464d;
+    }
 </style>
 
 
+
 <div class="site__body">
-    
-  @*site header*@
+    @*site header*@
     <div class="page-header">
         <div class="page-header__container container">
             <div class="page-header__breadcrumb">
@@ -35,7 +48,11 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="/">Buddies</a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                            <svg
+                                class="breadcrumb-arrow"
+                                width="6px"
+                                height="9px"
+                            >
                                 <use
                                     xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"
                                 ></use>
@@ -44,7 +61,11 @@
                         @*
                         <li class="breadcrumb-item">
                             <a href="">Breadcrumb</a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                            <svg
+                                class="breadcrumb-arrow"
+                                width="6px"
+                                height="9px"
+                            >
                                 <use
                                     xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"
                                 ></use>
@@ -53,166 +74,178 @@
                         *@
                         <li class="breadcrumb-item active" aria-current="page">
                             Buddy Name
-                           
                         </li>
-
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
                 <h1>Buddy Name</h1>
-                 <button type="button" class="btn btn-primary btn-sm">
-                            Invite
-                 </button>
+                <button class="product-card__quickview" type="button">
+                    Invite
+                    <span class="fake-svg-icon"></span>
+                </button>
             </div>
         </div>
-</div>
+    </div>
 
-<div class="block">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-9 mt-4 mt-lg-0">
-                <div class="dashboard">
-                    <div class="dashboard__profile card profile-card">
-                        <div class="card-body profile-card__body">
-                            <div class="profile-card__avatar">
-                                <img src="images/avatars/avatar-3.jpg" alt="" />
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-9 mt-4 mt-lg-0">
+                    <div class="dashboard">
+                        <div class="dashboard__profile card profile-card">
+                            <div class="card-body profile-card__body">
+                                <div class="profile-card__avatar">
+                                    <img
+                                        src="images/avatars/avatar-3.jpg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div class="profile-card__name">
+                                    Helena Garcia
+                                </div>
+                                <div class="profile-card__email">
+                                    stroyka@example.com
+                                </div>
+                                <div
+                                    class="social-links widget-aboutus__socials social-links--shape--rounded"
+                                >
+                                    <ul class="social-links__list">
+                                        <li class="social-links__item">
+                                            <a
+                                                class="social-links__link social-links__link--type--rss"
+                                                href=""
+                                                target="_blank"
+                                                ><i class="fas fa-rss"></i
+                                            ></a>
+                                        </li>
+                                        <li class="social-links__item">
+                                            <a
+                                                class="social-links__link social-links__link--type--youtube"
+                                                href=""
+                                                target="_blank"
+                                                ><i class="fab fa-youtube"></i
+                                            ></a>
+                                        </li>
+                                        <li class="social-links__item">
+                                            <a
+                                                class="social-links__link social-links__link--type--facebook"
+                                                href=""
+                                                target="_blank"
+                                                ><i
+                                                    class="fab fa-facebook-f"
+                                                ></i
+                                            ></a>
+                                        </li>
+                                        <li class="social-links__item">
+                                            <a
+                                                class="social-links__link social-links__link--type--twitter"
+                                                href=""
+                                                target="_blank"
+                                                ><i class="fab fa-twitter"></i
+                                            ></a>
+                                        </li>
+                                        <li class="social-links__item">
+                                            <a
+                                                class="social-links__link social-links__link--type--instagram"
+                                                href=""
+                                                target="_blank"
+                                                ><i class="fab fa-instagram"></i
+                                            ></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="profile-card__name">Helena Garcia</div>
-                            <div class="profile-card__email">
-                                stroyka@example.com
+                        </div>
+                        <div
+                            class="dashboard__address card address-card address-card--featured"
+                        >
+                            <div class="address-card__badge">
+                                Default Address
                             </div>
-                            <div class="social-links widget-aboutus__socials social-links--shape--rounded">
-    <ul class="social-links__list">
-        <li class="social-links__item">
-            <a
-                class="social-links__link social-links__link--type--rss"
-                href=""
-                target="_blank"
-                ><i class="fas fa-rss"></i
-            ></a>
-        </li>
-        <li class="social-links__item">
-            <a
-                class="social-links__link social-links__link--type--youtube"
-                href=""
-                target="_blank"
-                ><i class="fab fa-youtube"></i
-            ></a>
-        </li>
-        <li class="social-links__item">
-            <a
-                class="social-links__link social-links__link--type--facebook"
-                href=""
-                target="_blank"
-                ><i class="fab fa-facebook-f"></i
-            ></a>
-        </li>
-        <li class="social-links__item">
-            <a
-                class="social-links__link social-links__link--type--twitter"
-                href=""
-                target="_blank"
-                ><i class="fab fa-twitter"></i
-            ></a>
-        </li>
-        <li class="social-links__item">
-            <a
-                class="social-links__link social-links__link--type--instagram"
-                href=""
-                target="_blank"
-                ><i class="fab fa-instagram"></i
-            ></a>
-        </li>
-    </ul>
-</div>
-
+                            <div class="address-card__body">
+                                <div class="address-card__name">
+                                    Helena Garcia
+                                </div>
+                                <div class="address-card__row">
+                                    Random Federation<br />115302, Moscow<br />ul.
+                                    Varshavskaya, 15-2-178
+                                </div>
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Phone Number
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        38 972 588-42-36
+                                    </div>
+                                </div>
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Email Address
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        stroyka@example.com
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div
-                        class="dashboard__address card address-card address-card--featured"
-                    >
-                        <div class="address-card__badge">Default Address</div>
-                        <div class="address-card__body">
-                            <div class="address-card__name">Helena Garcia</div>
-                            <div class="address-card__row">
-                                Random Federation<br />115302, Moscow<br />ul.
-                                Varshavskaya, 15-2-178
-                            </div>
-                            <div class="address-card__row">
-                                <div class="address-card__row-title">
-                                    Phone Number
+                    <div class="dashboard__orders card">
+                        <div class="card-header"><h5>More Info</h5></div>
+                        <div class="card-divider"></div>
+                        <div class="card-table">
+                            <div class="table-responsive-sm">
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Phone Number
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        38 972 588-42-36
+                                    </div>
                                 </div>
-                                <div class="address-card__row-content">
-                                    38 972 588-42-36
-                                </div>
-                            </div>
-                            <div class="address-card__row">
-                                <div class="address-card__row-title">
-                                    Email Address
-                                </div>
-                                <div class="address-card__row-content">
-                                    stroyka@example.com
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Phone Number
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        38 972 588-42-36
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="dashboard__orders card">
-    <div class="card-header"><h5>More Info</h5></div>
-    <div class="card-divider"></div>
-    <div class="card-table">
-        <div class="table-responsive-sm">
-            <div class="address-card__row">
-                                <div class="address-card__row-title">
-                                    Phone Number
-                                </div>
-                                <div class="address-card__row-content">
-                                    38 972 588-42-36
-                                </div>
             </div>
-            <div class="address-card__row">
-                                <div class="address-card__row-title">
-                                    Phone Number
-                                </div>
-                                <div class="address-card__row-content">
-                                    38 972 588-42-36
-                                </div>
+        </div>
+    </div>
+
+    <div class="block block-banner">
+        <div class="container">
+            <div href="" class="block-banner__body">
+                <div
+                    class="block-banner__image block-banner__image--desktop"
+                    style="background-image: url('images/banners/banner-1.jpg')"
+                ></div>
+
+                <div class="block-banner__title">Buddy Name</div>
+                <div class="block-banner__text">Invite your Favorite buddy</div>
+                <div class="block-banner__button">
+                    <span class="btn btn-sm btn-primary">Invite</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-            </div>
+
+
+
+
+<!-- quickview-modal -->
+    <div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content"></div>
         </div>
     </div>
-</div>
-
-<div class="block block-banner">
-    <div class="container">
-        <div href="" class="block-banner__body"
-            ><div
-                class="block-banner__image block-banner__image--desktop"
-                style="background-image: url('images/banners/banner-1.jpg')"
-            ></div>
-           
-            <div class="block-banner__title">
-                Buddy Name
-            </div>
-            <div class="block-banner__text">
-                Invite your Favorite buddy
-            </div>
-            <div class="block-banner__button">
-                <span class="btn btn-sm btn-primary">Invite</span>
-            </div></div
-        >
-    </div>
-</div>
-
-</div>
-
-
-
-
-
+    <!-- quickview-modal / end -->
 
