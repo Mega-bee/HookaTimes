@@ -1,23 +1,20 @@
 ﻿import { updateCart } from "../js/update-cart-dropdown.js"
 
-export function addToCart(data) {
+export function removeFromCart(data) {
     $.ajax({
-        type: 'Post',
+        type: 'Delete',
         async: true,
         processData: false,
         contentType: false,
         data: data,
-        url: `/Cart/AddToCart`,
+        url: `/Cart/RemoveItemFromCart`,
         success: function (result) {
-            if (result.statusCode == 201) {
-
-
+            if (result.statusCode == 200) {
                 updateCart()
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
+                let row = pressedBtn.closest("tr")
+                if (row) {
+                    row.remove()
+                }
             } else {
                 Swal.fire({
                     icon: 'error',

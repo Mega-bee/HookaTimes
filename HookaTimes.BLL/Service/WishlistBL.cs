@@ -78,7 +78,7 @@ namespace HookaTimes.BLL.Service
 
                     await _uow.VirtualWishlistRepository.Delete(currWishlistItem.Id);
                     responseModel.ErrorMessage = "";
-                    responseModel.StatusCode = 201;
+                    responseModel.StatusCode = 204;
                     responseModel.Data = new DataModel()
                     {
                         Data = "",
@@ -164,13 +164,13 @@ namespace HookaTimes.BLL.Service
             else
             {
                 var currItem = await _uow.VirtualWishlistRepository.GetFirst(x => x.WishlistSessionId == wishlistSessionId && x.ProductId == productId);
-                await _uow.VirtualCartRepository.Delete(currItem.Id);
+                await _uow.VirtualWishlistRepository.Delete(currItem.Id);
                 responseModel.ErrorMessage = "";
                 responseModel.StatusCode = 200;
                 responseModel.Data = new DataModel()
                 {
                     Data = "",
-                    Message = "Item removed from cart"
+                    Message = "Item removed from wishlist"
                 };
                 return responseModel;
             }

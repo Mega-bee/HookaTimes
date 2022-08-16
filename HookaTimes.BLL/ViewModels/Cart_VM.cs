@@ -21,4 +21,10 @@ namespace HookaTimes.BLL.ViewModels
         public decimal? ProductPrice { get; set; }
         public decimal? TotalPrice { get; set; }
     }
+
+    public partial class UpdateCartItem_VM
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+    }
 }

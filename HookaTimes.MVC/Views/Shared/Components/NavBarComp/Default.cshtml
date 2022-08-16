@@ -142,7 +142,7 @@
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#heart-20"></use>
                                 </svg>
-                                <span class="indicator__value">0</span>
+                                <span class="indicator__value wishlist-indicator-value">0</span>
                             </span>
                         </a>
                     </div>
@@ -180,9 +180,9 @@
                                                         <span class="dropcart__product-price">@item.ProductPrice AED</span>
                                                     </div>
                                                 </div>
-                                                <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                    <svg width="10px" height="10px">
-                                                        <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                <button data-productId="@item.ItemId" type="button" class="remove-product-dropcart dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                    <svg data-productId="@item.ItemId" class="remove-product-dropcart" width="10px" height="10px">
+                                                        <use data-productId="@item.ItemId" class="remove-product-dropcart" xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
                                                     </svg>
                                                 </button>
                                             </div>

@@ -104,6 +104,21 @@ namespace HookaTimes.MVC.Controllers
             return ViewComponent("CartDropdown");
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateCart([FromForm]List<UpdateCartItem_VM> items)
+        {
+            int userBuddyId = 0;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity!.IsAuthenticated)
+            {
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
+            }
+            string cartSessionId = Request.Cookies["CartSessionId"]!;
+            return Ok(await _cartBL.UpdateCart(items, userBuddyId, cartSessionId));
+        }
+
 
     }
 }

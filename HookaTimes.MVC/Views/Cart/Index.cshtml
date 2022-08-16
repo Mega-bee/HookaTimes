@@ -62,7 +62,7 @@
                     <tbody class="cart-table__body">
                         @foreach (var item in Model.Items)
                         {
-                            <tr class="cart-table__row">
+                            <tr data-productId="@item.ItemId" class="cart-table__row cart-table__item">
                                 <td class="cart-table__column cart-table__column--image">
                                     <div class="product-image">
                                         <a href="" class="product-image__body">
@@ -77,7 +77,7 @@
                                         @*<li>Material: Aluminium</li>*@
                                     </ul>
                                 </td>
-                                <td class="cart-table__column cart-table__column--price" data-title="Price">75 AED</td>
+                                <td class="cart-table__column cart-table__column--price cart-item-price" data-title="Price">@item.ProductPrice</td>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                     <div class="input-number">
                                         <input class="form-control input-number__input" type="number" min="1" value="@item.Quantity">
@@ -85,7 +85,7 @@
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </td>
-                                <td class="cart-table__column cart-table__column--total" data-title="Total">@item.TotalPrice AED</td>
+                                <td class="cart-table__column cart-table__column--total cart-item-total" data-title="Total">@item.TotalPrice AED</td>
                                 <td class="cart-table__column cart-table__column--remove">
                                     <button data-productId="@item.ItemId" type="button" class="btn btn-light btn-sm btn-svg-icon remove-item-btn">
                                         <svg width="12px" height="12px">
@@ -99,15 +99,15 @@
 
                     </tbody>
                 </table>
-                <div class="cart__actions">
-                    <form class="cart__coupon-form">
+                <div class="cart__actions" id="cart-actions" style="justify-content:flex-end">
+              @*      <form class="cart__coupon-form">
                         <label for="input-coupon-code" class="sr-only">Password</label>
                         <input type="text" class="form-control" id="input-coupon-code" placeholder="Coupon Code">
                         <button type="submit" class="btn btn-primary">Apply Coupon</button>
-                    </form>
-                    <div class="cart__buttons">
-                        <a href="index.html" class="btn btn-light">Continue Shopping</a>
-                        <a href="" class="btn btn-primary cart__update-button">Update Cart</a>
+                    </form>*@
+                    <div class="cart__buttons" style="align-self:flex-end">
+                        <a asp-controller="Home" asp-action="HookaProducts" class="btn btn-light">Continue Shopping</a>
+                        <a href="#" class="btn btn-primary cart__update-button">Update Cart</a>
                     </div>
                 </div>
                 <div class="row justify-content-end pt-5">
@@ -119,14 +119,14 @@
                                     <thead class="cart__totals-header">
                                         <tr>
                                             <th>Subtotal</th>
-                                            <td>450 AED</td>
+                                            <td>0 AED</td>
                                         </tr>
                                     </thead>
                                     <tbody class="cart__totals-body">
                                         <tr>
                                             <th>Delivery</th>
                                             <td>
-                                                10 AED
+                                                0 AED
                                                 @*                                                    <div class="cart__calc-shipping"><a href="#">Calculate Shipping</a></div>
                                             *@
                                             </td>
@@ -141,7 +141,7 @@
                                     <tfoot class="cart__totals-footer">
                                         <tr>
                                             <th>Total</th>
-                                            <td>@Model.TotalPrice</td>
+                                            <td id="total-cart-price">@Model.TotalPrice AED</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -157,5 +157,5 @@
 </div>
 <!-- site__body / end -->
 @section Scripts {
-    <script src="~/FrontendAssets/js/cart.js"></script>
+    <script type="module" src="~/FrontendAssets/js/cart.js"></script>
 }

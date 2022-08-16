@@ -20,6 +20,7 @@ namespace HookaTimes.MVC.Controllers
             _wishlistBL = wishlistBL;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             int userBuddyId = 0;

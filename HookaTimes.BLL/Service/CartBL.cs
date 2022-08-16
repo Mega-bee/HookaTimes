@@ -220,5 +220,78 @@ namespace HookaTimes.BLL.Service
             };
             return responseModel;
         }
+
+        public async Task<ResponseModel> UpdateCart(List<UpdateCartItem_VM> items, int userBuddyId, string cartSessionId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            if(userBuddyId > 0)
+            {
+                if(items.Count > 0)
+                {
+                    foreach (var item in items)
+                    {
+                        var currItem = await _uow.CartRepository.GetAllWithTracking(x=> x.ProductId == item.Id && x.BuddyId == userBuddyId).FirstOrDefaultAsync();
+                        currItem.Quantity = item.Quantity;
+                        
+                    }
+                    await _uow.SaveAsync();
+                    responseModel.ErrorMessage = "";
+                    responseModel.StatusCode = 201;
+                    responseModel.Data = new DataModel()
+                    {
+                        Data = "",
+                        Message = "Cart updated"
+                    };
+                    return responseModel;
+                }
+                responseModel.ErrorMessage = "Item list is empty";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = ""
+                };
+                return responseModel;
+            } else if(!string.IsNullOrEmpty(cartSessionId))
+            {
+                if (items.Count > 0)
+                {
+                    foreach (var item in items)
+                    {
+                        var currItem = await _uow.VirtualCartRepository.GetAllWithTracking(x =>  x.SessionCartId == cartSessionId && x.ProductId == item.Id).FirstOrDefaultAsync();
+                        currItem.Quantity = item.Quantity;
+
+                    }
+                    await _uow.SaveAsync();
+                    responseModel.ErrorMessage = "";
+                    responseModel.StatusCode = 201;
+                    responseModel.Data = new DataModel()
+                    {
+                        Data = "",
+                        Message = "Cart updated"
+                    };
+                    return responseModel;
+                }
+                responseModel.ErrorMessage = "Item list is empty";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = ""
+                };
+                return responseModel;
+            } else
+            {
+                responseModel.ErrorMessage = "No cart is associated with current user";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = ""
+                };
+                return responseModel;
+            }
+
+        }
     }
 }
