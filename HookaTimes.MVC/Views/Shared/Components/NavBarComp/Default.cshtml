@@ -147,7 +147,7 @@
                         </a>
                     </div>
                     <div class="indicator indicator--trigger--click" id="navbar-cart-container">
-                        <a href="cart.html" id="cart-indicator-btn" class="indicator__button">
+                        <a asp-controller="Cart" asp-action="Index" id="cart-indicator-btn" class="indicator__button">
                             <span class="indicator__area">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#cart-20"></use>
@@ -212,7 +212,7 @@
                                     </div>
                                     <div class="dropcart__buttons">
                                         <a class="btn btn-secondary" asp-controller="Cart" asp-action="Index">View Cart</a>
-                                        <a class="btn btn-primary" asp-controller="home" asp-action="Checkout">Checkout</a>
+                                        <a class="btn btn-primary" asp-controller="Checkout" asp-action="Index">Checkout</a>
                                     </div>
                                 </div>
                             </div>

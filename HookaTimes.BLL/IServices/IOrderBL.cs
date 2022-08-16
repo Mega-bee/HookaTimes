@@ -5,6 +5,6 @@ namespace HookaTimes.BLL.IServices
 {
     public interface IOrderBL
     {
-        Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId);
+        Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId, BuddyProfileAddressVM address);
     }
 }

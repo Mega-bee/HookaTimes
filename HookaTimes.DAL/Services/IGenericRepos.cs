@@ -26,6 +26,7 @@ namespace HookaTimes.DAL.Services
         Task<T> Update(T entity);
 
         Task Delete(int id);
+        Task DeleteRange(List<T> entities);
         Task DeleteByPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicateAndIncludes(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);

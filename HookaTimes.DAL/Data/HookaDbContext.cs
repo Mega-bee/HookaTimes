@@ -1,6 +1,8 @@
-﻿using HookaTimes.DAL.HookaTimesModels;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using HookaTimes.DAL.HookaTimesModels;
 
 namespace HookaTimes.DAL.Data
 {

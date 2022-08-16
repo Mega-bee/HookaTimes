@@ -29,18 +29,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
              
                 if (result.statusCode == 201) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: result.data.message,
-                    })
+                   
                 } else if (result.statusCode == 204) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: result.data.message,
-                    })
+                   
                 } else {
 
                     Swal.fire({

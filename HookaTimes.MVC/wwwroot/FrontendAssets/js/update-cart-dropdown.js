@@ -11,6 +11,10 @@
             let elementsCount = document.querySelectorAll('.dropcart__product').length
           
             itemCountContainer.textContent = elementsCount - 1
+            let navPanel = document.querySelector(".nav-panel");
+            navPanel.classList.add("nav-panel--stuck", "nav-panel--show")
+            let cartDropdownIcon = document.querySelector("#navbar-cart-container .indicator__button")
+            cartDropdownIcon.click()
         },
         fail: function (err) {
             console.log(err)

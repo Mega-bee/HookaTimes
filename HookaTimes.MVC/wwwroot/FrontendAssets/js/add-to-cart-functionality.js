@@ -1,6 +1,6 @@
 ﻿import { updateCart } from "../js/update-cart-dropdown.js"
 
-export function addToCart(data) {
+export function addToCart(data,btn = null) {
     $.ajax({
         type: 'Post',
         async: true,
@@ -13,17 +13,20 @@ export function addToCart(data) {
 
 
                 updateCart()
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
+                if (btn) {
+                    btn.innerHTML = 'Add To Cart'
+                    btn.disabled = false;
+                }
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Fail',
                     text: result.errorMessage
                 })
+                if (btn) {
+                    btn.innerHTML = 'Add To Cart'
+                    btn.disabled = false;
+                }
             }
 
         },
