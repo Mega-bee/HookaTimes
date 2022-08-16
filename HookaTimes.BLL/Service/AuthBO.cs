@@ -905,6 +905,8 @@ namespace HookaTimes.BLL.Service
 
             buddy.IsAvailable = !buddy.IsAvailable;
 
+            await _uow.BuddyRepository.Update(buddy);
+
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
             responseModel.Data = new DataModel { Data = "", Message = $"{((bool)buddy.IsAvailable ? "Available" : "Not Available")}" };
