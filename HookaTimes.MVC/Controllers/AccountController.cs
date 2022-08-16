@@ -1,5 +1,6 @@
 ﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
+using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
@@ -22,15 +23,17 @@ namespace HookaTimes.MVC.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAuthBO _auth;
+        private readonly IInvitationBL _inv;
 
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-          RoleManager<IdentityRole> roleManager, IAuthBO auth)
+          RoleManager<IdentityRole> roleManager, IAuthBO auth, IInvitationBL inv)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _auth = auth;
+            _inv = inv;
         }
         public IActionResult Index()
         {
@@ -253,6 +256,28 @@ namespace HookaTimes.MVC.Controllers
                 orderHistory = await _auth.GetOrderHistoryMVC(userBuddyId);
             }
             return View(orderHistory);
+        }
+        #endregion
+
+
+        #region Invitations
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public async Task<IActionResult> Invitations()
+        {
+
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            List<Invitation_VM> invitations = Array.Empty<Invitation_VM>().ToList();
+            if (userBuddyId != 0)
+            {
+
+                invitations = await _inv.GetRecievedInvitationsMVC(userBuddyId);
+            }
+            return View(invitations);
         }
         #endregion
 

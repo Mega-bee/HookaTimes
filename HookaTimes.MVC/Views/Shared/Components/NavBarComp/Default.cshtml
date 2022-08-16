@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager;
 @if (!SignInManager.IsSignedIn(User))
 {
-@model EmailSignInMVC_VM
+    @model EmailSignInMVC_VM
 }
 @{
     var buddy = (NavBuddy_VM)ViewBag.Buddy;
@@ -187,18 +187,18 @@
                                                 </button>
                                             </div>
                                         }
-                                      
+
 
                                     </div>
                                     <div class="dropcart__totals">
                                         <table>
-                                     @*       <tr>
-                                                <th>Subtotal</th>
-                                                <td>450 AED</td>
+                                            @*       <tr>
+                                            <th>Subtotal</th>
+                                            <td>450 AED</td>
                                             </tr>
                                             <tr>
-                                                <th>Delivery</th>
-                                                <td>10 AED</td>
+                                            <th>Delivery</th>
+                                            <td>10 AED</td>
                                             </tr>*@
                                             @* <tr>
                                             <th>Tax</th>
@@ -275,9 +275,11 @@
                                     <div class="account-menu__divider"></div>
                                     <ul class="account-menu__links">
                                         <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
+                                        <li><a asp-controller="Account" asp-action="Invitations">Invitations</a></li>
                                         <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
                                         @*<li><a asp-controller="Account" asp-action="Addresses">Addresses</a></li>*@
                                         <li><a asp-controller="Account" asp-action="Password">Password</a></li>
+
                                     </ul>
                                     <div class="account-menu__divider"></div>
                                     <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
@@ -301,5 +303,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/FrontendAssets/js/logout.js" ></script>
+    <script src="~/FrontendAssets/js/logout.js"></script>
 }
