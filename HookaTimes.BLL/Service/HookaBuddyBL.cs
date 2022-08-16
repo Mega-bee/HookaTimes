@@ -83,6 +83,7 @@ namespace HookaTimes.BLL.Service
             userProfile.Profession = currProfile.Profession ?? "";
             userProfile.FirstName = currProfile.FirstName ?? "";
             userProfile.LastName = currProfile.LastName ?? "";
+            userProfile.IsAvailable = currProfile.IsAvailable;
             userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
             {
                 Latitude = x.Latitude,
