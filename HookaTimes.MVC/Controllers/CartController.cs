@@ -90,11 +90,20 @@ namespace HookaTimes.MVC.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity!.IsAuthenticated)
             {
-                userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID")!.Value);
-               
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
+
             }
           CartSummary_VM cartSummary = await _cartBL.GetCartSummaryMVC(userBuddyId,cartSessionId);
             return View(cartSummary);
-        } 
+        }
+
+        [AllowAnonymous] 
+        public async Task<IActionResult> GetCartDropdown()
+        {
+            return ViewComponent("CartDropdown");
+        }
+
+
     }
 }

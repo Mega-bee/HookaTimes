@@ -183,11 +183,31 @@ namespace HookaTimes.MVC.Controllers
 
         public async Task<IActionResult> Product(int id)
         {
-            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id);
+            string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
+            int BuddyId = 0;
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            BuddyId = await _auth.GetBuddyById(UserId);
+            ViewHookaProduct_VM prod = await _productBL.GetCategoryProductsMVC(id,wishlistSessionId,BuddyId);
             return View(prod);
         }
 
         public IActionResult Place()
+        {
+            return View();
+        }
+
+        public IActionResult Invitations()
+        {
+            return View();
+        }
+
+        public IActionResult InvitationPlace()
+        {
+            return View();
+        }
+
+
+        public IActionResult Buddy()
         {
             return View();
         }

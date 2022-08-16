@@ -1,0 +1,882 @@
+﻿@{
+    ViewData["Title"] = "Place";
+}
+
+@model HookaPlaceInfo_VM
+
+<style>
+
+    .name-container {
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+    }
+
+    .place__info {
+        margin: 1.4em;
+    }
+
+    .post-card__name {
+        font-size: 1.4em;
+        line-height: 1.125;
+        font-weight: 500;
+    }
+
+    .post-card__content.is--cuisines {
+        color: #706f6f;
+        font-size: 0.95em;
+        line-height: 1.2;
+        font-weight: 500;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .post-card__content.is--location {
+        color: #9d9d9c;
+        font-size: 0.95em;
+        line-height: 1.2;
+        font-weight: 500;
+    }
+
+    .product__content {
+        width: 100%;
+        display: block;
+    }
+
+    .product-gallery {
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .product-gallery__featured {
+        width: 75%;
+        height: 42.3em;
+    }
+
+    .product-gallery__carousel {
+        width: 35%;
+        margin-top: 0px;
+    }
+
+    .no-js .owl-carousel, .owl-carousel.owl-loaded {
+        display: flex;
+    }
+
+    .owl-stage {
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+    }
+
+    .owl-carousel.owl-drag .owl-item {
+        width: 100% !important;
+        height: 100%;
+    }
+
+    .owl-stage {
+        width: 100% !important;
+    }
+
+    .owl-carousel .owl-stage {
+        width: 100% !important;
+    }
+
+    /*images
+    */
+
+    .hYfAqb {
+        position: relative;
+    }
+
+    .cQOHyV {
+        width: 100%;
+        display: flex;
+    }
+
+    .bOtepC {
+        position: absolute;
+        left: 1rem;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        transform: translateY(50%);
+        bottom: 3rem;
+    }
+
+    .eepLAx {
+        min-width: 62.4%;
+        max-width: 100%;
+        width: 62.4%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        margin: 0px;
+        overflow: hidden;
+    }
+
+    .cUbrKM {
+        filter: none;
+    }
+
+    .gMhjmN {
+        position: relative;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .exOCHk {
+        position: absolute;
+        top: 0px;
+        background-image: url(https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2…_1584963914.jpg?output-format=webp&fit=around|51.45:27.75&crop=51.45:27.75;*,*);
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        filter: blur(10px);
+    }
+
+    .eQUAyn {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: none;
+        opacity: 1;
+        will-change: transform, opacity;
+        border-radius: inherit;
+        filter: brightness(0.95);
+        transition: transform 0.4s ease-in-out 0s, opacity 1.63s ease 0s, filter 0.4s ease 0s;
+    }
+
+    .hTlIIs {
+        width: 100%;
+        height: 100%;
+        margin-left: 0.6rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fEOXMf {
+        min-width: 62.4%;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        margin: 0px 0px 0.3rem;
+        overflow: hidden;
+    }
+
+    .kyMggQ {
+        min-width: 62.4%;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        margin: 0.3rem 0px 0px;
+        overflow: hidden;
+    }
+
+    .hTlIIs {
+        width: 100%;
+        height: 100%;
+        margin-left: 0.6rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fEOXMf {
+        min-width: 62.4%;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        margin: 0px 0px 0.3rem;
+        overflow: hidden;
+    }
+
+    .gMhjmN {
+        position: relative;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .dpdfge {
+        filter: brightness(0.5);
+    }
+
+    .gMhjmN {
+        position: relative;
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .geutSv {
+        position: absolute;
+        top: 0px;
+        background-image: url(https://b.zmtcdn.com/data/reviews_photos/70e/b59ae60…_1584963925.jpg?output-format=webp&fit=around|20:18.2&crop=20:18.2;*,*);
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        filter: blur(10px);
+    }
+
+    .iSpbZM {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: none;
+        opacity: 1;
+        will-change: transform, opacity;
+        border-radius: inherit;
+        filter: unset;
+        transition: opacity 1.63s ease 0s, transform 0.25s ease 0s;
+    }
+
+    .loodWG {
+        display: flex;
+        font-size: inherit;
+        line-height: 1.5;
+        margin: 0px;
+        position: absolute;
+        color: rgb(255, 255, 255);
+        right: 0px;
+        bottom: 0px;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*rate button*/
+    .rate-card_wrap {
+        display: flex;
+        padding: 0.5em 1em 0.5em 1.2em;
+        align-items: center;
+        grid-column-gap: 0.8em;
+        grid-row-gap: 0.8em;
+        background-color: #fdcf51;
+    }
+
+    .rate-number {
+        font-size: 1.1em;
+        line-height: 1.2;
+        font-weight: 600;
+    }
+
+    .rate-icon {
+        width: 13px;
+    }
+
+    /*opening hours*/
+    .eBeqwn {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        align-items: flex-start;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+    .gHFUNV {
+        margin-top: 0.3em;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+    .iYoYyT {
+        color: rgb(244, 162, 102);
+        font-size: 0.95em;
+        line-height: 1.5;
+    }
+
+    .jumulz {
+        color: rgb(130, 130, 130);
+        font-size: 0.95em;
+        line-height: 1.5;
+        margin-left: 0.5em;
+    }
+
+
+    .product-tabs__item:first-child {
+        margin-left: 0px;
+    }
+
+    /**/
+    .lmKBsT {
+        display: flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    .bKkuLz {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-top: 1em;
+        padding-bottom: 1rem;
+        pointer-events: all;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+    .dOANrt {
+        text-decoration: none;
+    }
+
+    .jMfkSj {
+        width: max-content;
+        padding: 0.4rem 1rem;
+        background: rgb(255, 255, 255);
+        border-radius: 0.5em;
+        border: 1px solid rgb(156, 156, 156);
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-right: 1rem;
+    }
+
+    .iFnyeo {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        cursor: inherit;
+    }
+
+    .kMNrPk {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+        width: 16px;
+        height: 16px;
+    }
+
+    .QWWYz {
+        font-size: 0.8em;
+        color: rgb(28, 28, 28);
+        margin-left: 0.5rem;
+        user-select: none;
+    }
+
+    .vTXMS {
+        font-size: 0.8em;
+        color: rgb(28, 28, 28);
+        margin-left: 0.5rem;
+        user-select: none;
+    }
+
+</style>
+
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Places</a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model.Name
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+    <div class="block">
+        <div class="container">
+
+            <section class="sc-FQuPU hYfAqb">
+                <div class="sc-hwcHae cQOHyV">
+                    <div width="62.4%" class="sc-ghsgMZ eepLAx">
+                        <div height="100%"
+                             width="100%"
+                             class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                            <div class="sc-s1isp7-0 jSWkTP"></div>
+                            <img alt="image"
+                                 src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                                 loading="lazy"
+                                 class="sc-s1isp7-5 eQUAyn" />
+                        </div>
+                    </div>
+                    <section class="sc-erNlkL hTlIIs">
+                        <div width="100%" class="sc-ghsgMZ fEOXMf">
+                            <div height="100%"
+                                 width="100%"
+                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                                <div class="sc-s1isp7-0 epbuMH"></div>
+                                <img alt="image"
+                                     src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
+                                     loading="lazy"
+                                     class="sc-s1isp7-5 eQUAyn" />
+                            </div>
+                        </div>
+                        <div width="100%" class="sc-ghsgMZ kyMggQ">
+                            <div height="100%"
+                                 width="100%"
+                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                                <div class="sc-s1isp7-0 heZknI"></div>
+                                <img alt="image"
+                                     src="https://b.zmtcdn.com/data/reviews_photos/12b/ba8dfab5e957fb1a361174826236d12b_1584963927.jpg?fit=around|300:273&amp;crop=300:273;*,*"
+                                     loading="lazy"
+                                     class="sc-s1isp7-5 eQUAyn" />
+                            </div>
+                        </div>
+                    </section>
+                    <section class="sc-erNlkL hTlIIs">
+                        <div width="100%" class="sc-ghsgMZ fEOXMf">
+                            <div height="100%"
+                                 width="100%"
+                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                                <div class="sc-s1isp7-0 epbuMH"></div>
+                                <img alt="image"
+                                     src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
+                                     loading="lazy"
+                                     class="sc-s1isp7-5 eQUAyn" />
+                            </div>
+                        </div>
+
+                        <div width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM" style="margin: 0.3rem 0px 0px;">
+                            <div height="100%" width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM dpdfge">
+                                <div class="sc-s1isp7-0 geutSv"></div>
+                                <img alt="image"
+                                     src="https://b.zmtcdn.com/data/reviews_photos/70e/b59ae6051e042eade74feb05edebb70e_1584963925.jpg?output-format=webp&amp;fit=around|300:273&amp;crop=300:273;*,*"
+                                     loading="lazy"
+                                     class="sc-s1isp7-5 iSpbZM" />
+                            </div>
+                            <p class="sc-1hez2tp-0 sc-dznXNo loodWG">View Gallery</p>
+                        </div>
+
+                    </section>
+                </div>
+                <div class="sc-gGCbJM bOtepC"></div>
+            </section>
+
+            <div>
+                <div class="place__info">
+                    <div class="name-container">
+                        <div class="post-card__name">
+                            <a href="/home/Place">@Model.Name</a>
+                        </div>
+                        <div class="rate-card_wrap">
+                            <div class="rate-number">4.2</div><img src="https://uploads-ssl.webflow.com/62d93fe56471ce4a6284ae8f/62da8798e440ccaf8af1e3d3_Path%2036.svg" loading="lazy" alt="" class="rate-icon">
+                        </div>
+
+                    </div>
+                    <div class="post-card__content is--cuisines">@Model.Cuisine</div>
+                    <div class="post-card__content is--location"> @Model.Location </div>
+                    <div class="sc-btzYZH gHFUNV">
+                        @* <span class="sc-lhVmIH iYoYyT">Closed</span>
+                        <span class="sc-bYSBpT jumulz style=">-</span>*@
+                        <span class="sc-bYSBpT jumulz">Opening Hours - [@Model.OpeningFrom - @Model.OpeningTo]</span>
+                        @*                                        <span class="sc-bYSBpT jumulz">Opens to at 12:30pm</span>
+                        *@
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="sc-cAJUJo lmKBsT">
+                <section class="sc-gYtlsd bKkuLz">
+
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="sc-ileJJU dOANrt">
+                        <div class="sc-eMRERa jMfkSj">
+                            <i class="sc-rbbb40-1 iFnyeo" size="16" color="#EF4F5F">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     fill="#fdcf51"
+                                     width="16"
+                                     height="16"
+                                     viewBox="0 0 20 20"
+                                     aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                     role="img"
+                                     class="sc-rbbb40-0 kMNrPk">
+                                    <title>direction-line</title>
+                                    <path d="M19.2 8.44l-7.22-7.22c-0.52-0.48-1.2-0.8-1.98-0.8s-1.46 0.32-1.98 0.8v0l-7.2 7.22c-0.52 0.5-0.82 1.2-0.82 1.98s0.3 1.46 0.82 1.98l7.2 7.2c0.5 0.52 1.2 0.82 1.98 0.82s1.48-0.3 1.98-0.82l7.22-7.2c0.5-0.52 0.8-1.22 0.8-1.98s-0.3-1.48-0.8-1.98v0zM18.16 11.38l-7.2 7.2c-0.24 0.24-0.58 0.38-0.94 0.38s-0.72-0.14-0.96-0.38v0l-7.22-7.2c-0.24-0.24-0.4-0.58-0.4-0.96s0.16-0.7 0.4-0.94v0l7.2-7.22c0.24-0.24 0.58-0.4 0.96-0.4s0.7 0.16 0.94 0.4l7.2 7.2c0.24 0.24 0.4 0.58 0.4 0.94s-0.16 0.72-0.4 0.96v0zM12.2 6.96c-0.040-0.040-0.080-0.060-0.12-0.060-0.1 0-0.18 0.080-0.18 0.18 0 0 0 0 0 0v0 1.66h-3.56c-1.18 0-2.14 0.96-2.14 2.16v0 2.38c0 0.26 0.2 0.46 0.46 0.46v0h0.48c0.26 0 0.48-0.2 0.48-0.46v0-2.38c0-0.4 0.32-0.72 0.72-0.72h3.56v1.66c0 0 0 0 0 0 0 0.1 0.080 0.18 0.18 0.18 0.040 0 0.080-0.020 0.12-0.060v0l2.34-2.32c0.040-0.040 0.080-0.1 0.080-0.18s-0.040-0.12-0.080-0.16v0z"></path>
+                                </svg>
+                            </i><span class="sc-eqPNPO QWWYz">Direction</span>
+                        </div>
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="sc-ileJJU dOANrt">
+                        <div class="sc-eMRERa jMfkSj">
+                            <i class="sc-rbbb40-1 iFnyeo" size="16" color="#EF4F5F">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     fill="#fdcf51"
+                                     width="16" height="16"
+                                     viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                     role="img" class="sc-rbbb40-0 kMNrPk">
+                                    <title>bookmark-add</title>
+                                    <path d="M12.38 7.8h-1.66v-1.68c0-0.26-0.22-0.46-0.48-0.46v0h-0.48c-0.26 0-0.48 0.2-0.48 0.46v0 1.68h-1.66c-0.26 0-0.48 0.2-0.48 0.48v0 0.46c0 0.28 0.22 0.48 0.48 0.48v0h1.66v1.68c0 0.26 0.22 0.46 0.48 0.46v0h0.48c0.26 0 0.48-0.2 0.48-0.46v0-1.68h1.66c0.26 0 0.48-0.2 0.48-0.48v0-0.46c0-0.28-0.22-0.48-0.48-0.48v0zM15.020 0.9h-10.020c-1.060 0-1.92 0.84-1.92 1.9v0 16.42c0 0.28 0.16 0.5 0.36 0.62v0c0.12 0.060 0.24 0.1 0.38 0.1s0.24-0.040 0.36-0.1v0l5.82-3.52 5.82 3.52c0.1 0.060 0.24 0.1 0.38 0.1v0c0 0 0 0 0 0 0.12 0 0.24-0.040 0.34-0.1v0c0.22-0.12 0.36-0.34 0.36-0.62v-16.46c-0.020-1.040-0.86-1.86-1.88-1.86v0zM15.48 17.96l-5.1-3.080c-0.12-0.060-0.24-0.1-0.38-0.1s-0.26 0.040-0.38 0.1v0l-5.1 3.080v-15.24c0.040-0.22 0.22-0.4 0.46-0.4 0 0 0 0 0.020 0v0h10.020c0 0 0 0 0 0 0.24 0 0.44 0.2 0.46 0.44v0z"></path>
+                                </svg>
+                            </i><span class="sc-eqPNPO QWWYz">Add Favorite</span>
+                        </div>
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="sc-ileJJU dOANrt">
+                        <div class="sc-eMRERa jMfkSj">
+                            <i class="sc-rbbb40-1 iFnyeo" size="16" color="#EF4F5F">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     fill="#fdcf51"
+                                     width="16" height="16"
+                                     viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img"
+                                     class="sc-rbbb40-0 kMNrPk">
+                                    <title>share</title>
+                                    <path d="M0.72 19.94c-0.020 0-0.060 0-0.080 0s-0.060 0-0.080 0v0c-0.32-0.080-0.56-0.36-0.56-0.7 0 0 0 0 0-0.020v0c0-10.1 6.32-12.92 9.52-13.28v-4.34c0 0 0 0 0 0 0-0.38 0.32-0.7 0.72-0.7 0.18 0 0.36 0.060 0.48 0.18v0l9.060 8.32c0.14 0.14 0.22 0.34 0.22 0.54v0c0 0.2-0.1 0.4-0.24 0.52v0l-9.040 8.12c-0.12 0.1-0.3 0.18-0.46 0.18-0.12 0-0.22-0.040-0.32-0.080h0.020c-0.26-0.1-0.44-0.36-0.44-0.64v-4.3c-3.66 0.22-6.74 2.48-8.12 5.66l-0.020 0.060c-0.1 0.28-0.36 0.48-0.66 0.48v0zM10.24 12.32c0.4 0 0.72 0.32 0.72 0.72v0 3.4l7.26-6.5-7.26-6.66v3.32c0 0.4-0.32 0.72-0.72 0.72v0c-2.18 0-7.48 1.7-8.58 9 2.060-2.46 5.14-4 8.56-4 0.020 0 0.020 0 0.020 0v0z"></path>
+                                </svg>
+                            </i><span class="sc-eqPNPO QWWYz">Share</span>
+                        </div>
+                    </a>
+
+                </section>
+            </div>
+
+            <div class="product-tabs product-tabs--sticky">
+                <div class="product-tabs__list">
+                    <div class="product-tabs__list-body">
+                        <div class="product-tabs__list-container container">
+                            <a href="#tab-description"
+                               class="product-tabs__item product-tabs__item--active">Overview</a>
+                            <a href="#tab-menu"
+                               class="product-tabs__item">Menu</a>
+                            <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-tabs__content">
+                    <div class="product-tabs__pane product-tabs__pane--active"
+                         id="tab-description">
+                        <div class="typography">
+                            <h3>About this place</h3>
+                           @Model.Description
+                        </div>
+                    </div>
+                    <div class="product-tabs__pane" id="tab-menus">
+                        <div class="spec">
+                            <h3 class="spec__header">Specification</h3>
+                            <div class="spec__section">
+                                <h4 class="spec__section-title">General</h4>
+                                <div class="spec__row">
+                                    <div class="spec__name">Material</div>
+                                    <div class="spec__value">
+                                        Aluminium, Plastic
+                                    </div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Engine Type</div>
+                                    <div class="spec__value">Brushless</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">
+                                        Battery Voltage
+                                    </div>
+                                    <div class="spec__value">18 V</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Battery Type</div>
+                                    <div class="spec__value">Li-lon</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">
+                                        Number of Speeds
+                                    </div>
+                                    <div class="spec__value">2</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Charge Time</div>
+                                    <div class="spec__value">1.08 h</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Weight</div>
+                                    <div class="spec__value">1.5 kg</div>
+                                </div>
+                            </div>
+                            <div class="spec__section">
+                                <h4 class="spec__section-title">Dimensions</h4>
+                                <div class="spec__row">
+                                    <div class="spec__name">Length</div>
+                                    <div class="spec__value">99 mm</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Width</div>
+                                    <div class="spec__value">207 mm</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">Height</div>
+                                    <div class="spec__value">208 mm</div>
+                                </div>
+                            </div>
+                            <div class="spec__disclaimer">
+                                Information on technical characteristics, the
+                                delivery set, the country of manufacture and the
+                                appearance of the goods is for reference only
+                                and is based on the latest information available
+                                at the time of publication.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tabs__pane" id="tab-reviews">
+                        <div class="reviews-view">
+                            <div class="reviews-view__list">
+                                <h3 class="reviews-view__header">
+                                    Customer Reviews
+                                </h3>
+                                <div class="reviews-list">
+                                    <ol class="reviews-list__content">
+                                        @foreach (var item in Model.Reviews)
+                                        {
+                                            <li class="reviews-list__item">
+                                                <div class="review">
+                                                    <div class="review__avatar">
+                                                        <img src="images/avatars/avatar-1.jpg"
+                                                         alt="" />
+                                                    </div>
+                                                    <div class="review__content">
+                                                        <div class="review__author">
+                                                           @item.Name
+                                                        </div>
+                                                        <div class="review__rating">
+                                                            <div class="rating">
+                                                                <div class="rating__body">
+                                                                    <svg class="rating__star rating__star--active"
+                                                                     width="13px"
+                                                                     height="12px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <svg class="rating__star rating__star--active"
+                                                                     width="13px"
+                                                                     height="12px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <svg class="rating__star rating__star--active"
+                                                                     width="13px"
+                                                                     height="12px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <svg class="rating__star rating__star--active"
+                                                                     width="13px"
+                                                                     height="12px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <svg class="rating__star"
+                                                                     width="13px"
+                                                                     height="12px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review__text">
+                                                            @item.Description
+                                                        </div>
+                                                        <div class="review__date">
+                                                            @item.CreatedDate.Value.ToString("dd MM yyyy")
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+
+                                     
+                                    </ol>
+                                 @*   <div class="reviews-list__pagination">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link page-link--with-arrow"
+                                                   href=""
+                                                   aria-label="Previous">
+                                                    <svg class="page-link__arrow page-link__arrow--left"
+                                                         aria-hidden="true"
+                                                         width="8px"
+                                                         height="13px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-left-8x13"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="">1</a>
+                                            </li>
+                                            <li class="page-item active">
+                                                <a class="page-link" href="">
+                                                    2
+                                                    <span class="sr-only">(current)</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link page-link--with-arrow"
+                                                   href=""
+                                                   aria-label="Next">
+                                                    <svg class="page-link__arrow page-link__arrow--right"
+                                                         aria-hidden="true"
+                                                         width="8px"
+                                                         height="13px">
+                                                        <use xlink:href="images/sprite.svg#arrow-rounded-right-8x13"></use>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                </div>
+                            </div>
+                            <form class="reviews-view__form">
+                                <h3 class="reviews-view__header">
+                                    Write A Review
+                                </h3>
+                                <div class="row">
+                                    <div class="col-12 col-lg-9 col-xl-8">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="review-stars">Review Stars</label>
+                                                <select id="review-stars"
+                                                        class="form-control">
+                                                    <option value="5">
+                                                        5 Stars Rating
+                                                    </option >
+                                                    <option value="4">
+                                                        4 Stars Rating
+                                                    </option>
+                                                    <option value="3">
+                                                        3 Stars Rating
+                                                    </option>
+                                                    <option value="2">
+                                                        2 Stars Rating
+                                                    </option>
+                                                    <option value="1">
+                                                        1 Stars Rating
+                                                    </option>
+                                                </select>
+                                            </div>
+                                    @*        <div class="form-group col-md-4">
+                                                <label for="review-author">Your Name</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="review-author"
+                                                       placeholder="Your Name" />
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="review-email">Email Address</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="review-email"
+                                                       placeholder="Email Address" />
+                                            </div>*@
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="review-text">Your Review</label>
+                                            <textarea class="form-control" name="review-text"
+                                                      id="review-text"
+                                                      rows="6"></textarea>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <button type="submit"
+                                                    class="btn btn-primary btn-lg">
+                                                Post Your Review
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

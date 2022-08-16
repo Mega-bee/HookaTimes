@@ -1,4 +1,24 @@
 ﻿const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
+const dropdownCartItemsContainer = document.querySelector(".dropcart__products-list")
+const itemsCount = document.querySelector(".cart-indicator-value")
+
+function updateCart() {
+    $.ajax({
+        type: 'GET',
+        async: true,
+        //data: data,
+        url: `/Cart/GetCartDropdown`,
+        success: function (result) {
+            let container = document.querySelector('#navbar-cart-container')
+            container.innerHTML = result
+        },
+        fail: function (err) {
+            console.log(err)
+        }
+    })
+
+}
+
 
 function handleAddToCart(e) {
   
@@ -19,6 +39,9 @@ function handleAddToCart(e) {
         url: `/Cart/AddToCart`,
         success: function (result) {
             if (result.statusCode == 201) {
+                
+               
+                updateCart()
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',

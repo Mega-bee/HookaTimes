@@ -84,7 +84,7 @@
                         </li>
 
                         <li class="breadcrumb-item active" aria-current="page">
-                            @Model.CategoryTitle
+                            @Model?.CategoryTitle
                         </li>
                     </ol>
                 </nav>
@@ -136,7 +136,7 @@
                                                        class="product-image__body"
                                                        target="_blank">
                                                         <img class="product-image__img"
-                                                             src="@Model.CategoryImage"
+                                                             src="@Model?.CategoryImage"
                                                              alt="" />
                                                     </a>
                                                 </div>
@@ -372,10 +372,10 @@
                             </button>
                         </div>
                         <h1 class="product__name">
-                            @Model.CategoryTitle
+                            @Model?.CategoryTitle
                         </h1>
                         <div class="product__description">
-                         @Model.Products.Select(x=> x.Description).FirstOrDefault()
+                            @Model?.Products.Select(x=> x.Description).FirstOrDefault()
                         </div>
                         <ul class="product__meta">
                         </ul>
@@ -386,7 +386,7 @@
                             Availability:
                             <span class="text-success">In Stock</span>
                         </div>
-                        <div class="product__prices">@Model.Products.Select(x=> x.CustomerFinalPrice).FirstOrDefault() AED</div>
+                        <div class="product__prices"> @Model?.Products.Select(x=> x.CustomerFinalPrice).FirstOrDefault() AED</div>
                         <!-- .product__options -->
                         <form id="product-fom" class="product__options">
 
@@ -395,7 +395,7 @@
                                 <label class="product__option-label">Types</label>
                                 <div class="input-radio-color">
                                     <div class="input-radio-color__list">
-                                        @foreach (var item in Model.Products)
+                                        @foreach (var item in Model?.Products)
                                         {
                                             <label data-productId="@item.Id" data-productDesc="@item.Description" data-price="@item.CustomerFinalPrice" class="input-radio-color__item input-radio-color__item--white product-item @(item.Id == Model.Products.Select(x=> x.Id).FirstOrDefault() ? "active-item" : "")" data-toggle="tooltip" title="@item.Title">
                                                 @*<input type="radio" name="color">*@
@@ -431,12 +431,12 @@
                                     </div>
                                     <div class="product__actions-item product__actions-item--wishlist">
                                         <button type="button"
-                                                class="btn btn-secondary btn-svg-icon btn-lg"
+                                                class="btn btn-secondary btn-svg-icon btn-lg add-to-wishlist-btn"
                                                 data-toggle="tooltip"
                                                 title=""
                                                 data-original-title="Wishlist">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
-                                                <path id="Path_28" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"></path>
+                                                <path id="Path_28" class="wishlist-icon" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
                                             </svg>
                                         </button>
                                     </div>

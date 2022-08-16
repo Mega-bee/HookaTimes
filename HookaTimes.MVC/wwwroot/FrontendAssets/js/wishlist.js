@@ -1,11 +1,13 @@
 ﻿const removeItemBtns = document.querySelectorAll(".remove-item-btn")
 
-function removeItemFromCart(e) {
+function removeItemFromWishlist(e) {
+
     let pressedBtn = e.currentTarget
     console.log(pressedBtn)
     let itemId = pressedBtn.dataset.productid
+
     if (itemId) {
-   
+
         let formdata = new FormData()
         formdata.append("productId", itemId)
         $.ajax({
@@ -14,7 +16,7 @@ function removeItemFromCart(e) {
             processData: false,
             contentType: false,
             data: formdata,
-            url: `/Cart/RemoveItemFromCart`,
+            url: `/Wishlist/RemoveItemFromWishlist`,
             success: function (result) {
                 if (result.statusCode == 200) {
                     let row = pressedBtn.closest("tr")
@@ -28,16 +30,17 @@ function removeItemFromCart(e) {
                         text: result.errorMessage
                     })
                 }
-             
+
             },
             fail: function (err) {
-            
+           
                 console.log(err)
             }
         })
     }
 }
 
+
 removeItemBtns.forEach(btn => {
-    btn.addEventListener("click", removeItemFromCart)
+    btn.addEventListener("click", removeItemFromWishlist)
 })

@@ -7,6 +7,7 @@
 }
 @{
     var buddy = (NavBuddy_VM)ViewBag.Buddy;
+    var cart = (CartSummary_VM)ViewBag.CartSummary;
 }
 <style>
     .h-menu {
@@ -70,6 +71,31 @@
 
 </style>
 
+<div class="dropcart__product" style="display:none">
+    <div class="product-image dropcart__product-image">
+        <a href="product.html" class="product-image__body">
+            <img class="product-image__img cart-product-img" src="" alt="">
+        </a>
+    </div>
+    <div class="dropcart__product-info">
+        <div class="dropcart__product-name"><a href="product.html"></a></div>
+        <ul class="dropcart__product-options">
+            <li></li>
+            @*                                                                    <li>Material: Aluminium</li>
+            *@
+        </ul>
+        <div class="dropcart__product-meta">
+            <span class="dropcart__product-quantity"></span> ×
+            <span class="dropcart__product-price"> </span>
+        </div>
+    </div>
+    <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+        <svg width="10px" height="10px">
+            <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+        </svg>
+    </button>
+</div>
+
 <div class="site-header__nav-panel">
     <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
     <div class="nav-panel nav-panel--sticky" data-sticky-mode="pullToShow">
@@ -111,7 +137,7 @@
                     <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
 
                     <div class="indicator">
-                        <a asp-controller="home" asp-action="WishList" class="indicator__button">
+                        <a asp-controller="Wishlist" asp-action="Index" class="indicator__button">
                             <span class="indicator__area">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#heart-20"></use>
@@ -120,13 +146,13 @@
                             </span>
                         </a>
                     </div>
-                    <div class="indicator indicator--trigger--click">
-                        <a href="cart.html" class="indicator__button">
+                    <div class="indicator indicator--trigger--click" id="navbar-cart-container">
+                        <a href="cart.html" id="cart-indicator-btn" class="indicator__button">
                             <span class="indicator__area">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#cart-20"></use>
                                 </svg>
-                                <span class="indicator__value">3</span>
+                                <span class="indicator__value cart-indicator-value">@cart.Items.Count</span>
                             </span>
                         </a>
                         <div class="indicator__dropdown">
@@ -134,99 +160,53 @@
                             <div class="dropcart dropcart--style--dropdown">
                                 <div class="dropcart__body">
                                     <div class="dropcart__products-list">
-                                        <div class="dropcart__product">
-                                            <div class="product-image dropcart__product-image">
-                                                <a href="product.html" class="product-image__body">
-                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="dropcart__product-info">
-                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                <ul class="dropcart__product-options">
-                                                    <li>Capsule: Apple</li>
-                                                    @*                                                                    <li>Material: Aluminium</li>
-                                                    *@
-                                                </ul>
-                                                <div class="dropcart__product-meta">
-                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                    <span class="dropcart__product-price">150 AED</span>
+                                        @foreach (var item in cart.Items)
+                                        {
+                                            <div class="dropcart__product">
+                                                <div class="product-image dropcart__product-image">
+                                                    <a href="product.html" class="product-image__body">
+                                                        <img class="product-image__img cart-product-img" src="@item.ProductImage" alt="">
+                                                    </a>
                                                 </div>
-                                            </div>
-                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                <svg width="10px" height="10px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <div class="dropcart__product">
-                                            <div class="product-image dropcart__product-image">
-                                                <a href="product.html" class="product-image__body">
-                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="dropcart__product-info">
-                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                <ul class="dropcart__product-options">
-                                                    <li>Capsule: Apple</li>
-                                                    @*                                                                    <li>Material: Aluminium</li>
+                                                <div class="dropcart__product-info">
+                                                    <div class="dropcart__product-name"><a href="product.html" class="category-name">@item.CategoryName</a></div>
+                                                    <ul class="dropcart__product-options">
+                                                        <li class="prod-name">@item.ProductName</li>
+                                                        @*                                                                    <li>Material: Aluminium</li>
                                                     *@
-                                                </ul>
-                                                <div class="dropcart__product-meta">
-                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                    <span class="dropcart__product-price">150 AED</span>
+                                                    </ul>
+                                                    <div class="dropcart__product-meta">
+                                                        <span class="dropcart__product-quantity">@item.Quantity</span> ×
+                                                        <span class="dropcart__product-price">@item.ProductPrice AED</span>
+                                                    </div>
                                                 </div>
+                                                <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                    <svg width="10px" height="10px">
+                                                        <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                    </svg>
+                                                </button>
                                             </div>
-                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                <svg width="10px" height="10px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <div class="dropcart__product">
-                                            <div class="product-image dropcart__product-image">
-                                                <a href="product.html" class="product-image__body">
-                                                    <img class="product-image__img" src="~/FrontendAssets/images/products/3D Hooka_637639935443030602.png" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="dropcart__product-info">
-                                                <div class="dropcart__product-name"><a href="product.html">Hooka Witty</a></div>
-                                                <ul class="dropcart__product-options">
-                                                    <li>Capsule: Apple</li>
-                                                    @*                                                                    <li>Material: Aluminium</li>
-                                                    *@
-                                                </ul>
-                                                <div class="dropcart__product-meta">
-                                                    <span class="dropcart__product-quantity">2</span> ×
-                                                    <span class="dropcart__product-price">150 AED</span>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
-                                                <svg width="10px" height="10px">
-                                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
+                                        }
+                                      
 
                                     </div>
                                     <div class="dropcart__totals">
                                         <table>
-                                            <tr>
+                                     @*       <tr>
                                                 <th>Subtotal</th>
                                                 <td>450 AED</td>
                                             </tr>
                                             <tr>
                                                 <th>Delivery</th>
                                                 <td>10 AED</td>
-                                            </tr>
+                                            </tr>*@
                                             @* <tr>
                                             <th>Tax</th>
                                             <td>$0.00</td>
                                             </tr>*@
                                             <tr>
                                                 <th>Total</th>
-                                                <td>460 AED</td>
+                                                <td id="dropcart-total-value">@cart.TotalPrice AED</td>
                                             </tr>
                                         </table>
                                     </div>

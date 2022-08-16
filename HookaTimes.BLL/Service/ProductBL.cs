@@ -82,7 +82,7 @@ namespace HookaTimes.BLL.Service
                 {
                     Category = c.Title,
                     IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
-                    IsInWishlist = userBuddyId > 0 ? c.Products.Where(p => p.IsDeleted == false).Select(p=> p.Wishlists).FirstOrDefault().Any(w=> w.BuddyId == userBuddyId) : c.Products.Where(p => p.IsDeleted == false).Select(p => p.VirtualWishlists).FirstOrDefault().Any(w => w.WishlistSessionId == sessionWishlistId),
+                    IsInWishlist = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault() != null ? (!string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null) : false,
                     Title = c.Title,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
@@ -109,7 +109,7 @@ namespace HookaTimes.BLL.Service
             return products;
         }
 
-        public async Task<ViewHookaProduct_VM> GetCategoryProductsMVC(int categoryId)
+        public async Task<ViewHookaProduct_VM> GetCategoryProductsMVC(int categoryId, string sessionWishlistId, int userBuddyId)
         {
             ViewHookaProduct_VM product = await _uow.ProductCategoryRepository.GetAll(x => x.Id == categoryId && x.IsDeleted == false).Select(c => new ViewHookaProduct_VM
             {
@@ -122,7 +122,8 @@ namespace HookaTimes.BLL.Service
                     CustomerFinalPrice = p.CustomerFinalPrice,
                     Id = p.Id,
                     Image = p.Image,
-                     Description = p.Description
+                     Description = p.Description,
+                    IsInWishlist =  !string.IsNullOrEmpty(sessionWishlistId) ? p.VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : p.Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null
                 }).ToList()
             }).FirstOrDefaultAsync();
             return product;
