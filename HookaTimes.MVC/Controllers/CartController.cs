@@ -96,6 +96,14 @@ namespace HookaTimes.MVC.Controllers
             }
           CartSummary_VM cartSummary = await _cartBL.GetCartSummaryMVC(userBuddyId,cartSessionId);
             return View(cartSummary);
-        } 
+        }
+
+        [AllowAnonymous] 
+        public async Task<IActionResult> GetCartDropdown()
+        {
+            return ViewComponent("CartDropdown");
+        }
+
+
     }
 }

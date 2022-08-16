@@ -1,14 +1,13 @@
 ﻿const removeItemBtns = document.querySelectorAll(".remove-item-btn")
 
 function removeItemFromCart(e) {
-    let pressedBtn = e.target
+    let pressedBtn = e.currentTarget
+    console.log(pressedBtn)
     let itemId = pressedBtn.dataset.productid
-    console.log("desiodjsm")
     if (itemId) {
    
         let formdata = new FormData()
         formdata.append("productId", itemId)
-        console.log("ajaxxxxx")
         $.ajax({
             type: 'Delete',
             async: true,

@@ -59,13 +59,21 @@ namespace HookaTimes.BLL.Service
                 ProductId = productId,
                 Quantity = quantity,
             };
-            await _uow.CartRepository.Create(newItem);
-
+           var addedItem = await _uow.CartRepository.Create(newItem);
+            CartItem_VM cartItem_VM = await _uow.CartRepository.GetAll(x => x.Id == addedItem.Id).Select(c => new CartItem_VM
+            {
+                ItemId = c.ProductId,
+                ProductName = c.Product.Title,
+                ProductPrice = c.Product.CustomerFinalPrice,
+                Quantity = c.Quantity,
+                TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                ProductImage = c.Product.Image,
+            }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel()
             {
-                Data = "",
+                Data = cartItem_VM,
                 Message = "Product added to cart"
             };
             return responseModel;
