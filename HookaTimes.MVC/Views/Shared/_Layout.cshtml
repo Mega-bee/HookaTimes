@@ -41,9 +41,8 @@
     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
-    <partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />
+    @*<partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />*@
 
-    @await RenderSectionAsync("Scripts", required: false)
 
     <!-- jQuery -->
 
@@ -64,7 +63,7 @@
     <script src="/FrontendAssets/js/header.js"></script>
     <script src="/FrontendAssets/vendor/svg4everybody/svg4everybody.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
+    <script src="//sweetalert2.all.min.js"></script>
     @*DataTable*@
     @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
  @*   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -75,12 +74,14 @@
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/frontendassets/js/logout.js"></script>
     <script type="module" src="/FrontendAssets/js/update-cart-dropdown.js"></script>
     <script type="module" src="/FrontendAssets/js/add-to-cart-functionality.js"></script>
     <script type="module" src="~/frontendassets/js/remove-from-cart-functionality.js"></script>
     <script type="module" src="~/frontendassets/js/remove-from-cart-dropdown.js"></script>
     @*Toaster*@
- 
+    @await RenderSectionAsync("Scripts", required: false)
+
 
     @*<link href="/FrontendAssets/Plugins/VanillaToasts-master/vanillatoasts.css" rel="stylesheet"/>
     <script src="/FrontendAssets/js/vanillatoasts.js" type="text/javascript"></script>*@

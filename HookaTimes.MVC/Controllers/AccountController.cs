@@ -64,7 +64,7 @@ namespace HookaTimes.MVC.Controllers
 
                 string cartSessionId = Request.Cookies["CartSessionId"]!;
                 string wishlistSessionId = Request.Cookies["WishlistSessionId"]!;
-                IdentityResult res = await _auth.SignUpWithEmailMVC(model, wishlistSessionId, cartSessionId);
+                IdentityResult res = await _auth.SignUpWithEmailMVC(model);
 
 
 
@@ -75,10 +75,18 @@ namespace HookaTimes.MVC.Controllers
                 }
 
                 //Create buddy Profile
-                BuddyProfile buddy = await _auth.CreateBuddyProfileMVC(model);
-
+                BuddyProfile buddy = await _auth.CreateBuddyProfileMVC(model, wishlistSessionId, cartSessionId);
+                if (!string.IsNullOrEmpty(cartSessionId))
+                {
+                    Response.Cookies.Delete("CartSessionId");
+                }
+                if (!string.IsNullOrEmpty(wishlistSessionId))
+                {
+                    Response.Cookies.Delete("WishlistSessionId");
+                }
                 //Get the Identity User Profile so it can get its claims and roles
                 ApplicationUser newUser = await _userManager.FindByEmailAsync(model.Email);
+
 
                 var roles = await _userManager.GetRolesAsync(newUser);
 
@@ -118,6 +126,7 @@ namespace HookaTimes.MVC.Controllers
         #endregion
 
 
+
         #region Sign IN
         [HttpPost]
         [AllowAnonymous]
@@ -134,8 +143,18 @@ namespace HookaTimes.MVC.Controllers
             ClaimsIdentity identity = await _auth.EmailSignInMVC(model, wishlistSessionId, cartSessionId);
             if (identity == null)
             {
+                //TempData["error"] = "Check your email and pass";
+
                 return LocalRedirect(returnurl);
 
+            }
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                Response.Cookies.Delete("CartSessionId");
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                Response.Cookies.Delete("WishlistSessionId");
             }
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
@@ -144,7 +163,7 @@ namespace HookaTimes.MVC.Controllers
 
             User.AddIdentity(identity);
 
-            TempData["success"] = "Please Login Again";
+            //TempData["success"] = "Please Login Again";
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
                 new AuthenticationProperties());
@@ -241,6 +260,8 @@ namespace HookaTimes.MVC.Controllers
 
         #endregion
 
+
+
         #region OrderHistory
         [HttpGet]
         [Authorize(Roles = "User")]
@@ -258,6 +279,7 @@ namespace HookaTimes.MVC.Controllers
             return View(orderHistory);
         }
         #endregion
+
 
 
         #region Invitations

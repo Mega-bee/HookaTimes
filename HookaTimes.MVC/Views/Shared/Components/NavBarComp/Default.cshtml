@@ -250,7 +250,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group account-menu__form-button">
-                                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                                            <button type="submit" id="btnLogin" class="btn btn-primary btn-sm">Login</button>
                                         </div>
                                         <div class="account-menu__form-link"><a asp-controller="Account" asp-action="SignUp">Create An Account</a></div>
                                     </form>
@@ -274,7 +274,7 @@
                                     </a>
                                     <div class="account-menu__divider"></div>
                                     <ul class="account-menu__links">
-                                        <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
+                                        <li><a asp-controller="Account" asp-action="EditProfile">Edit Profile</a></li>
                                         <li><a asp-controller="Account" asp-action="Invitations">Invitations</a></li>
                                         <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
                                         @*<li><a asp-controller="Account" asp-action="Addresses">Addresses</a></li>*@
@@ -284,7 +284,7 @@
                                     <div class="account-menu__divider"></div>
                                     <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
                                         <ul class="account-menu__links">
-                                            <li><a id="logoutbtn">Logout</a></li>
+                                            <li style="cursor:pointer"><a id="logoutbtn">Logout</a></li>
                                         </ul>
 
                                     </form>
@@ -302,6 +302,3 @@
     </div>
 </div>
 
-@section Scripts {
-    <script src="~/FrontendAssets/js/logout.js"></script>
-}
