@@ -31,7 +31,6 @@
     <Folder Include="wwwroot\FrontendAssets\fonts\NewFolder\" />
     <Folder Include="wwwroot\FrontendAssets\Videos\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
-    <Folder Include="wwwroot\Images\Menus\" />
     <Folder Include="wwwroot\Images\Products\" />
   </ItemGroup>
 
