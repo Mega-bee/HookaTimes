@@ -35,6 +35,8 @@ function handleFormSubmit(e) {
                     submitBtn.innerHTML = 'Post Your Review'
                     submitBtn.disabled = false
                 }, 3000)
+
+                notyf.success({ message: "Your review has been submitted" })
              
             } else {
                 submitBtn.innerHTML = 'Post Your Review'
