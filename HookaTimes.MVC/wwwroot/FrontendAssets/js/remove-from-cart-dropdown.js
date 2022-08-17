@@ -3,6 +3,7 @@
 document.addEventListener("click", e => {
    
     let btn = e.target
+    console.log(btn)
     if (btn.classList.contains("dropcart__product-remove")) {
         let itemId = btn.dataset.productid
         console.log("itemIddddddddd",itemId)

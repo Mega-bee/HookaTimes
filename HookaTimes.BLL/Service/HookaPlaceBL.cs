@@ -22,7 +22,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request)
+        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request,int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
 
@@ -34,6 +34,7 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
+                IsInFavorite = p.FavoriteUserPlaces.Any(f=> f.IsDeleted == false && f.BuddyId == userBuddyId)
                  
             }).ToListAsync();
             responseModel.ErrorMessage = "";
@@ -211,7 +212,7 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request,int take=0,List<int> cuisines = null,int sortBy = 0)
+        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request,int userBuddyId, int take=0,List<int> cuisines = null,int sortBy = 0)
         {
             var query = _uow.PlaceRepository.GetAll(p => p.IsDeleted == false);
             List<HookaPlaces_VM> places = Array.Empty<HookaPlaces_VM>().ToList();
@@ -246,9 +247,25 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
+                 IsInFavorite = p.FavoriteUserPlaces.Where(f=> f.IsDeleted == false && f.BuddyId == userBuddyId).Any()
 
             }).ToListAsync();
             return places;
+        }
+
+        public async Task<List<HookaPlaces_VM>> GetFavorites(int userBuddyId)
+        {
+            List<HookaPlaces_VM> favs = await _uow.FavoritePlaceRepository.GetAll(x => x.BuddyId == userBuddyId).Select(p => new HookaPlaces_VM
+            {
+                Cuisine = p.PlaceProfile.Cuisine.Title,
+                Id = p.PlaceProfile.Id,
+                Image = p.PlaceProfile.Image,
+                Name = p.PlaceProfile.Title,
+                Location = p.PlaceProfile.Location.Title,
+                Rating = (float)p.PlaceProfile.Rating,
+                IsInFavorite = true
+            }).ToListAsync();
+            return favs;
         }
 
     }

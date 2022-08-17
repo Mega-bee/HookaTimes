@@ -1,4 +1,5 @@
-﻿using HookaTimes.BLL.IServices;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
@@ -14,12 +15,14 @@ namespace HookaTimes.MVC.Controllers
         private readonly ICartBL _cartBL;
         private readonly IAuthBO _auth;
         private readonly IOrderBL _orderBL;
+        private readonly INotyfService _notyf;
 
-        public CheckoutController(ICartBL cartBL, IAuthBO auth, IOrderBL orderBL)
+        public CheckoutController(ICartBL cartBL, IAuthBO auth, IOrderBL orderBL, INotyfService notyf)
         {
             _cartBL = cartBL;
             _auth = auth;
             _orderBL = orderBL;
+            _notyf = notyf;
         }
 
         public async Task<IActionResult> Index()
@@ -44,6 +47,13 @@ namespace HookaTimes.MVC.Controllers
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             userBuddyId = await _auth.GetBuddyById(UserId);
             var res = await _orderBL.PlaceOrder(userBuddyId,0,address);
+            if(res.StatusCode == 200)
+            {
+                _notyf.Success("Your order has been placed.");
+            } else
+            {
+                _notyf.Error("Failed to place order.");
+            }
             return RedirectToAction("Index","Home");
         }
     }
