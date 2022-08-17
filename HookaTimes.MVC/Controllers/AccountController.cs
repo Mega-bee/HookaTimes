@@ -357,6 +357,14 @@ namespace HookaTimes.MVC.Controllers
         }
         #endregion
 
+
+        #region Profile
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+        #endregion
+
         //#region Addresses
         //[Authorize(Roles = "User")]
         //[HttpGet]
