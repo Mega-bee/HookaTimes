@@ -26,19 +26,19 @@ namespace HookaTimes.MVC.Controllers
         private readonly IAuthBO _auth;
         private readonly IInvitationBL _inv;
         private readonly INotyfService _notyf;
+        private readonly IHookaPlaceBL _hookaPlaceBL;
 
-
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-          RoleManager<IdentityRole> roleManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf)
+        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
             _auth = auth;
             _inv = inv;
             _notyf = notyf;
+            _hookaPlaceBL = hookaPlaceBL;
         }
+
         public IActionResult Index()
         {
 
@@ -327,6 +327,20 @@ namespace HookaTimes.MVC.Controllers
             }
             ViewBag.InvitationsSent = invitationsSent.Data.Data;
             return View(invitations.Data.Data);
+        }
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Favorites()
+        {
+
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            List<HookaPlaces_VM> favs = await _hookaPlaceBL.GetFavorites(userBuddyId);
+
+           
+            return View(favs);
         }
 
 

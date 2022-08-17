@@ -86,10 +86,20 @@ namespace HookaTimes.MVC.Controllers
             return View(products);
         }
 
+        [Authorize(Roles = "User")]
+        [AllowAnonymous]
         public async Task<IActionResult> HookaPlaces()
         {
+            int userBuddyId = 0;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity!.IsAuthenticated)
+            {
+                string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+                userBuddyId = await _auth.GetBuddyById(UserId);
+            }
             List<Cuisine_VM> cuisines = await _cuisineBl.GetCuisinesMVC();
-            var res = await _hookaPlaceBL.GetHookaPlaces(Request);
+            var res = await _hookaPlaceBL.GetHookaPlaces(Request,userBuddyId);
             List<HookaPlaces_VM> places = (List<HookaPlaces_VM>)res.Data.Data;
             PlacesPage_VM model = new PlacesPage_VM()
             {
@@ -136,7 +146,7 @@ namespace HookaTimes.MVC.Controllers
         {
 
 
-            return PartialView("~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml", null);
+            return PartialView("~/Views/Shared/Ecommerce/_QuickView.cshtml", null);
         }
 
 
@@ -211,5 +221,7 @@ namespace HookaTimes.MVC.Controllers
         {
             return View();
         }
+
+
     }
 }

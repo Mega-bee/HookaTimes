@@ -35,9 +35,8 @@ function handleAddToCart(e) {
     formdata.append("quantity", qty)
     addToCartBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Add To Cart'
     addToCartBtn.disabled = true;
-    addToCart(formdata)
-    addToCartBtn.innerHTML = 'Add To Cart'
-    addToCartBtn.disabled = false;
+    addToCart(formdata,addToCartBtn)
+  
     //$.ajax({
     //    type: 'Post',
     //    async: true,
@@ -95,11 +94,7 @@ function handleAddToWishlist(e) {
 
             if (result.statusCode == 201) {
                 wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
+            
             } else if (result.statusCode == 204) {
                 wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
             } else {

@@ -20,10 +20,27 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId)
+        public async Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId,BuddyProfileAddressVM address = null)
         {
             ResponseModel responseModel = new ResponseModel();
             OrderItem orderItem = new OrderItem();
+            if(address != null)
+            {
+                BuddyProfileAddress newAddress = new BuddyProfileAddress()
+                {
+                    Apartment = address.Building,
+                    Building = address.Building,
+                    City = address.City,
+                    CreatedDate = DateTime.UtcNow,
+                    IsDeleted = false,
+                    BuddyProfileId = userBuddyId,
+                    Title = address.Title,
+                    Street = address.Street,
+
+                };
+                newAddress = await _uow.BuddyProfileAddressRepository.Create(newAddress);
+                addressId = newAddress.Id;
+            }
             Order order = new Order()
             {
                 AddressId = addressId,
@@ -44,6 +61,8 @@ namespace HookaTimes.BLL.Service
             {
                 await _uow.OrderItemRepository.AddRange(orderItems);
                 await _uow.SaveAsync();
+                var cartItems =await _uow.CartRepository.GetAll(x => x.BuddyId == userBuddyId).ToListAsync();
+                await _uow.CartRepository.DeleteRange(cartItems);
             }
 
             order.Total = orderItems.Sum(x => x.Quantity * x.Price);

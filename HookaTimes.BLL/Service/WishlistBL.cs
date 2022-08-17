@@ -132,6 +132,20 @@ namespace HookaTimes.BLL.Service
             return wishlist;
         }
 
+        public async Task<int> GetWishlistCount(int userBuddyId, string wishlistSessionId)
+        {
+            int count = 0;
+            if (userBuddyId > 0)
+            {
+                count = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId).CountAsync();
+
+                return count;
+            }
+            count = await _uow.VirtualWishlistRepository.GetAll(c => c.WishlistSessionId == wishlistSessionId).CountAsync();
+
+            return count;
+        }
+
         public async Task<ResponseModel> RemoveItemFromWishlist(int productId, int userBuddyId, string wishlistSessionId)
         {
             ResponseModel responseModel = new ResponseModel();

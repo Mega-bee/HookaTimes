@@ -72,14 +72,14 @@ namespace HookaTimes.DAL.Repos
 
         public async Task DeleteRange(List<T> entities)
         {
-            foreach (var item in entities)
+            if(entities.Count() > 0)
             {
-                _context.Entry(item).State = EntityState.Deleted;
-                await _context.SaveChangesAsync();
+                foreach (var item in entities)
+                {
+                    _context.Entry(item).State = EntityState.Deleted;
+                    await _context.SaveChangesAsync();
+                }
             }
-
-
-
         }
 
         public async Task DeleteByPredicate(Expression<Func<T, bool>> predicate)

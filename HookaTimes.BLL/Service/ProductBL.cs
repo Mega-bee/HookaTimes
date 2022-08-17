@@ -88,7 +88,7 @@ namespace HookaTimes.BLL.Service
                     Description = c.Description,
                     Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
                      CategoryId = c.Id,
-                    Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
+                    Image = c.Image,
                 }).ToListAsync();
             } else
             {
@@ -102,7 +102,7 @@ namespace HookaTimes.BLL.Service
                     Description = c.Description,
                     Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
                     CategoryId = c.Id,
-                    Image = $"{request.Scheme}://{request.Host}/{c.Products.Where(p => p.IsDeleted == false).Select(p => p.Image).FirstOrDefault()}",
+                    Image = c.Image,
                 }).Take(take).ToListAsync();
             }
           

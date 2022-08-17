@@ -50,11 +50,7 @@ function handleAddToCart(e) {
                 
                
                 updateCart()
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
+                
             } else {
                 Swal.fire({
                     icon: 'error',

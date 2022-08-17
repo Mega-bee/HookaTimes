@@ -11,6 +11,7 @@ namespace HookaTimes.BLL.ViewModels
         public string Cuisine { get; set; }
         public float Rating { get; set; }
         public string Name { get; set; }
+        public bool IsInFavorite { get; set; }
     }
 
     public partial class HookaPlaceInfo_VM

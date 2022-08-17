@@ -1,509 +1,602 @@
 ﻿@{ ViewData["Title"] = "Home"; }
+
 <style>
-    .see-all_button {
-        border-color:#fdcf51;
-        margin-top: 4em;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 0.6em 2.7em;
-        background-color: #fdcf51;
-        color: #000;
-        font-size: 1.2em;
-        line-height: 1.2;
-    }
-
-    /*
-// .get-app_form
-*/
-    .get-app_form {
-        margin: 0 0 15px;
-    }
-
-    .div-block-77 {
-        display: flex;
-        justify-content: flex-start;
-        grid-column-gap: 3em;
-        grid-row-gap: 3em;
-    }
-
-    .w-radio {
-        display: block;
-        margin-bottom: 5px;
-        padding-left: 20px;
-    }
-
-    .w-form-formradioinput--inputType-custom {
-        border-top-width: 1px;
-        border-bottom-width: 1px;
-        border-left-width: 1px;
-        border-right-width: 1px;
-        border-top-color: #ccc;
-        border-bottom-color: #ccc;
-        border-left-color: #ccc;
-        border-right-color: #ccc;
-        border-top-style: solid;
-        border-bottom-style: solid;
-        border-left-style: solid;
-        border-right-style: solid;
-        width: 12px;
-        height: 12px;
-        border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-        border-top-left-radius: 50%;
-        border-top-right-radius: 50%;
-    }
-
-    .w-radio-input {
-        margin: 4px3px 0 0;
-        margin-top: 3px;
-        line-height: normal;
-        float: left;
-        margin-left: -20px;
-    }
-
-    .div-block-78 {
-        display: flex;
-    }
-
-    .text-field-3 {
-        margin-bottom: 0px;
-        width: 100%;
-    }
-
-    .w-input,
-    .w-select {
-        display: block;
-        width: 100%;
-        padding: 8px 12px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #333333;
-        vertical-align: middle;
-        background-color: #ffffff;
-        border: 1px solid #cccccc;
-    }
-
-    .submit-button-3 {
-        border-top-right-radius: 0.5em;
-        border-bottom-right-radius: 0.5em;
-        background-color: #fdcf51;
-        display: inline-block;
-        padding: 9px 15px;
-        color: white;
-        border: 0;
-        line-height: inherit;
-        text-decoration: none;
-        cursor: pointer;
-        border-radius: 0;
-    }
-
-    .w-form-done {
-        display: none;
-        padding: 20px;
-        text-align: center;
-        background-color: #dddddd;
-    }
-
-    .w-form-fail {
-        display: none;
-        margin-top: 10px;
-        padding: 10px;
-        background-color: #ffdede;
-    }
-
-    /*
-// .rate button
-*/
-    .rate-card_wrap {
-        display: flex;
-        padding: 0.5em 1em 0.5em 1.2em;
-        align-items: center;
-        grid-column-gap: 0.8em;
-        grid-row-gap: 0.8em;
-        background-color: #fdcf51;
-    }
-
-    .rate-number {
-        font-size: 1.3em;
-        line-height: 1.2;
-        font-weight: 600;
-    }
-
-    .rate-icon {
-        width: 13px;
-    }
-
-    .slidersCustom {
-        background-position: center;
-        background-size: contain;
-    }
-
-    .nav-panel {
-        height: 75px;
-        color: #000;
-    }
-
-    .container,
-    .container-lg,
-    .container-md,
-    .container-sm,
-    .container-xl {
-        max-width: 1320px;
-    }
-
-    .icons {
-        width: 3em;
-        height: 3em;
-        margin-right: 0.4em;
-    }
-
-    ._1-6-h2 {
-        color: #000;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        font-size: 1.6em;
-        line-height: 1.23;
-        font-weight: 600;
-    }
-
-    .white-background {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 4em;
-        background-color: #fff;
-        box-shadow: 8px 8px 20px 0 rgb(0 0 0 / 20%);
-    }
-
-    .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
-        margin-bottom: 0px;
-    }
-
-    .block-products__list {
-        width: 100%;
-    }
-
-    .product-card__buttons>*:first-child {
-        margin-right: 0px;
-        margin-left: auto;
-    }
-
-    .product-card__buttons {
-        flex-direction: column;
-        margin-top: 0px;
-        align-items: flex-end
-    }
-
-    .product-card__info {
-        margin-bottom: 1.4em;
-    }
-
-    .product-image__img.is--featured {
-        width: 95%;
-        height: 20em;
-    }
-
-    .product-card__image.product-image.is--featured {
-        height: 20em;
-    }
-
-    .block-posts[data-layout^=grid-] .post-card .post-card__content {
-        margin-top: 0px;
-    }
-
-    .block-posts[data-layout^=grid-] .post-card .post-card__name {
-        width: 100%;
-        font-size: 1.1em;
-        margin-top: 4px;
-        line-height: 1.2;
-        font-weight: 600;
-    }
-
-    a:hover {
-        color: #ffd333 !important;
-        text-decoration: none;
-    }
-
-    .post-card__content.is--cuisines {
-        color: #706f6f;
-        font-size: 0.8em;
-        line-height: 1.2;
-        font-weight: 500;
-    }
-
-    .post-card__content.is--location {
-        color: #9d9d9c;
-        font-size: 0.8em;
-        line-height: 1.2;
-        font-weight: 500;
-    }
-
-    .post-card__info {
-        display: flex;
-        flex-direction: column;
-        grid-column-gap: 0.3em;
-        grid-row-gap: 0.3em;
-    }
-
-    .custom-hooka-card:hover .custom-hooka-card-buttons {
-        display: flex;
-    }
-
-    .custom-hooka-card-buttons {
-        display: none;
-    }
-
-    @@media only screen and (max-width: 990px) {
-        .block-products__list-item {
-            width: 48% !important;
-            margin: 1em 6px;
+        .see-all_button {
+            border-color:#fdcf51;
+            margin-top: 4em;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0.6em 2.7em;
+            background-color: #fdcf51;
+            color: #000;
+            font-size: 1.2em;
+            line-height: 1.2;
         }
 
-        .get-app_inside-wrap {
-            max-width: 100% !important;
+        /*
+    // .get-app_form
+    */
+        .get-app_form {
+            margin: 0 0 15px;
         }
-    }
 
-    @@media only screen and (max-width: 580px) {
-        .block-products__list-item {
-            width: 100% !important;
-            margin: 1em 6px;
+        .div-block-77 {
+            display: flex;
+            justify-content: flex-start;
+            grid-column-gap: 3em;
+            grid-row-gap: 3em;
+        }
+
+        .w-radio {
+            display: block;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+        .w-form-formradioinput--inputType-custom {
+            border-top-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-right-width: 1px;
+            border-top-color: #ccc;
+            border-bottom-color: #ccc;
+            border-left-color: #ccc;
+            border-right-color: #ccc;
+            border-top-style: solid;
+            border-bottom-style: solid;
+            border-left-style: solid;
+            border-right-style: solid;
+            width: 12px;
+            height: 12px;
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+        }
+
+        .w-radio-input {
+            margin: 4px3px 0 0;
+            margin-top: 3px;
+            line-height: normal;
+            float: left;
+            margin-left: -20px;
+        }
+
+        .div-block-78 {
+            display: flex;
+        }
+
+        .text-field-3 {
+            margin-bottom: 0px;
+            width: 100%;
+        }
+
+        .w-input,
+        .w-select {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333333;
+            vertical-align: middle;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+        }
+
+        .submit-button-3 {
+            border-top-right-radius: 0.5em;
+            border-bottom-right-radius: 0.5em;
+            background-color: #fdcf51;
+            display: inline-block;
+            padding: 9px 15px;
+            color: white;
+            border: 0;
+            line-height: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .w-form-done {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            background-color: #dddddd;
+        }
+
+        .w-form-fail {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffdede;
+        }
+
+        /*
+    // .rate button
+    */
+        .rate-card_wrap {
+            display: flex;
+            padding: 0.5em 1em 0.5em 1.2em;
+            align-items: center;
+            grid-column-gap: 0.8em;
+            grid-row-gap: 0.8em;
+            background-color: #fdcf51;
+        }
+
+        .rate-number {
+            font-size: 1.3em;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .rate-icon {
+            width: 13px;
+        }
+
+        .slidersCustom {
+            background-position: center;
+            background-size: contain;
+        }
+
+        .nav-panel {
+            height: 75px;
+            color: #000;
+        }
+
+        .container,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container-xl {
+            max-width: 1320px;
+        }
+
+        .icons {
+            width: 3em;
+            height: 3em;
+            margin-right: 0.4em;
+        }
+
+        ._1-6-h2 {
+            color: #000;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 1.6em;
+            line-height: 1.23;
+            font-weight: 600;
         }
 
         .white-background {
-            box-shadow: none;
-            padding: 4em 0em;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 4em;
+            background-color: #fff;
+            box-shadow: 8px 8px 20px 0 rgb(0 0 0 / 20%);
+        }
+
+        .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
+            margin-bottom: 0px;
+        }
+
+        .block-products__list {
+            width: 100%;
+        }
+
+        .product-card__buttons>*:first-child {
+            margin-right: 0px;
+            margin-left: auto;
+        }
+
+        .product-card__buttons {
+            flex-direction: column;
+            margin-top: 0px;
+            align-items: flex-end
+        }
+
+        .product-card__info {
+            margin-bottom: 1.4em;
+        }
+
+        .product-image__img.is--featured {
+            width: 95%;
+            height: 20em;
+        }
+
+    /*.product-card__image.product-image.is--featured {
+        height: 20em;
+    }*/
+
+        .block-posts[data-layout^=grid-] .post-card .post-card__content {
+            margin-top: 0px;
+        }
+
+        .block-posts[data-layout^=grid-] .post-card .post-card__name {
+            width: 100%;
+            font-size: 1.1em;
+            margin-top: 4px;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        a:hover {
+            color: #ffd333 !important;
+            text-decoration: none;
+        }
+
+        .post-card__content.is--cuisines {
+            color: #706f6f;
+            font-size: 0.8em;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+
+        .post-card__content.is--location {
+            color: #9d9d9c;
+            font-size: 0.8em;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+
+        .post-card__info {
+            display: flex;
+            flex-direction: column;
+            grid-column-gap: 0.3em;
+            grid-row-gap: 0.3em;
+        }
+
+        .custom-hooka-card:hover .custom-hooka-card-buttons {
+            display: flex;
+        }
+
+        .custom-hooka-card-buttons {
+            display: none;
+        }
+
+        @@media only screen and (max-width: 990px) {
+            .block-products__list-item {
+                width: 48% !important;
+                margin: 1em 6px;
+            }
+
+            .get-app_inside-wrap {
+                max-width: 100% !important;
+            }
+        }
+
+        @@media only screen and (max-width: 580px) {
+            .block-products__list-item {
+                width: 100% !important;
+                margin: 1em 6px;
+            }
+
+            .white-background {
+                box-shadow: none;
+                padding: 4em 0em;
+            }
+
+            .get-app_inside-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .get-app_img-wrap {
+                width: 100% !important;
+                margin-left: 0rem;
+            }
+
+            .get-app_content-wrap {
+                width: 100% !important;
+            }
+        }
+
+        @@media only screen and (max-width: 374px) {
+            .product-card__buttons {
+                justify-content: top !important;
+            }
         }
 
         .get-app_inside-wrap {
-            flex-direction: column;
-            align-items: flex-start;
+            width: 100%;
+            max-width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .get-app_section {
+            padding-top: 3em;
+            padding-bottom: 3em;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background-color: rgb(255, 251, 247);
         }
 
         .get-app_img-wrap {
-            width: 100% !important;
-            margin-left: 0rem;
+            display: flex;
+            justify-content: flex-end;
+            width: 45%;
+            position: relative;
+            padding-top: 55%;
         }
 
         .get-app_content-wrap {
-            width: 100% !important;
+            position: relative;
+            width: 45%;
+            margin-left: 2rem;
         }
-    }
 
-    @@media only screen and (max-width: 374px) {
-        .product-card__buttons {
-            justify-content: top !important;
+        .app-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            bottom: 0%;
+            right: 0%;
+            object-fit: contain;
         }
-    }
 
-    .get-app_inside-wrap {
-        width: 100%;
-        max-width: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: nowrap;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        .get-app_title {
+            color: rgb(28, 28, 28);
+            font-weight: 500;
+            font-size: 3em;
+            line-height: 1.1;
+        }
 
-    .get-app_section {
-        padding-top: 3em;
-        padding-bottom: 3em;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        background-color: rgb(255, 251, 247);
-    }
+        .get-app_p {
+            font-size: 1.15em;
+            margin: 0px 0px 1.5em;
+            color: rgb(54, 54, 54);
+            width: 100%;
+            line-height: 1.3;
+            margin-bottom: 0, 7em;
+        }
 
-    .get-app_img-wrap {
-        display: flex;
-        justify-content: flex-end;
-        width: 45%;
-        position: relative;
-        padding-top: 55%;
-    }
+        .1-margin {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
 
-    .get-app_content-wrap {
-        position: relative;
-        width: 45%;
-        margin-left: 2rem;
-    }
+        .get-app_light-p {
+            line-height: 1.5;
+            margin: 0px 0px 0.4em;
+            color: rgb(156, 156, 156);
+            font-size: 1.2em;
+        }
 
-    .app-image {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        bottom: 0%;
-        right: 0%;
-        object-fit: contain;
-    }
+        .download-flex {
+            display: flex;
+        }
 
-    .get-app_title {
-        color: rgb(28, 28, 28);
-        font-weight: 500;
-        font-size: 3em;
-        line-height: 1.1;
-    }
+        .download-link {
+            position: relative;
+            max-width: 100%;
+            width: 10em;
+            height: 3em;
+            overflow: hidden;
+            margin-right: 1em
+        }
 
-    .get-app_p {
-        font-size: 1.15em;
-        margin: 0px 0px 1.5em;
-        color: rgb(54, 54, 54);
-        width: 100%;
-        line-height: 1.3;
-        margin-bottom: 0, 7em;
-    }
+        .app-store_image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            will-change: transform, opacity;
+            border-radius: inherit;
+            transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+        }
 
-    .1-margin {
-        margin-top: 1em;
-        margin-bottom: 1em;
-    }
+        .view-gold-card_wrap.is--invite {
+            bottom: -5%;
+            margin-top: 1em;
+            margin-right: auto;
+            margin-bottom: 2.6em;
+            margin-left: auto;
+            padding: 0.6em 0.8em;
+            justify-content: space-between;
+            align-items: center;
+            grid-column-gap: 0.5em;
+            s grid-row-gap: 0.5em;
+            background-color: #fdcf51;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
 
-    .get-app_light-p {
-        line-height: 1.5;
-        margin: 0px 0px 0.4em;
-        color: rgb(156, 156, 156);
-        font-size: 1.2em;
-    }
+        .custom-hooka-card:hover .custom-hooka-card-buttons {
+            display: flex;
+        }
 
-    .download-flex {
-        display: flex;
-    }
+        .custom-hooka-card-buttons {
+            display: none;
+        }
 
-    .download-link {
-        position: relative;
-        max-width: 100%;
-        width: 10em;
-        height: 3em;
-        overflow: hidden;
-        margin-right: 1em
-    }
+        /*video*/
+        .section.eh-home-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            padding-right: 0em;
+            padding-left: 0em;
+        }
 
-    .app-store_image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 1;
-        will-change: transform, opacity;
-        border-radius: inherit;
-        transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
-    }
+        .intro-header {
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            right: 0%;
+            bottom: 0%;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #fff;
+        }
 
-    .view-gold-card_wrap.is--invite {
-        bottom: -5%;
-        margin-top: 1em;
-        margin-right: auto;
-        margin-bottom: 2.6em;
-        margin-left: auto;
-        padding: 0.6em 0.8em;
-        justify-content: space-between;
-        align-items: center;
-        grid-column-gap: 0.5em;
-        s grid-row-gap: 0.5em;
-        background-color: #fdcf51;
-        font-size: 1.1em;
-        cursor: pointer;
-    }
+        .video {
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            right: 0%;
+            bottom: 0%;
+            z-index: 0;
+            height: 100%;
+        }
 
-    .custom-hooka-card:hover .custom-hooka-card-buttons {
-        display: flex;
-    }
+        .post-card__info {
+            margin: 1.2em;
+        }
 
-    .custom-hooka-card-buttons {
-        display: none;
-    }
-
-    /*video*/
-    .section.eh-home-wrap {
-        position: relative;
-        overflow: hidden;
-        height: 100vh;
-        padding-right: 0em;
-        padding-left: 0em;
-    }
-
-    .intro-header {
-        position: absolute;
-        left: 0%;
-        top: 0%;
-        right: 0%;
-        bottom: 0%;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        background-color: #f4f4f4;
-        color: #fff;
-    }
-
-    .video {
-        position: absolute;
-        left: 0%;
-        top: 0%;
-        right: 0%;
-        bottom: 0%;
-        z-index: 0;
-        height: 100%;
-    }
-
-    .post-card__info {
-        margin: 1.2em;
-    }
-
-    .
+        .
 </style>
+
+
 <!-- site__body -->
+
 <div class="site__body">
+    
     <div class="section eh-home-wrap">
         <div class="container">
             <div class="intro-header">
                 <div class="video w-background-video w-background-video-atom">
-                    <video id="0366fa47-0a30-78e4-86ef-db797aec30d1-video" autoplay="" loop="" style="width:100%;
-              " muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-                        <source src="~/FrontendAssets/Videos/HookaTimes-Video.mp4" data-wf-ignore="true" />
+                    <video
+                        id="0366fa47-0a30-78e4-86ef-db797aec30d1-video"
+                        autoplay=""
+                        loop=""
+                        style="width: 100%"
+                        muted=""
+                        playsinline=""
+                        data-wf-ignore="true"
+                        data-object-fit="cover"
+                    >
+                        <source
+                            src="~/FrontendAssets/Videos/HookaTimes-Video.mp4"
+                            data-wf-ignore="true"
+                        />
                     </video>
                 </div>
             </div>
         </div>
-    </div> 
-    
-  
+    </div>
+
     <!-- .get-app -->
     <div class="get-app_section">
         <div class="container">
             <div class="get-app_inside-wrap">
                 <div class="get-app_img-wrap">
-                    <img alt="get-hooka-app" src="https://b.zmtcdn.com/web/home/dining/53bf8be00487075667c5f49d4fd677651588271050.png" loading="auto" class="app-image">
+                    <img
+                        alt="get-hooka-app"
+                        src="https://b.zmtcdn.com/web/home/dining/53bf8be00487075667c5f49d4fd677651588271050.png"
+                        loading="auto"
+                        class="app-image"
+                    />
                 </div>
                 <div class="get-app_content-wrap">
                     <h2 class="get-app_title">Get the Hooka app</h2>
-                    <p class="get-app_p">We will send you a link, open it on your phone to download the app</p>
+                    <p class="get-app_p">
+                        We will send you a link, open it on your phone to
+                        download the app
+                    </p>
                     <div class="1-margin">
                         <div class="get-app_form">
-                            <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get" aria-label="Email Form 2">
-                                <div class="div-block-77"><label class="w-radio">
-                                        <div class="w-form-formradioinput w-form-formradioinput--inputType-custom app-link w-radio-input"></div><input type="radio" data-name="Radio 3" id="radio-3" name="radio" value="Radio" style="opacity:0;position:absolute;z-index:-1"><span class="w-form-label" for="radio-3">Email</span>
-                                    </label><label class="w-radio">
-                                        <div class="w-form-formradioinput w-form-formradioinput--inputType-custom app-link w-radio-input w--redirected-checked"></div><input type="radio" data-name="Radio 3" id="radio-3" name="radio" value="Radio" style="opacity:0;position:absolute;z-index:-1"><span class="w-form-label" for="radio-3">Phone</span>
-                                    </label></div>
-                                <div class="div-block-78"><input type="text" class="text-field-3 w-input" maxlength="256" name="field-3" data-name="Field 3" placeholder="Example Text" id="field-3" required=""><input type="submit" value="Share app link" data-wait="Please wait..." class="submit-button-3 w-button"></div>
+                            <form
+                                id="email-form-2"
+                                name="email-form-2"
+                                data-name="Email Form 2"
+                                method="get"
+                                aria-label="Email Form 2"
+                            >
+                                <div class="metod" style="display:flex;flex-direction: row;">
+                                <div >
+                                    <input
+                                        type="radio"
+                                        value="none"
+                                        id="radioOne"
+                                        name="metod"
+                                        checked
+                                    />
+                                    <label for="radioOne" class="radio"
+                                        >Email</label
+                                    >
+                                </div>
+                                <div >
+                                    <input
+                                        type="radio"
+                                        value="none"
+                                        id="radioTwo"
+                                        name="metod"
+                                    />
+                                    <label for="radioTwo" class="radio"
+                                        >Phone Number</label
+                                    >
+                                </div>
+                                </div>
+                                <div class="div-block-78">
+                                    <input
+                                        type="text"
+                                        class="text-field-3 w-input"
+                                        maxlength="256"
+                                        name="field-3"
+                                        data-name="Field 3"
+                                        placeholder="Enter Your Info"
+                                        id="field-3"
+                                        required=""
+                                    /><input
+                                        type="submit"
+                                        value="Share app link"
+                                        data-wait="Please wait..."
+                                        class="submit-button-3 w-button"
+                                    />
+                                </div>
                             </form>
-                            <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form 2 success">
-                                <div>Thank you! Your submission has been received!</div>
+                            <div
+                                class="w-form-done"
+                                tabindex="-1"
+                                role="region"
+                                aria-label="Email Form 2 success"
+                            >
+                                <div>
+                                    Thank you! Your submission has been
+                                    received!
+                                </div>
                             </div>
-                            <div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form 2 failure">
-                                <div>Oops! Something went wrong while submitting the form.</div>
+                            <div
+                                class="w-form-fail"
+                                tabindex="-1"
+                                role="region"
+                                aria-label="Email Form 2 failure"
+                            >
+                                <div>
+                                    Oops! Something went wrong while submitting
+                                    the form.
+                                </div>
                             </div>
                         </div>
                     </div>
                     <p class="get-app_light-p">Download app from</p>
                     <div class="download-flex">
-                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/23e930757c3df49840c482a8638bf5c31556001144.png" loading="lazy" class="app-store_image"></a>
-                        <a href="/" class="download-link"><img alt="image" src="https://b.zmtcdn.com/data/webuikit/9f0c85a5e33adb783fa0aef667075f9e1556003622.png" loading="lazy" class="app-store_image"></a>
+                        <a href="/" class="download-link"
+                            ><img
+                                alt="image"
+                                src="https://b.zmtcdn.com/data/webuikit/23e930757c3df49840c482a8638bf5c31556001144.png"
+                                loading="lazy"
+                                class="app-store_image"
+                        /></a>
+                        <a href="/" class="download-link"
+                            ><img
+                                alt="image"
+                                src="https://b.zmtcdn.com/data/webuikit/9f0c85a5e33adb783fa0aef667075f9e1556003622.png"
+                                loading="lazy"
+                                class="app-store_image"
+                        /></a>
                     </div>
                 </div>
             </div>
@@ -514,7 +607,7 @@
         @await Component.InvokeAsync("Products")
 
     <!-- .block-products / end -->
-   
+
     <!-- .block-places -->
    
     @await Component.InvokeAsync("Places")

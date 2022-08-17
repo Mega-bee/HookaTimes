@@ -6,7 +6,11 @@
 
 <style>
 
-    @@media only screen and (max-width: 990px) {
+    .form-control.form-control-sm{
+        margin-bottom:0px;
+    }
+
+     @@media only screen and (max-width: 990px) {
         .block-products__list-item {
             width: 48% !important;
             margin: 1em 6px;
@@ -64,13 +68,14 @@
     }
 
     .block-products__list-item {
-        display: flex;
-        width: 31%;
-        margin: 0.7em 6px !important;
-    }
+ 
+    display: flex;
+    width: 31% ;
+    margin: 0.7em 6px !important;
+}
 
     .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
-        margin-bottom: 0px;
+     margin-bottom: 0px;
     }
 
     .block-products__list-item .product-card {

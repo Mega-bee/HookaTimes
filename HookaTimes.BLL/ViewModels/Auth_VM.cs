@@ -175,8 +175,15 @@ namespace HookaTimes.BLL.ViewModels
     public partial class BuddyProfileAddressVM
     {
         public int Id { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Street { get; set; }
+        [Required]
+        public string Building { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        [Required]
         public string Title { get; set; }
     }
 

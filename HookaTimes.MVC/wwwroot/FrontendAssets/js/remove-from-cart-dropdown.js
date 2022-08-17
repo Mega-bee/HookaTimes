@@ -3,11 +3,15 @@
 document.addEventListener("click", e => {
    
     let btn = e.target
+    console.log(btn)
     if (btn.classList.contains("dropcart__product-remove")) {
         let itemId = btn.dataset.productid
         console.log("itemIddddddddd",itemId)
         if (itemId) {
-
+            let row = btn.closest(".dropcart__product")
+            if (row) {
+                row.remove()
+            }
             let formdata = new FormData()
             formdata.append("productId", itemId)
             $.ajax({
@@ -20,10 +24,7 @@ document.addEventListener("click", e => {
                 success: function (result) {
                     if (result.statusCode == 200) {
                         updateCart()
-                        let row = btn.closest(".dropcart__product")
-                        if (row) {
-                            row.remove()
-                        }
+                      
                     } else {
                         Swal.fire({
                             icon: 'error',

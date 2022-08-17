@@ -44,7 +44,7 @@
     .product-card__buttons {
         flex-direction: column;
         margin-top: 0px;
-        align-items: flex-end
+        align-items: flex-end;
     }
 
     .product-card__info {
@@ -60,7 +60,9 @@
         height: 20em;
     }
 
-    .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
+    .block-products[data-mobile-grid-columns="2"]
+        .block-products__list-item
+        .product-card--hidden-actions:hover {
         margin-bottom: 0px;
     }
 
@@ -69,6 +71,7 @@
     }
 
 </style>
+
 
 <div class="site__body">
     <div class="page-header">
@@ -436,7 +439,7 @@
                                                 title=""
                                                 data-original-title="Wishlist">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
-                                                <path id="Path_28" class="wishlist-icon" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
+                                                <path id="Path_28" class="wishlist-icon" style="fill: @((bool)Model.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
                                             </svg>
                                         </button>
                                     </div>
