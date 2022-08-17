@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -7,10 +6,8 @@ using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Service
@@ -24,7 +21,7 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> SetInvitationStatus(int statusId, int invitationId)
         {
             ResponseModel responseModel = new ResponseModel();
-            Invitation invitation = await _uow.InvitationRepository.GetFirst(x => x.Id == statusId);
+            Invitation invitation = await _uow.InvitationRepository.GetFirst(x => x.Id == invitationId);
             if (invitation == null)
             {
                 responseModel.ErrorMessage = "Invitaiton not found";
@@ -50,7 +47,7 @@ namespace HookaTimes.BLL.Service
                 PlaceId = (int)x.Select(i => i.PlaceId).FirstOrDefault(),
                 BuddiesCount = x.Count(),
                 PlaceName = x.Select(i => i.Place.Title).FirstOrDefault(),
-                Image = $"{request.Scheme}://{request.Host}{ x.Select(i => i.Place.Image).FirstOrDefault()}",
+                Image = $"{request.Scheme}://{request.Host}{x.Select(i => i.Place.Image).FirstOrDefault()}",
                 Rating = (float)x.Select(i => i.Place.Rating).FirstOrDefault()
 
             }).ToList();
@@ -62,7 +59,7 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> GetRecievedInvitations(HttpRequest request, int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
-            List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId&& x.InvitationStatusId == (int)InvitationStatusEnums.Pending).Select(i => new Invitation_VM
+            List<Invitation_VM> invitations = await _uow.InvitationRepository.GetAll(x => x.ToBuddyId == userBuddyId).Select(i => new Invitation_VM
             {
                 Description = i.Description ?? "",
                 BuddyName = i.FromBuddy.FirstName + " " + i.FromBuddy.LastName,
@@ -70,7 +67,7 @@ namespace HookaTimes.BLL.Service
                 BuddyRating = 0,
                 InvitationStatus = i.InvitationStatus.Title,
                 Id = i.Id,
-                BuddyImage = $"{request.Scheme}://{request.Host}{ i.FromBuddy.Image}",
+                BuddyImage = $"{request.Scheme}://{request.Host}{i.FromBuddy.Image}",
 
             }).ToListAsync();
 
@@ -101,7 +98,7 @@ namespace HookaTimes.BLL.Service
             {
                 PlaceId = p.Id,
                 PlaceLocation = p.Location.Title,
-                 PlaceImage = $"{request.Scheme}://{request.Host}{p.Image}",
+                PlaceImage = $"{request.Scheme}://{request.Host}{p.Image}",
                 PlaceName = p.Title,
                 PlaceRating = (float)p.Rating,
                 Buddies = p.Invitations.Where(p => p.FromBuddyId == userBuddyId).Select(i => new Invitation_VM

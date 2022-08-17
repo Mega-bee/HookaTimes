@@ -73,7 +73,7 @@ namespace HookaTimes.API.Controllers
         #region UpdateProfile
         [HttpPut]
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        public async Task<IActionResult> UpdateProfile([FromBody] CompleteProfile_VM model)
+        public async Task<IActionResult> UpdateProfile([FromForm] CompleteProfile_VM model)
         {
             //string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
