@@ -78,6 +78,7 @@ namespace HookaTimes.BLL.Service
                     Description = r.Description,
                     Id = r.Id,
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
+                     Image = r.Buddy.Image,
                     Rating = (float)r.Rating
                 }).ToList(),
                 Name = p.Title,

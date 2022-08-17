@@ -83,7 +83,7 @@
     }
 
     /*images
-    */
+                    */
 
     .hYfAqb {
         position: relative;
@@ -381,6 +381,54 @@
         user-select: none;
     }
 
+    .angry-grid {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        gap: 5px;
+        height: 100%;
+    }
+
+    #item-0 {
+        background-color: #A6778A;
+        grid-row-start: 1;
+        grid-column-start: 1;
+        grid-row-end: 5;
+        grid-column-end: 6;
+    }
+
+    #item-1 {
+        background-color: #EF5DD7;
+        grid-row-start: 1;
+        grid-column-start: 6;
+        grid-row-end: 3;
+        grid-column-end: 9;
+    }
+
+    #item-2 {
+        background-color: #59B59D;
+        grid-row-start: 3;
+        grid-column-start: 6;
+        grid-row-end: 5;
+        grid-column-end: 9;
+    }
+
+    #item-3 {
+        background-color: #BA6D7D;
+        grid-row-start: 1;
+        grid-column-start: 9;
+        grid-row-end: 3;
+        grid-column-end: 12;
+    }
+
+    #item-4 {
+        background-color: #879C68;
+        grid-row-start: 3;
+        grid-column-start: 9;
+        grid-row-end: 5;
+        grid-column-end: 12;
+    }
+
 </style>
 
 <div class="site__body">
@@ -409,69 +457,117 @@
         <div class="container">
 
             <section class="sc-FQuPU hYfAqb">
-                <div class="sc-hwcHae cQOHyV">
-                    <div width="62.4%" class="sc-ghsgMZ eepLAx">
-                        <div height="100%"
-                             width="100%"
-                             class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
-                            <div class="sc-s1isp7-0 jSWkTP"></div>
-                            <img alt="image"
-                                 src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                <div class="angry-grid">
+                    @for (int i = 0; i < Model.Albums.Take(5).ToList().Count; i++)
+                    {
+                        <div id="item-@i">
+                            <a style="display:block" data-fslightbox href="@Model.Albums[i].Image">
+
+                                <img alt="image"
+                                 src="@Model.Albums[i].Image"
                                  loading="lazy"
                                  class="sc-s1isp7-5 eQUAyn" />
+                            </a>
                         </div>
+                    }
+                    @*    <div id="item-0">
+                    <img alt="image"
+                    src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                    loading="lazy"
+                    class="sc-s1isp7-5 eQUAyn" />
                     </div>
-                    <section class="sc-erNlkL hTlIIs">
-                        <div width="100%" class="sc-ghsgMZ fEOXMf">
-                            <div height="100%"
-                                 width="100%"
-                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
-                                <div class="sc-s1isp7-0 epbuMH"></div>
-                                <img alt="image"
-                                     src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
-                                     loading="lazy"
-                                     class="sc-s1isp7-5 eQUAyn" />
-                            </div>
-                        </div>
-                        <div width="100%" class="sc-ghsgMZ kyMggQ">
-                            <div height="100%"
-                                 width="100%"
-                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
-                                <div class="sc-s1isp7-0 heZknI"></div>
-                                <img alt="image"
-                                     src="https://b.zmtcdn.com/data/reviews_photos/12b/ba8dfab5e957fb1a361174826236d12b_1584963927.jpg?fit=around|300:273&amp;crop=300:273;*,*"
-                                     loading="lazy"
-                                     class="sc-s1isp7-5 eQUAyn" />
-                            </div>
-                        </div>
-                    </section>
-                    <section class="sc-erNlkL hTlIIs">
-                        <div width="100%" class="sc-ghsgMZ fEOXMf">
-                            <div height="100%"
-                                 width="100%"
-                                 class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
-                                <div class="sc-s1isp7-0 epbuMH"></div>
-                                <img alt="image"
-                                     src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
-                                     loading="lazy"
-                                     class="sc-s1isp7-5 eQUAyn" />
-                            </div>
-                        </div>
-
-                        <div width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM" style="margin: 0.3rem 0px 0px;">
-                            <div height="100%" width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM dpdfge">
-                                <div class="sc-s1isp7-0 geutSv"></div>
-                                <img alt="image"
-                                     src="https://b.zmtcdn.com/data/reviews_photos/70e/b59ae6051e042eade74feb05edebb70e_1584963925.jpg?output-format=webp&amp;fit=around|300:273&amp;crop=300:273;*,*"
-                                     loading="lazy"
-                                     class="sc-s1isp7-5 iSpbZM" />
-                            </div>
-                            <p class="sc-1hez2tp-0 sc-dznXNo loodWG">View Gallery</p>
-                        </div>
-
-                    </section>
+                    <div id="item-1">
+                    <img alt="image"
+                    src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                    loading="lazy"
+                    class="sc-s1isp7-5 eQUAyn" />
+                    </div>
+                    <div id="item-2">
+                    <img alt="image"
+                    src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                    loading="lazy"
+                    class="sc-s1isp7-5 eQUAyn" />
+                    </div>
+                    <div id="item-3">
+                    <img alt="image"
+                    src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                    loading="lazy"
+                    class="sc-s1isp7-5 eQUAyn" />
+                    </div>
+                    <div id="item-4">
+                    <img alt="image"
+                    src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                    loading="lazy"
+                    class="sc-s1isp7-5 eQUAyn" />
+                    </div>*@
                 </div>
-                <div class="sc-gGCbJM bOtepC"></div>
+                @*    <div class="sc-hwcHae cQOHyV">
+
+                <div width="62.4%" class="sc-ghsgMZ eepLAx">
+                <a style="display:block" data-fslightbox href="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*">
+
+                <div height="100%"
+                width="100%"
+                class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                <div class="sc-s1isp7-0 jSWkTP"></div>
+                <img alt="image"
+                src="https://b.zmtcdn.com/data/reviews_photos/d28/fc46cb2ef3c64373b8f7c3642294dd28_1584963914.jpg?fit=around|771.75:416.25&amp;crop=771.75:416.25;*,*"
+                loading="lazy"
+                class="sc-s1isp7-5 eQUAyn" />
+                </div>
+                </a>
+                </div>
+                <section class="sc-erNlkL hTlIIs">
+                <div width="100%" class="sc-ghsgMZ fEOXMf">
+                <div height="100%"
+                width="100%"
+                class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                <div class="sc-s1isp7-0 epbuMH"></div>
+                <img alt="image"
+                src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
+                loading="lazy"
+                class="sc-s1isp7-5 eQUAyn" />
+                </div>
+                </div>
+                <div width="100%" class="sc-ghsgMZ kyMggQ">
+                <div height="100%"
+                width="100%"
+                class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                <div class="sc-s1isp7-0 heZknI"></div>
+                <img alt="image"
+                src="https://b.zmtcdn.com/data/reviews_photos/12b/ba8dfab5e957fb1a361174826236d12b_1584963927.jpg?fit=around|300:273&amp;crop=300:273;*,*"
+                loading="lazy"
+                class="sc-s1isp7-5 eQUAyn" />
+                </div>
+                </div>
+                </section>
+                <section class="sc-erNlkL hTlIIs">
+                <div width="100%" class="sc-ghsgMZ fEOXMf">
+                <div height="100%"
+                width="100%"
+                class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM">
+                <div class="sc-s1isp7-0 epbuMH"></div>
+                <img alt="image"
+                src="https://b.zmtcdn.com/data/pictures/9/19353309/7989c359196ec3ebfd4ba1389fdde4f8.jpeg?fit=around|300:273&amp;crop=300:273;*,*"
+                loading="lazy"
+                class="sc-s1isp7-5 eQUAyn" />
+                </div>
+                </div>
+
+                <div width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM cUbrKM" style="margin: 0.3rem 0px 0px;">
+                <div height="100%" width="100%" class="sc-s1isp7-1 gMhjmN sc-iuDHTM dpdfge">
+                <div class="sc-s1isp7-0 geutSv"></div>
+                <img alt="image"
+                src="https://b.zmtcdn.com/data/reviews_photos/70e/b59ae6051e042eade74feb05edebb70e_1584963925.jpg?output-format=webp&amp;fit=around|300:273&amp;crop=300:273;*,*"
+                loading="lazy"
+                class="sc-s1isp7-5 iSpbZM" />
+                </div>
+                <p class="sc-1hez2tp-0 sc-dznXNo loodWG">View Gallery</p>
+                </div>
+
+                </section>
+                </div>
+                <div class="sc-gGCbJM bOtepC"></div>*@
             </section>
 
             <div>
@@ -576,7 +672,7 @@
                          id="tab-description">
                         <div class="typography">
                             <h3>About this place</h3>
-                           @Model.Description
+                            @Model.Description
                         </div>
                     </div>
                     <div class="product-tabs__pane" id="tab-menus">
@@ -656,106 +752,42 @@
                                             <li class="reviews-list__item">
                                                 <div class="review">
                                                     <div class="review__avatar">
-                                                        <img src="images/avatars/avatar-1.jpg"
+                                                        <img src="@item.Image"
                                                          alt="" />
                                                     </div>
                                                     <div class="review__content">
                                                         <div class="review__author">
-                                                           @item.Name
+                                                            @item.Name
                                                         </div>
                                                         <div class="review__rating">
                                                             <div class="rating">
                                                                 <div class="rating__body">
-                                                                    <svg class="rating__star rating__star--active"
+                                                                    @for (int i = 0; i < item.Rating; i++)
+                                                                    {
+
+                                                                        @*Active Star*@
+                                                                        <svg class="rating__star rating__star--active"
                                                                      width="13px"
                                                                      height="12px">
-                                                                        <g class="rating__fill">
-                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
-                                                                        </g>
-                                                                        <g class="rating__stroke">
-                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
-                                                                        <div class="rating__fill">
-                                                                            <div class="fake-svg-icon"></div>
+                                                                            <g class="rating__fill">
+                                                                                <use xlink:href="/FrontendAssets/images/sprite.svg#star-normal"></use>
+                                                                            </g>
+                                                                            <g class="rating__stroke">
+                                                                                <use xlink:href="/FrontendAssets/images/sprite.svg#star-normal-stroke"></use>
+                                                                            </g>
+                                                                        </svg>
+
+                                                                        <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                            <div class="rating__fill">
+                                                                                <div class="fake-svg-icon"></div>
+                                                                            </div>
+                                                                            <div class="rating__stroke">
+                                                                                <div class="fake-svg-icon"></div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="rating__stroke">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <svg class="rating__star rating__star--active"
-                                                                     width="13px"
-                                                                     height="12px">
-                                                                        <g class="rating__fill">
-                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
-                                                                        </g>
-                                                                        <g class="rating__stroke">
-                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
-                                                                        <div class="rating__fill">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                        <div class="rating__stroke">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <svg class="rating__star rating__star--active"
-                                                                     width="13px"
-                                                                     height="12px">
-                                                                        <g class="rating__fill">
-                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
-                                                                        </g>
-                                                                        <g class="rating__stroke">
-                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
-                                                                        <div class="rating__fill">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                        <div class="rating__stroke">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <svg class="rating__star rating__star--active"
-                                                                     width="13px"
-                                                                     height="12px">
-                                                                        <g class="rating__fill">
-                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
-                                                                        </g>
-                                                                        <g class="rating__stroke">
-                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <div class="rating__star rating__star--only-edge rating__star--active">
-                                                                        <div class="rating__fill">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                        <div class="rating__stroke">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <svg class="rating__star"
-                                                                     width="13px"
-                                                                     height="12px">
-                                                                        <g class="rating__fill">
-                                                                            <use xlink:href="images/sprite.svg#star-normal"></use>
-                                                                        </g>
-                                                                        <g class="rating__stroke">
-                                                                            <use xlink:href="images/sprite.svg#star-normal-stroke"></use>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <div class="rating__star rating__star--only-edge">
-                                                                        <div class="rating__fill">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                        <div class="rating__stroke">
-                                                                            <div class="fake-svg-icon"></div>
-                                                                        </div>
-                                                                    </div>
+
+                                                                    }
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -770,47 +802,47 @@
                                             </li>
                                         }
 
-                                     
+
                                     </ol>
-                                 @*   <div class="reviews-list__pagination">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link page-link--with-arrow"
-                                                   href=""
-                                                   aria-label="Previous">
-                                                    <svg class="page-link__arrow page-link__arrow--left"
-                                                         aria-hidden="true"
-                                                         width="8px"
-                                                         height="13px">
-                                                        <use xlink:href="images/sprite.svg#arrow-rounded-left-8x13"></use>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="">1</a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="">
-                                                    2
-                                                    <span class="sr-only">(current)</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link page-link--with-arrow"
-                                                   href=""
-                                                   aria-label="Next">
-                                                    <svg class="page-link__arrow page-link__arrow--right"
-                                                         aria-hidden="true"
-                                                         width="8px"
-                                                         height="13px">
-                                                        <use xlink:href="images/sprite.svg#arrow-rounded-right-8x13"></use>
-                                                    </svg>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    @*   <div class="reviews-list__pagination">
+                                    <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                    <a class="page-link page-link--with-arrow"
+                                    href=""
+                                    aria-label="Previous">
+                                    <svg class="page-link__arrow page-link__arrow--left"
+                                    aria-hidden="true"
+                                    width="8px"
+                                    height="13px">
+                                    <use xlink:href="images/sprite.svg#arrow-rounded-left-8x13"></use>
+                                    </svg>
+                                    </a>
+                                    </li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="">1</a>
+                                    </li>
+                                    <li class="page-item active">
+                                    <a class="page-link" href="">
+                                    2
+                                    <span class="sr-only">(current)</span>
+                                    </a>
+                                    </li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                    <a class="page-link page-link--with-arrow"
+                                    href=""
+                                    aria-label="Next">
+                                    <svg class="page-link__arrow page-link__arrow--right"
+                                    aria-hidden="true"
+                                    width="8px"
+                                    height="13px">
+                                    <use xlink:href="images/sprite.svg#arrow-rounded-right-8x13"></use>
+                                    </svg>
+                                    </a>
+                                    </li>
+                                    </ul>
                                     </div>*@
                                 </div>
                             </div>
@@ -827,7 +859,7 @@
                                                         class="form-control">
                                                     <option value="5">
                                                         5 Stars Rating
-                                                    </option >
+                                                    </option>
                                                     <option value="4">
                                                         4 Stars Rating
                                                     </option>
@@ -842,19 +874,19 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                    @*        <div class="form-group col-md-4">
-                                                <label for="review-author">Your Name</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="review-author"
-                                                       placeholder="Your Name" />
+                                            @*        <div class="form-group col-md-4">
+                                            <label for="review-author">Your Name</label>
+                                            <input type="text"
+                                            class="form-control"
+                                            id="review-author"
+                                            placeholder="Your Name" />
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="review-email">Email Address</label>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="review-email"
-                                                       placeholder="Email Address" />
+                                            <label for="review-email">Email Address</label>
+                                            <input type="text"
+                                            class="form-control"
+                                            id="review-email"
+                                            placeholder="Email Address" />
                                             </div>*@
                                         </div>
                                         <div class="form-group">
@@ -880,3 +912,8 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/FrontendAssets/js/vendors/lightbox/fslightbox.js"></script>
+
+}
