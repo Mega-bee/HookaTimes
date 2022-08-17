@@ -41,11 +41,63 @@
     }
     */
 
+    .product-tabs__content {
+   
+    padding: 20px 0px;
+}
+
+.product-tabs__list{
+    border-top: 2px solid #f0f0f0;
+    border-left: 2px solid #f0f0f0;
+    border-right: 2px solid #f0f0f0;
+}
+
+.product-tabs__list {
+    height: auto;
+    margin-bottom: -2px;
+}
+
+
+
 </style>
 
-<div class="site__body">
+<div class="site__body
 
-    <div class="product-tabs product-tabs--sticky">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+                      
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Invitations
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title">
+                <h1>Invitations</h1>
+            </div>
+        </div>
+    </div>
+    
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 d-flex">
+
+
+                    <partial name="/Views/Shared/Ecommerce/_AccountNavigationPartial.cshtml" />
+
+                </div>
+
+                 <div class="product-tabs product-tabs--sticky col-12 col-lg-9 mt-4 mt-lg-0">
       
         <div class="product-tabs__list">
             <div class="product-tabs__list-body">
@@ -233,8 +285,10 @@
 
         </div>
     </div>
-
-
+            
+    </div>
+    </div>
+    </div>
 </div>
 
 
