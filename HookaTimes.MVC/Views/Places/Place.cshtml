@@ -6,6 +6,12 @@
 
 <style>
 
+    .product-tabs__content {
+    border: 2px solid #f0f0f0;
+    border-radius: 2px;
+    padding: 40px 40px;
+}
+
     .name-container {
         justify-content: space-between;
         align-items: center;
@@ -380,6 +386,43 @@
         margin-left: 0.5rem;
         user-select: none;
     }
+  
+    /*menu*/
+       
+  .menu-content-container{
+      width:100%;
+      height:100%;
+  }
+
+  .menu-content-flex{
+      width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    grid-column-gap: 0.8em;
+    grid-row-gap: 0.8em;
+
+  }
+
+  .menu-item{
+      width:19.1%;
+      height:100%;
+      padding-top:23%;
+      position:relative;
+      border-radius: 0.6em;
+      overflow: hidden;
+  }
+
+  .menu-photo{
+      width:100%;
+      height:100%;
+      position: absolute;
+      top:0%;
+      bottom:0%;
+      right:0%;
+      left:0%;
+  }
 
 </style>
 
@@ -565,7 +608,7 @@
                         <div class="product-tabs__list-container container">
                             <a href="#tab-description"
                                class="product-tabs__item product-tabs__item--active">Overview</a>
-                            <a href="#tab-menu"
+                            <a href="#tab-menus"
                                class="product-tabs__item">Menu</a>
                             <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
                         </div>
@@ -580,68 +623,66 @@
                         </div>
                     </div>
                     <div class="product-tabs__pane" id="tab-menus">
-                        <div class="spec">
-                            <h3 class="spec__header">Specification</h3>
-                            <div class="spec__section">
-                                <h4 class="spec__section-title">General</h4>
-                                <div class="spec__row">
-                                    <div class="spec__name">Material</div>
-                                    <div class="spec__value">
-                                        Aluminium, Plastic
-                                    </div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Engine Type</div>
-                                    <div class="spec__value">Brushless</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">
-                                        Battery Voltage
-                                    </div>
-                                    <div class="spec__value">18 V</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Battery Type</div>
-                                    <div class="spec__value">Li-lon</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">
-                                        Number of Speeds
-                                    </div>
-                                    <div class="spec__value">2</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Charge Time</div>
-                                    <div class="spec__value">1.08 h</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Weight</div>
-                                    <div class="spec__value">1.5 kg</div>
-                                </div>
-                            </div>
-                            <div class="spec__section">
-                                <h4 class="spec__section-title">Dimensions</h4>
-                                <div class="spec__row">
-                                    <div class="spec__name">Length</div>
-                                    <div class="spec__value">99 mm</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Width</div>
-                                    <div class="spec__value">207 mm</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">Height</div>
-                                    <div class="spec__value">208 mm</div>
-                                </div>
-                            </div>
-                            <div class="spec__disclaimer">
-                                Information on technical characteristics, the
-                                delivery set, the country of manufacture and the
-                                appearance of the goods is for reference only
-                                and is based on the latest information available
-                                at the time of publication.
-                            </div>
+                        <div class="menu-content-container">
+                              <div class="menu-content-flex">
+                                     <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+                                     <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+                                     <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+                                     <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+                                     <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+                                      <div class="menu-item">
+            
+                                            <img
+                                                alt="Gallery Image"
+                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
+                                                loading="lazy"
+                                                class="menu-photo"
+                                            />
+                                     </div>
+      
+                             </div>
                         </div>
+
                     </div>
                     <div class="product-tabs__pane" id="tab-reviews">
                         <div class="reviews-view">
