@@ -40,6 +40,7 @@ namespace HookaTimes.API
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.ConfigureAuthentication();
+            services.ConfigureMailKit(Configuration);
             new ServiceInjector(services).Render();
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddRazorPages();

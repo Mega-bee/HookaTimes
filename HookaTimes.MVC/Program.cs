@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureAuthenticationMVC();
+builder.Services.ConfigureMailKit(builder.Configuration);
 new ServiceInjector(builder.Services).Render();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 var mvcBuilder = builder.Services.AddRazorPages();
