@@ -112,10 +112,10 @@
                 <div class="h-menu">
                     <nav role="navigation" class="navigation-center-items w-nav-menu">
 
-                        <a asp-controller="Home" aria-current="page" class="navigation-item w-inline-block w--current LinkHome MenuLink">
+                        <a href="/" aria-current="page" class="navigation-item w-inline-block w--current LinkHome MenuLink">
                             <div class="navigation-item_text">Home</div>
                         </a>
-                        <a asp-action="HookaProducts" asp-controller="home" class="navigation-item w-inline-block LinkProducts MenuLink">
+                        <a asp-action="HookaProducts" asp-controller="home" class="navigation-item w-inline-block MenuLink LinkProducts">
                             <div class="navigation-item_text">Products</div>
                         </a>
                         <a asp-action="hookaplaces" asp-controller="home" class="navigation-item w-inline-block LinkHookaPlaces MenuLink">
@@ -320,21 +320,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        //$(document).ready(function () {
-        //    var s = '@(ViewBag.CurrentPage)';
-
-        //    $(".MenuLink").removeClass("w--current");
-        //    $(".Link" + s).addClass("w--current");
-        //});
-
-        $(document).ready(function () {
-            var s = '@ViewBag.CurrentPage';
-
-            $(".MenuLink").removeClass("w--current");
-            $(".MenuLink").parent().removeClass("now");
-            $(".Link" + s).addClass("w--current");
-            $(".Link" + s).parent().addClass("now");
-        });
-    </script>
+   
 }
