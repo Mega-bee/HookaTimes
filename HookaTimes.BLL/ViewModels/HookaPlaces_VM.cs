@@ -42,6 +42,7 @@ namespace HookaTimes.BLL.ViewModels
     public partial class HookaPlaceReview_VM
     {
         public int Id { get; set; }
+        public string Image { get; set; }
         public string Name { get; set; }
         public DateTime? CreatedDate { get; set; }
         public float Rating { get; set; }

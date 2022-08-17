@@ -339,7 +339,7 @@ namespace HookaTimes.MVC.Controllers
 
             List<HookaPlaces_VM> favs = await _hookaPlaceBL.GetFavorites(userBuddyId);
 
-           
+
             return View(favs);
         }
 
