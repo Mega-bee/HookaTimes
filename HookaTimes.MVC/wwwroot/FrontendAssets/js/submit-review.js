@@ -49,7 +49,7 @@ function handleFormSubmit(e) {
             if (xhr.status == 401) {
 
 
-                window.location.href = '/Account/Login'
+                notyf.error({ message: "Your are not logged in, please login" })
             }
         },
         fail: function (err) {

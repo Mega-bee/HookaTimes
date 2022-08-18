@@ -8,12 +8,14 @@ const addToFavBtn = document.querySelector(".add-to-favorite-btn")
 $(document).on("click", ".add-to-favorite-btn", function (e) {
    
     let pressedBtn = this
+    console.log(pressedBtn)
     let placeId = $(this).attr("data-placeid")
     if (placeId) {
         let formdata = new FormData()
         formdata.append("placeId", placeId)
         let heartSvg = pressedBtn.querySelector('.favorite-icon')
         let favSvg = pressedBtn.querySelector("#fav-icon")
+        let row = pressedBtn.closest('tr')
 
         if (heartSvg) {
             if (heartSvg.style.fill == 'red')
@@ -27,6 +29,10 @@ $(document).on("click", ".add-to-favorite-btn", function (e) {
             isFav = !isFav
             favSvg.setAttribute('data-isfav',isFav)
             changeFavIconSvg(isFav,favSvg)
+        }
+
+        if (row) {
+            row.remove()
         }
 
         addToFav(formdata)

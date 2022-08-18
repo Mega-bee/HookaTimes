@@ -62,7 +62,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 _notyf.Error(res.ErrorMessage);
             }
-            return Ok();
+            return Ok(res);
         }
 
         [Authorize(Roles = "User")]

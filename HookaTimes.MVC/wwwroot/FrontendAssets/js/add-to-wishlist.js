@@ -29,17 +29,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
              
                 if (result.statusCode == 201) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
-                   
+                    notyf.success({ message: "Product added to wishlist" })
                 } else if (result.statusCode == 204) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
-                   
+                    notyf.success({ message: "Product removed from wishlist" })
                 } else {
 
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: result.errorMessage
-                    })
+              
                 }
 
             },
