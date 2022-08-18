@@ -35,7 +35,7 @@ namespace HookaTimes.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> InviteBuddy()
+        public async Task<IActionResult> InviteBuddy(SendInvitation_VM model)
         {
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             int userBuddyId = await _auth.GetBuddyById(UserId);
@@ -43,7 +43,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 return View();
             }
-
+            await _buddy.InviteBuddy(userBuddyId, model);
             return View();
         }
     }

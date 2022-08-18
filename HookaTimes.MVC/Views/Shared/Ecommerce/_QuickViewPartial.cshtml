@@ -1,11 +1,18 @@
 ﻿@{
     List<InvitationOption_VM> options = (List<InvitationOption_VM>)ViewBag.options;
+    List<PlacesNames_VM> places = (List<PlacesNames_VM>)ViewBag.places;
 }
 
 
 
 
 <style>
+
+        .option {
+         background: #fff  !important;
+    border: none  !important;
+       }
+
     .invite-section {
         display: flex;
         width: 100%;
@@ -246,18 +253,37 @@
                 <div class="login-container w-form">
                     <div class="main-block">
                         <h3 style="margin-bottom: 1.5em">Invite Form</h3>
-                        <form class="invite-form" role="form" method="post" >
+                        <form class="invite-form" id="inviteForm" >
                             <div class="metod">
-                                @foreach (var opt in options)
-                                {
+                                
 
 
-                                        <select  class="form-control form-control-lg form-control-select2">
-                                            <option>Select an Option</option>
-                                            <option value="@opt.Id" >@opt.Title</option>
-                                           
-                                        </select>
-                                }
+                                    <select name="OptionId" class="form-control form-control-lg form-control-select2">
+                                    <option class="option"  value="0">Select an Option</option>
+                                    @foreach (var opt in options)
+                                    {
+                                        <option class="option" value="@opt.Id">@opt.Title</option>
+                                    }
+                                </select>
+                                
+                                <span class="text-danger"></span>
+
+                            </div>
+
+                            <div class="metod">
+                               
+
+
+                                    <select name="PlaceId" class="form-control form-control-lg form-control-select2">
+                                    <option class="option" value="0">Select an Option</option>
+                                    @foreach (var pl in places)
+                                    {
+                                        <option class="option" value="@pl.Id">@pl.Title</option>
+                                        }
+                                    </select>
+                               
+                                <span class="text-danger"></span>
+
                             </div>
 
                             <div class="info">
@@ -265,7 +291,7 @@
                                 <div class="form-group">
                                     <label>Input DateTime Picker</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="datetime" name="datetime">
+                                        <input type="text" class="form-control" id="date" name="Date">
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
@@ -273,29 +299,49 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+                                <span class="text-danger"></span>
+
+                            </div>
+
+                            <div class="info">
+
+                                <div class="form-group">
+                                    <label>Input DateTime Picker</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="time" name="Time">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="text-danger"></span>
+
+
                             </div>
                             <div class="div-block-58">
                                 <textarea placeholder="Example Text"
                                           maxlength="5000"
                                           id="field-2"
-                                          name="field-2"
+                                          name="Description"
                                           data-name="Field 2"
                                           class="textarea w-input"></textarea>
                             </div>
+                            <span class="text-danger"></span>
 
-                            <button href="/" class="w-button submit-button">
+                            <button  id="submitBtn " type="submit" class="w-button submit-button">
                                 Submit
                             </button>
                         </form>
                     </div>
-                    <div class="w-form-done"
+                   @* <div class="w-form-done"
                          tabindex="-1"
                          role="region"
                          aria-label="Email Form success">
                         <div>Thank you! Your invitation has been sent!</div>
-                    </div>
-                    <div class="w-form-fail"
+                    </div>*@
+                    @*<div class="w-form-fail"
                          tabindex="-1"
                          role="region"
                          aria-label="Email Form failure">
@@ -303,7 +349,7 @@
                             Oops! Something went wrong while submitting the
                             invitation.
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -311,18 +357,21 @@
 </div>
 
 
-
+@section Scripts{
     <script>
 
         $(document).ready(function () {
 
-            $('#datetime').datetimepicker({
-                format: 'MM/DD/YYYY H:mm',
+            $('#date').datetimepicker({
+                format: 'MM/DD/YYYY',
             });
 
-            //$('#datetime').datetimepicker({
-            //    format: 'hh:mm:ss a'
-            //});
+            $('#time').datetimepicker({
+                format: 'hh:mm a'
+            });
 
         });
     </script>
+
+<script src="~/frontendassets/js/invitation.js"></script>
+}

@@ -3,6 +3,11 @@
 }
 
 <style>
+
+        .see-all_button:hover {
+    color: #000 !important;
+        }
+
         .see-all_button {
             border-color:#fdcf51;
             margin-top: 4em;
@@ -184,6 +189,12 @@
 
         .block-products__list {
             width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;   
+            grid-column-gap: 1em;
+            grid-row-gap: 1em;
+}
         }
 
         .product-card__buttons>*:first-child {
@@ -240,6 +251,14 @@
             line-height: 1.2;
             font-weight: 500;
         }
+
+        .block-products__list-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            width: 32.3%;
+            margin: 0px !important;
+}
 
         .post-card__info {
             display: flex;
@@ -457,7 +476,21 @@
             margin: 1.2em;
         }
 
-        .
+        .metod{
+            grid-column-gap:1em;
+
+        }
+
+        .product-image__img.buddy {
+           
+            width: 100%;
+           
+        }
+
+        .product-image__img{
+            height:100% !important;
+        }
+
 </style>
 
 
