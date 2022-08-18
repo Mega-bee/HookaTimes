@@ -1,0 +1,47 @@
+﻿@model List<Buddy_VM>
+
+
+@if (Model.Count == 0)
+{
+    <div class="not-found">
+        <div class="not-found__404">Oops! Error 404</div>
+        <div class="not-found__content">
+            <h1 class="not-found__title">No Buddies Found</h1>
+            <p class="not-found__text">We can't seem to find the buddies you're looking for.<br>Try to choose other filters.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="products-view__list products-list"
+     data-layout="grid-3-sidebar"
+     data-with-features="false"
+     data-mobile-grid-columns="2">
+        <div class="products-list__body">
+            @foreach (var item in Model)
+            {
+                <div class="block-products__list-item">
+                    <div class="product-card product-card--hidden-actions custom-hooka-card">
+                        <div class="product-card__buttons custom-hooka-card-buttons "></div>
+                        <div class="post-card__image">
+                            <a href="product.html" class="product-image__body">
+                                <img class="product-image__img" src="@item.Image" alt="">
+                            </a>
+                        </div>
+                        <div class="post-card__info">
+                            <div class="post-card__name">
+                                <a href="">@item.Name </a>
+                            </div>
+                            <div class="post-card__content is--cuisines"> @item.Profession </div>
+                            <div class="post-card__content is--location"> @item.Address </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+}
+
+

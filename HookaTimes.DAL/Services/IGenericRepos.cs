@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -9,7 +10,10 @@ namespace HookaTimes.DAL.Services
     {
         IQueryable<T> GetAll();
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
-
+        IQueryable<T> GetAllWithTracking();
+        IQueryable<T> GetAllWithTracking(Expression<Func<T, bool>> predicate);
+        Task<T> Add(T entity);
+        Task AddRange(List<T> entities);
         Task<T> GetById(int Id);
         //bool CheckIfExists(Expression<Func<T, bool>> predicate);
         Task<bool> CheckIfExists(Expression<Func<T, bool>> predicate);
@@ -22,6 +26,8 @@ namespace HookaTimes.DAL.Services
         Task<T> Update(T entity);
 
         Task Delete(int id);
+        Task DeleteRange(List<T> entities);
+        Task DeleteByPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicate(Expression<Func<T, bool>> predicate);
         T GetByIdWithPredicateAndIncludes(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetAllWithPredicate(Expression<Func<T, bool>> predicate);

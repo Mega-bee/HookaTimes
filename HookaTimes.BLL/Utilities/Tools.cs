@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace HookaTimes.BLL.Utilities
             using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 await formFile.CopyToAsync(fs);
+
             }
             return path;
         }
@@ -54,6 +56,30 @@ namespace HookaTimes.BLL.Utilities
             }
             return claims;
         }
+
+
+        public static List<Claim> GenerateClaimsMVC(ApplicationUser res, IList<string> roles, BuddyProfile buddy)
+        {
+            //string FullName = buddy.FirstName+ " "+ buddy.LastName;
+            var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, res.Email),
+            new Claim("BuddyName", buddy.FirstName),
+            //new Claim(ClaimTypes.Role, "Administrator"),
+            new Claim(ClaimTypes.NameIdentifier, res.Id),
+            new Claim("BuddyID",buddy.Id.ToString()),
+            new Claim("BuddyImage",buddy.Image.ToString()),
+
+        };
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            return claims;
+        }
+
+
 
         public static string GenerateJWT(List<Claim> claims)
         {
@@ -101,7 +127,7 @@ namespace HookaTimes.BLL.Utilities
         {
             var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
             var request = new RestRequest(Method.POST);
-            request.AddHeader("api-key", "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");
+            request.AddHeader("api-key", "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");
             request.AddHeader("content-type", "application/json");
             request.AddHeader("Accept", "application/json");
             request.AddParameter("undefined",
@@ -115,6 +141,19 @@ namespace HookaTimes.BLL.Utilities
 
             IRestResponse response = await client.ExecuteAsync(request);
             return response.IsSuccessful;
+        }
+
+        public static string GetClaimValue(HttpContext httpContext, string valueType)
+        {
+            if (string.IsNullOrEmpty(valueType)) return null;
+
+            var identity = httpContext.User.Identity as ClaimsIdentity;
+            if (identity.IsAuthenticated)
+            {
+                var valueObj = identity == null ? null : identity.Claims.FirstOrDefault(x => x.Type == valueType);
+                return valueObj == null ? null : valueObj.Value;
+            }
+            return null;
         }
 
         public static string ImageTypes = ".jpg,.bmp,.PNG,.EPS,.gif,.TIFF,.tif,.jfif";

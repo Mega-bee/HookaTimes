@@ -1,0 +1,58 @@
+﻿@model CartSummary_VM
+
+
+<div class="dropcart__products-list">
+    @foreach (var item in Model.Items)
+    {
+        <div class="dropcart__product">
+            <div class="product-image dropcart__product-image">
+                <a href="product.html" class="product-image__body">
+                    <img class="product-image__img cart-product-img" src="@item.ProductImage" alt="">
+                </a>
+            </div>
+            <div class="dropcart__product-info">
+                <div class="dropcart__product-name"><a href="product.html" class="category-name">@item.CategoryName</a></div>
+                <ul class="dropcart__product-options">
+                    <li class="prod-name">@item.ProductName</li>
+                    @*                                                                    <li>Material: Aluminium</li>
+                *@
+                </ul>
+                <div class="dropcart__product-meta">
+                    <span class="dropcart__product-quantity">@item.Quantity</span> ×
+                    <span class="dropcart__product-price">@item.ProductPrice AED</span>
+                </div>
+            </div>
+            <button data-productId="@item.ItemId" type="button" class="remove-product-dropcart dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                <svg data-productId="@item.ItemId" width="10px" height="10px" class="remove-product-dropcart">
+                    <use data-productId="@item.ItemId" class="remove-product-dropcart" xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                </svg>
+            </button>
+        </div>
+    }
+
+
+</div>
+<div class="dropcart__totals">
+    <table>
+        @*       <tr>
+        <th>Subtotal</th>
+        <td>450 AED</td>
+        </tr>
+        <tr>
+        <th>Delivery</th>
+        <td>10 AED</td>
+        </tr>*@
+        @* <tr>
+        <th>Tax</th>
+        <td>$0.00</td>
+        </tr>*@
+        <tr>
+            <th>Total</th>
+            <td id="dropcart-total-value">@Model.TotalPrice AED</td>
+        </tr>
+    </table>
+</div>
+<div class="dropcart__buttons">
+    <a class="btn btn-secondary" asp-controller="Cart" asp-action="Index">View Cart</a>
+    <a class="btn btn-primary" asp-controller="Checkout" asp-action="Index">Checkout</a>
+</div>

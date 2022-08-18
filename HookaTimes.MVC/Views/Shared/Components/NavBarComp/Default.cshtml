@@ -1,0 +1,324 @@
+﻿@using HookaTimes.DAL.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager;
+@if (!SignInManager.IsSignedIn(User))
+{
+    @model EmailSignInMVC_VM
+}
+@{
+    var buddy = (NavBuddy_VM)ViewBag.Buddy;
+    var cart = (CartSummary_VM)ViewBag.CartSummary;
+}
+<style>
+    .h-menu {
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navigation-center-items {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex: 0 0 auto;
+    }
+
+    .contact-button:hover {
+        color: #000 !important;
+    }
+
+
+
+    .navigation-item {
+        margin-right: 1.2em;
+        margin-left: 1.2em;
+        padding: 1em 1.2em;
+        font-size: 0.94em;
+        line-height: 1.22;
+        font-weight: 500;
+    }
+
+        .navigation-item.w--current {
+            padding-bottom: 0.15em;
+            border-bottom: 0.2em solid #fdcf51;
+        }
+
+    .navigation-item_text {
+        margin-right: -1.2em;
+        margin-left: -1.2em;
+        color: #000;
+    }
+
+    .contact-button {
+        border-color: #fdcf51;
+        margin-right: 3em;
+        padding: 0.8em;
+        background-color: #fdcf51;
+        -webkit-transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+        transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .button-text {
+        font-size: 0.94em;
+    }
+
+    .nav-panel__indicators {
+        align-items: center;
+    }
+
+</style>
+
+<div class="dropcart__product" style="display:none">
+    <div class="product-image dropcart__product-image">
+        <a href="product.html" class="product-image__body">
+            <img class="product-image__img cart-product-img" src="" alt="">
+        </a>
+    </div>
+    <div class="dropcart__product-info">
+        <div class="dropcart__product-name"><a href="product.html"></a></div>
+        <ul class="dropcart__product-options">
+            <li></li>
+            @*                                                                    <li>Material: Aluminium</li>
+            *@
+        </ul>
+        <div class="dropcart__product-meta">
+            <span class="dropcart__product-quantity"></span> ×
+            <span class="dropcart__product-price"> </span>
+        </div>
+    </div>
+    <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+        <svg width="10px" height="10px">
+            <use xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+        </svg>
+    </button>
+</div>
+
+<div class="site-header__nav-panel">
+    <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
+    <div class="nav-panel nav-panel--sticky" data-sticky-mode="pullToShow">
+        <div class="nav-panel__container container">
+            <div class="nav-panel__row">
+                <div class="nav-panel__logo">
+                    <a href="/">
+                        <!-- logo -->
+                        <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
+                        <!-- logo / end -->
+                    </a>
+                </div>
+                <!-- .nav-links -->
+                <div class="h-menu">
+                    <nav role="navigation" class="navigation-center-items w-nav-menu">
+
+                        <a href="/" aria-current="page" class="navigation-item w-inline-block w--current LinkHome MenuLink">
+                            <div class="navigation-item_text">Home</div>
+                        </a>
+                        <a asp-action="HookaProducts" asp-controller="home" class="navigation-item w-inline-block MenuLink LinkProducts">
+                            <div class="navigation-item_text">Products</div>
+                        </a>
+                        <a asp-action="hookaplaces" asp-controller="home" class="navigation-item w-inline-block LinkHookaPlaces MenuLink">
+                            <div class="navigation-item_text">Hooka Places</div>
+                        </a>
+                        <a asp-action="BecomePartner" asp-controller="home" class="navigation-item w-inline-block LinkBecameAPartner MenuLink">
+                            <div class="navigation-item_text">Become a Partner</div>
+                        </a>
+                        <a asp-action="Careers" asp-controller="home" class="navigation-item w-inline-block LinkCareers MenuLink">
+                            <div class="navigation-item_text">Careers</div>
+                        </a>
+
+                    </nav>
+                </div>
+
+
+                <!-- .nav-links / end -->
+                <div class="nav-panel__indicators">
+
+                    <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
+
+                    <div class="indicator">
+                        <a asp-controller="Wishlist" asp-action="Index" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#heart-20"></use>
+                                </svg>
+                                <span class="indicator__value wishlist-indicator-value">@ViewBag.WishlistCount</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="indicator indicator--trigger--click" id="navbar-cart-container">
+                        <a asp-controller="Cart" asp-action="Index" id="cart-indicator-btn" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#cart-20"></use>
+                                </svg>
+                                <span class="indicator__value cart-indicator-value">@cart.Items.Count</span>
+                            </span>
+                        </a>
+                        <div class="indicator__dropdown">
+                            <!-- .dropcart -->
+                            <div class="dropcart dropcart--style--dropdown">
+                             
+                             
+                                    <div class="dropcart__body">
+                                        @if (cart.Items.Count == 0)
+                                        {
+                                            <div class="block-empty__body">
+                                                <div class="block-empty__message">Your shopping cart is empty!</div>
+                                                <div class="block-empty__actions">
+                                                    <a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="HookaProducts">View Products</a>
+                                                </div>
+                                            </div>
+                                        } else {
+                                        <div class="dropcart__products-list">
+                                            @foreach (var item in cart.Items)
+                                            {
+                                                <div class="dropcart__product">
+                                                    <div class="product-image dropcart__product-image">
+                                                        <a href="product.html" class="product-image__body">
+                                                            <img class="product-image__img cart-product-img" src="@item.ProductImage" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="dropcart__product-info">
+                                                        <div class="dropcart__product-name"><a href="product.html" class="category-name">@item.CategoryName</a></div>
+                                                        <ul class="dropcart__product-options">
+                                                            <li class="prod-name">@item.ProductName</li>
+                                                            @*                                                                    <li>Material: Aluminium</li>
+                                                    *@
+                                                        </ul>
+                                                        <div class="dropcart__product-meta">
+                                                            <span class="dropcart__product-quantity">@item.Quantity</span> ×
+                                                            <span class="dropcart__product-price">@item.ProductPrice AED</span>
+                                                        </div>
+                                                    </div>
+                                                    <button data-productId="@item.ItemId" type="button" class="remove-product-dropcart dropcart__product-remove btn btn-light btn-sm btn-svg-icon">
+                                                        <svg data-productId="@item.ItemId" class="remove-product-dropcart" width="10px" height="10px">
+                                                            <use data-productId="@item.ItemId" class="remove-product-dropcart" xlink:href="/FrontendAssets/images/sprite.svg#cross-10"></use>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                        <div class="dropcart__totals">
+                                            <table>
+                                                @*       <tr>
+                                            <th>Subtotal</th>
+                                            <td>450 AED</td>
+                                            </tr>
+                                            <tr>
+                                            <th>Delivery</th>
+                                            <td>10 AED</td>
+                                            </tr>*@
+                                                @* <tr>
+                                            <th>Tax</th>
+                                            <td>$0.00</td>
+                                            </tr>*@
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <td id="dropcart-total-value">@cart.TotalPrice AED</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="dropcart__buttons">
+                                            <a class="btn btn-secondary" asp-controller="Cart" asp-action="Index">View Cart</a>
+                                            <a class="btn btn-primary" asp-controller="Checkout" asp-action="Index">Checkout</a>
+                                        </div>
+                                        }
+                             
+                                    </div>
+                                
+
+                            </div>
+                            <!-- .dropcart / end -->
+                        </div>
+                    </div>
+                    <div class="indicator indicator--trigger--click">
+                        <a href="account-login.html" class="indicator__button">
+                            <span class="indicator__area">
+                                <svg width="20px" height="20px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#person-20"></use>
+                                </svg>
+                            </span>
+                        </a>
+                        <div class="indicator__dropdown">
+                            <div class="account-menu">
+                                @if (!SignInManager.IsSignedIn(User))
+                                {
+                                    <form class="account-menu__form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+                                        <div class="account-menu__form-title">Log In to Your Account</div>
+                                        <div class="form-group">
+                                            <label for="header-signin-email" asp-for="Email" class="sr-only">Email address</label>
+                                            <input id="header-signin-email" type="email" asp-for="Email" class="form-control form-control-sm" placeholder="Email address">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="header-signin-password" asp-for="Password" class="sr-only">Password</label>
+                                            <div class="account-menu__form-forgot">
+                                                <input asp-for="Password" id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                                                <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group account-menu__form-button">
+                                            <button type="submit" id="btnLogin" class="btn btn-primary btn-sm">Login</button>
+                                        </div>
+                                        <div class="account-menu__form-link"><a asp-controller="Account" asp-action="SignUp">Create An Account</a></div>
+                                    </form>
+                                }
+
+
+                                else
+                                {
+
+
+                                    <div class="account-menu__divider"></div>
+                                    <a href="account-dashboard.html" class="account-menu__user">
+                                        <div class="account-menu__user-avatar">
+                                            @*<img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">*@
+                                            <img src="@buddy.Image" alt="">
+                                        </div>
+                                        <div class="account-menu__user-info">
+                                            <div class="account-menu__user-name">@buddy.FirstName</div>
+                                            <div class="account-menu__user-email">@buddy.Email</div>
+                                        </div>
+                                    </a>
+                                    <div class="account-menu__divider"></div>
+                                    <ul class="account-menu__links">
+                                        <li><a asp-controller="Account" asp-action="EditProfile">Edit Profile</a></li>
+                                        <li><a asp-controller="Account" asp-action="Invitations">Invitations</a></li>
+                                        <li><a asp-controller="Account" asp-action="Favorites">Favorites</a></li>
+                                        <li><a asp-controller="Account" asp-action="OrderHistory">Order History</a></li>
+                                        @*<li><a asp-controller="Account" asp-action="Addresses">Addresses</a></li>*@
+                                        <li><a asp-controller="Account" asp-action="Password">Password</a></li>
+
+                                    </ul>
+                                    <div class="account-menu__divider"></div>
+                                    <form id="logoutForm" method="post" asp-controller="Account" asp-action="Logout">
+                                        <ul class="account-menu__links">
+                                            <li style="cursor:pointer"><a id="logoutbtn">Logout</a></li>
+                                        </ul>
+
+                                    </form>
+                                    @* <ul class="account-menu__links">
+                                <li><a>Logout</a></li>
+                                </ul>*@
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+   
+}

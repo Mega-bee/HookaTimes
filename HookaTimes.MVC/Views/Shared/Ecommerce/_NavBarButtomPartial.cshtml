@@ -1,63 +1,78 @@
-﻿<style>
+﻿@using HookaTimes.DAL.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager;
+@model EmailSignInMVC_VM
+@{
+
+    string UserImage = "";
+    string UserName = "";
+    string UserEmail = "";
+    if (SignInManager.IsSignedIn(User))
+    {
+        UserImage = User.Claims.Where(x => x.Type == "BuddyImage").FirstOrDefault()!.Value.ToString();
+        UserName = User.Claims.Where(x => x.Type == "BuddyName").FirstOrDefault()!.Value.ToString();
+        UserEmail = User.Claims.Where(x => x.Type == "nameidentifier").FirstOrDefault()!.Value.ToString();
+    }
+}
+<style>
     .h-menu {
-    z-index: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .navigation-center-items {
-    display: flex;
-     justify-content: center;
-    align-items: flex-start;
-    flex: 0 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex: 0 0 auto;
     }
 
-    .contact-button:hover{
-        color:#000 !important;
+    .contact-button:hover {
+        color: #000 !important;
     }
 
-    
+
 
     .navigation-item {
-    margin-right: 1.2em;
-    margin-left: 1.2em;
-    padding: 1em 1.2em;
-    font-size: 0.94em;
-    line-height: 1.22;
-    font-weight: 500;
+        margin-right: 1.2em;
+        margin-left: 1.2em;
+        padding: 1em 1.2em;
+        font-size: 0.94em;
+        line-height: 1.22;
+        font-weight: 500;
     }
 
-    .navigation-item.w--current {
-    padding-bottom: 0.15em;
-    border-bottom: 0.2em solid #fdcf51;
-    }
+        .navigation-item.w--current {
+            padding-bottom: 0.15em;
+            border-bottom: 0.2em solid #fdcf51;
+        }
 
     .navigation-item_text {
-    margin-right: -1.2em;
-    margin-left: -1.2em;
-    color: #000;
+        margin-right: -1.2em;
+        margin-left: -1.2em;
+        color: #000;
     }
 
     .contact-button {
-            border-color: #fdcf51;
+        border-color: #fdcf51;
+        margin-right: 3em;
+        padding: 0.8em;
+        background-color: #fdcf51;
+        -webkit-transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+        transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
+        color: #000;
+        text-decoration: none;
+    }
 
-        margin-right:3em;
-   padding: 0.8em;
-    background-color: #fdcf51;
-    -webkit-transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
-    transition: background-color 400ms ease, opacity 400ms ease, color 400ms ease;
-    color: #000;
-    text-decoration: none;
-}
-.button-text {
-    font-size: 0.94em;
-}
-.nav-panel__indicators {
+    .button-text {
+        font-size: 0.94em;
+    }
 
-
-    align-items: center;
-}
+    .nav-panel__indicators {
+        align-items: center;
+    }
 
 </style>
 
@@ -85,7 +100,7 @@
                         <a asp-action="hookaplaces" asp-controller="home" class="navigation-item w-inline-block">
                             <div class="navigation-item_text">Hooka Places</div>
                         </a>
-                        <a  asp-action="BecomePartner" asp-controller="home" class="navigation-item w-inline-block">
+                        <a asp-action="BecomePartner" asp-controller="home" class="navigation-item w-inline-block">
                             <div class="navigation-item_text">Become a Partner</div>
                         </a>
                         <a asp-action="Careers" asp-controller="home" class="navigation-item w-inline-block">
@@ -175,7 +190,7 @@
                     </div>
                     </div>
                     </div> *@
-                     <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
+                    <a asp-controller="Home" asp-action="HookaBuddies" class="contact-button w-inline-block"><div class="button-text">Hooka Buddy</div></a>
 
                     <div class="indicator">
                         <a asp-controller="home" asp-action="WishList" class="indicator__button">
@@ -298,7 +313,7 @@
                                         </table>
                                     </div>
                                     <div class="dropcart__buttons">
-                                        <a class="btn btn-secondary" asp-controller="home" asp-action="Cart">View Cart</a>
+                                        <a class="btn btn-secondary" asp-controller="Cart" asp-action="Index">View Cart</a>
                                         <a class="btn btn-primary" asp-controller="home" asp-action="Checkout">Checkout</a>
                                     </div>
                                 </div>
@@ -316,46 +331,64 @@
                         </a>
                         <div class="indicator__dropdown">
                             <div class="account-menu">
-                                <form class="account-menu__form">
-                                    <div class="account-menu__form-title">Log In to Your Account</div>
-                                    <div class="form-group">
-                                        <label for="header-signin-email" class="sr-only">Email address</label>
-                                        <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="header-signin-password" class="sr-only">Password</label>
-                                        <div class="account-menu__form-forgot">
-                                            <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
-                                            <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                                @if (!SignInManager.IsSignedIn(User))
+                                {
+                                    <form class="account-menu__form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+                                        <div class="account-menu__form-title">Log In to Your Account</div>
+                                        <div class="form-group">
+                                            <label for="header-signin-email" asp-for="Email" class="sr-only">Email address</label>
+                                            <input id="header-signin-email" type="email" asp-for="Email" class="form-control form-control-sm" placeholder="Email address">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+
                                         </div>
-                                    </div>
-                                    <div class="form-group account-menu__form-button">
-                                        <button type="submit" class="btn btn-primary btn-sm">Login</button>
-                                    </div>
-                                    <div class="account-menu__form-link"><a asp-controller="Home" asp-action="Login">Create An Account</a></div>
-                                </form>
-                                <div class="account-menu__divider"></div>
-                                <a href="account-dashboard.html" class="account-menu__user">
-                                    <div class="account-menu__user-avatar">
-                                        <img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">
-                                    </div>
-                                    <div class="account-menu__user-info">
-                                        <div class="account-menu__user-name">Badih</div>
-                                        <div class="account-menu__user-email">HookaTimes@gcel.come</div>
-                                    </div>
-                                </a>
-                                <div class="account-menu__divider"></div>
-                                <ul class="account-menu__links">
-                                    <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
-                                    <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
-                                    <li><a asp-controller="Home" asp-action="Addresses">Addresses</a></li>
-                                    <li><a asp-controller="Home" asp-action="Password">Password</a></li>
-                                </ul>
-                                <div class="account-menu__divider"></div>
-                                <ul class="account-menu__links">
-                                    <li><a asp-controller="Home" asp-action="Login">Logout</a></li>
-                                </ul>
+                                        <div class="form-group">
+                                            <label for="header-signin-password" asp-for="Password" class="sr-only">Password</label>
+                                            <div class="account-menu__form-forgot">
+                                                <input asp-for="Password" id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                                                <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group account-menu__form-button">
+                                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                                        </div>
+                                        <div class="account-menu__form-link"><a asp-controller="Account" asp-action="Login">Create An Account</a></div>
+                                    </form>
+                                }
+
+
+                                else
+                                {
+
+
+                                    <div class="account-menu__divider"></div>
+                                    <a href="account-dashboard.html" class="account-menu__user">
+                                        <div class="account-menu__user-avatar">
+                                            @*<img src="~/FrontendAssets/images/avatars/avatar-3.jpg" alt="">*@
+                                            <img src="~@UserImage" alt="">
+                                        </div>
+                                        <div class="account-menu__user-info">
+                                            <div class="account-menu__user-name">@UserName</div>
+                                            <div class="account-menu__user-email">@UserEmail</div>
+                                        </div>
+                                    </a>
+                                    <div class="account-menu__divider"></div>
+                                    <ul class="account-menu__links">
+                                        <li><a asp-controller="Home" asp-action="EditProfile">Edit Profile</a></li>
+                                        <li><a asp-controller="Home" asp-action="OrderHistory">Order History</a></li>
+                                        <li><a asp-controller="Home" asp-action="Addresses">Addresses</a></li>
+                                        <li><a asp-controller="Home" asp-action="Password">Password</a></li>
+                                    </ul>
+                                    <div class="account-menu__divider"></div>
+
+                                    <ul class="account-menu__links">
+                                        <li><a asp-controller="Account" asp-action="LogOut">Logout</a></li>
+                                    </ul>
+                                }
                             </div>
+
                         </div>
                     </div>
                 </div>

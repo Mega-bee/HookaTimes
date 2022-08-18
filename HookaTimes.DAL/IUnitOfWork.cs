@@ -1,4 +1,5 @@
 ﻿using HookaTimes.DAL.Services;
+using System.Threading.Tasks;
 
 namespace HookaTimes.DAL
 {
@@ -17,7 +18,19 @@ namespace HookaTimes.DAL
         IPlaceOfferRepository PlaceOfferRepository { get; }
 
         IOfferTypeRepository OfferTypeRepository { get; }
-
+        IProductRepository ProductRepository { get; }
+        IProductCategoryRepository ProductCategoryRepository { get; }
+        ICartRepository CartRepository { get; }
+        IBuddyProfileAddressRepository BuddyProfileAddressRepository { get; }
+        IBuddyProfileEducationRepository BuddyProfileEducationRepository { get; }
+        IBuddyProfileExperienceRepository BuddyProfileExperienceRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        IOrderItemRepository OrderItemRepository { get; }
+        ICuisineRepository CuisineRepository { get; }
+        IVirtualCartRepository VirtualCartRepository { get; }
+        IVirtualWishListRepository VirtualWishlistRepository { get; }
+        IWishlistRepository WishlistRepository { get; }
         void Save();
+        Task SaveAsync();
     }
 }

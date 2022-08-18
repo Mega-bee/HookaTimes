@@ -11,6 +11,7 @@ namespace HookaTimes.BLL.ViewModels
         public string Cuisine { get; set; }
         public float Rating { get; set; }
         public string Name { get; set; }
+        public bool IsInFavorite { get; set; }
     }
 
     public partial class HookaPlaceInfo_VM
@@ -20,6 +21,8 @@ namespace HookaTimes.BLL.ViewModels
         public string Image { get; set; }
         public float Rating { get; set; }
         public string Location { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
         public string Cuisine { get; set; }
         public string OpeningFrom { get; set; }
         public string OpeningTo { get; set; }
@@ -41,6 +44,7 @@ namespace HookaTimes.BLL.ViewModels
     public partial class HookaPlaceReview_VM
     {
         public int Id { get; set; }
+        public string Image { get; set; }
         public string Name { get; set; }
         public DateTime? CreatedDate { get; set; }
         public float Rating { get; set; }
@@ -52,6 +56,8 @@ namespace HookaTimes.BLL.ViewModels
         public int Id { get; set; }
         public string Image { get; set; }
     }
+
+  
 
 
 }
