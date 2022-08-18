@@ -201,6 +201,21 @@ svg {
   display: block;
 }
 
+.product-card__buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 24px; */
+    padding: 15px;
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    left: auto;
+    right: 0%;
+    align-items: flex-end;
+}
+
 a {
   color: #1a66ff;
 }
@@ -218,6 +233,10 @@ h1 {
   font-size: 36px;
   font-weight: 700;
 }
+.product-image__img {
+    height: 100% !important;
+}
+
 
 h2 {
   font-size: 32px;

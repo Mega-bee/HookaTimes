@@ -91,6 +91,14 @@
         text-decoration: none;
     }
 
+    @@media (hover: hover){
+.products-list[data-layout=grid-3-sidebar] .product-card--hidden-actions:hover, .products-list[data-layout=grid-4-full] .product-card--hidden-actions:hover {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 0px;
+}
+    }
+
 </style>
 
 <div class="site__body">

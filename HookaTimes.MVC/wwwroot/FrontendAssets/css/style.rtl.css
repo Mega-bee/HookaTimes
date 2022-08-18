@@ -191,12 +191,30 @@ body {
   direction: rtl;
 }
 
+.product-card__buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 24px; */
+    padding: 15px;
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    left: auto;
+    right: 0%;
+    align-items: flex-end;
+}
+
 svg {
   display: block;
 }
 
 a {
   color: #1a66ff;
+}
+.product-image__img {
+    height: 100% !important;
 }
 
 a:hover {
