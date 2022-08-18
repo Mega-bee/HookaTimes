@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager;
 
 @model HookaPlaces_VM
-<div class="block-products__list-item">
+<div onclick='window.location.href="/Places/Place/@Model.Id"' class="block-products__list-item">
     <div class="product-card product-card--hidden-actions custom-hooka-card">
         <div class="product-card__buttons custom-hooka-card-buttons">
             <div class="rate-card_wrap">
@@ -11,7 +11,7 @@
             </div>
             @if (SignInManager.IsSignedIn(User)) {
                 <button data-placeId="@Model.Id" style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist add-to-favorite-btn" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 27.954 25.959">
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 27.954 25.959">
                         <path class="favorite-icon " id="Path_28" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="@(Model.IsInFavorite ? "red" : "none")" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd" />
                     </svg>
                 </button>
