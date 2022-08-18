@@ -112,6 +112,7 @@ namespace HookaTimes.MVC.Controllers
 
                 await _signInManager.SignInAsync(newUser, isPersistent: true);
 
+                _notyf.Success("Welcome to HookaTimes!", 6);
                 return RedirectToAction("Index", "Home");
                 // return LocalRedirect(returnurl);
 

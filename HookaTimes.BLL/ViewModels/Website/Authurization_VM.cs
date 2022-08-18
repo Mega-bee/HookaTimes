@@ -31,9 +31,11 @@ namespace HookaTimes.BLL.ViewModels.Website
 
         public string LastName { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
-        [Required]
-
+        [StringLength(12, MinimumLength = 8)]
+        [Required(ErrorMessage = "Phone Number Required!")]
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Not a valid phone number")]
         public string PhoneNumber { get; set; }
     }
 

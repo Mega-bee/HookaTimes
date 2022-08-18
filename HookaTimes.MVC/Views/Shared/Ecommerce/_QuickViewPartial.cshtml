@@ -252,13 +252,11 @@
                                 {
 
 
-                                    <div class="checkbox checkbox-field">
-                                        <input type="radio"
-                                           value="@opt.Id"
-                                           name="grp1"
-                                            />
-                                        <label class="radio">@opt.Title</label>
-                                    </div>
+                                        <select  class="form-control form-control-lg form-control-select2">
+                                            <option>Select an Option</option>
+                                            <option value="@opt.Id" >@opt.Title</option>
+                                           
+                                        </select>
                                 }
                             </div>
 
