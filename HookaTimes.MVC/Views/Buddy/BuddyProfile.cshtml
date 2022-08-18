@@ -5,6 +5,33 @@
 }
 @model Profile_VM
 <style>
+
+    .table-responsive-sm {
+    padding: 2em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    flex-wrap: wrap;
+    grid-column-gap:1em;
+    grid-row-gap:1em;
+}
+
+
+.address-card__row.is--30{
+    width:30%;
+    margin-bottom: 0em;
+
+}
+.address-card__row{
+    width:100%;
+     margin-bottom: 1em;
+
+}
+
+.address-card__row + .address-card__row {
+    margin-top: 0em;
+}
+
     .widget-aboutus__socials {
         margin-top: 0px;
     }
@@ -35,6 +62,46 @@
         color: #3d464d;
         fill: #3d464d;
     }
+
+    @@media (min-width: 992px){
+      .col-lg-9 {
+        flex: auto; 
+        max-width: 100%;
+}}
+@@media (min-width: 768px){
+.dashboard__profile, .dashboard__address {
+    width: 32%;
+}}
+
+.dashboard {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: start;
+    grid-column-gap: 0.9em;
+    grid-row-gap: 1em;
+}
+
+.dashboard__orders {
+    margin-top: 0px;
+    width: 65%;
+}
+
+.dashboard-name{
+    font-weight:500;
+    font-size:1.4em;
+    line-height:1.3;
+    margin-top:3em;
+    margin-bottom:1em;}
+
+.social-links--shape--rounded .social-links__link {
+    border-radius: 17px;
+}
+
 </style>
 
 
@@ -120,7 +187,7 @@
                                         ></a>
                                         </li>*@
                                         <li class="social-links__item">
-                                            <a class="social-links__link social-links__link--type--facebook"
+                                            <a class="social-links--shape--circle social-links__link social-links__link--type--facebook"
                                                href="@(Model.SocialMediaLink1??"")"
                                                target="_blank">
                                                 <i class="fab fa-facebook"></i>
@@ -128,14 +195,14 @@
                                         </li>
 
                                         <li class="social-links__item">
-                                            <a class="social-links__link social-links__link--type--instagram"
+                                            <a class="social-links--shape--circle social-links__link social-links__link--type--instagram"
                                                href="@(Model.SocialMediaLink2??"")"
                                                target="_blank">
                                                 <i class="fab fa-instagram"></i>
                                             </a>
                                         </li>
                                         <li class="social-links__item">
-                                            <a class="social-links__link social-links__link--type--twitter"
+                                            <a class="social-links--shape--circle social-links__link social-links__link--type--twitter"
                                                href="@(Model.SocialMediaLink3??"")"
                                                target="_blank">
                                                 <i class="fab fa-twitter"></i>
@@ -146,6 +213,128 @@
                                 </div>
                             </div>
                         </div>
+                                           <div class="dashboard__orders card">
+                        <div class="card-header"><h5>More Info</h5></div>
+                        <div class="card-divider"></div>
+                        <div class="card-table">
+                            <div class="table-responsive-sm">
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                       Date of birth
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.BirthDate!.Value.ToString("dd MMMM yyyy")??"")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                       Gender
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @Model.Gender
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Maritial Staus
+                                    </div>
+                                    <div class="address-card__row-content">
+        
+                                        @(Model.MaritalStatus ?? "")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Height
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(String.Format("{0:0.#}", Model.Height)??"")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Weight
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(String.Format("{0:0.#}", Model.Weight)??"") 
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        BodyType
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.BodyType ?? "")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Eyes
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Eyes ?? "")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Hair
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Hair ?? "")
+                                    </div>
+                                </div>
+
+                               
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Profession
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Profession??"")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Interests
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Interests??"")
+                                    </div>
+                                </div>
+                                <div class="address-card__row is--30">
+                                    <div class="address-card__row-title">
+                                        Hobbies
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Hobbies??"")
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    </div>
+
+                    <div class="dashboard-name"> Addresses</div>
+
+                    <div class="dashboard">
                         @if (Model.Addresses.Count>0)
                         {
                            
@@ -205,7 +394,11 @@
                             }
                         }
 
+                    </div>
 
+                    <div class="dashboard-name"> Education</div>
+
+                    <div class="dashboard">
 
                         @if (Model.Education.Count > 0)
                         {
@@ -249,10 +442,7 @@
                             }
                         }
 
-
-
-
-                        @if (Model.Experience.Count > 0)
+                                                @if (Model.Experience.Count > 0)
                         {
 
                             foreach (var exp in Model.Experience)
@@ -297,121 +487,62 @@
 
 
 
+
+
+
                     </div>
-                    <div class="dashboard__orders card">
-                        <div class="card-header"><h5>More Info</h5></div>
-                        <div class="card-divider"></div>
-                        <div class="card-table">
-                            <div class="table-responsive-sm">
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                       Date of birth
+
+                     <div class="dashboard-name"> Experience </div>
+
+                     <div class="dashboard">
+
+                       @if (Model.Experience.Count > 0)
+
+                        {
+
+                            foreach (var exp in Model.Experience)
+                            {
+                                <div class="dashboard__address card address-card address-card--featured">
+                                    <div class="address-card__badge">
+                                        @(++Count)
                                     </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.BirthDate!.Value.ToString("dd MMMM yyyy")??"")
+                                    <div class="address-card__body">
+                                        <div class="address-card__name">
+                                            @(exp.Position ?? "")
+                                        </div>
+                                        @* <div class="address-card__row">
+                                Random Federation<br />115302, Moscow<br />ul.
+                                Varshavskaya, 15-2-178
+                                </div>*@
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                City
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(exp.Place ?? "")
+                                            </div>
+                                        </div>
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                Duration
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @("From " + (exp.WorkedFrom ?? "") + " To " + (exp.WorkedTo ?? ""))
+
+                                            </div>
+                                        </div>
+
+                                       
+
                                     </div>
                                 </div>
 
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                       Gender
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @Model.Gender
-                                    </div>
-                                </div>
+                            }
+                        }
 
 
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Maritial Staus
-                                    </div>
-                                    <div class="address-card__row-content">
-        
-                                        @(Model.MaritalStatus ?? "")
-                                    </div>
-                                </div>
-
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Height
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(String.Format("{0:0.#}", Model.Height)??"")
-                                    </div>
-                                </div>
-
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Weight
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(String.Format("{0:0.#}", Model.Weight)??"") 
-                                    </div>
-                                </div>
-
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        BodyType
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.BodyType ?? "")
-                                    </div>
-                                </div>
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Eyes
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.Eyes ?? "")
-                                    </div>
-                                </div>
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Hair
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.Hair ?? "")
-                                    </div>
-                                </div>
-
-                               
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Profession
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.Profession??"")
-                                    </div>
-                                </div>
-
-
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Interests
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.Interests??"")
-                                    </div>
-                                </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">
-                                        Hobbies
-                                    </div>
-                                    <div class="address-card__row-content">
-                                        @(Model.Hobbies??"")
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
