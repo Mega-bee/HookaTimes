@@ -13,8 +13,13 @@
             itemCountContainer.textContent = elementsCount - 1
             let navPanel = document.querySelector(".nav-panel");
             navPanel.classList.add("nav-panel--stuck", "nav-panel--show")
+            let cartDropdownContainer = document.querySelector('#navbar-cart-container')
+            
             let cartDropdownIcon = document.querySelector("#navbar-cart-container .indicator__button")
-            cartDropdownIcon.click()
+            if (!cartDropdownContainer.classList.contains("indicator--open")) {
+                cartDropdownIcon.click()
+            }
+          
         },
         fail: function (err) {
             console.log(err)

@@ -2,15 +2,15 @@
     ViewData["Title"] = "Place";
 }
 
-@model HookaPlaceInfo_VM
+@model PlacePage_VM
 
 <style>
 
     .product-tabs__content {
-    border: 2px solid #f0f0f0;
-    border-radius: 2px;
-    padding: 40px 40px;
-}
+        border: 2px solid #f0f0f0;
+        border-radius: 2px;
+        padding: 40px 40px;
+    }
 
     .name-container {
         justify-content: space-between;
@@ -89,7 +89,7 @@
     }
 
     /*images
-                    */
+                            */
 
     .hYfAqb {
         position: relative;
@@ -386,43 +386,42 @@
         margin-left: 0.5rem;
         user-select: none;
     }
-  
+
     /*menu*/
-       
-  .menu-content-container{
-      width:100%;
-      height:100%;
-  }
 
-  .menu-content-flex{
-      width: 100%;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    grid-column-gap: 0.8em;
-    grid-row-gap: 0.8em;
+    .menu-content-container {
+        width: 100%;
+        height: 100%;
+    }
 
-  }
+    .menu-content-flex {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        grid-column-gap: 0.8em;
+        grid-row-gap: 0.8em;
+    }
 
-  .menu-item{
-      width:19.1%;
-      height:100%;
-      padding-top:23%;
-      position:relative;
-      border-radius: 0.6em;
-      overflow: hidden;
-  }
+    .menu-item {
+        width: 25%;
+        height: 100%;
+        padding-top: 23%;
+        position: relative;
+        border-radius: 0.6em;
+        overflow: hidden;
+    }
 
-  .menu-photo{
-      width:100%;
-      height:100%;
-      position: absolute;
-      top:0%;
-      bottom:0%;
-      right:0%;
-      left:0%;
-  }
+    .menu-photo {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        bottom: 0%;
+        right: 0%;
+        left: 0%;
+    }
 
     .angry-grid {
         display: grid;
@@ -488,7 +487,7 @@
                         </li>
 
                         <li class="breadcrumb-item active" aria-current="page">
-                            @Model.Name
+                            @Model.Place.Name
                         </li>
                     </ol>
                 </nav>
@@ -501,13 +500,13 @@
 
             <section class="sc-FQuPU hYfAqb">
                 <div class="angry-grid">
-                    @for (int i = 0; i < Model.Albums.Take(5).ToList().Count; i++)
+                    @for (int i = 0; i < Model.Place.Albums.Take(5).ToList().Count; i++)
                     {
                         <div id="item-@i">
-                            <a style="display:block" data-fslightbox href="@Model.Albums[i].Image">
+                            <a style="display:block" data-fslightbox href="@Model.Place.Albums[i].Image">
 
                                 <img alt="image"
-                                 src="@Model.Albums[i].Image"
+                                 src="@Model.Place.Albums[i].Image"
                                  loading="lazy"
                                  class="sc-s1isp7-5 eQUAyn" />
                             </a>
@@ -617,19 +616,19 @@
                 <div class="place__info">
                     <div class="name-container">
                         <div class="post-card__name">
-                            <a href="/home/Place">@Model.Name</a>
+                            <a asp-controller="Places" asp-action="Place" asp-route-id="@Model.Place.Id">@Model.Place.Name</a>
                         </div>
                         <div class="rate-card_wrap">
                             <div class="rate-number">4.2</div><img src="https://uploads-ssl.webflow.com/62d93fe56471ce4a6284ae8f/62da8798e440ccaf8af1e3d3_Path%2036.svg" loading="lazy" alt="" class="rate-icon">
                         </div>
 
                     </div>
-                    <div class="post-card__content is--cuisines">@Model.Cuisine</div>
-                    <div class="post-card__content is--location"> @Model.Location </div>
+                    <div class="post-card__content is--cuisines">@Model.Place.Cuisine</div>
+                    <div class="post-card__content is--location"> @Model.Place.Location </div>
                     <div class="sc-btzYZH gHFUNV">
                         @* <span class="sc-lhVmIH iYoYyT">Closed</span>
                         <span class="sc-bYSBpT jumulz style=">-</span>*@
-                        <span class="sc-bYSBpT jumulz">Opening Hours - [@Model.OpeningFrom - @Model.OpeningTo]</span>
+                        <span class="sc-bYSBpT jumulz">Opening Hours - [@Model.Place.OpeningFrom - @Model.Place.OpeningTo]</span>
                         @*                                        <span class="sc-bYSBpT jumulz">Opens to at 12:30pm</span>
                         *@
                     </div>
@@ -640,7 +639,7 @@
             <div class="sc-cAJUJo lmKBsT">
                 <section class="sc-gYtlsd bKkuLz">
 
-                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=@Model.Place.Longitude,@Model.Place.Latitude"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="sc-ileJJU dOANrt">
@@ -660,24 +659,26 @@
                             </i><span class="sc-eqPNPO QWWYz">Direction</span>
                         </div>
                     </a>
-                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="sc-ileJJU dOANrt">
-                        <div class="sc-eMRERa jMfkSj">
-                            <i class="sc-rbbb40-1 iFnyeo" size="16" color="#EF4F5F">
-                                <svg xmlns="http://www.w3.org/2000/svg"
+                    <a class="sc-ileJJU dOANrt add-to-favorite-btn"  data-placeId="@Model.Place.Id">
+                        <div class="sc-eMRERa jMfkSj"@* data-placeId="@Model.Place.Id"*@>
+                            <i class="sc-rbbb40-1 iFnyeo" data-isFav="@Model.Place.IsFavorite" id="fav-icon" size="16" color="#EF4F5F">
+                                @if(Model.Place.IsFavorite) {
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="#fdcf51" width="16" height="16" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" class="sc-rbbb40-0 kMNrPk "><title>bookmark-fill</title><path  d="M15.020 0.9h-10.020c-1.060 0-1.92 0.84-1.92 1.9v0 16.42c0 0.28 0.16 0.5 0.36 0.62v0c0.12 0.060 0.24 0.1 0.38 0.1s0.24-0.040 0.36-0.1v0l5.82-3.52 5.82 3.52c0.1 0.060 0.24 0.1 0.38 0.1v0c0 0 0 0 0 0 0.12 0 0.24-0.040 0.34-0.1v0c0.22-0.12 0.36-0.34 0.36-0.62v-16.46c-0.020-1.040-0.86-1.86-1.88-1.86v0z"></path></svg>
+                                } else {
+                                         <svg xmlns="http://www.w3.org/2000/svg"
                                      fill="#fdcf51"
                                      width="16" height="16"
                                      viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-"
                                      role="img" class="sc-rbbb40-0 kMNrPk">
-                                    <title>bookmark-add</title>
+                                    <title>favorite add</title>
                                     <path d="M12.38 7.8h-1.66v-1.68c0-0.26-0.22-0.46-0.48-0.46v0h-0.48c-0.26 0-0.48 0.2-0.48 0.46v0 1.68h-1.66c-0.26 0-0.48 0.2-0.48 0.48v0 0.46c0 0.28 0.22 0.48 0.48 0.48v0h1.66v1.68c0 0.26 0.22 0.46 0.48 0.46v0h0.48c0.26 0 0.48-0.2 0.48-0.46v0-1.68h1.66c0.26 0 0.48-0.2 0.48-0.48v0-0.46c0-0.28-0.22-0.48-0.48-0.48v0zM15.020 0.9h-10.020c-1.060 0-1.92 0.84-1.92 1.9v0 16.42c0 0.28 0.16 0.5 0.36 0.62v0c0.12 0.060 0.24 0.1 0.38 0.1s0.24-0.040 0.36-0.1v0l5.82-3.52 5.82 3.52c0.1 0.060 0.24 0.1 0.38 0.1v0c0 0 0 0 0 0 0.12 0 0.24-0.040 0.34-0.1v0c0.22-0.12 0.36-0.34 0.36-0.62v-16.46c-0.020-1.040-0.86-1.86-1.88-1.86v0zM15.48 17.96l-5.1-3.080c-0.12-0.060-0.24-0.1-0.38-0.1s-0.26 0.040-0.38 0.1v0l-5.1 3.080v-15.24c0.040-0.22 0.22-0.4 0.46-0.4 0 0 0 0 0.020 0v0h10.020c0 0 0 0 0 0 0.24 0 0.44 0.2 0.46 0.44v0z"></path>
                                 </svg>
+                                }
+                           
                             </i><span class="sc-eqPNPO QWWYz">Add Favorite</span>
                         </div>
                     </a>
-                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=33.9802790000,35.6266720000"
+                    <a href="#"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="sc-ileJJU dOANrt">
@@ -706,6 +707,8 @@
                                class="product-tabs__item product-tabs__item--active">Overview</a>
                             <a href="#tab-menus"
                                class="product-tabs__item">Menu</a>
+                               <a href="#tab-albums"
+                               class="product-tabs__item">Albums</a>
                             <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
                         </div>
                     </div>
@@ -715,68 +718,58 @@
                          id="tab-description">
                         <div class="typography">
                             <h3>About this place</h3>
-                            @Model.Description
+                            @Model.Place.Description
                         </div>
                     </div>
                     <div class="product-tabs__pane" id="tab-menus">
                         <div class="menu-content-container">
-                              <div class="menu-content-flex">
-                                     <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-                                     <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-                                     <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-                                     <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-                                     <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-                                      <div class="menu-item">
-            
-                                            <img
-                                                alt="Gallery Image"
-                                                src="https://b.zmtcdn.com/data/pictures/chains/0/16501000/282c950463d63e8316b231b238d9e7f1.png?fit=around%7C200%3A200&amp;crop=200%3A200%3B%2A%2C%2A"
-                                                loading="lazy"
-                                                class="menu-photo"
-                                            />
-                                     </div>
-      
-                             </div>
+                            <div class="menu-content-flex">
+                                @if (Model.Place.Menus.Count > 0)
+                                {
+                                    @foreach (var item in Model.Place.Menus)
+                                    {
+                                        <div class="menu-item">
+                                            <a style="display:block" data-fslightbox href="@item.Image">
+
+                                                <img alt="Gallery Image"
+                                             src="@item.Image"
+                                             loading="lazy"
+                                             class="menu-photo" />
+                                            </a>
+                                        </div>
+                                    }
+
+                                }
+
+                     
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="product-tabs__pane" id="tab-albums">
+                        <div class="menu-content-container">
+                            <div class="menu-content-flex">
+                                @if (Model.Place.Albums.Count > 0)
+                                {
+                                    @foreach (var item in Model.Place.Albums)
+                                    {
+                                        <div class="menu-item">
+                                            <a style="display:block" data-fslightbox href="@item.Image">
+
+                                                <img alt="Gallery Image"
+                                             src="@item.Image"
+                                             loading="lazy"
+                                             class="menu-photo" />
+                                            </a>
+                                        </div>
+                                    }
+
+                                }
+
+
+
+                            </div>
                         </div>
 
                     </div>
@@ -788,7 +781,7 @@
                                 </h3>
                                 <div class="reviews-list">
                                     <ol class="reviews-list__content">
-                                        @foreach (var item in Model.Reviews)
+                                        @foreach (var item in Model.Place.Reviews)
                                         {
                                             <li class="reviews-list__item">
                                                 <div class="review">
@@ -887,7 +880,7 @@
                                     </div>*@
                                 </div>
                             </div>
-                            <form class="reviews-view__form">
+                            <form data-placeId="@Model.Place.Id" class="reviews-view__form">
                                 <h3 class="reviews-view__header">
                                     Write A Review
                                 </h3>
@@ -895,7 +888,7 @@
                                     <div class="col-12 col-lg-9 col-xl-8">
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                                <label for="review-stars">Review Stars</label>
+                                                <label asp-for="Review.Rating" for="review-stars">Review Stars</label>
                                                 <select id="review-stars"
                                                         class="form-control">
                                                     <option value="5">
@@ -914,6 +907,8 @@
                                                         1 Stars Rating
                                                     </option>
                                                 </select>
+                                                <span asp-validation-for="Review.Rating" class="text-danger"></span>
+
                                             </div>
                                             @*        <div class="form-group col-md-4">
                                             <label for="review-author">Your Name</label>
@@ -931,14 +926,16 @@
                                             </div>*@
                                         </div>
                                         <div class="form-group">
-                                            <label for="review-text">Your Review</label>
-                                            <textarea class="form-control" name="review-text"
+                                            <label asp-for="Review.Description" for="review-text">Your Review</label>
+                                            <textarea class="form-control"  name="review-text"
                                                       id="review-text"
                                                       rows="6"></textarea>
+                                            <span id="validation-msg" asp-validation-for="Review.Description" class="text-danger"></span>
+
                                         </div>
                                         <div class="form-group mb-0">
-                                            <button type="submit"
-                                                    class="btn btn-primary btn-lg">
+                                            <button  type="submit"
+                                                    class="btn btn-primary btn-lg submit-review-btn">
                                                 Post Your Review
                                             </button>
                                         </div>
@@ -947,14 +944,16 @@
                             </form>
                         </div>
                     </div>
+                    </div>
+                  
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+
 
 @section Scripts {
     <script src="~/FrontendAssets/js/vendors/lightbox/fslightbox.js"></script>
-
+    <script src="~/FrontendAssets/js/submit-review.js"></script>
 }

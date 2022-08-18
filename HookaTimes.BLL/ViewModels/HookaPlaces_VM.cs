@@ -21,6 +21,8 @@ namespace HookaTimes.BLL.ViewModels
         public string Image { get; set; }
         public float Rating { get; set; }
         public string Location { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
         public string Cuisine { get; set; }
         public string OpeningFrom { get; set; }
         public string OpeningTo { get; set; }

@@ -84,6 +84,8 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
                 OpeningTo = p.OpenningTo,
+                 Latitude = p.Latitude,
+                  Longitude = p.Longitude
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
