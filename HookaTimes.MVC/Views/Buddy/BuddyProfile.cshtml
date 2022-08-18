@@ -212,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                                           <div class="dashboard__orders card">
+                        <div class="dashboard__orders card">
                         <div class="card-header"><h5>More Info</h5></div>
                         <div class="card-divider"></div>
                         <div class="card-table">
@@ -332,9 +332,8 @@
                     </div>
 
                     <div class="dashboard-name"> Addresses</div>
-
-                    <div class="dashboard">
-                        @if (Model.Addresses.Count>0)
+                     <div class="dashboard">
+                           @if (Model.Education.Count > 0)
                         {
 
                             foreach (var add in Model.Addresses)
@@ -347,10 +346,7 @@
                                         <div class="address-card__name">
                                             @(add.Title ?? "")
                                         </div>
-                                        @* <div class="address-card__row">
-                                Random Federation<br />115302, Moscow<br />ul.
-                                Varshavskaya, 15-2-178
-                                </div>*@
+                                   
                                         <div class="address-card__row">
                                             <div class="address-card__row-title">
                                                 City

@@ -246,13 +246,13 @@
                 <div class="login-container w-form">
                     <div class="main-block">
                         <h3 style="margin-bottom: 1.5em">Invite Form</h3>
-                        <form class="invite-form" role="form" method="post" asp-action="">
+                        <form class="invite-form" role="form" method="post" >
                             <div class="metod">
                                 @foreach (var opt in options)
                                 {
 
 
-                                    <div class="w-checkbox checkbox-field">
+                                    <div class="checkbox checkbox-field">
                                         <input type="radio"
                                            value="@opt.Id"
                                            name="grp1"
