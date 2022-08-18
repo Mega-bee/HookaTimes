@@ -659,11 +659,9 @@
                             </i><span class="sc-eqPNPO QWWYz">Direction</span>
                         </div>
                     </a>
-                    <a
-                        data-placeId="@Model.Place.Id"
-                       class="sc-ileJJU dOANrt add-to-favorite-btn">
+                    <a class="sc-ileJJU dOANrt add-to-favorite-btn"  data-placeId="@Model.Place.Id">
                         <div class="sc-eMRERa jMfkSj"@* data-placeId="@Model.Place.Id"*@>
-                            <i class="sc-rbbb40-1 iFnyeo " data-placeId="@Model.Place.Id"  id="fav-icon" size="16" color="#EF4F5F">
+                            <i class="sc-rbbb40-1 iFnyeo" data-isFav="@Model.Place.IsFavorite" id="fav-icon" size="16" color="#EF4F5F">
                                 @if(Model.Place.IsFavorite) {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="#fdcf51" width="16" height="16" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" class="sc-rbbb40-0 kMNrPk "><title>bookmark-fill</title><path  d="M15.020 0.9h-10.020c-1.060 0-1.92 0.84-1.92 1.9v0 16.42c0 0.28 0.16 0.5 0.36 0.62v0c0.12 0.060 0.24 0.1 0.38 0.1s0.24-0.040 0.36-0.1v0l5.82-3.52 5.82 3.52c0.1 0.060 0.24 0.1 0.38 0.1v0c0 0 0 0 0 0 0.12 0 0.24-0.040 0.34-0.1v0c0.22-0.12 0.36-0.34 0.36-0.62v-16.46c-0.020-1.040-0.86-1.86-1.88-1.86v0z"></path></svg>
                                 } else {
