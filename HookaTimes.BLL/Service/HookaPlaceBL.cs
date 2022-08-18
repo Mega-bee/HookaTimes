@@ -22,7 +22,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request,int userBuddyId)
+        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request, int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
 
@@ -34,8 +34,8 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
-                IsInFavorite = p.FavoriteUserPlaces.Any(f=> f.IsDeleted == false && f.BuddyId == userBuddyId)
-                 
+                IsInFavorite = p.FavoriteUserPlaces.Any(f => f.IsDeleted == false && f.BuddyId == userBuddyId)
+
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
@@ -78,14 +78,14 @@ namespace HookaTimes.BLL.Service
                     Description = r.Description,
                     Id = r.Id,
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
-                     Image = r.Buddy.Image,
+                    Image = r.Buddy.Image,
                     Rating = (float)r.Rating
                 }).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
                 OpeningTo = p.OpenningTo,
-                 Latitude = p.Latitude,
-                  Longitude = p.Longitude
+                Latitude = p.Latitude,
+                Longitude = p.Longitude
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
@@ -215,19 +215,19 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request,int userBuddyId, int take=0,List<int> cuisines = null,int sortBy = 0)
+        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request, int userBuddyId, int take = 0, List<int> cuisines = null, int sortBy = 0)
         {
             var query = _uow.PlaceRepository.GetAll(p => p.IsDeleted == false);
             List<HookaPlaces_VM> places = Array.Empty<HookaPlaces_VM>().ToList();
-    
-            if(cuisines != null)
+
+            if (cuisines != null)
             {
-                if(cuisines.Count > 0)
+                if (cuisines.Count > 0)
                 {
                     query = query.Where(p => cuisines.Contains((int)p.CuisineId));
                 }
             }
-            if(sortBy != default)
+            if (sortBy != default)
             {
                 switch (sortBy)
                 {
@@ -238,11 +238,11 @@ namespace HookaTimes.BLL.Service
                         break;
                 }
             }
-            if(take>0)
+            if (take > 0)
             {
                 query = query.Take(take);
             }
-             places = await query.Select(p => new HookaPlaces_VM
+            places = await query.Select(p => new HookaPlaces_VM
             {
                 Cuisine = p.Cuisine.Title,
                 Id = p.Id,
@@ -250,7 +250,7 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
-                 IsInFavorite = p.FavoriteUserPlaces.Where(f=> f.IsDeleted == false && f.BuddyId == userBuddyId).Any()
+                IsInFavorite = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false && f.BuddyId == userBuddyId).Any()
 
             }).ToListAsync();
             return places;
@@ -269,6 +269,18 @@ namespace HookaTimes.BLL.Service
                 IsInFavorite = true
             }).ToListAsync();
             return favs;
+        }
+
+
+
+        public async Task<List<PlacesNames_VM>> GetPlacesNames()
+        {
+            List<PlacesNames_VM> places = await _uow.PlaceRepository.GetAll(x => x.IsDeleted == false).Select(p => new PlacesNames_VM
+            {
+                Id = p.Id,
+                Title = p.Title
+            }).ToListAsync();
+            return places;
         }
 
     }
