@@ -118,6 +118,7 @@ namespace HookaTimes.BLL.Service
                 cartSummary.Items = await _uow.CartRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new CartItem_VM
                 {
                     ItemId = c.ProductId,
+                     CategoryId = (int)c.Product.ProductCategoryId,
                     CategoryName = c.Product.ProductCategory.Title,
                     ProductName = c.Product.Title,
                     ProductPrice = c.Product.CustomerFinalPrice,
@@ -132,6 +133,7 @@ namespace HookaTimes.BLL.Service
             {
                 ItemId = c.ProductId,
                 CategoryName = c.Product.ProductCategory.Title,
+                CategoryId = (int)c.Product.ProductCategoryId,
                 ProductName = c.Product.Title,
                 ProductPrice = c.Product.CustomerFinalPrice,
                 Quantity = c.Quantity,
@@ -293,5 +295,15 @@ namespace HookaTimes.BLL.Service
             }
 
         }
+
+        public async Task<bool> CheckIfProductsInCart(int userBuddyId)
+        {
+            bool productsInCart = false;
+
+            productsInCart = await _uow.CartRepository.CheckIfExists(x => x.BuddyId == userBuddyId);
+
+            return productsInCart;
+        }
+
     }
 }

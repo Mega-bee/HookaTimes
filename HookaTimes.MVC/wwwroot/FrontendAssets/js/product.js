@@ -97,13 +97,6 @@ function handleAddToWishlist(e) {
             
             } else if (result.statusCode == 204) {
                 wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
-            } else {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
             }
 
         },

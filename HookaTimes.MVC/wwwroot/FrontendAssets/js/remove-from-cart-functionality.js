@@ -9,6 +9,7 @@ export function removeFromCart(data) {
         data: data,
         url: `/Cart/RemoveItemFromCart`,
         success: function (result) {
+            console.log(result)
             if (result.statusCode == 200) {
                 updateCart()
                 let row = pressedBtn.closest("tr")
@@ -16,11 +17,7 @@ export function removeFromCart(data) {
                     row.remove()
                 }
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
+              
             }
 
         },
