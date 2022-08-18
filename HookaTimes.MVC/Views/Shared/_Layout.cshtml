@@ -1,6 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
+
+
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no">
@@ -24,6 +29,7 @@
    
 </head>
 <body>
+              <partial name="~/Views/Shared/Ecommerce/PreLoader.cshtml" />
 
     <div class="site">
         <partial name="~/Views/Shared/Ecommerce/_MobileSiteHeaderPartial.cshtml" />
@@ -36,11 +42,12 @@
         </header>
         @RenderBody()
         <partial name="~/Views/Shared/Ecommerce/_FooterPartial.cshtml" />
+     
     </div>
     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
-    @*<partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />*@
+  
     @*<partial name="~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml" />*@
 
     <!-- jQuery -->
