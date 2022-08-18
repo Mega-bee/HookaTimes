@@ -1,13 +1,10 @@
 ﻿import { updateCart } from "../js/update-cart-dropdown.js"
 
-document.addEventListener("click", e => {
-   
-    let btn = e.target
-    if (btn.classList.contains("dropcart__product-remove")) {
-        let itemId = btn.dataset.productid
-
+$(document).on("click", ".dropcart__product-remove", function (e) {
+ 
+    let itemId = $(this).attr("data-productid")
         if (itemId) {
-            let row = btn.closest(".dropcart__product")
+            let row = $(this).closest(".dropcart__product")
             if (row) {
                 row.remove()
             }
@@ -39,5 +36,5 @@ document.addEventListener("click", e => {
                 }
             })
         }
-    }
+    
 })
