@@ -7,7 +7,9 @@
 
 
 <style>
-
+      .error {
+            border-color: red !important;
+        }
         .option {
          background: #fff  !important;
     border: none  !important;
@@ -254,12 +256,11 @@
                     <div class="main-block">
                         <h3 style="margin-bottom: 1.5em">Invite Form</h3>
                         <form class="invite-form" id="inviteForm" >
-                            <div class="metod">
-                                
+                            <div class="metod" style="margin-bottom: 3em;">
 
 
-                                    <select name="OptionId" class="form-control form-control-lg form-control-select2">
-                                    <option class="option"  value="0">Select an Option</option>
+
+                                <select name="OptionId" id="OptionId" class="form-control form-control-lg form-control-select2" required>
                                     @foreach (var opt in options)
                                     {
                                         <option class="option" value="@opt.Id">@opt.Title</option>
@@ -270,12 +271,11 @@
 
                             </div>
 
-                            <div class="metod">
-                               
+                            <div class="metod" style="margin-bottom: 3em;">
 
 
-                                    <select name="PlaceId" class="form-control form-control-lg form-control-select2">
-                                    <option class="option" value="0">Select an Option</option>
+
+                                <select  style="margin-top:1em "name="PlaceId" id="PlaceId" class="form-control form-control-lg form-control-select2" required>
                                     @foreach (var pl in places)
                                     {
                                         <option class="option" value="@pl.Id">@pl.Title</option>
@@ -289,9 +289,9 @@
                             <div class="info">
                               
                                 <div class="form-group">
-                                    <label>Input DateTime Picker</label>
+                                    <label>Pick the date</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="date" name="Date">
+                                        <input type="text" class="form-control" id="date" name="Date" required />
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
@@ -306,9 +306,9 @@
                             <div class="info">
 
                                 <div class="form-group">
-                                    <label>Input DateTime Picker</label>
+                                    <label>Pick the time</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="time" name="Time">
+                                        <input type="text" class="form-control" id="time" name="Time" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i class="fa fa-clock"></i>
@@ -326,11 +326,12 @@
                                           id="field-2"
                                           name="Description"
                                           data-name="Field 2"
+                                          required
                                           class="textarea w-input"></textarea>
                             </div>
                             <span class="text-danger"></span>
 
-                            <button  id="submitBtn " type="submit" class="w-button submit-button">
+                            <button  id="submitBtn" type="submit" class="w-button submit-button">
                                 Submit
                             </button>
                         </form>
@@ -356,22 +357,28 @@
     </div>
 </div>
 
+<script>
 
-@section Scripts{
-    <script>
+    $(document).ready(function () {
 
-        $(document).ready(function () {
-
-            $('#date').datetimepicker({
-                format: 'MM/DD/YYYY',
-            });
-
-            $('#time').datetimepicker({
-                format: 'hh:mm a'
-            });
-
+        $('#date').datetimepicker({
+            format: 'MM/DD/YYYY',
         });
-    </script>
 
-<script src="~/frontendassets/js/invitation.js"></script>
-}
+        $('#time').datetimepicker({
+            format: 'hh:mm a'
+        });
+
+    });
+
+
+    $(document).ready(function () {
+        $('#PlaceId').select2();
+    });
+
+    $(document).ready(function () {
+        $('#OptionId').select2();
+    });
+</script>
+
+
