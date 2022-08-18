@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Buddy";
     int Count = 0;
 }
@@ -96,10 +95,10 @@
                                          alt="" />
                                 </div>
                                 <div class="profile-card__name">
-                                    @(Model.Name ??"")
+                                    @(Model.Name ?? "")
                                 </div>
                                 <div class="profile-card__email">
-                                    @(Model.Email??"")
+                                    @(Model.Email ?? "")
                                 </div>
                                 <div class="social-links widget-aboutus__socials social-links--shape--rounded">
                                     <ul class="social-links__list">
@@ -141,14 +140,14 @@
                                                 <i class="fab fa-twitter"></i>
                                             </a>
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        @if (Model.Addresses.Count>0)
+                        @if (Model.Addresses.Count > 0)
                         {
-                           
+
                             foreach (var add in Model.Addresses)
                             {
                                 <div class="dashboard__address card address-card address-card--featured">
@@ -157,35 +156,35 @@
                                     </div>
                                     <div class="address-card__body">
                                         <div class="address-card__name">
-                                            @(add.Title ??"")
+                                            @(add.Title ?? "")
                                         </div>
-                                       @* <div class="address-card__row">
-                                            Random Federation<br />115302, Moscow<br />ul.
-                                            Varshavskaya, 15-2-178
-                                        </div>*@
+                                        @* <div class="address-card__row">
+                                Random Federation<br />115302, Moscow<br />ul.
+                                Varshavskaya, 15-2-178
+                                </div>*@
                                         <div class="address-card__row">
                                             <div class="address-card__row-title">
                                                 City
                                             </div>
                                             <div class="address-card__row-content">
-                                                @(add.City??"")
+                                                @(add.City ?? "")
                                             </div>
                                         </div>
                                         <div class="address-card__row">
                                             <div class="address-card__row-title">
-                                               Street
+                                                Street
                                             </div>
                                             <div class="address-card__row-content">
-                                                @(add.Street??"")
+                                                @(add.Street ?? "")
                                             </div>
                                         </div>
 
-                                          <div class="address-card__row">
+                                        <div class="address-card__row">
                                             <div class="address-card__row-title">
-                                               Building
+                                                Building
                                             </div>
                                             <div class="address-card__row-content">
-                                                @(add.Building??"")
+                                                @(add.Building ?? "")
                                             </div>
                                         </div>
 
@@ -195,7 +194,7 @@
                                                 Appartement
                                             </div>
                                             <div class="address-card__row-content">
-                                                @(add.Appartment??"")
+                                                @(add.Appartment ?? "")
                                             </div>
                                         </div>
 
@@ -237,11 +236,11 @@
                                                 Duration
                                             </div>
                                             <div class="address-card__row-content">
-                                                @("From " + (edu.StudiedFrom ?? "") + " To "+(edu.StudiedTo ?? ""))
-                                            </div> 
+                                                @("From " + (edu.StudiedFrom ?? "") + " To " + (edu.StudiedTo ?? ""))
+                                            </div>
                                         </div>
 
-                                      
+
 
                                     </div>
                                 </div>
@@ -287,7 +286,7 @@
                                             </div>
                                         </div>
 
-                                       
+
 
                                     </div>
                                 </div>
@@ -305,16 +304,16 @@
                             <div class="table-responsive-sm">
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">
-                                       Date of birth
+                                        Date of birth
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(Model.BirthDate!.Value.ToString("dd MMMM yyyy")??"")
+                                        @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") ?? "")
                                     </div>
                                 </div>
 
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">
-                                       Gender
+                                        Gender
                                     </div>
                                     <div class="address-card__row-content">
                                         @Model.Gender
@@ -327,7 +326,7 @@
                                         Maritial Staus
                                     </div>
                                     <div class="address-card__row-content">
-        
+
                                         @(Model.MaritalStatus ?? "")
                                     </div>
                                 </div>
@@ -338,7 +337,7 @@
                                         Height
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(String.Format("{0:0.#}", Model.Height)??"")
+                                        @(String.Format("{0:0.#}", Model.Height) ?? "")
                                     </div>
                                 </div>
 
@@ -348,7 +347,7 @@
                                         Weight
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(String.Format("{0:0.#}", Model.Weight)??"") 
+                                        @(String.Format("{0:0.#}", Model.Weight) ?? "")
                                     </div>
                                 </div>
 
@@ -380,14 +379,14 @@
                                     </div>
                                 </div>
 
-                               
+
 
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">
                                         Profession
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(Model.Profession??"")
+                                        @(Model.Profession ?? "")
                                     </div>
                                 </div>
 
@@ -397,7 +396,7 @@
                                         Interests
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(Model.Interests??"")
+                                        @(Model.Interests ?? "")
                                     </div>
                                 </div>
                                 <div class="address-card__row">
@@ -405,7 +404,7 @@
                                         Hobbies
                                     </div>
                                     <div class="address-card__row-content">
-                                        @(Model.Hobbies??"")
+                                        @(Model.Hobbies ?? "")
                                     </div>
                                 </div>
                             </div>
@@ -446,10 +445,28 @@
 <!-- quickview-modal / end -->
 @section Scripts{
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            $('#datetime').datetimepicker({
-                format: 'MM/DD/YYYY H:mm',
-            });
-        })
+        //document.addEventListener('DOMContentLoaded', (event) => {
+        //    $('#datetime').datetimepicker({
+
+        //        format: 'MM/DD/YYYY H:mm',
+        //    });
+        //})
+
+
+
+        //$(document).ready(function () {
+        //    //console.log('hiiii')
+
+        //    //console.log(('#datetime'))
+        //    //$('#datetime').datetimepicker({
+        //    //    format: 'MM/DD/YYYY H:mm',
+        //    //});
+        //    //            console.log('meshyet ya 7aj')
+
+        //    $('#datetime').datetimepicker({
+        //        format: 'hh:mm:ss a'
+        //    });
+
+        //});
     </script>
 }
