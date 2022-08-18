@@ -1,4 +1,8 @@
-﻿<style>
+﻿@{
+    List<InvitationOption_VM> options = (List<InvitationOption_VM>)ViewBag.options;
+}
+
+<style>
     .invite-section {
         display: flex;
         width: 100%;
@@ -112,8 +116,8 @@
         align-items: center;
         width: 100%;
         min-height: 100%;
-        background: url("/uploads/media/default/0001/01/e7a97bd9b2d25886cc7b9115de83b6b28b73b90b.jpeg")
-            no-repeat center;
+       /* background: url("/uploads/media/default/0001/01/e7a97bd9b2d25886cc7b9115de83b6b28b73b90b.jpeg")
+            no-repeat center;*/
         background-size: cover;
     }
     .invite-form {
@@ -216,47 +220,29 @@
                 <div class="login-container w-form">
                     <div class="main-block">
                         <h3 style="margin-bottom: 1.5em">Invite Form</h3>
-                        <form class="invite-form" action="/">
+                        <form class="invite-form" role="form" method="post" asp-action=""  >
                             <div class="metod">
+                                @foreach (var opt in options)
+                                {
+                                    
+                                
                                 <div class="w-checkbox checkbox-field">
                                     <input
                                         type="radio"
-                                        value="none"
+                                        value="@opt.Id"
                                         id="radioOne"
                                         name="metod"
                                         checked
                                     />
                                     <label for="radioOne" class="radio"
-                                        >You will pay for your hooka</label
+                                        >@opt.Title</label
                                     >
                                 </div>
-                                <div class="w-checkbox checkbox-field">
-                                    <input
-                                        type="radio"
-                                        value="none"
-                                        id="radioTwo"
-                                        name="metod"
-                                    />
-                                    <label for="radioTwo" class="radio"
-                                        >You will pay for your food</label
-                                    >
-                                </div>
-                                <div class="w-checkbox checkbox-field">
-                                    <input
-                                        type="radio"
-                                        value="none"
-                                        id="radioThree"
-                                        name="metod"
-                                    />
-                                    <label for="radioThree" class="radio"
-                                        >You will pay for your hooka &
-                                        food</label
-                                    >
-                                </div>
+                                }
                             </div>
 
                             <div class="info">
-                                <select>
+                                @*<select>
                                     <option value="time" disabled selected>
                                         Pick up time
                                     </option>
@@ -268,7 +254,18 @@
                                     <option value="3">3:00pm</option>
                                     <option value="6">6:00pm</option>
                                     <option value="7">7:00pm</option>
-                                </select>
+                                </select>*@
+                                <div class="form-group">
+                                    @*<label>Input DateTime Picker</label>*@
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="datetime" name="datetime">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="div-block-58">
                                 <textarea

@@ -10,7 +10,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a asp-controller="Home">Home</a>
+                            <a href="/">Home</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -33,7 +33,7 @@
                     <div class="card flex-grow-1 mb-0">
                         <div class="card-body">
                             <h3 class="card-title">Log In to Your Account</h3>
-                            <form asp-controller="Account" asp-action="Login" method="post" role="form">
+                            <form asp-controller="Account" asp-action="Login"  asp-route-returnurl="@ViewData["ReturnUrl"]"  method="post" role="form">
 
                                 <div class="form-group">
                                     <label asp-for="Email">Email</label>
@@ -44,13 +44,13 @@
 
                                 <div class="form-group">
                                     <label asp-for="Password">Password</label>
-                                    <input asp-for="Password" type="text" class="form-control" placeholder="Password">
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password">
                                     <span asp-validation-for="Password" class="text-danger"></span>
 
                                 </div>
 
                                 
-                                <button type="submit" class="btn btn-primary mt-4">Register</button>
+                                <button type="submit" class="btn btn-primary mt-4">Login</button>
                             </form>
                         </div>
                     </div>

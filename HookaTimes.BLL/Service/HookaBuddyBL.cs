@@ -42,6 +42,7 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
+
         public async Task<ResponseModel> GetBuddy(int BuddyId, HttpRequest Request)
         {
             bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
@@ -90,6 +91,11 @@ namespace HookaTimes.BLL.Service
                 Longitude = x.Longitude,
                 Title = x.Title,
                 Id = x.Id,
+                Appartment = x.Apartment,
+                Building = x.Building,
+                City = x.City,
+                Street = x.Street,
+
             }).ToList();
             userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
             {

@@ -185,9 +185,9 @@ namespace HookaTimes.MVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnurl = null)
         {
-            //ViewData["ReturnUrl"] = returnurl;
+            ViewData["ReturnUrl"] = returnurl;
             EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
             return View(loginmv);
         }

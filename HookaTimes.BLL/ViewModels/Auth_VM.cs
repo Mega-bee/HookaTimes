@@ -185,6 +185,7 @@ namespace HookaTimes.BLL.ViewModels
         public string Latitude { get; set; }
         [Required]
         public string Title { get; set; }
+        public string Appartment { get; set; }
     }
 
 

@@ -1,0 +1,455 @@
+﻿
+@{
+    ViewData["Title"] = "Buddy";
+    int Count = 0;
+}
+@model Profile_VM
+<style>
+    .widget-aboutus__socials {
+        margin-top: 0px;
+    }
+
+    .table-responsive-sm {
+        padding: 2em;
+    }
+
+    .page-header__title {
+        padding-top: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .block-banner__image {
+        background-color: #ebebeb;
+    }
+
+    .product-card__quickview {
+        position: relative;
+        top: auto;
+        font-size: 1em;
+        padding: 7px;
+        cursor: pointer;
+        border-color: #ffd333;
+        background: #ffd333;
+        color: #3d464d;
+        fill: #3d464d;
+    }
+</style>
+
+
+
+<div class="site__body">
+    @*site header*@
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                            <svg class="breadcrumb-arrow"
+                                 width="6px"
+                                 height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+                        @*
+                        <li class="breadcrumb-item">
+                        <a href="">Breadcrumb</a>
+                        <svg
+                        class="breadcrumb-arrow"
+                        width="6px"
+                        height="9px"
+                        >
+                        <use
+                        xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"
+                        ></use>
+                        </svg>
+                        </li>
+                        *@
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Buddy
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title">
+                <h1>@(Model.Name ?? "")</h1>
+                <button class="product-card__quickview" type="button">
+                    Invite
+                    <span class="fake-svg-icon"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-9 mt-4 mt-lg-0">
+                    <div class="dashboard">
+                        <div class="dashboard__profile card profile-card">
+                            <div class="card-body profile-card__body">
+                                <div class="profile-card__avatar">
+                                    <img src="@(Model.ImageUrl??"")"
+                                         alt="" />
+                                </div>
+                                <div class="profile-card__name">
+                                    @(Model.Name ??"")
+                                </div>
+                                <div class="profile-card__email">
+                                    @(Model.Email??"")
+                                </div>
+                                <div class="social-links widget-aboutus__socials social-links--shape--rounded">
+                                    <ul class="social-links__list">
+                                        @* <li class="social-links__item">
+                                        <a
+                                        class="social-links__link social-links__link--type--rss"
+                                        href=""
+                                        target="_blank"
+                                        ><i class="fas fa-rss"></i
+                                        ></a>
+                                        </li>*@
+                                        @*    <li class="social-links__item">
+                                        <a
+                                        class="social-links__link social-links__link--type--youtube"
+                                        href=""
+                                        target="_blank"
+                                        ><i class="fab fa-youtube"></i
+                                        ></a>
+                                        </li>*@
+                                        <li class="social-links__item">
+                                            <a class="social-links__link social-links__link--type--facebook"
+                                               href="@(Model.SocialMediaLink1??"")"
+                                               target="_blank">
+                                                <i class="fab fa-facebook"></i>
+                                            </a>
+                                        </li>
+
+                                        <li class="social-links__item">
+                                            <a class="social-links__link social-links__link--type--instagram"
+                                               href="@(Model.SocialMediaLink2??"")"
+                                               target="_blank">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="social-links__item">
+                                            <a class="social-links__link social-links__link--type--twitter"
+                                               href="@(Model.SocialMediaLink3??"")"
+                                               target="_blank">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.Addresses.Count>0)
+                        {
+                           
+                            foreach (var add in Model.Addresses)
+                            {
+                                <div class="dashboard__address card address-card address-card--featured">
+                                    <div class="address-card__badge">
+                                        @(++Count)
+                                    </div>
+                                    <div class="address-card__body">
+                                        <div class="address-card__name">
+                                            @(add.Title ??"")
+                                        </div>
+                                       @* <div class="address-card__row">
+                                            Random Federation<br />115302, Moscow<br />ul.
+                                            Varshavskaya, 15-2-178
+                                        </div>*@
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                City
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(add.City??"")
+                                            </div>
+                                        </div>
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                               Street
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(add.Street??"")
+                                            </div>
+                                        </div>
+
+                                          <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                               Building
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(add.Building??"")
+                                            </div>
+                                        </div>
+
+
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                Appartement
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(add.Appartment??"")
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+
+
+                        @if (Model.Education.Count > 0)
+                        {
+
+                            foreach (var edu in Model.Education)
+                            {
+                                <div class="dashboard__address card address-card address-card--featured">
+                                    <div class="address-card__badge">
+                                        @(++Count)
+                                    </div>
+                                    <div class="address-card__body">
+                                        <div class="address-card__name">
+                                            @(edu.University ?? "")
+                                        </div>
+                                        @* <div class="address-card__row">
+                                Random Federation<br />115302, Moscow<br />ul.
+                                Varshavskaya, 15-2-178
+                                </div>*@
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                Degree
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(edu.Degree ?? "")
+                                            </div>
+                                        </div>
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                Duration
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @("From " + (edu.StudiedFrom ?? "") + " To "+(edu.StudiedTo ?? ""))
+                                            </div> 
+                                        </div>
+
+                                      
+
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+
+
+
+                        @if (Model.Experience.Count > 0)
+                        {
+
+                            foreach (var exp in Model.Experience)
+                            {
+                                <div class="dashboard__address card address-card address-card--featured">
+                                    <div class="address-card__badge">
+                                        @(++Count)
+                                    </div>
+                                    <div class="address-card__body">
+                                        <div class="address-card__name">
+                                            @(exp.Position ?? "")
+                                        </div>
+                                        @* <div class="address-card__row">
+                                Random Federation<br />115302, Moscow<br />ul.
+                                Varshavskaya, 15-2-178
+                                </div>*@
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                City
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(exp.Place ?? "")
+                                            </div>
+                                        </div>
+                                        <div class="address-card__row">
+                                            <div class="address-card__row-title">
+                                                Duration
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @("From " + (exp.WorkedFrom ?? "") + " To " + (exp.WorkedTo ?? ""))
+
+                                            </div>
+                                        </div>
+
+                                       
+
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+
+
+                    </div>
+                    <div class="dashboard__orders card">
+                        <div class="card-header"><h5>More Info</h5></div>
+                        <div class="card-divider"></div>
+                        <div class="card-table">
+                            <div class="table-responsive-sm">
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                       Date of birth
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.BirthDate!.Value.ToString("dd MMMM yyyy")??"")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                       Gender
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @Model.Gender
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Maritial Staus
+                                    </div>
+                                    <div class="address-card__row-content">
+        
+                                        @(Model.MaritalStatus ?? "")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Height
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(String.Format("{0:0.#}", Model.Height)??"")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Weight
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(String.Format("{0:0.#}", Model.Weight)??"") 
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        BodyType
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.BodyType ?? "")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Eyes
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Eyes ?? "")
+                                    </div>
+                                </div>
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Hair
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Hair ?? "")
+                                    </div>
+                                </div>
+
+                               
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Profession
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Profession??"")
+                                    </div>
+                                </div>
+
+
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Interests
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Interests??"")
+                                    </div>
+                                </div>
+                                <div class="address-card__row">
+                                    <div class="address-card__row-title">
+                                        Hobbies
+                                    </div>
+                                    <div class="address-card__row-content">
+                                        @(Model.Hobbies??"")
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block block-banner">
+        <div class="container">
+            <div href="" class="block-banner__body">
+                <div class="block-banner__image block-banner__image--desktop"
+                     style="background-image: url('/frontendassets/images/banners/banner-1.jpg')"></div>
+
+                <div class="block-banner__title ">Buddy Name</div>
+                <div class="block-banner__text">Invite your Favorite buddy</div>
+                <div class="block-banner__button">
+                    <span class="btn btn-sm btn-primary product-card__quickview">Invite</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- quickview-modal -->
+<div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<!-- quickview-modal / end -->
+@section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            $('#datetime').datetimepicker({
+                format: 'MM/DD/YYYY H:mm',
+            });
+        })
+    </script>
+}
