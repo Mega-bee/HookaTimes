@@ -7,18 +7,25 @@
         data: formdata,
         url: `/Places/AddToFavorites`,
         success: function (result) {
-    
-         
+            console.log(result)
+            if (result.statusCode == 200 || result.statusCode == 201) {
+                notyf.success({ message: result.data.message })
+            } else {
+                notyf.error({ message: result.errorMessage })
+
+            }
+          
 
         },
         complete: function (xhr, textStatus) {
  
             if (xhr.status == 401) {
               
-                window.location.href = '/Account/Login'
+                notyf.error({ message: "Your are not logged in, please login" })
             }
         } ,
         fail: function (err) {
+            notyf.error({ message: "Failed to add place to favorites" })
 
             console.log(err)
         }

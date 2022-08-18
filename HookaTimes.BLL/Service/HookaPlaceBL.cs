@@ -258,7 +258,7 @@ namespace HookaTimes.BLL.Service
 
         public async Task<List<HookaPlaces_VM>> GetFavorites(int userBuddyId)
         {
-            List<HookaPlaces_VM> favs = await _uow.FavoritePlaceRepository.GetAll(x => x.BuddyId == userBuddyId).Select(p => new HookaPlaces_VM
+            List<HookaPlaces_VM> favs = await _uow.FavoritePlaceRepository.GetAll(x => x.BuddyId == userBuddyId && x.IsDeleted == false).Select(p => new HookaPlaces_VM
             {
                 Cuisine = p.PlaceProfile.Cuisine.Title,
                 Id = p.PlaceProfile.Id,

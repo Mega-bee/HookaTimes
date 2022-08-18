@@ -9,7 +9,6 @@ $(document).on("click", ".dropcart__product-remove", function (e) {
                 row.remove()
             }
             let formdata = new FormData()
-            formdata.append("productId", itemId)
             $.ajax({
                 type: 'Delete',
                 async: true,
