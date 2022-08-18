@@ -3,6 +3,7 @@ using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
+using MessagePack;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -25,11 +26,19 @@ namespace HookaTimes.MVC.Controllers
             _notyf = notyf;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string returnurl = null)
         {
+      
+            ViewData["ReturnUrl"] = returnurl;
+            returnurl = returnurl ?? Url.Content("~/");
             int userBuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             userBuddyId = await _auth.GetBuddyById(UserId);
+            bool hasItemsInCart = await _cartBL.CheckIfProductsInCart(userBuddyId);
+            if (!hasItemsInCart)
+            {
+                return LocalRedirect(returnurl);
+            }
             CartSummary_VM cartSummary = await _cartBL.GetCartSummaryMVC(userBuddyId, null);
             Checkout_VM model = new Checkout_VM()
             {
@@ -41,11 +50,18 @@ namespace HookaTimes.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(BuddyProfileAddressVM address)
+        public async Task<IActionResult> PlaceOrder(BuddyProfileAddressVM address, string returnurl = null)
         {
+            ViewData["ReturnUrl"] = returnurl;
+            returnurl = returnurl ?? Url.Content("~/");
             int userBuddyId = 0;
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
             userBuddyId = await _auth.GetBuddyById(UserId);
+            bool hasItemsInCart = await _cartBL.CheckIfProductsInCart(userBuddyId);
+            if(!hasItemsInCart)
+            {
+                return LocalRedirect(returnurl);
+            }
             var res = await _orderBL.PlaceOrder(userBuddyId,0,address);
             if(res.StatusCode == 200)
             {
@@ -54,7 +70,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 _notyf.Error("Failed to place order.");
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("OrderHistory", "Account");
         }
     }
 }

@@ -112,6 +112,7 @@ namespace HookaTimes.BLL.Service
                 wishlist = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new Wishlist_VM
                 {
                     ItemId = c.ProductId,
+                     CategoryId = c.Product.ProductCategoryId,
                     CategoryName = c.Product.ProductCategory.Title,
                     ProductName = c.Product.Title,
                     ProductPrice = c.Product.CustomerFinalPrice,
@@ -123,6 +124,7 @@ namespace HookaTimes.BLL.Service
             wishlist = await _uow.VirtualWishlistRepository.GetAll(c => c.WishlistSessionId == wishlistSessionId).Select(c => new Wishlist_VM
             {
                 ItemId = c.ProductId,
+                CategoryId = c.Product.ProductCategoryId,
                 CategoryName = c.Product.ProductCategory.Title,
                 ProductName = c.Product.Title,
                 ProductPrice = c.Product.CustomerFinalPrice,

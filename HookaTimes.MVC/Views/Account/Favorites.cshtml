@@ -28,58 +28,70 @@
         </div>
     </div>
     <div class="block">
-        <div class="container">
-            <table class="wishlist">
-                <thead class="wishlist__head">
-                    <tr class="wishlist__row">
-                        <th class="wishlist__column wishlist__column--image">Image</th>
-                        <th class="wishlist__column wishlist__column--title">Title</th>
-                        <th class="wishlist__column wishlist__column--rating">Rating</th>
-                        <th class="wishlist__column wishlist__column--cuisine">Cuisine</th>
-                        <th class="wishlist__column wishlist__column--location">Location</th>
-                        <th class="wishlist__column wishlist__column--remove"></th>
-                        @*                        <th class="wishlist__column wishlist__column--remove"></th>*@
-                    </tr>
-                </thead>
-                <tbody class="wishlist__body">
-                    @foreach (var item in Model)
-                    {
+        @if (Model.Count == 0)
+        {
+            <div class="not-found">
+                <div class="not-found__content">
+                    <h1 class="not-found__title">Your favorites list is empty</h1>
+                    <p class="not-found__text">We can't seem to find anything</p>
+                    <a asp-controller="Home" asp-action="HookaPlaces" class="btn btn-light">View Places</a>
+                </div>
+            </div>
+        } else {
+            <div class="container">
+                <table class="wishlist">
+                    <thead class="wishlist__head">
                         <tr class="wishlist__row">
-                            <td class="wishlist__column wishlist__column--image">
-                                <div class="product-image">
-                                    <a href="" class="product-image__body">
-                                        <img class="product-image__img" src="@item.Image" alt="">
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="wishlist__column wishlist__column--title">
-
-                                @item.Name
-
-                            </td>
-                            <td class="wishlist__column wishlist__column--rating">
-                                @item.Rating
-                            </td>
-                            <td class="wishlist__column wishlist__column--cuisine">@item.Cuisine AED</td>
-                            <td class="wishlist__column wishlist__column--location">
-                                @item.Location
-                            </td>
-                            <td class="wishlist__column wishlist__column--remove">
-                                <button data-placeId="@item.Id" type="button" class="btn btn-light btn-sm btn-svg-icon remove-item-btn add-to-favorite-btn">
-                                    <svg width="12px" height="12px">
-                                        <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
-                                    </svg>
-                                </button>
-                            </td>
+                            <th class="wishlist__column wishlist__column--image">Image</th>
+                            <th class="wishlist__column wishlist__column--title">Title</th>
+                            <th class="wishlist__column wishlist__column--rating">Rating</th>
+                            <th class="wishlist__column wishlist__column--cuisine">Cuisine</th>
+                            <th class="wishlist__column wishlist__column--location">Location</th>
+                            <th class="wishlist__column wishlist__column--remove"></th>
+                            @*                        <th class="wishlist__column wishlist__column--remove"></th>*@
                         </tr>
-                    }
+                    </thead>
+                    <tbody class="wishlist__body">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="wishlist__row">
+                                <td class="wishlist__column wishlist__column--image">
+                                    <div class="product-image">
+                                        <a asp-controller="Places" asp-action="Place" asp-route-id="@item.Id" class="product-image__body">
+                                            <img class="product-image__img" src="@item.Image" alt="">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="wishlist__column wishlist__column--title">
+
+                                    @item.Name
+
+                                </td>
+                                <td class="wishlist__column wishlist__column--rating">
+                                    @item.Rating
+                                </td>
+                                <td class="wishlist__column wishlist__column--cuisine">@item.Cuisine AED</td>
+                                <td class="wishlist__column wishlist__column--location">
+                                    @item.Location
+                                </td>
+                                <td class="wishlist__column wishlist__column--remove">
+                                    <button data-placeId="@item.Id" type="button" class="btn btn-light btn-sm btn-svg-icon remove-item-btn add-to-favorite-btn">
+                                        <svg width="12px" height="12px">
+                                            <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
 
 
 
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        }
+       
     </div>
 </div>
 <!-- site__body / end -->

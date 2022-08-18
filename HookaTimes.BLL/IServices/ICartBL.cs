@@ -13,5 +13,6 @@ namespace HookaTimes.BLL.IServices
         Task<CartSummary_VM> GetCartSummaryMVC(int userBuddyId, string cartSessionId);
         Task<ResponseModel> RemoveItemFromCart(int productId, int userBuddyId, string cartSessionId);
         Task<ResponseModel> UpdateCart(List<UpdateCartItem_VM> items, int userBuddyId, string cartSessionId);
+        Task<bool> CheckIfProductsInCart(int userBuddyId);
     }
 }

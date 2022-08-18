@@ -35,7 +35,7 @@
     </div>
     <div class="checkout block">
         <div class="container">
-            <form asp-controller="Checkout" method="post" role="form" asp-action="PlaceOrder">
+            <form asp-controller="Checkout" method="post" role="form" asp-action="PlaceOrder" asp-route-returnurl="@ViewData["ReturnUrl"]">
             <div class="row">
                 
                     @*<div class="col-12 mb-3">
