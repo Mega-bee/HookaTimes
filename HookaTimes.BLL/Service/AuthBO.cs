@@ -521,7 +521,7 @@ namespace HookaTimes.BLL.Service
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
             newProfile.IsAvailable = true;
-            newProfile.Image = "Images/Buddies/user-placeholder.png";
+            newProfile.Image = "/Images/Buddies/user-placeholder.png";
             //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
@@ -942,41 +942,11 @@ namespace HookaTimes.BLL.Service
             BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == res.Id);
             if (!string.IsNullOrEmpty(cartSessionId))
             {
-                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
-                {
-                    BuddyId = buddy.Id,
-                    CreatedDate = DateTime.UtcNow,
-                    Quantity = x.Quantity,
-                    ProductId = x.ProductId,
-
-                }).ToListAsync();
-                if (cartItems.Count > 0)
-                {
-                    await _uow.CartRepository.AddRange(cartItems);
-                    await _uow.SaveAsync();
-                    List<VirtualCart> virtualCarts = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
-                    await _uow.VirtualCartRepository.DeleteRange(virtualCarts);
-                }
-
-
+                await MoveCartFromCookiesToUser(buddy.Id, cartSessionId);
             }
             if (!string.IsNullOrEmpty(wishlistSessionId))
             {
-                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
-                {
-                    BuddyId = buddy.Id,
-                    CreatedDate = DateTime.UtcNow,
-                    ProductId = x.ProductId,
-                    IsDeleted = false
-                }).ToListAsync();
-                if (wishlistItems.Count > 0)
-                {
-                    await _uow.WishlistRepository.AddRange(wishlistItems);
-                    await _uow.SaveAsync();
-                    List<VirtualWishlist> virtualWishlists = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == cartSessionId).ToListAsync();
-                    await _uow.VirtualWishlistRepository.DeleteRange(virtualWishlists);
-                }
-
+                await MoveWishlistFromCookiesToUser(buddy.Id, wishlistSessionId);
             }
             var roles = await _userManager.GetRolesAsync(res);
 
@@ -1007,6 +977,104 @@ namespace HookaTimes.BLL.Service
 
 
 
+
+        }
+        public async Task MoveCartFromCookiesToUser(int buddyId, string cartSessionId)
+        {
+            Cart cartItem = new Cart();
+            List<Cart> userCartItems = await _uow.CartRepository.GetAllWithTracking(x => x.BuddyId == buddyId).ToListAsync();
+            List<VirtualCart> sessionCartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
+
+            if (sessionCartItems.Count > 0)
+            {
+                foreach (var item in sessionCartItems)
+                {
+                    if (userCartItems.Count > 0)
+                    {
+                        cartItem = userCartItems.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                        if (cartItem != null)
+                        {
+                            cartItem.Quantity += item.Quantity;
+                            cartItem.UpdatedDate = DateTime.UtcNow;
+                        }
+                        else
+                        {
+                            cartItem = new Cart()
+                            {
+                                Quantity = item.Quantity,
+                                ProductId = item.ProductId,
+                                BuddyId = buddyId,
+                                CreatedDate = DateTime.UtcNow
+                            };
+                            await _uow.CartRepository.Add(cartItem);
+                        }
+                    }
+                    else
+                    {
+                        cartItem = new Cart()
+                        {
+                            Quantity = item.Quantity,
+                            ProductId = item.ProductId,
+                            BuddyId = buddyId,
+                            CreatedDate = DateTime.UtcNow
+                        };
+                        await _uow.CartRepository.Add(cartItem);
+                    }
+
+
+
+                }
+                await _uow.SaveAsync();
+                await _uow.VirtualCartRepository.DeleteRange(sessionCartItems);
+            }
+
+        }
+
+        public async Task MoveWishlistFromCookiesToUser(int buddyId, string wishlistSessionId)
+        {
+            Wishlist cartItem = new Wishlist();
+            List<Wishlist> userCartItems = await _uow.WishlistRepository.GetAllWithTracking(x => x.BuddyId == buddyId).ToListAsync();
+            List<VirtualWishlist> sessionCartItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).ToListAsync();
+
+            if (sessionCartItems.Count > 0)
+            {
+                foreach (var item in sessionCartItems)
+                {
+                    if (userCartItems.Count > 0)
+                    {
+                        cartItem = userCartItems.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                        if (cartItem == null)
+                        {
+                            cartItem = new Wishlist()
+                            {
+
+                                ProductId = item.ProductId,
+                                BuddyId = buddyId,
+                                CreatedDate = DateTime.UtcNow
+                            };
+                            await _uow.WishlistRepository.Add(cartItem);
+                        }
+
+                    }
+                    else
+                    {
+
+                        cartItem = new Wishlist()
+                        {
+
+                            ProductId = item.ProductId,
+                            BuddyId = buddyId,
+                            CreatedDate = DateTime.UtcNow
+                        };
+                        await _uow.WishlistRepository.Add(cartItem);
+                    }
+
+
+
+                }
+                await _uow.SaveAsync();
+                await _uow.VirtualWishlistRepository.DeleteRange(sessionCartItems);
+            }
 
         }
         #endregion
@@ -1106,38 +1174,11 @@ namespace HookaTimes.BLL.Service
             await _context.SaveChangesAsync();
             if (!string.IsNullOrEmpty(cartSessionId))
             {
-                List<Cart> cartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).Select(x => new Cart
-                {
-                    BuddyId = newProfile.Id,
-                    CreatedDate = DateTime.UtcNow,
-                    Quantity = x.Quantity,
-                    ProductId = x.ProductId,
-
-                }).ToListAsync();
-                if (cartItems.Count > 0)
-                {
-                    await _uow.CartRepository.AddRange(cartItems);
-                    await _uow.SaveAsync();
-                    List<VirtualCart> virtualCarts = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
-                    await _uow.VirtualCartRepository.DeleteRange(virtualCarts);
-                }
+                await MoveCartFromCookiesToUser(newProfile.Id, cartSessionId);
             }
             if (!string.IsNullOrEmpty(wishlistSessionId))
             {
-                List<Wishlist> wishlistItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).Select(x => new Wishlist
-                {
-                    BuddyId = newProfile.Id,
-                    CreatedDate = DateTime.UtcNow,
-                    ProductId = x.ProductId,
-                    IsDeleted = false
-                }).ToListAsync();
-                if (wishlistItems.Count > 0)
-                {
-                    await _uow.WishlistRepository.AddRange(wishlistItems);
-                    await _uow.SaveAsync();
-                    List<VirtualWishlist> virtualWishlists = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == cartSessionId).ToListAsync();
-                    await _uow.VirtualWishlistRepository.DeleteRange(virtualWishlists);
-                }
+                await MoveWishlistFromCookiesToUser(newProfile.Id, wishlistSessionId);
             }
             return newProfile;
         }

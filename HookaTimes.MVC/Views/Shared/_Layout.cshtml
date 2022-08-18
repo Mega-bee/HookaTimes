@@ -1,6 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
+
+
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no">
@@ -21,13 +26,10 @@
     <link rel="stylesheet" href="/FrontendAssets/css/style.ltr.css">
     <!-- font - fontawesome -->
     <link rel="stylesheet" href="/FrontendAssets/vendor/fontawesome/css/all.min.css">
-    @*DataTable*@
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bulma.min.css">*@
-    @*<!-- font - stroyka -->
-    <link rel="stylesheet" href="/FrontendAssets/fonts/stroyka/stroyka.css">*@
+   
 </head>
 <body>
+              <partial name="~/Views/Shared/Ecommerce/PreLoader.cshtml" />
 
     <div class="site">
         <partial name="~/Views/Shared/Ecommerce/_MobileSiteHeaderPartial.cshtml" />
@@ -40,12 +42,13 @@
         </header>
         @RenderBody()
         <partial name="~/Views/Shared/Ecommerce/_FooterPartial.cshtml" />
+     
     </div>
     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
-    @*<partial name="~/Views/Shared/Ecommerce/_ToasterPartial.cshtml" />*@
-
+  
+    @*<partial name="~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml" />*@
 
     <!-- jQuery -->
 
@@ -53,7 +56,13 @@
     <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
- 
+    <script>
+        $(document).ready(function () {
+            var s = '@ViewBag.CurrentPage';
+            $(".MenuLink").removeClass("w--current");
+            $(".Link" + s).addClass("w--current");
+        });
+    </script>
     <!-- js -->
     @*<script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>*@
     <script src="/FrontendAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -66,18 +75,11 @@
     <script src="/FrontendAssets/js/main.js"></script>
     <script src="/FrontendAssets/js/header.js"></script>
     <script src="/FrontendAssets/vendor/svg4everybody/svg4everybody.min.js"></script>
-@*    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-*@@*    <script src="//sweetalert2.all.min.js"></script>
-*@    @*DataTable*@
-    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
- @*   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bulma.min.js"></script>*@
+  
     <script>
         svg4everybody();
     </script>
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+   s
     <script src="~/frontendassets/js/logout.js"></script>
     <script type="module" src="/FrontendAssets/js/update-cart-dropdown.js"></script>
     <script type="module" src="/FrontendAssets/js/add-to-cart-functionality.js"></script>
@@ -86,12 +88,22 @@
     <script type="module" src="~/frontendassets/js/add-to-favorites.js"></script>
     @*Toaster*@
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Include Moment.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+    </script>
+
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+    </script>
     @await Component.InvokeAsync("Notyf")
+
     @await RenderSectionAsync("Scripts", required: false)
 
 
-    @*<link href="/FrontendAssets/Plugins/VanillaToasts-master/vanillatoasts.css" rel="stylesheet"/>
-    <script src="/FrontendAssets/js/vanillatoasts.js" type="text/javascript"></script>*@
+
 
 </body>
 </html>

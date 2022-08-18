@@ -112,6 +112,7 @@ namespace HookaTimes.MVC.Controllers
 
                 await _signInManager.SignInAsync(newUser, isPersistent: true);
 
+                _notyf.Success("Welcome to HookaTimes!", 6);
                 return RedirectToAction("Index", "Home");
                 // return LocalRedirect(returnurl);
 
@@ -185,9 +186,9 @@ namespace HookaTimes.MVC.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnurl = null)
         {
-            //ViewData["ReturnUrl"] = returnurl;
+            ViewData["ReturnUrl"] = returnurl;
             EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
             return View(loginmv);
         }
@@ -339,7 +340,7 @@ namespace HookaTimes.MVC.Controllers
 
             List<HookaPlaces_VM> favs = await _hookaPlaceBL.GetFavorites(userBuddyId);
 
-           
+
             return View(favs);
         }
 
@@ -372,16 +373,12 @@ namespace HookaTimes.MVC.Controllers
         #endregion
 
 
-
-        [HttpGet]
+        #region Profile
         public IActionResult EditProfile()
         {
-
-
             return View();
         }
-
-
+        #endregion
 
         //#region Addresses
         //[Authorize(Roles = "User")]

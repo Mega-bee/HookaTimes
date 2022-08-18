@@ -1,4 +1,11 @@
-﻿<style>
+﻿@{
+    List<InvitationOption_VM> options = (List<InvitationOption_VM>)ViewBag.options;
+}
+
+
+
+
+<style>
     .invite-section {
         display: flex;
         width: 100%;
@@ -10,6 +17,7 @@
         align-items: stretch;
         text-align: center;
     }
+
     .invite-form {
         display: flex;
         flex-direction: column;
@@ -29,6 +37,7 @@
     .checkbox-2 {
         margin-right: 13px;
     }
+
     .w-checkbox-input--inputType-custom {
         border-width: 1px;
         border-color: #ccc;
@@ -40,6 +49,7 @@
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
     }
+
     .w-checkbox-input {
         float: left;
         margin-bottom: 0px;
@@ -48,12 +58,14 @@
         margin-top: 4px;
         line-height: normal;
     }
+
     .w-form-label {
         display: inline-block;
         cursor: pointer;
         font-weight: normal;
         margin-bottom: 0px;
     }
+
     .select-field {
         margin-top: 0.6em;
         background-color: transparent;
@@ -62,6 +74,7 @@
     .div-block-59 {
         position: relative;
     }
+
     .submit-button {
         position: relative;
         z-index: 1;
@@ -76,13 +89,14 @@
         cursor: pointer;
         border-radius: 0;
     }
-    
+
     .w-form-done {
         display: none;
         padding: 20px;
         text-align: center;
         background-color: #dddddd;
     }
+
     .w-form-fail {
         display: none;
         margin-top: 10px;
@@ -95,6 +109,7 @@
     h3 {
         font-weight: 400;
     }
+
     h1 {
         font-size: 32px;
     }
@@ -102,25 +117,29 @@
     .info {
         width: 100%;
     }
+
     .main-block,
     .info {
         display: flex;
         flex-direction: column;
     }
+
     .main-block {
         justify-content: center;
         align-items: center;
         width: 100%;
         min-height: 100%;
-        background: url("/uploads/media/default/0001/01/e7a97bd9b2d25886cc7b9115de83b6b28b73b90b.jpeg")
-            no-repeat center;
+        /* background: url("/uploads/media/default/0001/01/e7a97bd9b2d25886cc7b9115de83b6b28b73b90b.jpeg")
+                no-repeat center;*/
         background-size: cover;
     }
+
     .invite-form {
         width: 65%;
         padding: 25px;
         margin-bottom: 20px;
     }
+
     input,
     select {
         padding: 5px;
@@ -130,22 +149,27 @@
         border-bottom: 1px solid #eee;
         color: rgba(0, 0, 0, 0.5);
     }
-    input::placeholder {
-        color: #eee;
-    }
+
+        input::placeholder {
+            color: #eee;
+        }
+
     option {
         background: black;
         border: none;
     }
+
     .metod {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: stretch;
     }
+
     input[type="radio"] {
         display: none;
     }
+
     label.radio {
         position: relative;
         display: inline-block;
@@ -153,39 +177,45 @@
         text-indent: 32px;
         cursor: pointer;
     }
-    label.radio:before {
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: 0;
-        width: 17px;
-        height: 17px;
-        border-radius: 50%;
-        border: 2px solid #ffd333;
-    }
-    label.radio:after {
-        content: "";
-        position: absolute;
-        width: 8px;
-        height: 4px;
-        top: 5px;
-        left: 5px;
-        border-bottom: 3px solid #ffd333;
-        border-left: 3px solid #ffd333;
-        transform: rotate(-45deg);
-        opacity: 0;
-    }
+
+        label.radio:before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            border: 2px solid #ffd333;
+        }
+
+        label.radio:after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 4px;
+            top: 5px;
+            left: 5px;
+            border-bottom: 3px solid #ffd333;
+            border-left: 3px solid #ffd333;
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+
     input[type="radio"]:checked + label:after {
         opacity: 1;
     }
+
     .div-block-58 {
         width: 100%;
         margin-top: 0em;
         margin-bottom: 2em;
     }
+
     .textarea {
         min-height: 5em;
     }
+
     .w-input,
     .w-select {
         display: block;
@@ -216,69 +246,42 @@
                 <div class="login-container w-form">
                     <div class="main-block">
                         <h3 style="margin-bottom: 1.5em">Invite Form</h3>
-                        <form class="invite-form" action="/">
+                        <form class="invite-form" role="form" method="post" >
                             <div class="metod">
-                                <div class="w-checkbox checkbox-field">
-                                    <input
-                                        type="radio"
-                                        value="none"
-                                        id="radioOne"
-                                        name="metod"
-                                        checked
-                                    />
-                                    <label for="radioOne" class="radio"
-                                        >You will pay for your hooka</label
-                                    >
-                                </div>
-                                <div class="w-checkbox checkbox-field">
-                                    <input
-                                        type="radio"
-                                        value="none"
-                                        id="radioTwo"
-                                        name="metod"
-                                    />
-                                    <label for="radioTwo" class="radio"
-                                        >You will pay for your food</label
-                                    >
-                                </div>
-                                <div class="w-checkbox checkbox-field">
-                                    <input
-                                        type="radio"
-                                        value="none"
-                                        id="radioThree"
-                                        name="metod"
-                                    />
-                                    <label for="radioThree" class="radio"
-                                        >You will pay for your hooka &
-                                        food</label
-                                    >
-                                </div>
+                                @foreach (var opt in options)
+                                {
+
+
+                                        <select  class="form-control form-control-lg form-control-select2">
+                                            <option>Select an Option</option>
+                                            <option value="@opt.Id" >@opt.Title</option>
+                                           
+                                        </select>
+                                }
                             </div>
 
                             <div class="info">
-                                <select>
-                                    <option value="time" disabled selected>
-                                        Pick up time
-                                    </option>
-                                    <option value="8">8:00am</option>
-                                    <option value="9">9:00am</option>
-                                    <option value="10">10:00am</option>
-                                    <option value="12">12:00pm</option>
-                                    <option value="1">1:00pm</option>
-                                    <option value="3">3:00pm</option>
-                                    <option value="6">6:00pm</option>
-                                    <option value="7">7:00pm</option>
-                                </select>
+                              
+                                <div class="form-group">
+                                    <label>Input DateTime Picker</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="datetime" name="datetime">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                              
                             </div>
                             <div class="div-block-58">
-                                <textarea
-                                    placeholder="Example Text"
-                                    maxlength="5000"
-                                    id="field-2"
-                                    name="field-2"
-                                    data-name="Field 2"
-                                    class="textarea w-input"
-                                ></textarea>
+                                <textarea placeholder="Example Text"
+                                          maxlength="5000"
+                                          id="field-2"
+                                          name="field-2"
+                                          data-name="Field 2"
+                                          class="textarea w-input"></textarea>
                             </div>
 
                             <button href="/" class="w-button submit-button">
@@ -286,20 +289,16 @@
                             </button>
                         </form>
                     </div>
-                    <div
-                        class="w-form-done"
-                        tabindex="-1"
-                        role="region"
-                        aria-label="Email Form success"
-                    >
+                    <div class="w-form-done"
+                         tabindex="-1"
+                         role="region"
+                         aria-label="Email Form success">
                         <div>Thank you! Your invitation has been sent!</div>
                     </div>
-                    <div
-                        class="w-form-fail"
-                        tabindex="-1"
-                        role="region"
-                        aria-label="Email Form failure"
-                    >
+                    <div class="w-form-fail"
+                         tabindex="-1"
+                         role="region"
+                         aria-label="Email Form failure">
                         <div>
                             Oops! Something went wrong while submitting the
                             invitation.
@@ -310,3 +309,20 @@
         </div>
     </div>
 </div>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#datetime').datetimepicker({
+                format: 'MM/DD/YYYY H:mm',
+            });
+
+            //$('#datetime').datetimepicker({
+            //    format: 'hh:mm:ss a'
+            //});
+
+        });
+    </script>

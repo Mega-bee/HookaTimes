@@ -3,7 +3,7 @@
     <div class="product-card product-card--hidden-actions custom-hooka-card">
         <div class="product-card__buttons custom-hooka-card-buttons "></div>
         <div class="post-card__image">
-            <a href="product.html" class="product-image__body">
+            <a asp-action="BuddyProfile" asp-controller="Buddy" asp-route-id="@Model.Id" class="product-image__body">
                 <img class="product-image__img" src="@Model.Image" alt="">
             </a>
         </div>

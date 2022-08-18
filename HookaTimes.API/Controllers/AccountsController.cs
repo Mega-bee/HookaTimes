@@ -145,40 +145,7 @@ namespace HookaTimes.API.Controllers
         }
         #endregion
 
-        //[HttpGet]
-        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        //public async Task<IActionResult> GetUserProfile()
-        //{
 
-        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-        //    ResponseModel getUserProfile = await _auth.GetUserProfile(uid, Request);
-        //    return Ok(getUserProfile);
-
-
-        //}
-
-        //[HttpPost]
-        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        //public async Task<IActionResult> ResetPassword([FromForm] ResetPassword_VM model)
-        //{
-
-        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-        //    ResponseModel resetPassword = await _auth.ResetPassword(model, uid);
-        //    return Ok(resetPassword);
-
-        //}
-
-
-
-        //[HttpPut]
-        //[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
-        //public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfile_VM model)
-        //{
-        //    string uid = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-        //    ResponseModel updateProfile = await _auth.UpdateProfile(model, uid, Request);
-        //    return Ok(updateProfile);
-
-        //}
 
 
 

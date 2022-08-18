@@ -256,7 +256,7 @@
             // timeout ONLY_FOR_DEMO!
             const timeout = setTimeout(function() {
                 xhr = $.ajax({
-                    url: '/Home/QuickView',
+                    url: '/Invitation/QuickView',
                     success: function(data) {
                         quickview.cancelPreviousModal = function() {};
                         button.removeClass('product-card__quickview--preload');
