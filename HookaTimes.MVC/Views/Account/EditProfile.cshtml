@@ -65,6 +65,25 @@ h2 {
     height:100%;
 }
 
+.edit-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.update-button{
+   transition: all 0.1s ease-in-out;
+    font-size: 1.1rem;
+    
+    line-height: 1.5;
+    padding: 0.375rem 3rem;
+    font-weight: 500;
+     border-color: #ffd333;
+    background: #ffd333;
+    color: #3d464d;
+    fill: #3d464d;
+    margin-left: auto;
+
+}
 
 </style>
 
@@ -109,7 +128,7 @@ h2 {
                         <div class="card-divider"></div>
                         <div class="card-body">
 
-                            <form method="post" action="#">
+                            <form class="edit-form " method="post" action="#">
     <div class="mt-150">
         <h2>Personal Info</h2>
         <div class="block-container">
@@ -331,7 +350,7 @@ h2 {
     </div>
 *@
     <hr class="mt-100" />
-    <input type="submit" name="submit" value="Edit" class="btn-primary" />
+    <input type="submit" name="submit" value="Save" class="update-button" />
 </form>
 
 

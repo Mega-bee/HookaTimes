@@ -23,7 +23,7 @@ namespace HookaTimes.BLL.IServices
 
         Task<ResponseModel> AddEducation(BuddyProfileEducationPutVM education, int BuddyId);
         Task<ResponseModel> DeleteEducation(int EducationId);
-        Task<ResponseModel> AddExperience(BuddyProfileExperience exp, int BuddyId);
+        Task<ResponseModel> AddExperience(BuddyProfileExperiencePutVM exp, int BuddyId);
         Task<ResponseModel> DeleteExperience(int ExpId);
 
         //Task<ResponseModel> ConfirmAccount(string phonenumber);
