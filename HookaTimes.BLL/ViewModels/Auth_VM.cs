@@ -164,7 +164,7 @@ namespace HookaTimes.BLL.ViewModels
         public string SocialMediaLink1 { get; set; }
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }
-        public List<BuddyProfileAddressPutVM> Addresses { get; set; }
+
         public List<BuddyProfileEducationPutVM> Education { get; set; }
         public List<BuddyProfileExperiencePutVM> Experience { get; set; }
 
