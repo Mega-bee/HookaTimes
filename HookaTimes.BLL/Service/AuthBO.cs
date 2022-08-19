@@ -379,6 +379,7 @@ namespace HookaTimes.BLL.Service
                 newedu.Apartment = Address.Appartment;
                 newedu.Street = Address.Street;
                 newedu.Building = Address.Building;
+                newedu.City = Address.City;
                 await _uow.BuddyProfileAddressRepository.Create(newedu);
 
 
