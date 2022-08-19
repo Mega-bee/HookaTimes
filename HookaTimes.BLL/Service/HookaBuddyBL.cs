@@ -55,6 +55,7 @@ namespace HookaTimes.BLL.Service
                 responseModel.ErrorMessage = "User was not Found";
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
+                //falsafi 3al fadi
             }
 
             BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, y => y.BuddyProfileAddresses, y => y.BuddyProfileEducations, y => y.BuddyProfileExperiences).FirstOrDefaultAsync();
