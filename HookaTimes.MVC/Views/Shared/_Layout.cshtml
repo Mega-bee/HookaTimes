@@ -1,6 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
+
+
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no">
@@ -8,6 +13,9 @@
     <link rel="icon" type="image/png" href="/FrontendAssets/images/favicon.png">
     <!-- fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
     <!-- css -->
     <link rel="stylesheet" href="/FrontendAssets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/FrontendAssets/vendor/owl-carousel/assets/owl.carousel.min.css">
@@ -18,28 +26,45 @@
     <link rel="stylesheet" href="/FrontendAssets/css/style.ltr.css">
     <!-- font - fontawesome -->
     <link rel="stylesheet" href="/FrontendAssets/vendor/fontawesome/css/all.min.css">
-    <!-- font - stroyka -->
-    <link rel="stylesheet" href="/FrontendAssets/fonts/stroyka/stroyka.css">
+   
 </head>
 <body>
+              <partial name="~/Views/Shared/Ecommerce/PreLoader.cshtml" />
 
     <div class="site">
         <partial name="~/Views/Shared/Ecommerce/_MobileSiteHeaderPartial.cshtml" />
         <header class="site__header d-lg-block d-none">
             <div class="site-header">
                 @*<partial name="~/Views/Shared/Ecommerce/_NavBarTopPartial.cshtml" />*@
-                <partial name="~/Views/Shared/Ecommerce/_NavBarButtomPartial.cshtml" />
+                @*<partial name="~/Views/Shared/Ecommerce/_NavBarButtomPartial.cshtml" />*@
+                @await Component.InvokeAsync("NavBarComp")
             </div>
         </header>
-    @RenderBody()
+        @RenderBody()
         <partial name="~/Views/Shared/Ecommerce/_FooterPartial.cshtml" />
+     
     </div>
-     <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
-     <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
-    @await RenderSectionAsync("Scripts", required: false)
-        <!-- js -->
-     <script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>
+    <partial name="~/Views/Shared/Ecommerce/_QuickViewContainerPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_MobileMenuPartial.cshtml" />
+    <partial name="~/Views/Shared/Ecommerce/_PhotoSwipePartial.cshtml" />
+  
+    @*<partial name="~/Views/Shared/Ecommerce/_QuickViewPartial.cshtml" />*@
+
+    <!-- jQuery -->
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var s = '@ViewBag.CurrentPage';
+            $(".MenuLink").removeClass("w--current");
+            $(".Link" + s).addClass("w--current");
+        });
+    </script>
+    <!-- js -->
+    @*<script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>*@
     <script src="/FrontendAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/FrontendAssets/vendor/owl-carousel/owl.carousel.min.js"></script>
     <script src="/FrontendAssets/vendor/nouislider/nouislider.min.js"></script>
@@ -50,8 +75,35 @@
     <script src="/FrontendAssets/js/main.js"></script>
     <script src="/FrontendAssets/js/header.js"></script>
     <script src="/FrontendAssets/vendor/svg4everybody/svg4everybody.min.js"></script>
+  
     <script>
         svg4everybody();
     </script>
+   
+    <script src="~/frontendassets/js/logout.js"></script>
+    <script type="module" src="/FrontendAssets/js/update-cart-dropdown.js"></script>
+    <script type="module" src="/FrontendAssets/js/add-to-cart-functionality.js"></script>
+    <script type="module" src="~/frontendassets/js/remove-from-cart-functionality.js"></script>
+    <script type="module" src="~/frontendassets/js/remove-from-cart-dropdown.js"></script>
+    <script type="module" src="~/frontendassets/js/add-to-favorites.js"></script>
+    @*Toaster*@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Include Moment.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
+    </script>
+
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+    </script>
+    @await Component.InvokeAsync("Notyf")
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
 </body>
 </html>

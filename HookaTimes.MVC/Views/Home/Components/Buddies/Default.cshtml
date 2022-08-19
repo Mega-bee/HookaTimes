@@ -1,0 +1,22 @@
+﻿@model List<Buddy_VM>
+<div class="block block-posts" data-layout="grid-3" data-mobile-columns="1">
+    <div class="container">
+        <div class="white-background">
+            <div class="block-header">
+                <img src="/FrontendAssets/images/svg/Group 41.svg" loading="lazy" alt="" class="icons">
+                <h2 class="_1-6-h2">Hooka Buddies </h2>
+            </div>
+            <div class="block-products__body">
+                <div class="block-products__list" style="width: 100%;">
+                    @foreach (var item in Model)
+                    {
+                        <partial name="../../../shared/Ecommerce/_HookaBuddyPartial.cshtml" model="item" />
+                    }
+                </div>
+            </div>
+            <a asp-controller="Home" asp-action="HookaBuddies" class="see-all_button w-button">See All</a>
+        </div>
+    </div>
+</div>
+
+

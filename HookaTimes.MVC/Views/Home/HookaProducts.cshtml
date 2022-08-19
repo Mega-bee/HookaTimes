@@ -1,0 +1,217 @@
+﻿@{
+    ViewData["Title"] = "Hook Products";
+
+    ViewBag.CurrentPage = "Products";
+
+}
+
+@model List<Product_VM>
+<style>
+   
+
+    .product-image__img {
+        height:100%;
+    }
+
+    .form-control.form-control-sm{
+        margin-bottom:0px;
+    }
+
+    .shop-layout__content{
+        width:100%;
+    }
+
+    @@media only screen and (max-width: 990px) {
+        .block-products__list-item {
+            width: 48% !important;
+            margin: 1em 6px;
+        }
+
+        .get-app_inside-wrap {
+            max-width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width: 580px) {
+        .block-products__list-item {
+            width: 100% !important;
+            margin: 1em 6px;
+        }
+    }
+
+    @@media only screen and (max-width: 374px) {
+        .product-card__buttons {
+            justify-content: top !important;
+        }
+    }
+
+
+
+    .post-card__content.is--cuisines {
+        color: #706f6f;
+        font-size: 0.8em;
+        line-height: 1.2;
+        font-weight: 500;
+    }
+
+    .post-card__content.is--location {
+        color: #9d9d9c;
+        font-size: 0.8em;
+        line-height: 1.2;
+        font-weight: 500;
+    }
+
+    .post-card__info {
+        display: flex;
+        flex-direction: column;
+        grid-column-gap: 0.3em;
+        grid-row-gap: 0.3em;
+    }
+
+    .product-card {
+        padding: 1em;
+    }
+
+    .block-products__list-item {
+        display: flex;
+        width: 31.5%;
+        margin: 0.7em 6px !important;
+    }
+
+    .block-products[data-mobile-grid-columns="2"] .block-products__list-item .product-card--hidden-actions:hover {
+        margin-bottom: 0px;
+    }
+
+    .block-products__list-item .product-card {
+        max-height: 100%;
+    }
+
+    .post-card__name a:hover {
+        color: #ffd333;
+    }
+
+    a:hover {
+        color: #ffd333 !important;
+        text-decoration: none;
+    }
+
+</style>
+
+<div class="site__body">
+
+    @*site header*@
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+                        @*
+                        <li class="breadcrumb-item">
+                        <a href="">Breadcrumb</a>
+                        <svg class="breadcrumb-arrow" width="6px" height="9px">
+                        <use
+                        xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"
+                        ></use>
+                        </svg>
+                        </li>
+                        *@
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Hooka Products
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__title">
+                <h1>Hooka Products</h1>
+            </div>
+        </div>
+    </div>
+
+    @*body content*@
+    <div class="container">
+        <div class="shop-layout shop-layout--sidebar--start">
+
+
+
+            <div class="shop-layout__content">
+                <div class="block">
+                    <div class="products-view">
+                        <div class="products-view__options">
+                            <div class="view-options view-options--offcanvas--mobile">
+                                <div class="view-options__filters-button">
+                                    <button type="button" class="filters-button">
+                                        <svg class="filters-button__icon"
+                                             width="16px"
+                                             height="16px">
+                                            <use xlink:href="/FrontendAssets/images/sprite.svg#filters-16"></use>
+                                        </svg>
+                                        <span class="filters-button__title">Filters</span>
+                                        <span class="filters-button__counter">3</span>
+                                    </button>
+                                </div>
+
+                                <div class="view-options__divider"></div>
+
+                                <div class="view-options__control">
+                                   @* <label for="">Sort By</label>
+                                    <div>
+                                        <select class="form-control form-control-sm"
+                                                name=""
+                                                id="">
+                                            <option value="">Price</option>
+                                            <option value="">Name (A-Z)</option>
+                                        </select>
+                                    </div>*@
+                                </div>
+                                @*                                <div class="view-options__control">
+                                <label for="">Show</label>
+                                <div>
+                                <select
+                                class="form-control form-control-sm"
+                                name=""
+                                id=""
+                                >
+                                <option value="">12</option>
+                                <option value="">24</option>
+                                </select>
+                                </div>
+                                </div>
+                                *@
+                            </div>
+                        </div>
+
+                        <div class="products-view__list products-list"
+                             data-layout="grid-3-sidebar"
+                             data-with-features="false"
+                             data-mobile-grid-columns="2">
+                            <div class="products-list__body">
+                                @foreach (var item in Model)
+                                {
+                                    <partial name="../shared/Ecommerce/_HookaProductPartial.cshtml" model="item" />
+                                }
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <script type="module" src="~/FrontendAssets/js/add-to-cart.js"></script>
+    <script  src="~/FrontendAssets/js/add-to-wishlist.js"></script>
+}
