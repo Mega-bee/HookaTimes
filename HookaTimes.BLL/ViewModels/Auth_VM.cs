@@ -125,11 +125,16 @@ namespace HookaTimes.BLL.ViewModels
 
         public string AboutMe { get; set; }
         public string MaritalStatus { get; set; }
+        public int? MaritalStatusId { get; set; }
+
         public decimal? Height { get; set; }
         public decimal? Weight { get; set; }
         public string BodyType { get; set; }
+        public int? BodyTypeId { get; set; }
         public string Eyes { get; set; }
+        public int? EyesId { get; set; }
         public string Hair { get; set; }
+        public int? HairId { get; set; }
         //public string Education { get; set; }
         public string Profession { get; set; }
         public string Interests { get; set; }

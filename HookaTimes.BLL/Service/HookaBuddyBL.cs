@@ -85,6 +85,10 @@ namespace HookaTimes.BLL.Service
             userProfile.Profession = currProfile.Profession ?? "";
             userProfile.FirstName = currProfile.FirstName ?? "";
             userProfile.LastName = currProfile.LastName ?? "";
+            userProfile.HairId = currProfile.Hair;
+            userProfile.MaritalStatusId = currProfile.MaritalStatus;
+            userProfile.EyesId = currProfile.Eyes;
+            userProfile.BodyTypeId = currProfile.BodyType;
             userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
             {
                 Latitude = x.Latitude,
