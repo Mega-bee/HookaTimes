@@ -43,6 +43,8 @@ namespace HookaTimes.DAL
         private IVirtualCartRepository virtualCartRepository;
         private IVirtualWishListRepository virtualWishlistRepository;
         private IWishlistRepository wishlistRepository;
+        private IPlaceAlbumRepository placeAlbumRepository;
+        private IPlaceMenuRepository placeMenuRepository;
 
 
         #endregion
@@ -72,6 +74,8 @@ namespace HookaTimes.DAL
         public IVirtualCartRepository VirtualCartRepository => virtualCartRepository ?? new VirtualCartRepo(_context);
         public IVirtualWishListRepository VirtualWishlistRepository => virtualWishlistRepository ?? new VirtualWishlistRepo(_context);
         public IWishlistRepository WishlistRepository => wishlistRepository ?? new WishlistRepo(_context);
+        public IPlaceAlbumRepository PlaceAlbumRepository => placeAlbumRepository ?? new PlaceAlbumRepository(_context);
+        public IPlaceMenuRepository PlaceMenuRepository => placeMenuRepository ?? new PlaceMenuRepo(_context);
 
 
         #endregion

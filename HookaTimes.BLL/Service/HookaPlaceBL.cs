@@ -283,5 +283,67 @@ namespace HookaTimes.BLL.Service
             return places;
         }
 
+        public async Task<ResponseModel> CreatePlace(CreateHookaPlace_vM model,string uid)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            PlacesProfile newPlace = new PlacesProfile()
+            {
+                CreatedDate = DateTime.UtcNow,
+                CuisineId = model.CuisineId,
+                Description = model.Description,
+                IsDeleted = false,
+                LocationId = model.LocationId,
+                OpenningFrom = model.OpeningFrom,
+                OpenningTo = model.OpeningTo,
+                Title = model.Title,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                PhoneNumber = model.PhoneNumber,
+                UserId = uid,
+
+            };
+           newPlace =  await _uow.PlaceRepository.Create(newPlace);
+            PlaceAlbum album = new PlaceAlbum();
+            PlaceMenu menu = new PlaceMenu();
+            if (model.Albums.Count > 0)
+            {
+                foreach (var item in model.Albums)
+                {
+                    string path = await item.SaveImage("Albums");
+                    album = new PlaceAlbum()
+                    {
+                        CreatedDate = DateTime.UtcNow,
+                        Image = path,
+                        IsDeleted = false,
+                        PlaceProfileId = newPlace.Id,
+
+                    };
+                    await _uow.PlaceAlbumRepository.Add(album);
+                }
+                
+            }
+            if (model.Menus.Count > 0)
+            {
+                foreach (var item in model.Menus)
+                {
+                    string path = await item.SaveImage("Albums");
+                    menu = new PlaceMenu()
+                    {
+                        CreatedDate = DateTime.UtcNow,
+                        Image = path,
+                        IsDeleted = false,
+                        PlaceProfileId = newPlace.Id,
+
+                    };
+                    await _uow.PlaceMenuRepository.Add(menu);
+                }
+
+            }
+            await _uow.SaveAsync();
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "";
+            responseModel.Data = new DataModel { Data = "", Message = "Place created" };
+            return responseModel;
+        }
     }
 }

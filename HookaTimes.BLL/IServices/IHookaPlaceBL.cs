@@ -14,6 +14,7 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> AddReview(CreateReview_VM model, HttpRequest request, int id, int buddyId);
         Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request, int userBuddyId, int take = 0, List<int> cuisines = null, int sortBy = 0);
         Task<List<HookaPlaces_VM>> GetFavorites(int userBuddyId);
+        Task<ResponseModel> CreatePlace(CreateHookaPlace_vM model, string uid);
 
         Task<List<PlacesNames_VM>> GetPlacesNames();
     }
