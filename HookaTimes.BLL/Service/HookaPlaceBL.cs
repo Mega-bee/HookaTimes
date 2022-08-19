@@ -300,9 +300,15 @@ namespace HookaTimes.BLL.Service
                 Longitude = model.Longitude,
                 PhoneNumber = model.PhoneNumber,
                 UserId = uid,
-
+                 Rating = model.Rating,
             };
-           newPlace =  await _uow.PlaceRepository.Create(newPlace);
+            var imgFile = model.Image;
+            if(imgFile != null)
+            {
+                string path = await imgFile.SaveImage("Places");
+                newPlace.Image = path;
+            }
+            newPlace =  await _uow.PlaceRepository.Create(newPlace);
             PlaceAlbum album = new PlaceAlbum();
             PlaceMenu menu = new PlaceMenu();
             if (model.Albums.Count > 0)
