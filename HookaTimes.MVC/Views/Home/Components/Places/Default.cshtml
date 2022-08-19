@@ -2,11 +2,11 @@
 <div class="block block-posts" data-layout="grid-3" data-mobile-columns="1">
     <div class="container">
         <div class="white-background">
-            <div class="block-header">
+            <div class="block-header"  data-aos="fade-right">
                 <img src="/FrontendAssets/images/svg/Group 36.svg" loading="lazy" alt="" class="icons">
                 <h2 class="_1-6-h2">HookaTimes Places</h2>
             </div>
-            <div class="block-products__body">
+            <div class="block-products__body"  data-aos="fade-up">
                 <div class="block-products__list" style="width: 100%;">
                     @foreach (var item in Model)
                     {
@@ -15,7 +15,7 @@
                     }
                 </div>
             </div>
-            <a asp-controller="Home" asp-action="HookaPlaces" class="see-all_button w-button">See All</a> 
+            <a asp-controller="Home" asp-action="HookaPlaces" class="see-all_button w-button"  data-aos="fade-up">See All</a> 
 
         </div>
     </div>
