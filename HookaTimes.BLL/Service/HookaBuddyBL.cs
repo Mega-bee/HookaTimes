@@ -62,7 +62,7 @@ namespace HookaTimes.BLL.Service
 
 
             Profile_VM userProfile = new Profile_VM();
-
+            userProfile.Id = BuddyId;
             userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
             userProfile.Name = currProfile.FirstName + " " + currProfile.LastName ?? "";
             userProfile.Email = currProfile.User.Email ?? "";

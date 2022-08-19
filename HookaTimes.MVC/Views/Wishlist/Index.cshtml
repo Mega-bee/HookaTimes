@@ -28,61 +28,76 @@
         </div>
     </div>
     <div class="block">
+        @if (Model.Count == 0)
+        {
+            <div class="not-found">
+                <div class="not-found__content">
+                    <h1 class="not-found__title">Your wishlist is empty!</h1>
+                    <p class="not-found__text">We can't seem to find anything in your wishlist</p>
+                    <a asp-controller="Home" asp-action="HookaProducts" class="btn btn-light">Continue Shopping</a>
+                </div>
+            </div>
+        }  else {
         <div class="container">
-            <table class="wishlist">
-                <thead class="wishlist__head">
-                    <tr class="wishlist__row">
-                        <th class="wishlist__column wishlist__column--image">Image</th>
-                        <th class="wishlist__column wishlist__column--product">Product</th>
-                        <th class="wishlist__column wishlist__column--stock">Stock Status</th>
-                        <th class="wishlist__column wishlist__column--price">Price</th>
-                        <th class="wishlist__column wishlist__column--tocart"></th>
-                        <th class="wishlist__column wishlist__column--remove"></th>
-                    </tr>
-                </thead>
-                <tbody class="wishlist__body">
-                    @foreach (var item in Model)
-                    {
+          
+                <table class="wishlist">
+                    <thead class="wishlist__head">
                         <tr class="wishlist__row">
-                            <td class="wishlist__column wishlist__column--image">
-                                <div class="product-image">
-                                    <a href="" class="product-image__body">
-                                        <img class="product-image__img" src="@item.ProductImage" alt="">
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="wishlist__column wishlist__column--product">
-
-                                <a href="" class="wishlist__product-name">@item.CategoryName</a>
-                                <ul class="cart-table__options">
-                                    <li>@item.ProductName</li>
-                                    @*<li>Material: Aluminium</li>*@
-                                </ul>
-
-                            </td>
-                            <td class="wishlist__column wishlist__column--stock">
-                                <div class="badge badge-success">In Stock</div>
-                            </td>
-                            <td class="wishlist__column wishlist__column--price">@item.ProductPrice AED</td>
-                            <td class="wishlist__column wishlist__column--tocart">
-                                <button data-productId="@item.ItemId" type="button" class="btn btn-primary btn-sm add-to-cart-btn">Add To Cart</button>
-                            </td>
-                            <td class="wishlist__column wishlist__column--remove">
-                                <button data-productId="@item.ItemId" type="button" class="btn btn-light btn-sm btn-svg-icon remove-item-btn">
-                                    <svg width="12px" height="12px">
-                                        <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
-                                    </svg>
-                                </button>
-                            </td>
+                            <th class="wishlist__column wishlist__column--image">Image</th>
+                            <th class="wishlist__column wishlist__column--product">Product</th>
+                            <th class="wishlist__column wishlist__column--stock">Stock Status</th>
+                            <th class="wishlist__column wishlist__column--price">Price</th>
+                            <th class="wishlist__column wishlist__column--tocart"></th>
+                            <th class="wishlist__column wishlist__column--remove"></th>
                         </tr>
-                    }
-           
+                    </thead>
+                    <tbody class="wishlist__body">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr class="wishlist__row">
+                                <td class="wishlist__column wishlist__column--image">
+                                    <div class="product-image">
+                                        <a asp-controller="Home" asp-action="Product" asp-route-id="@item.CategoryId" class="product-image__body">
+                                            <img class="product-image__img" src="@item.ProductImage" alt="">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="wishlist__column wishlist__column--product">
+
+                                    <a asp-controller="Home" asp-action="Product" asp-route-id="@item.CategoryId" class="wishlist__product-name">@item.CategoryName</a>
+                                    <ul class="cart-table__options">
+                                        <li>@item.ProductName</li>
+                                        @*<li>Material: Aluminium</li>*@
+                                    </ul>
+
+                                </td>
+                                <td class="wishlist__column wishlist__column--stock">
+                                    <div class="badge badge-success">In Stock</div>
+                                </td>
+                                <td class="wishlist__column wishlist__column--price">@item.ProductPrice AED</td>
+                                <td class="wishlist__column wishlist__column--tocart">
+                                    <button data-productId="@item.ItemId" type="button" class="btn btn-primary btn-sm add-to-cart-btn">Add To Cart</button>
+                                </td>
+                                <td class="wishlist__column wishlist__column--remove">
+                                    <button data-productId="@item.ItemId" type="button" class="btn btn-light btn-sm btn-svg-icon remove-item-btn">
+                                        <svg width="12px" height="12px">
+                                            <use xlink:href="/FrontendAssets/images/sprite.svg#cross-12"></use>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
 
 
-        
-                </tbody>
-            </table>
+
+
+                    </tbody>
+                </table>
+            
+          
         </div>
+        }
     </div>
 </div>
 <!-- site__body / end -->

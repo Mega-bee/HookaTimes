@@ -124,10 +124,25 @@ namespace HookaTimes.BLL.Service
                     Image = p.Image,
                      Description = p.Description,
                     IsInWishlist =  !string.IsNullOrEmpty(sessionWishlistId) ? p.VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : p.Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null
-                }).ToList()
+                }).ToList(),
+                
             }).FirstOrDefaultAsync();
+            product.RelatedCategories = await _uow.ProductCategoryRepository.GetAll(x => x.Id != categoryId).Select(c => new Product_VM
+            {
+                Category = c.Title,
+                IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
+                IsInWishlist = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault() != null ? (!string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null) : false,
+                Title = c.Title,
+                CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
+                Description = c.Description,
+                Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
+                CategoryId = c.Id,
+                Image = c.Image,
+            }).Take(3).ToListAsync();
+
             return product;
         }
+ 
         #endregion
 
 

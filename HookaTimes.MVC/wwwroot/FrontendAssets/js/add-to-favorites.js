@@ -8,7 +8,6 @@ const addToFavBtn = document.querySelector(".add-to-favorite-btn")
 $(document).on("click", ".add-to-favorite-btn", function (e) {
    
     let pressedBtn = this
-    console.log(pressedBtn)
     let placeId = $(this).attr("data-placeid")
     if (placeId) {
         let formdata = new FormData()

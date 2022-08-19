@@ -110,7 +110,7 @@ namespace HookaTimes.BLL.ViewModels
 
     public partial class Profile_VM
     {
-
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

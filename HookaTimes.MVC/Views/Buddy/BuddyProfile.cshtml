@@ -566,34 +566,10 @@
 <!-- quickview-modal -->
 <div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content"></div>
+        <div data-buddyid ="@Model.Id" id="buddyId" class="modal-content"></div>
     </div>
 </div>
 <!-- quickview-modal / end -->
 @section Scripts{
-    <script>
-        //document.addEventListener('DOMContentLoaded', (event) => {
-        //    $('#datetime').datetimepicker({
-
-        //        format: 'MM/DD/YYYY H:mm',
-        //    });
-        //})
-
-
-
-        //$(document).ready(function () {
-        //    //console.log('hiiii')
-
-        //    //console.log(('#datetime'))
-        //    //$('#datetime').datetimepicker({
-        //    //    format: 'MM/DD/YYYY H:mm',
-        //    //});
-        //    //            console.log('meshyet ya 7aj')
-
-        //    $('#datetime').datetimepicker({
-        //        format: 'hh:mm:ss a'
-        //    });
-
-        //});
-    </script>
+       <script src="~/frontendassets/js/invitation.js" ></script>
 }
