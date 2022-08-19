@@ -1,17 +1,23 @@
 ﻿
 document.addEventListener('DOMContentLoaded', (event) => {
-    const form = document.querySelector('#inviteForm');
-    const btn = document.querySelector('#submitBtn');
-    const buddyIdElement = document.querySelector('#buddyId');
-    let BuddyId = buddyIdElement.getAttribute('data-buddyid')
+    
 
 
     //btn.addEventListener('click', (event) => {
+    //    form.submit();
     //})
 
+    //$(document).on("click", ".add-to-favorite-btn", function (e) { }
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    $(document).on("submit", "#inviteForm", function (e) { 
+        e.preventDefault();
+
+        const form = this;
+        const btn = form.querySelector('#submitBtn');
+        const closrbtn = document.querySelector('.quickview__close')
+        const buddyIdElement = document.querySelector('#buddyId');
+        let BuddyId = buddyIdElement.getAttribute('data-buddyid')
+        e.preventDefault();
 
         $('input').removeClass('error');
         $('select').removeClass('error');
@@ -22,7 +28,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         var hasError = false;
 
-        var $inputs = $('#exampleValidation :input');
+        var $inputs = $('#inviteForm :input');
         let fromdata = new FormData()
         //let placeId = form.dataset.placeid
 
@@ -35,14 +41,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     return;
                 } else {
 
-                    fromdata.append($(this).attr("name"), val)
+                    fromdata.append($(this).attr("name"), val);
                 }
-            } else {
-                fromdata.append($(this).attr("name"), val)
             }
+            //} else {
+            //    fromdata.append($(this).attr("name"), val)
+
+            //}
         });
         fromdata.append("ToBuddyId", BuddyId)
 
+        for (var pair of fromdata.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        
         if (hasError == true) {
             var target = $('.error');
             if (target.length) {
@@ -67,9 +80,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 btn.disabled = false;
                 if (result.statusCode == 201) {
                     notyf.success({ message: "Your Invitation has been Sent" }, 6)
-
+                    closrbtn.click();
                 } else {
-                    notyf.error({ message: "Your Invitation not logged in, please login" })
+                    btn.innerHTML = "Submit";
+                    btn.disabled = false;
+                    notyf.error({ message: "Your Invitation not logged in, please login" },6)
 
                 }
 
@@ -77,16 +92,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
             fail: function (err) {
                 //addToCartBtn.innerHTML = 'Add To Cart'
                 //addToCartBtn.disabled = false;
-                //console.log(err)
+                console.log(err)
                 btn.innerHTML = "Submit";
                 btn.disabled = false;
                 notyf.error({ message: "Your Invitation not logged in, please login" })
             }
         })
-    });
+  
 
    
-
+    })
 
 
 

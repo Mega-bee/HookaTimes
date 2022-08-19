@@ -1,5 +1,6 @@
 ﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -83,6 +84,63 @@ namespace HookaTimes.API.Controllers
             return Ok(completeProfile);
 
         }
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        public async Task<IActionResult> AddAddress([FromForm] BuddyProfileAddressPutVM model)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            ResponseModel AddAddress = await _auth.AddAddress(model, userBuddyId);
+            return Ok(AddAddress);
+        }
+        [Authorize(Roles = "User")]
+        [HttpPut]
+        public async Task<IActionResult> DeleteAddress([FromForm] int AddressId)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            ResponseModel resp = await _auth.DeleteAddress(AddressId, userBuddyId);
+            return Ok(resp);
+        }
+        [Authorize(Roles = "User")]
+        [HttpPost]
+
+        public async Task<IActionResult> AddEducation([FromForm] BuddyProfileEducationPutVM model)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            ResponseModel AddAddress = await _auth.AddEducation(model, userBuddyId);
+            return Ok(AddAddress);
+        }
+        [Authorize(Roles = "User")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEducation([FromForm] int EducationId)
+        {
+            ResponseModel resp = await _auth.DeleteEducation(EducationId);
+            return Ok(resp);
+        }
+
+
+        [Authorize(Roles = "User")]
+        [HttpPost]
+
+        public async Task<IActionResult> AddExperience([FromForm] BuddyProfileExperience model)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            ResponseModel AddAddress = await _auth.AddExperience(model, userBuddyId);
+            return Ok(AddAddress);
+        }
+
+
+        [Authorize(Roles = "User")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteExperience([FromForm] int DeleteExperience)
+        {
+            ResponseModel resp = await _auth.DeleteExperience(DeleteExperience);
+            return Ok(resp);
+        }
+
         #endregion
 
         #region OTP

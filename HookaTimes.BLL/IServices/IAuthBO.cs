@@ -18,6 +18,14 @@ namespace HookaTimes.BLL.IServices
 
         Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request);
 
+        Task<ResponseModel> DeleteAddress(int AddressId, int BuddyId);
+        Task<ResponseModel> AddAddress(BuddyProfileAddressPutVM Address, int BuddyId);
+
+        Task<ResponseModel> AddEducation(BuddyProfileEducationPutVM education, int BuddyId);
+        Task<ResponseModel> DeleteEducation(int EducationId);
+        Task<ResponseModel> AddExperience(BuddyProfileExperience exp, int BuddyId);
+        Task<ResponseModel> DeleteExperience(int ExpId);
+
         //Task<ResponseModel> ConfirmAccount(string phonenumber);
 
         //Task<ResponseModel> ConfirmEmail(string email, string token);
