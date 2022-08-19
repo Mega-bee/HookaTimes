@@ -2,6 +2,7 @@
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request)
+        public async Task<ResponseModel> GetHookaPlaces(HttpRequest request, int userBuddyId)
         {
             ResponseModel responseModel = new ResponseModel();
 
@@ -32,7 +33,9 @@ namespace HookaTimes.BLL.Service
                 Image = $"{request.Scheme}://{request.Host}{p.Image}",
                 Name = p.Title,
                 Location = p.Location.Title,
-                Rating = (float)p.Rating
+                Rating = (float)p.Rating,
+                IsInFavorite = p.FavoriteUserPlaces.Any(f => f.IsDeleted == false && f.BuddyId == userBuddyId)
+
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
@@ -75,11 +78,14 @@ namespace HookaTimes.BLL.Service
                     Description = r.Description,
                     Id = r.Id,
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
+                    Image = r.Buddy.Image,
                     Rating = (float)r.Rating
                 }).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
                 OpeningTo = p.OpenningTo,
+                Latitude = p.Latitude,
+                Longitude = p.Longitude
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
@@ -207,6 +213,74 @@ namespace HookaTimes.BLL.Service
             };
             return responseModel;
 
+        }
+
+        public async Task<List<HookaPlaces_VM>> GetHookaPlacesMVC(HttpRequest request, int userBuddyId, int take = 0, List<int> cuisines = null, int sortBy = 0)
+        {
+            var query = _uow.PlaceRepository.GetAll(p => p.IsDeleted == false);
+            List<HookaPlaces_VM> places = Array.Empty<HookaPlaces_VM>().ToList();
+
+            if (cuisines != null)
+            {
+                if (cuisines.Count > 0)
+                {
+                    query = query.Where(p => cuisines.Contains((int)p.CuisineId));
+                }
+            }
+            if (sortBy != default)
+            {
+                switch (sortBy)
+                {
+                    case 1:
+                        query = query.OrderByDescending(p => p.Rating);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (take > 0)
+            {
+                query = query.Take(take);
+            }
+            places = await query.Select(p => new HookaPlaces_VM
+            {
+                Cuisine = p.Cuisine.Title,
+                Id = p.Id,
+                Image = $"{request.Scheme}://{request.Host}{p.Image}",
+                Name = p.Title,
+                Location = p.Location.Title,
+                Rating = (float)p.Rating,
+                IsInFavorite = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false && f.BuddyId == userBuddyId).Any()
+
+            }).ToListAsync();
+            return places;
+        }
+
+        public async Task<List<HookaPlaces_VM>> GetFavorites(int userBuddyId)
+        {
+            List<HookaPlaces_VM> favs = await _uow.FavoritePlaceRepository.GetAll(x => x.BuddyId == userBuddyId && x.IsDeleted == false).Select(p => new HookaPlaces_VM
+            {
+                Cuisine = p.PlaceProfile.Cuisine.Title,
+                Id = p.PlaceProfile.Id,
+                Image = p.PlaceProfile.Image,
+                Name = p.PlaceProfile.Title,
+                Location = p.PlaceProfile.Location.Title,
+                Rating = (float)p.PlaceProfile.Rating,
+                IsInFavorite = true
+            }).ToListAsync();
+            return favs;
+        }
+
+
+
+        public async Task<List<PlacesNames_VM>> GetPlacesNames()
+        {
+            List<PlacesNames_VM> places = await _uow.PlaceRepository.GetAll(x => x.IsDeleted == false).Select(p => new PlacesNames_VM
+            {
+                Id = p.Id,
+                Title = p.Title
+            }).ToListAsync();
+            return places;
         }
 
     }

@@ -1,18 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using HookaTimes.BLL.Utilities.Mailkit;
+using HookaTimes.BLL.Utilities.MailKit;
+using HookaTimes.DAL.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HookaTimes.DAL.Data;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Primitives;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace HookaTimes.BLL.Utilities.Extensions
 {
@@ -27,7 +28,7 @@ namespace HookaTimes.BLL.Utilities.Extensions
             services.AddDbContext<HookaTimes.DAL.Data.HookaDbContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser,IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
@@ -38,7 +39,7 @@ namespace HookaTimes.BLL.Utilities.Extensions
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-                ;
+            ;
         }
 
         public static void ConfigureAuthentication(this IServiceCollection services)
@@ -102,6 +103,25 @@ namespace HookaTimes.BLL.Utilities.Extensions
             });
         }
 
+
+        public static void ConfigureAuthenticationMVC(this IServiceCollection services)
+        {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                     .AddCookie(options =>
+                     {
+                         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                         options.SlidingExpiration = true;
+                         options.AccessDeniedPath = "/Forbidden/";
+                         options.LoginPath = "/Account/Login";
+                         //options.LogoutPath = "/Account/Logout";
+                         options.LogoutPath = "/Home";
+                         //options.AccessDeniedPath = "/Account/AccessDenied";
+
+                     });
+
+
+        }
+
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -133,5 +153,23 @@ namespace HookaTimes.BLL.Utilities.Extensions
                 });
             });
         }
+
+        public static void ConfigureMailKit(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddTransient<IEmailSender, MailKitEmailSender>();
+            services.Configure<MailKitEmailSenderOptions>(options =>
+            {
+                options.Host_Address = Configuration["ExternalProviders:MailKit:SMTP:Address"];
+                options.Host_Port = Convert.ToInt32(Configuration["ExternalProviders:MailKit:SMTP:Port"]);
+                options.Host_Username = Configuration["ExternalProviders:MailKit:SMTP:Account"];
+                options.Host_Password = Configuration["ExternalProviders:MailKit:SMTP:Password"];
+                options.Sender_EMail = Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
+                options.Sender_Name = Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
+            });
+
+
+        }
+
+
     }
 }

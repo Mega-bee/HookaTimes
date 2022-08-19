@@ -26,5 +26,21 @@ namespace HookaTimes.API.Controllers
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
             return Ok(await _orderBL.PlaceOrder(userBuddyId, addressId));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetOrders()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _orderBL.GetOrders(userBuddyId));
+        }
+
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrder([FromRoute] int orderId)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _orderBL.GetOrder(Request,userBuddyId, orderId));
+        }
+
     }
 }

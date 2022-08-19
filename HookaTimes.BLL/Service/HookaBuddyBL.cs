@@ -3,6 +3,7 @@ using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,7 @@ namespace HookaTimes.BLL.Service
             return responseModel;
 
         }
+
         public async Task<ResponseModel> GetBuddy(int BuddyId, HttpRequest Request)
         {
             bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
@@ -60,7 +62,7 @@ namespace HookaTimes.BLL.Service
 
 
             Profile_VM userProfile = new Profile_VM();
-
+            userProfile.Id = BuddyId;
             userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
             userProfile.Name = currProfile.FirstName + " " + currProfile.LastName ?? "";
             userProfile.Email = currProfile.User.Email ?? "";
@@ -90,6 +92,11 @@ namespace HookaTimes.BLL.Service
                 Longitude = x.Longitude,
                 Title = x.Title,
                 Id = x.Id,
+                Appartment = x.Apartment,
+                Building = x.Building,
+                City = x.City,
+                Street = x.Street,
+
             }).ToList();
             userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
             {
@@ -156,6 +163,49 @@ namespace HookaTimes.BLL.Service
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel { Data = "", Message = "Invitation Sent Succesfully" };
             return responseModel;
+        }
+        public async Task<List<Buddy_VM>> GetBuddiesMVC(HttpRequest request, int userBuddyId, int take = 0, int filterBy = 0, int sortBy = 0)
+        {
+            var query = _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Id != userBuddyId);
+            List<Buddy_VM> buddies = Array.Empty<Buddy_VM>().ToList();
+
+
+            switch (filterBy)
+            {
+                case 1:
+                    query = query.Where(x => x.IsAvailable == true);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (sortBy)
+            {
+                case 1:
+                    query = query.OrderByDescending(x => x.Rating);
+                    break;
+                default:
+                    break;
+            }
+
+            if (take > 0)
+            {
+                query = query.Take(take);
+            }
+
+
+            buddies = await query.Select(x => new Buddy_VM
+            {
+                Profession = x.Profession ?? "",
+                Id = x.Id,
+                Name = x.FirstName + " " + x.LastName,
+                Image = x.Image,
+                Rating = (float)(x.Rating ?? 0),
+                Address = x.BuddyProfileAddresses.Where(a => a.IsDeleted == false).Select(a => a.Title).FirstOrDefault() ?? "",
+
+            }).ToListAsync();
+
+            return buddies;
         }
     }
 }

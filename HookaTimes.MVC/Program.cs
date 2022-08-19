@@ -1,3 +1,6 @@
+
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using HookaTimes.BLL;
 using HookaTimes.BLL.Utilities.Extensions;
 using HookaTimes.BLL.Utilities.Logging;
@@ -8,11 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureDbContext(builder.Configuration);
-builder.Services.ConfigureAuthentication();
+builder.Services.ConfigureAuthenticationMVC();
+builder.Services.ConfigureMailKit(builder.Configuration);
 new ServiceInjector(builder.Services).Render();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 var mvcBuilder = builder.Services.AddRazorPages();
-
+builder.Services.AddNotyf(config =>
+{ config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 if (builder.Environment.IsDevelopment())
 {
     mvcBuilder.AddRazorRuntimeCompilation();
@@ -32,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -45,6 +51,15 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 });
+var cookiePolicyOptions = new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+};
+
+
+
+app.UseCookiePolicy(cookiePolicyOptions);
+app.UseNotyf();
 
 
 app.Run();

@@ -18,6 +18,7 @@ namespace HookaTimes.BLL.Service
         {
         }
 
+        #region Api
         public async Task<ResponseModel> SetInvitationStatus(int statusId, int invitationId)
         {
             ResponseModel responseModel = new ResponseModel();
@@ -30,7 +31,7 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
             invitation.InvitationStatusId = statusId;
-            await _uow.InvitationRepository.Update(invitation);
+            Invitation test = await _uow.InvitationRepository.Update(invitation);
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel { Data = "", Message = "Invitation status sucessfully set" };
@@ -68,6 +69,9 @@ namespace HookaTimes.BLL.Service
                 InvitationStatus = i.InvitationStatus.Title,
                 Id = i.Id,
                 BuddyImage = $"{request.Scheme}://{request.Host}{i.FromBuddy.Image}",
+                RestaurantName = i.Place.Title,
+                InvitationOption = i.InvitationOption.Title,
+                InvitationDate = i.InvitationDate,
 
             }).ToListAsync();
 
@@ -106,7 +110,7 @@ namespace HookaTimes.BLL.Service
                     Description = i.Description ?? "",
                     BuddyName = i.ToBuddy.FirstName + " " + i.ToBuddy.LastName,
                     InvitationStatusId = (int)i.InvitationStatusId,
-                    BuddyRating = 0,
+                    BuddyRating = (float?)i.ToBuddy.Rating,
                     InvitationStatus = i.InvitationStatus.Title,
                     Id = i.Id,
                     BuddyImage = $"{request.Scheme}://{request.Host}{i.ToBuddy.Image}",
@@ -118,6 +122,14 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = invitations, Message = "" };
             return responseModel;
         }
+        #endregion
+
+
+
+        #region MVC
+
+
+        #endregion
 
     }
 }

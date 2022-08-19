@@ -20,10 +20,12 @@ namespace HookaTimes.DAL.HookaTimesModels
             InvitationToBuddies = new HashSet<Invitation>();
             Orders = new HashSet<Order>();
             PlaceReviews = new HashSet<PlaceReview>();
+            Wishlists = new HashSet<Wishlist>();
         }
 
         [Key]
         public int Id { get; set; }
+        public double? Rating { get; set; }
         [StringLength(450)]
         public string UserId { get; set; }
         [Column(TypeName = "decimal(18, 10)")]
@@ -82,5 +84,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         public virtual ICollection<Order> Orders { get; set; }
         [InverseProperty("Buddy")]
         public virtual ICollection<PlaceReview> PlaceReviews { get; set; }
+        [InverseProperty("Buddy")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

@@ -1,0 +1,488 @@
+﻿@{
+    ViewData["Title"] = "Product";
+    
+    ViewBag.CurrentPage = "Products";
+}
+
+@model ViewHookaProduct_VM
+
+<style>
+
+
+
+    .active-item {
+        border: 2px solid #ffd333;
+    }
+
+    .input-radio-color__item {
+        width: 4em;
+        height: 4em;
+    }
+
+    .product-variaton {
+        width: 3em;
+        height: 3em;
+        cursor: pointer;
+    }
+
+    .icons {
+        width: 3em;
+        height: 3em;
+        margin-right: 0.4em;
+    }
+
+    ._1-6-h2 {
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1.6em;
+        line-height: 1.23;
+        font-weight: 600;
+    }
+
+    .product-card__buttons > *:first-child {
+        margin-right: 0px;
+        margin-left: auto;
+    }
+
+    .product-card__buttons {
+        flex-direction: column;
+        margin-top: 0px;
+        align-items: flex-end;
+    }
+
+    .product-card__info {
+        margin-bottom: 1.4em;
+    }
+
+    .product-image__img.is--featured {
+        width: 95%;
+        height: 20em;
+    }
+
+    .product-card__image.product-image.is--featured {
+        height: 20em;
+    }
+
+    .block-products[data-mobile-grid-columns="2"]
+        .block-products__list-item
+        .product-card--hidden-actions:hover {
+        margin-bottom: 0px;
+    }
+
+    .block-products-carousel {
+        pointer-events: all;
+    }
+
+</style>
+
+
+<div class="site__body">
+    <div class="page-header">
+        <div class="page-header__container container">
+            <div class="page-header__breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Products</a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model?.CategoryTitle
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+    <div class="block">
+        <div class="container">
+            <div class="product product--layout--standard"
+                 data-layout="standard">
+                <div class="product__content">
+                    <!-- .product__gallery -->
+                    <div class="product__gallery">
+                        <div class="product-gallery">
+                            <div class="product-gallery__featured">
+                                <button class="product-gallery__zoom">
+                                    <svg width="24px" height="24px">
+                                        <use xlink:href="images/sprite.svg#zoom-in-24"></use>
+                                    </svg>
+                                </button>
+                                <div class="owl-carousel owl-loaded owl-drag"
+                                     id="product-image">
+                                    <div class="owl-stage-outer">
+                                        <div class="owl-stage"
+                                             style="
+                                                transform: translate3d(
+                                                    0px,
+                                                    0px,
+                                                    0px
+                                                );
+                                                transition: all 0s ease 0s;
+                                                width: 2205px;
+                                            ">
+                                            <div class="owl-item active"
+                                                 style="width: 441px">
+                                                <div class="product-image product-image--location--gallery">
+                                                    <!--
+                                                    The data-width and data-height attributes must contain the size of a larger version
+                                                    of the product image.
+
+                                                    If you do not know the image size, you can remove the data-width and data-height
+                                                    attribute, in which case the width and height will be obtained from the naturalWidth
+                                                    and naturalHeight property of img.product-image__img.
+                                                    -->
+                                                    <a href="images/products/product-16.jpg"
+                                                       data-width="700"
+                                                       data-height="700"
+                                                       class="product-image__body"
+                                                       target="_blank">
+                                                        <img class="product-image__img"
+                                                             src="@Model?.CategoryImage"
+                                                             alt="" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @*       <div class="owl-item"
+                                            style="width: 441px">
+                                            <div class="product-image product-image--location--gallery">
+                                            <!--
+                                            The data-width and data-height attributes must contain the size of a larger version
+                                            of the product image.
+
+                                            If you do not know the image size, you can remove the data-width and data-height
+                                            attribute, in which case the width and height will be obtained from the naturalWidth
+                                            and naturalHeight property of img.product-image__img.
+                                            -->
+                                            <a href="images/products/product-16-1.jpg"
+                                            data-width="700"
+                                            data-height="700"
+                                            class="product-image__body"
+                                            target="_blank">
+                                            <img class="product-image__img"
+                                            src="images/products/product-16-1.jpg"
+                                            alt="" />
+                                            </a>
+                                            </div>
+                                            </div>
+                                            <div class="owl-item"
+                                            style="width: 441px">
+                                            <div class="product-image product-image--location--gallery">
+                                            <!--
+                                            The data-width and data-height attributes must contain the size of a larger version
+                                            of the product image.
+
+                                            If you do not know the image size, you can remove the data-width and data-height
+                                            attribute, in which case the width and height will be obtained from the naturalWidth
+                                            and naturalHeight property of img.product-image__img.
+                                            -->
+                                            <a href="images/products/product-16-2.jpg"
+                                            data-width="700"
+                                            data-height="700"
+                                            class="product-image__body"
+                                            target="_blank">
+                                            <img class="product-image__img"
+                                            src="images/products/product-16-2.jpg"
+                                            alt="" />
+                                            </a>
+                                            </div>
+                                            </div>
+                                            <div class="owl-item"
+                                            style="width: 441px">
+                                            <div class="product-image product-image--location--gallery">
+                                            <!--
+                                            The data-width and data-height attributes must contain the size of a larger version
+                                            of the product image.
+
+                                            If you do not know the image size, you can remove the data-width and data-height
+                                            attribute, in which case the width and height will be obtained from the naturalWidth
+                                            and naturalHeight property of img.product-image__img.
+                                            -->
+                                            <a href="images/products/product-16-3.jpg"
+                                            data-width="700"
+                                            data-height="700"
+                                            class="product-image__body"
+                                            target="_blank">
+                                            <img class="product-image__img"
+                                            src="images/products/product-16-3.jpg"
+                                            alt="" />
+                                            </a>
+                                            </div>
+                                            </div>
+                                            <div class="owl-item"
+                                            style="width: 441px">
+                                            <div class="product-image product-image--location--gallery">
+                                            <!--
+                                            The data-width and data-height attributes must contain the size of a larger version
+                                            of the product image.
+
+                                            If you do not know the image size, you can remove the data-width and data-height
+                                            attribute, in which case the width and height will be obtained from the naturalWidth
+                                            and naturalHeight property of img.product-image__img.
+                                            -->
+                                            <a href="images/products/product-16-4.jpg"
+                                            data-width="700"
+                                            data-height="700"
+                                            class="product-image__body"
+                                            target="_blank">
+                                            <img class="product-image__img"
+                                            src="images/products/product-16-4.jpg"
+                                            alt="" />
+                                            </a>
+                                            </div>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                    <div class="owl-nav disabled">
+                                        <button type="button"
+                                                role="presentation"
+                                                class="owl-prev">
+                                            <span aria-label="Previous">‹</span>
+                                        </button><button type="button"
+                                                         role="presentation"
+                                                         class="owl-next">
+                                            <span aria-label="Next">›</span>
+                                        </button>
+                                    </div>
+                                    <div class="owl-dots disabled"></div>
+                                </div>
+                            </div>
+                            @*  <div class="product-gallery__carousel">
+                            <div class="owl-carousel owl-loaded owl-drag"
+                            id="product-carousel">
+                            <div class="owl-stage-outer">
+                            <div class="owl-stage"
+                            style="
+                            transform: translate3d(
+                            0px,
+                            0px,
+                            0px
+                            );
+                            transition: all 0s ease 0s;
+                            width: 569px;
+                            ">
+                            <div class="owl-item active"
+                            style="
+                            width: 103.75px;
+                            margin-right: 10px;
+                            ">
+                            <a href="images/products/product-16.jpg"
+                            class="product-image product-gallery__carousel-item product-gallery__carousel-item--active">
+                            <div class="product-image__body">
+                            <img class="product-image__img product-gallery__carousel-image"
+                            src="images/products/product-16.jpg"
+                            alt="" />
+                            </div>
+                            </a>
+                            </div>
+                            <div class="owl-item active"
+                            style="
+                            width: 103.75px;
+                            margin-right: 10px;
+                            ">
+                            <a href="images/products/product-16-1.jpg"
+                            class="product-image product-gallery__carousel-item">
+                            <div class="product-image__body">
+                            <img class="product-image__img product-gallery__carousel-image"
+                            src="images/products/product-16-1.jpg"
+                            alt="" />
+                            </div>
+                            </a>
+                            </div>
+                            <div class="owl-item active"
+                            style="
+                            width: 103.75px;
+                            margin-right: 10px;
+                            ">
+                            <a href="images/products/product-16-2.jpg"
+                            class="product-image product-gallery__carousel-item">
+                            <div class="product-image__body">
+                            <img class="product-image__img product-gallery__carousel-image"
+                            src="images/products/product-16-2.jpg"
+                            alt="" />
+                            </div>
+                            </a>
+                            </div>
+                            <div class="owl-item active"
+                            style="
+                            width: 103.75px;
+                            margin-right: 10px;
+                            ">
+                            <a href="images/products/product-16-3.jpg"
+                            class="product-image product-gallery__carousel-item">
+                            <div class="product-image__body">
+                            <img class="product-image__img product-gallery__carousel-image"
+                            src="images/products/product-16-3.jpg"
+                            alt="" />
+                            </div>
+                            </a>
+                            </div>
+                            <div class="owl-item"
+                            style="
+                            width: 103.75px;
+                            margin-right: 10px;
+                            ">
+                            <a href="images/products/product-16-4.jpg"
+                            class="product-image product-gallery__carousel-item">
+                            <div class="product-image__body">
+                            <img class="product-image__img product-gallery__carousel-image"
+                            src="images/products/product-16-4.jpg"
+                            alt="" />
+                            </div>
+                            </a>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="owl-nav disabled">
+                            <button type="button"
+                            role="presentation"
+                            class="owl-prev">
+                            <span aria-label="Previous">‹</span>
+                            </button><button type="button"
+                            role="presentation"
+                            class="owl-next">
+                            <span aria-label="Next">›</span>
+                            </button>
+                            </div>
+                            <div class="owl-dots disabled"></div>
+                            </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <!-- .product__gallery / end --><!-- .product__info -->
+                    <div class="product__info">
+                        <div class="product__wishlist-compare">
+                            <button type="button"
+                                    class="btn btn-sm btn-light btn-svg-icon"
+                                    data-toggle="tooltip"
+                                    data-placement="right"
+                                    title=""
+                                    data-original-title="Wishlist">
+                                <svg width="16px" height="16px">
+                                    <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                </svg>
+                            </button>
+                            <button type="button"
+                                    class="btn btn-sm btn-light btn-svg-icon"
+                                    data-toggle="tooltip"
+                                    data-placement="right"
+                                    title=""
+                                    data-original-title="Compare">
+                                <svg width="16px" height="16px">
+                                    <use xlink:href="images/sprite.svg#compare-16"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <h1 class="product__name">
+                            @Model?.CategoryTitle
+                        </h1>
+                        <div class="product__description">
+                            @Model?.Products.Select(x=> x.Description).FirstOrDefault()
+                        </div>
+                        <ul class="product__meta">
+                        </ul>
+                    </div>
+                    <!-- .product__info / end --><!-- .product__sidebar -->
+                    <div class="product__sidebar">
+                        <div class="product__availability">
+                            Availability:
+                            <span class="text-success">In Stock</span>
+                        </div>
+                        <div class="product__prices"> @Model?.Products.Select(x=> x.CustomerFinalPrice).FirstOrDefault() AED</div>
+                        <!-- .product__options -->
+                        <form id="product-fom" class="product__options">
+
+
+                            <div class="form-group product__option">
+                                <label class="product__option-label">Types</label>
+                                <div class="input-radio-color">
+                                    <div class="input-radio-color__list">
+                                        @foreach (var item in Model?.Products)
+                                        {
+                                            <label data-productId="@item.Id" data-productDesc="@item.Description" data-price="@item.CustomerFinalPrice" class="input-radio-color__item input-radio-color__item--white product-item @(item.Id == Model.Products.Select(x=> x.Id).FirstOrDefault() ? "active-item" : "")" data-toggle="tooltip" title="@item.Title">
+                                                @*<input type="radio" name="color">*@
+                                                <span style="height:100%;width:100%"> <img class="product-variation-img" style="height:100%;width:100%;" src="@item.Image" /></span>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group product__option">
+                                <label class="product__option-label"
+                                       for="product-quantity">Quantity</label>
+                                <div class="product__actions">
+                                    <div class="product__actions-item">
+                                        <div class="input-number product__quantity">
+                                            <input id="product-quantity"
+                                                   class="input-number__input form-control form-control-lg"
+                                                   type="number"
+                                                   min="1"
+                                                   value="1" />
+                                            <div class="input-number__add"></div>
+                                            <div class="input-number__sub"></div>
+                                        </div>
+                                    </div>
+                                    <div class="product__actions-item product__actions-item--addtocart">
+                                        <button id="add-to-cart-btn" class="btn btn-primary btn-lg">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                    <div class="product__actions-item product__actions-item--wishlist">
+                                        <button type="button"
+                                                class="btn btn-secondary btn-svg-icon btn-lg add-to-wishlist-btn"
+                                                data-toggle="tooltip"
+                                                title=""
+                                                data-original-title="Wishlist">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
+                                                <path id="Path_28" class="wishlist-icon" style="fill: @((bool)Model.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- .product__options / end -->
+                    </div>
+                    <!-- .product__end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .block-products-carousel -->
+    <div class="block block-products-carousel"
+         data-layout="grid-5"
+         data-mobile-grid-columns="2">
+        <div class="container">
+            <div class="block-header">
+                <h3 class="block-header__title">Related Products</h3>
+                <div class="block-header__divider"></div>
+            </div>
+            <div class="block-products__list">
+                @foreach (var item in Model.RelatedCategories)
+                {
+                    <partial name="../shared/Ecommerce/_HookaProductPartial.cshtml" model="item" />
+
+                }
+             
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- .block-products-carousel / end -->
+</div>
+
+@section Scripts {
+    <script type="module" src="~/FrontendAssets/js/product.js"></script>
+}
+

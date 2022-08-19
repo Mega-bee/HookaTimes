@@ -3,9 +3,12 @@ using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +23,27 @@ namespace HookaTimes.BLL.Service
         {
         }
 
-        public async Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId)
+        public async Task<ResponseModel> PlaceOrder(int userBuddyId, int addressId, BuddyProfileAddressVM address = null)
         {
             ResponseModel responseModel = new ResponseModel();
             OrderItem orderItem = new OrderItem();
+            if (address != null)
+            {
+                BuddyProfileAddress newAddress = new BuddyProfileAddress()
+                {
+                    Apartment = address.Building,
+                    Building = address.Building,
+                    City = address.City,
+                    CreatedDate = DateTime.UtcNow,
+                    IsDeleted = false,
+                    BuddyProfileId = userBuddyId,
+                    Title = address.Title,
+                    Street = address.Street,
+
+                };
+                newAddress = await _uow.BuddyProfileAddressRepository.Create(newAddress);
+                addressId = newAddress.Id;
+            }
             Order order = new Order()
             {
                 AddressId = addressId,
@@ -44,6 +64,8 @@ namespace HookaTimes.BLL.Service
             {
                 await _uow.OrderItemRepository.AddRange(orderItems);
                 await _uow.SaveAsync();
+                var cartItems = await _uow.CartRepository.GetAll(x => x.BuddyId == userBuddyId).ToListAsync();
+                await _uow.CartRepository.DeleteRange(cartItems);
             }
 
             order.Total = orderItems.Sum(x => x.Quantity * x.Price);
@@ -53,6 +75,79 @@ namespace HookaTimes.BLL.Service
             responseModel.Data = new DataModel { Data = "", Message = "Order Placed Successfully" };
             return responseModel;
         }
+
+        public async Task<ResponseModel> GetOrders(int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            OrderHistory_VM history = new OrderHistory_VM()
+            {
+                CurrentOrders = await _uow.OrderRepository.GetAll(x => x.BuddyId == userBuddyId && x.OrderStatusId == 1).Select(x => new OrderHistoryMVC_VM
+                {
+                    Id = x.Id,
+                    Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                    Status = x.OrderStatus.Title,
+                    Total = (decimal)x.Total,
+
+                }).ToListAsync(),
+                AllOrders = await _uow.OrderRepository.GetAll(x => x.BuddyId == userBuddyId).Select(x => new OrderHistoryMVC_VM
+                {
+                    Id = x.Id,
+                    Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                    Status = x.OrderStatus.Title,
+                    Total = (decimal)x.Total,
+
+                }).ToListAsync()
+        };
+          
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = history, Message = "" };
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetOrder(HttpRequest request,int userBuddyId,int orderId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+
+            OrderDetails_VM order = await _uow.OrderRepository.GetAll(x => x.BuddyId == userBuddyId && x.Id == orderId).Select(x => new OrderDetails_VM
+            {
+                Id = x.Id,
+                Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                Status = x.OrderStatus.Title,
+                Total = (decimal)x.Total,
+                Address = new BuddyProfileAddressVM
+                {
+                    Appartment = x.Address.Apartment,
+                    Building = x.Address.Building,
+                    City = x.Address.City,
+                    Id = x.Id,
+                    Street = x.Address.Street,
+                    Title = x.Address.Title,
+                    Latitude = x.Address.Latitude,
+                    Longitude = x.Address.Longitude
+                },
+                 Items = x.OrderItems.Select(i=> new CartItem_VM
+                 {
+                      CategoryId = (int)i.Product.ProductCategoryId,
+                        CategoryName = i.Product.ProductCategory.Title,
+                     ItemId = i.ProductId,
+                     ProductImage = $"{request.Scheme}://{request.Host}{i.Product.Image}",
+                      ProductName = i.Product.Title,
+                       ProductPrice = i.Product.CustomerFinalPrice,
+                        Quantity =i.Quantity,
+                         TotalPrice = i.Quantity* i.Product.CustomerFinalPrice,
+                          
+                 }).ToList(),
+                  
+
+            }).FirstOrDefaultAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = order, Message = "" };
+            return responseModel;
+        }
+
+        
 
 
     }
