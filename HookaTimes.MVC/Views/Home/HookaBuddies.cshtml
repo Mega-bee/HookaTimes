@@ -5,6 +5,15 @@
 @model List<Buddy_VM>
 
 <style>
+    
+.block-products__list-item {
+    transition: all .2s ease-in-out;
+}
+
+    .block-products__list-item:hover {
+        transform: scale(1.07);
+    }
+
 
     .form-control.form-control-sm{
         margin-bottom:0px;
@@ -108,7 +117,7 @@
         <div class="page-header__container container">
             <div class="page-header__breadcrumb">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb" data-aos="fade-right">
                         <li class="breadcrumb-item">
                             <a href="/">Home</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
@@ -131,7 +140,7 @@
                     </ol>
                 </nav>
             </div>
-            <div class="page-header__title">
+            <div class="page-header__title" data-aos="fade-right">
                 <h1>Hooka Buddies</h1>
             </div>
         </div>
@@ -141,7 +150,7 @@
 
     <div class="container">
         <div class="shop-layout shop-layout--sidebar--start">
-            <div class="shop-layout__sidebar">
+            <div class="shop-layout__sidebar" data-aos="fade-right">
                 <div class="block block-sidebar block-sidebar--offcanvas--mobile">
                     <div class="block-sidebar__backdrop"></div>
                     <div class="block-sidebar__body">
@@ -991,7 +1000,7 @@
                     </div>
                 </div>
             </div>
-            <div class="shop-layout__content">
+            <div class="shop-layout__content"  data-aos="fade-up">
                 <div class="block">
                     <div class="products-view">
 @*                        <div class="products-view__options">
@@ -1051,7 +1060,7 @@
 
                         </div>
                         </div>
-                        <div class="products-view__pagination">
+                        <div class="products-view__pagination"  data-aos="fade-up">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
                                     <a class="page-link page-link--with-arrow"

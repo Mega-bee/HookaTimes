@@ -8,6 +8,15 @@
 @model List<Product_VM>
 <style>
    
+    
+.block-products__list-item {
+    transition: all .2s ease-in-out;
+}
+
+    .block-products__list-item:hover {
+        transform: scale(1.07);
+    }
+
 
     .product-image__img {
         height:100%;
@@ -104,7 +113,7 @@
         <div class="page-header__container container">
             <div class="page-header__breadcrumb">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb"  data-aos="fade-right">
                         <li class="breadcrumb-item">
                             <a href="/">Home</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
@@ -127,7 +136,7 @@
                     </ol>
                 </nav>
             </div>
-            <div class="page-header__title">
+            <div class="page-header__title" data-aos="fade-right">
                 <h1>Hooka Products</h1>
             </div>
         </div>
@@ -186,7 +195,7 @@
                             </div>
                         </div>
 
-                        <div class="products-view__list products-list"
+                        <div class="products-view__list products-list"  data-aos="fade-up"
                              data-layout="grid-3-sidebar"
                              data-with-features="false"
                              data-mobile-grid-columns="2">

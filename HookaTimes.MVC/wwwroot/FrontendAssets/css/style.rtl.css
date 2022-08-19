@@ -322,6 +322,17 @@ h6 {
     text-align: right;
   }
 }
+
+.block-products__list-item {
+    transition: all .2s ease-in-out;
+}
+
+    .block-products__list-item:hover {
+        transform: scale(1.07);
+    }
+
+
+
 /*
 // .fake-svg-icon
 */

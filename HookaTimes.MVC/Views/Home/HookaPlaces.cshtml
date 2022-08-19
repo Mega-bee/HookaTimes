@@ -8,6 +8,16 @@
 
 <style>
 
+    
+.block-products__list-item {
+    transition: all .2s ease-in-out;
+}
+
+    .block-products__list-item:hover {
+        transform: scale(1.07);
+    }
+
+
     @@media only screen and (max-width: 990px) {
         .block-products__list-item {
             width: 48% !important;
@@ -94,7 +104,7 @@
         <div class="page-header__container container">
             <div class="page-header__breadcrumb">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb" data-aos="fade-right">
                         <li class="breadcrumb-item">
                             <a href="/">Home</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
@@ -111,13 +121,13 @@
                         </svg>
                         </li>
                         *@
-                        <li class="breadcrumb-item active" aria-current="page">
+                        <li class="breadcrumb-item active" aria-current="page" >
                             Hooka Places
                         </li>
                     </ol>
                 </nav>
             </div>
-            <div class="page-header__title">
+            <div class="page-header__title" data-aos="fade-right">
                 <h1>Hooka Places</h1>
             </div>
         </div>
@@ -128,7 +138,7 @@
         <div class="shop-layout shop-layout--sidebar--start">
 
             @*side bar *@
-            <div class="shop-layout__sidebar">
+            <div class="shop-layout__sidebar"  data-aos="fade-right">
                 <div class="block block-sidebar block-sidebar--offcanvas--mobile">
                     <div class="block-sidebar__backdrop"></div>
                     <div class="block-sidebar__body">
@@ -213,7 +223,7 @@
                                                  data-collapse-content=""
                                                  style="">
                                                 <div class="filter__container">
-                                                    <div class="filter-list">
+                                                    <div class="filter-list" >
                                                         <div class="filter-list__list">
                                                             @foreach (var item in Model.Cuisines)
                                                             {
@@ -343,7 +353,7 @@
                 </div>
             </div>
 
-            <div class="shop-layout__content">
+            <div class="shop-layout__content"  data-aos="fade-up">
                 <div class="block">
                     <div class="products-view">
 @*                        <div class="products-view__options">
@@ -415,7 +425,7 @@
                                 </div>
                             </div>
 
-                            <div class="products-view__pagination">
+                            <div class="products-view__pagination"  data-aos="fade-up">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item disabled">
                                         <a class="page-link page-link--with-arrow"
