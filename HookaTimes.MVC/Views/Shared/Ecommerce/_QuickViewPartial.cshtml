@@ -15,6 +15,12 @@
     border: none  !important;
        }
 
+
+    @@media (min-width: 1200px){
+.modal-xl {
+    max-width: 800px;
+}}
+
     .invite-section {
         display: flex;
         width: 100%;
@@ -144,7 +150,7 @@
     }
 
     .invite-form {
-        width: 65%;
+        width:90%;
         padding: 25px;
         margin-bottom: 20px;
     }
@@ -173,7 +179,42 @@
         display: flex;
         flex-direction: column;
         align-items: stretch;
+        margin-bottom:1.3em;
+        
     }
+
+    .form-control-lg + .select2-container .select2-selection__rendered {
+    line-height: 1.4;
+    padding: calc(19px * .5) 16px;
+    font-size: 1.15em;
+    padding-right: 39px;
+    text-align:left;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background: #ffd3334d;
+    color: #36414d;
+}
+
+
+.form-group {
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.form-control + .select2-container--open .select2-selection--single {
+    border-color: #000;
+    border-width: 2px;
+    box-shadow: none;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #000;
+    border-width: 2px;
+    outline: 0;
+    box-shadow: none;
+}
 
     input[type="radio"] {
         display: none;
@@ -217,7 +258,7 @@
 
     .div-block-58 {
         width: 100%;
-        margin-top: 0em;
+        margin-top: 1em;
         margin-bottom: 2em;
     }
 
@@ -239,6 +280,20 @@
         background-color: #ffffff;
         border: 1px solid #cccccc;
     }
+
+    .picker-field{
+        width: 100%;
+padding: calc(19px * .5) 16px;
+background: transparent;
+    border: none;
+    margin-bottom:0px;
+    border: 1px solid #ced4da;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    }
+
+  
+
 </style>
 
 
@@ -254,9 +309,8 @@
             <div class="invite-section">
                 <div class="login-container w-form">
                     <div class="main-block">
-                        <h3 style="margin-bottom: 1.5em">Invite Form</h3>
                         <form class="invite-form" id="inviteForm" >
-                            <div class="metod" style="margin-bottom: 3em;">
+                            <div class="metod" >
 
 
 
@@ -271,7 +325,7 @@
 
                             </div>
 
-                            <div class="metod" style="margin-bottom: 3em;">
+                            <div class="metod" >
 
 
 
@@ -290,13 +344,10 @@
                               
                                 <div class="form-group">
                                     <label>Pick the date</label>
+
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="date" name="Date" required />
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
+                                       <input class="picker-field" type="date" name="Date" required>
+
                                     </div>
                                 </div>
                                 <span class="text-danger"></span>
@@ -308,12 +359,8 @@
                                 <div class="form-group">
                                     <label>Pick the time</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="time" name="Time" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-clock"></i>
-                                            </span>
-                                        </div>
+                                       <input class="picker-field" type="time"  name="Time" required>
+
                                     </div>
                                 </div>
                                 <span class="text-danger"></span>
@@ -321,7 +368,7 @@
 
                             </div>
                             <div class="div-block-58">
-                                <textarea placeholder="Example Text"
+                                <textarea placeholder="Invite Message"
                                           maxlength="5000"
                                           id="field-2"
                                           name="Description"
@@ -329,8 +376,9 @@
                                           required
                                           class="textarea w-input"></textarea>
                             </div>
+  
                             <span class="text-danger"></span>
-
+        s
                             <button  id="submitBtn" type="submit" class="w-button submit-button">
                                 Submit
                             </button>
@@ -380,5 +428,4 @@
         $('#OptionId').select2();
     });
 </script>
-
 
