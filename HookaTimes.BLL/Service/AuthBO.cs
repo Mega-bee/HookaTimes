@@ -544,7 +544,7 @@ namespace HookaTimes.BLL.Service
 
         }
 
-        public async Task<ResponseModel> DeleteExperience(int DeleteExperience)
+        public async Task<ResponseModel> DeleteExperience(int ExpId)
         {
 
             bool ExpExist = await _uow.BuddyProfileExperienceRepository.CheckIfExists(x => x.Id == ExpId);
