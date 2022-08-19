@@ -10,6 +10,7 @@ using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -27,16 +28,18 @@ namespace HookaTimes.BLL.Service
     public class AuthBO : BaseBO, IAuthBO
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
         private readonly HookaDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager) : base(unit, mapper, notificationHelper)
+        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender) : base(unit, mapper, notificationHelper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _roleManager = roleManager;
+            _emailSender = emailSender;
         }
 
         #region API
@@ -893,19 +896,21 @@ namespace HookaTimes.BLL.Service
 
                 string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
+
                 //Helpers.SendSMS(phone, content);
-                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                if (!EmailSent)
-                {
-                    responseModel.StatusCode = 400;
-                    responseModel.ErrorMessage = "";
-                    responseModel.Data = new DataModel
-                    {
-                        Data = "",
-                        Message = "Email Was Not Sent"
-                    };
-                    return responseModel;
-                }
+                //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                await _emailSender.SendEmailAsync(Email, "Hooka OTP", content);
+                //if (!EmailSent)
+                //{
+                //    responseModel.StatusCode = 400;
+                //    responseModel.ErrorMessage = "";
+                //    responseModel.Data = new DataModel
+                //    {
+                //        Data = "",
+                //        Message = "Email Was Not Sent"
+                //    };
+                //    return responseModel;
+                //}
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -1001,21 +1006,22 @@ namespace HookaTimes.BLL.Service
                 EmailOtp.Otp = otp;
 
                 await _context.SaveChangesAsync();
-                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
+                string content = $"Dear Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
                 //Helpers.SendSMS(phone, content);
-                bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                if (!EmailSent)
-                {
-                    responseModel.StatusCode = 400;
-                    responseModel.ErrorMessage = "";
-                    responseModel.Data = new DataModel
-                    {
-                        Data = "",
-                        Message = "Email Was Not Sent"
-                    };
-                    return responseModel;
-                }
+                await _emailSender.SendEmailAsync(Email, "Hooka OTP", content);
+                //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
+                //if (!EmailSent)
+                //{
+                //    responseModel.StatusCode = 400;
+                //    responseModel.ErrorMessage = "";
+                //    responseModel.Data = new DataModel
+                //    {
+                //        Data = "",
+                //        Message = "Email Was Not Sent"
+                //    };
+                //    return responseModel;
+                //}
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -1337,7 +1343,7 @@ namespace HookaTimes.BLL.Service
         public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
         {
 
-            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll().Select(x => new OrderHistoryMVC_VM
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll(x=> x.BuddyId == BuddyId).Select(x => new OrderHistoryMVC_VM
             {
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),

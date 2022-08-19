@@ -144,7 +144,7 @@ namespace HookaTimes.BLL.Service
             return cartSummary;
         }
 
-        public async Task<ResponseModel> RemoveItemFromCart(int productId, int userBuddyId, string cartSessionId)
+        public async Task<ResponseModel> RemoveItemFromCart(int productId, int userBuddyId, string cartSessionId = null)
         {
             ResponseModel responseModel = new ResponseModel();
             bool productExists = await _uow.ProductRepository.CheckIfExists(p => p.Id == productId);
@@ -186,6 +186,62 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
             }
         }
+        public async Task<ResponseModel> ClearCart(int userBuddyId, string cartSessionId = null)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            bool hasItemsInCart = false;
+            if (userBuddyId > 0)
+            {
+                hasItemsInCart = await _uow.CartRepository.CheckIfExists(x => x.BuddyId == userBuddyId);
+                if(!hasItemsInCart)
+                {
+                    responseModel.ErrorMessage = "No items in cart";
+                    responseModel.StatusCode = 404;
+                    responseModel.Data = new DataModel()
+                    {
+                        Data = "",
+                        Message = ""
+                    };
+                    return responseModel;
+                }
+                List<Cart> items = await _uow.CartRepository.GetAllWithTracking(x => x.BuddyId == userBuddyId).ToListAsync();
+                await _uow.CartRepository.DeleteRange(items);
+                responseModel.ErrorMessage = "";
+                responseModel.StatusCode = 200;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = "Cart cleared succesfully"
+                };
+                return responseModel;
+            }
+            else
+            {
+                hasItemsInCart = await _uow.VirtualCartRepository.CheckIfExists(x => x.SessionCartId == cartSessionId);
+                if (!hasItemsInCart)
+                {
+                    responseModel.ErrorMessage = "No items in cart";
+                    responseModel.StatusCode = 404;
+                    responseModel.Data = new DataModel()
+                    {
+                        Data = "",
+                        Message = ""
+                    };
+                    return responseModel;
+                }
+                List<VirtualCart> items = await _uow.VirtualCartRepository.GetAllWithTracking(x => x.SessionCartId == cartSessionId).ToListAsync();
+                await _uow.VirtualCartRepository.DeleteRange(items);
+                responseModel.ErrorMessage = "";
+                responseModel.StatusCode = 200;
+                responseModel.Data = new DataModel()
+                {
+                    Data = "",
+                    Message = "Cart cleared succesfully"
+                };
+                return responseModel;
+            }
+        }
+
 
         public async Task<ResponseModel> AddToCartCookies(string cartSessionId, int productId, int quantity)
         {
@@ -223,7 +279,7 @@ namespace HookaTimes.BLL.Service
             return responseModel;
         }
 
-        public async Task<ResponseModel> UpdateCart(List<UpdateCartItem_VM> items, int userBuddyId, string cartSessionId)
+        public async Task<ResponseModel> UpdateCart(List<UpdateCartItem_VM> items, int userBuddyId, string cartSessionId = null)
         {
             ResponseModel responseModel = new ResponseModel();
             if(userBuddyId > 0)

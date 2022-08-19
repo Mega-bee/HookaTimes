@@ -1,5 +1,6 @@
 ﻿using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,13 @@ namespace HookaTimes.API.Controllers
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
             //HookaPlaceReview_VM review = new HookaPlaceReview_VM();
             return Ok(await _hookaPlaceBL.AddReview(review, Request, placeId, userBuddyId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePlace([FromForm]CreateHookaPlace_vM model)
+        {
+            string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok(await _hookaPlaceBL.CreatePlace(model,uid));
         }
 
 

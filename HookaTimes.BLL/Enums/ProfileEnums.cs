@@ -30,8 +30,6 @@ namespace HookaTimes.BLL.Enums
         Brown = 1,
         Black,
         Blue,
-
-
     }
 
 

@@ -30,6 +30,8 @@ namespace HookaTimes.DAL
         IVirtualCartRepository VirtualCartRepository { get; }
         IVirtualWishListRepository VirtualWishlistRepository { get; }
         IWishlistRepository WishlistRepository { get; }
+        IPlaceAlbumRepository PlaceAlbumRepository { get; }
+        IPlaceMenuRepository PlaceMenuRepository { get; }
         void Save();
         Task SaveAsync();
     }

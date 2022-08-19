@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.Text;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Utilities.Mailkit
@@ -33,7 +34,13 @@ namespace HookaTimes.BLL.Utilities.Mailkit
             email.From.Add(MailboxAddress.Parse(Options.Sender_EMail));
             email.To.Add(MailboxAddress.Parse(to));
             email.Subject = subject;
-            email.Body = new TextPart(TextFormat.Html) { Text = message };
+            //email.Body = new TextPart(TextFormat.Html);
+            Header templateHadi = new Header("X-MJ-TemplateID", "4139941");
+            var obj = new
+            {
+                OTP = message,
+            };
+            email.Headers.Add(templateHadi);
 
             // send email
             using (var smtp = new SmtpClient())

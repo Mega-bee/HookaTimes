@@ -79,6 +79,7 @@ namespace HookaTimes.DAL.Repos
                     _context.Entry(item).State = EntityState.Deleted;
                     await _context.SaveChangesAsync();
                 }
+              
             }
         }
 
