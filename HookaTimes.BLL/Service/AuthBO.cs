@@ -1195,7 +1195,7 @@ namespace HookaTimes.BLL.Service
         public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
         {
 
-            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll().Select(x => new OrderHistoryMVC_VM
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll(x=> x.BuddyId == BuddyId).Select(x => new OrderHistoryMVC_VM
             {
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
