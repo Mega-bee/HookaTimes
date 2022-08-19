@@ -1,4 +1,6 @@
 ﻿using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
+using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
@@ -15,6 +17,14 @@ namespace HookaTimes.BLL.IServices
         //Task<bool> CheckIfVerified(string email);
 
         Task<ResponseModel> CompleteProfile(CompleteProfile_VM model, int BuddyId, HttpRequest Request);
+
+        Task<ResponseModel> DeleteAddress(int AddressId, int BuddyId);
+        Task<ResponseModel> AddAddress(BuddyProfileAddressPutVM Address, int BuddyId);
+
+        Task<ResponseModel> AddEducation(BuddyProfileEducationPutVM education, int BuddyId);
+        Task<ResponseModel> DeleteEducation(int EducationId);
+        Task<ResponseModel> AddExperience(BuddyProfileExperience exp, int BuddyId);
+        Task<ResponseModel> DeleteExperience(int ExpId);
 
         //Task<ResponseModel> ConfirmAccount(string phonenumber);
 
@@ -55,5 +65,21 @@ namespace HookaTimes.BLL.IServices
         Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model);
 
         //Task<ResponseModel> UpdateProfile(UpdateProfile_VM updatedProfile, string uid, HttpRequest Request);
+
+
+
+
+        ///////////////////////////////////////////////MVC//////////////////////////////////////////
+        //Task<bool> EmailSignInMVC(EmailSignInMVC_VM model);
+
+        Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model, string wishlistSessionId, string cartSessionId);
+
+        Task<int> GetBuddyById(string UserId);
+
+        Task<NavBuddy_VM> GetNavBuddyProfile(string UserId);
+
+        Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model);
+        Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model, string cartSessionId, string wishlistSessionId);
+        Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId);
     }
 }

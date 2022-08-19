@@ -32,7 +32,9 @@ namespace HookaTimes.BLL
             _services.AddScoped<IOfferBL, OfferBL>();
             _services.AddScoped<ICartBL, CartBL>();
             _services.AddScoped<IOrderBL, OrderBL>();
+            _services.AddScoped<ICuisineBL, CuisineBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
+            _services.AddScoped<IWishlistBL, WishlistBL>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();
@@ -50,6 +52,10 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<BuddyProfileAddress>, GenericRepos<BuddyProfileAddress>>();
             _services.AddScoped<IGenericRepos<Order>, GenericRepos<Order>>();
             _services.AddScoped<IGenericRepos<OrderItem>, GenericRepos<OrderItem>>();
+            _services.AddScoped<IGenericRepos<Cuisine>, GenericRepos<Cuisine>>();
+            _services.AddScoped<IGenericRepos<VirtualCart>, GenericRepos<VirtualCart>>();
+            _services.AddScoped<IGenericRepos<VirtualWishlist>, GenericRepos<VirtualWishlist>>();
+            _services.AddScoped<IGenericRepos<Wishlist>, GenericRepos<Wishlist>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

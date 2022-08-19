@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HookaTimes.BLL.ViewModels
 {
     public partial class CreateReview_VM
     {
+        [Required]
         public float Rating { get; set; }
+        [Required]
         public string Description { get; set; }
     }
 }

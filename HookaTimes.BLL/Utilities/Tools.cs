@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,30 @@ namespace HookaTimes.BLL.Utilities
             }
             return claims;
         }
+
+
+        public static List<Claim> GenerateClaimsMVC(ApplicationUser res, IList<string> roles, BuddyProfile buddy)
+        {
+            //string FullName = buddy.FirstName+ " "+ buddy.LastName;
+            var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, res.Email),
+            new Claim("BuddyName", buddy.FirstName),
+            //new Claim(ClaimTypes.Role, "Administrator"),
+            new Claim(ClaimTypes.NameIdentifier, res.Id),
+            new Claim("BuddyID",buddy.Id.ToString()),
+            new Claim("BuddyImage",buddy.Image.ToString()),
+
+        };
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            return claims;
+        }
+
+
 
         public static string GenerateJWT(List<Claim> claims)
         {
@@ -116,6 +141,19 @@ namespace HookaTimes.BLL.Utilities
 
             IRestResponse response = await client.ExecuteAsync(request);
             return response.IsSuccessful;
+        }
+
+        public static string GetClaimValue(HttpContext httpContext, string valueType)
+        {
+            if (string.IsNullOrEmpty(valueType)) return null;
+
+            var identity = httpContext.User.Identity as ClaimsIdentity;
+            if (identity.IsAuthenticated)
+            {
+                var valueObj = identity == null ? null : identity.Claims.FirstOrDefault(x => x.Type == valueType);
+                return valueObj == null ? null : valueObj.Value;
+            }
+            return null;
         }
 
         public static string ImageTypes = ".jpg,.bmp,.PNG,.EPS,.gif,.TIFF,.tif,.jfif";

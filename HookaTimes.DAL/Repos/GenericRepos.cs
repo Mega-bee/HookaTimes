@@ -70,15 +70,49 @@ namespace HookaTimes.DAL.Repos
             }
         }
 
+        public async Task DeleteRange(List<T> entities)
+        {
+            if(entities.Count() > 0)
+            {
+                foreach (var item in entities)
+                {
+                    _context.Entry(item).State = EntityState.Deleted;
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
+        public async Task DeleteByPredicate(Expression<Func<T, bool>> predicate)
+        {
+            T t = await GetFirst(predicate);
+            if (t != null)
+            {
+                _context.Entry(t).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
+
+            }
+        }
+
         public IQueryable<T> GetAll()
         {
             return _context.Set<T>().AsNoTracking();
+        }
+
+        public IQueryable<T> GetAllWithTracking()
+        {
+            return _context.Set<T>().AsTracking();
         }
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
             return GetAll().Where(predicate);
         }
+
+        public IQueryable<T> GetAllWithTracking(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().Where(predicate);
+        }
+
 
         public IQueryable<T> GetAllWithInclude(params Expression<Func<T, object>>[] includes)
         {

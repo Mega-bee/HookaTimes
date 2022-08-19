@@ -3,9 +3,11 @@ using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
+using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
 using HookaTimes.DAL.Data;
 using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -36,6 +38,8 @@ namespace HookaTimes.BLL.Service
             _context = context;
             _roleManager = roleManager;
         }
+
+        #region API
 
         #region SignIn
         public async Task<ResponseModel> EmailSignIn(EmailSignIn_VM model)
@@ -164,6 +168,11 @@ namespace HookaTimes.BLL.Service
             userProfile.Profession = currProfile.Profession ?? "";
             userProfile.FirstName = currProfile.FirstName ?? "";
             userProfile.LastName = currProfile.LastName ?? "";
+            userProfile.HairId = currProfile.Hair;
+            userProfile.MaritalStatusId = currProfile.MaritalStatus;
+            userProfile.EyesId = currProfile.Eyes;
+            userProfile.BodyTypeId = currProfile.BodyType;
+
             userProfile.IsAvailable = currProfile.IsAvailable;
             userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
             {
@@ -258,100 +267,7 @@ namespace HookaTimes.BLL.Service
 
                 await _context.SaveChangesAsync();
 
-                if (model.Education.Count > 0)
-                {
 
-                    foreach (var edu in model.Education)
-                    {
-                        if (edu.Id == 0)
-                        {
-                            BuddyProfileEducation newedu = new BuddyProfileEducation()
-                            {
-                                BuddyProfileId = BuddyId,
-                                Degree = edu.Degree,
-                                StudiedFrom = edu.StudiedFrom,
-                                StudiedTo = edu.StudiedTo,
-                                University = edu.University,
-                                CreatedDate = DateTime.UtcNow
-
-                            };
-                            await _uow.BuddyProfileEducationRepository.Create(newedu);
-                        }
-                        else if (edu.IsDeleted == true)
-                        {
-                            await _uow.BuddyProfileEducationRepository.Delete(edu.Id);
-                        }
-
-                    }
-
-
-
-                }
-
-
-                if (model.Experience.Count > 0)
-                {
-
-                    foreach (var exp in model.Experience)
-                    {
-
-
-                        if (exp.Id == 0)
-                        {
-                            BuddyProfileExperience newedu = new BuddyProfileExperience()
-                            {
-                                BuddyProfileId = BuddyId,
-                                Place = exp.Place,
-                                Position = exp.Position,
-                                WorkedFrom = exp.WorkedFrom,
-                                WorkedTo = exp.WorkedTo,
-                                CreatedDate = DateTime.UtcNow
-
-                            };
-                            await _uow.BuddyProfileExperienceRepository.Create(newedu);
-                        }
-
-                        else if (exp.IsDeleted == true)
-                        {
-                            await _uow.BuddyProfileExperienceRepository.Delete(exp.Id);
-                        }
-
-                    }
-
-                }
-
-                if (model.Addresses.Count > 0)
-                {
-
-                    foreach (var add in model.Addresses)
-                    {
-
-                        BuddyProfileAddress newedu = new BuddyProfileAddress();
-
-                        if (add.Id == 0)
-                        {
-                            newedu.BuddyProfileId = BuddyId;
-                            newedu.Latitude = add.Latitude;
-                            newedu.Longitude = add.Longitude;
-                            newedu.Title = add.Title;
-                            newedu.IsDeleted = false;
-                            newedu.CreatedDate = DateTime.UtcNow;
-                            await _uow.BuddyProfileAddressRepository.Create(newedu);
-
-                        }
-
-                        else if (add.IsDeleted == true)
-                        {
-                            newedu = await _uow.BuddyProfileAddressRepository.GetFirst(x => x.Id == add.Id);
-                            newedu.IsDeleted = true;
-                            await _uow.BuddyProfileAddressRepository.Update(newedu);
-                        }
-                    }
-
-                }
-
-
-                await _context.SaveChangesAsync();
                 Profile_VM userProfile = new Profile_VM();
 
                 userProfile.ImageUrl = $"{Request.Scheme}://{Request.Host}{currProfile.Image}";
@@ -376,6 +292,10 @@ namespace HookaTimes.BLL.Service
                 userProfile.Profession = currProfile.Profession ?? "";
                 userProfile.FirstName = currProfile.FirstName ?? "";
                 userProfile.LastName = currProfile.LastName ?? "";
+                userProfile.HairId = currProfile.Hair;
+                userProfile.MaritalStatusId = currProfile.MaritalStatus;
+                userProfile.EyesId = currProfile.Eyes;
+                userProfile.BodyTypeId = currProfile.BodyType;
                 userProfile.IsAvailable = currProfile.IsAvailable;
                 userProfile.Addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
                 {
@@ -422,6 +342,232 @@ namespace HookaTimes.BLL.Service
                 return responseModel;
                 throw;
             }
+
+        }
+
+        public async Task<ResponseModel> AddAddress(BuddyProfileAddressPutVM Address, int BuddyId)
+        {
+
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            if (Address != null)
+            {
+
+
+                BuddyProfileAddress newedu = new BuddyProfileAddress();
+
+                newedu.BuddyProfileId = BuddyId;
+                newedu.Latitude = Address.Latitude;
+                newedu.Longitude = Address.Longitude;
+                newedu.Title = Address.Title;
+                newedu.IsDeleted = false;
+                newedu.CreatedDate = DateTime.UtcNow;
+                await _uow.BuddyProfileAddressRepository.Create(newedu);
+
+                responseModel.StatusCode = 201;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                return responseModel;
+            }
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = "No address was received";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+
+        }
+
+
+        public async Task<ResponseModel> DeleteAddress(int AddressId, int BuddyId)
+        {
+
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            if (AddressId != default)
+            {
+                BuddyProfileAddress address = await _uow.BuddyProfileAddressRepository.GetFirst(x => x.Id == AddressId);
+                address.IsDeleted = true;
+                await _uow.BuddyProfileAddressRepository.Update(address);
+
+                responseModel.StatusCode = 201;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel { Data = "", Message = "Address Deleted Successfully" };
+                return responseModel;
+            }
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = "Address was not found";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+
+        }
+
+
+
+        public async Task<ResponseModel> AddEducation(BuddyProfileEducationPutVM education, int BuddyId)
+        {
+
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            if (education != null)
+            {
+                BuddyProfileEducation newedu = new BuddyProfileEducation()
+                {
+                    BuddyProfileId = BuddyId,
+                    Degree = education.Degree,
+                    StudiedFrom = education.StudiedFrom,
+                    StudiedTo = education.StudiedTo,
+                    University = education.University,
+                    CreatedDate = DateTime.UtcNow
+
+                };
+                await _uow.BuddyProfileEducationRepository.Create(newedu);
+                responseModel.StatusCode = 201;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                return responseModel;
+            }
+
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = "No Education was received";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+        }
+
+        public async Task<ResponseModel> DeleteEducation(int EducationId)
+        {
+
+            bool eduExist = await _uow.BuddyProfileEducationRepository.CheckIfExists(x => x.Id == EducationId);
+
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!eduExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "Education was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            await _uow.BuddyProfileEducationRepository.Delete(EducationId);
+
+
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "Education Deleted";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+
+        }
+
+
+        public async Task<ResponseModel> AddExperience(BuddyProfileExperience exp, int BuddyId)
+        {
+
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            if (exp != null)
+            {
+
+
+
+
+                BuddyProfileExperience newedu = new BuddyProfileExperience()
+                {
+                    BuddyProfileId = BuddyId,
+                    Place = exp.Place,
+                    Position = exp.Position,
+                    WorkedFrom = exp.WorkedFrom,
+                    WorkedTo = exp.WorkedTo,
+                    CreatedDate = DateTime.UtcNow
+
+                };
+                await _uow.BuddyProfileExperienceRepository.Create(newedu);
+
+
+
+                responseModel.StatusCode = 201;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                return responseModel;
+            }
+
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = "No Experience was received";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+        }
+
+        public async Task<ResponseModel> DeleteExperience(int ExpId)
+        {
+
+            bool ExpExist = await _uow.BuddyProfileExperienceRepository.CheckIfExists(x => x.Id == ExpId);
+
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!ExpExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "Experience was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            await _uow.BuddyProfileExperienceRepository.Delete(ExpId);
+
+
+            responseModel.StatusCode = 200;
+            responseModel.ErrorMessage = "Experience Deleted";
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
 
         }
 
@@ -916,6 +1062,297 @@ namespace HookaTimes.BLL.Service
         }
 
         #endregion
+
+        #endregion
+
+        #region MVC
+
+        #region SignIn
+        public async Task<ClaimsIdentity> EmailSignInMVC(EmailSignInMVC_VM model, string wishlistSessionId, string cartSessionId)
+        {
+
+            ApplicationUser res = await _userManager.FindByEmailAsync(model.Email);
+            if (res == null)
+            {
+                return null;
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(res, model.Password, isPersistent: false, lockoutOnFailure: false);
+            if (!result.Succeeded)
+            {
+                return null;
+            }
+
+
+
+            BuddyProfile buddy = await _uow.BuddyRepository.GetFirst(x => x.UserId == res.Id);
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                await MoveCartFromCookiesToUser(buddy.Id, cartSessionId);
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                await MoveWishlistFromCookiesToUser(buddy.Id, wishlistSessionId);
+            }
+            var roles = await _userManager.GetRolesAsync(res);
+
+            var claims = Tools.GenerateClaimsMVC(res, roles, buddy);
+
+            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return identity;
+
+            //string JwtToken = Tools.GenerateJWT(claims);
+
+            /////// adding claims to db
+            //var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(res);
+
+            //var claimResult = claimsPrincipal.Claims.ToList();
+
+            //if (claims != null && claims.Count > 0)
+            //{
+            //    await _userManager.AddClaimsAsync(res, claims.ToList());
+
+            //}
+
+            //await _signInManager.RefreshSignInAsync(res);
+
+
+            //return identity;
+
+
+
+
+
+        }
+        public async Task MoveCartFromCookiesToUser(int buddyId, string cartSessionId)
+        {
+            Cart cartItem = new Cart();
+            List<Cart> userCartItems = await _uow.CartRepository.GetAllWithTracking(x => x.BuddyId == buddyId).ToListAsync();
+            List<VirtualCart> sessionCartItems = await _uow.VirtualCartRepository.GetAll(x => x.SessionCartId == cartSessionId).ToListAsync();
+
+            if (sessionCartItems.Count > 0)
+            {
+                foreach (var item in sessionCartItems)
+                {
+                    if (userCartItems.Count > 0)
+                    {
+                        cartItem = userCartItems.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                        if (cartItem != null)
+                        {
+                            cartItem.Quantity += item.Quantity;
+                            cartItem.UpdatedDate = DateTime.UtcNow;
+                        }
+                        else
+                        {
+                            cartItem = new Cart()
+                            {
+                                Quantity = item.Quantity,
+                                ProductId = item.ProductId,
+                                BuddyId = buddyId,
+                                CreatedDate = DateTime.UtcNow
+                            };
+                            await _uow.CartRepository.Add(cartItem);
+                        }
+                    }
+                    else
+                    {
+                        cartItem = new Cart()
+                        {
+                            Quantity = item.Quantity,
+                            ProductId = item.ProductId,
+                            BuddyId = buddyId,
+                            CreatedDate = DateTime.UtcNow
+                        };
+                        await _uow.CartRepository.Add(cartItem);
+                    }
+
+
+
+                }
+                await _uow.SaveAsync();
+                await _uow.VirtualCartRepository.DeleteRange(sessionCartItems);
+            }
+
+        }
+
+        public async Task MoveWishlistFromCookiesToUser(int buddyId, string wishlistSessionId)
+        {
+            Wishlist cartItem = new Wishlist();
+            List<Wishlist> userCartItems = await _uow.WishlistRepository.GetAllWithTracking(x => x.BuddyId == buddyId).ToListAsync();
+            List<VirtualWishlist> sessionCartItems = await _uow.VirtualWishlistRepository.GetAll(x => x.WishlistSessionId == wishlistSessionId).ToListAsync();
+
+            if (sessionCartItems.Count > 0)
+            {
+                foreach (var item in sessionCartItems)
+                {
+                    if (userCartItems.Count > 0)
+                    {
+                        cartItem = userCartItems.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                        if (cartItem == null)
+                        {
+                            cartItem = new Wishlist()
+                            {
+
+                                ProductId = item.ProductId,
+                                BuddyId = buddyId,
+                                CreatedDate = DateTime.UtcNow
+                            };
+                            await _uow.WishlistRepository.Add(cartItem);
+                        }
+
+                    }
+                    else
+                    {
+
+                        cartItem = new Wishlist()
+                        {
+
+                            ProductId = item.ProductId,
+                            BuddyId = buddyId,
+                            CreatedDate = DateTime.UtcNow
+                        };
+                        await _uow.WishlistRepository.Add(cartItem);
+                    }
+
+
+
+                }
+                await _uow.SaveAsync();
+                await _uow.VirtualWishlistRepository.DeleteRange(sessionCartItems);
+            }
+
+        }
+        #endregion
+
+
+        #region Buddy
+        public async Task<int> GetBuddyById(string UserId)
+        {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return 0;
+            }
+            int buddyId = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => x.Id).FirstOrDefaultAsync();
+
+            return buddyId;
+        }
+
+
+        public async Task<NavBuddy_VM> GetNavBuddyProfile(string UserId)
+        {
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return null;
+            }
+            NavBuddy_VM Buddy = await _uow.BuddyRepository.GetAll(x => x.UserId == UserId).Select(x => new NavBuddy_VM
+            {
+                Email = x.User.Email,
+                FirstName = x.FirstName,
+                Image = x.Image
+            }).FirstOrDefaultAsync();
+
+            return Buddy;
+        }
+        #endregion
+
+        #region SignUp
+
+        public async Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model)
+        {
+            await CheckRoles();
+
+            ApplicationUser oldUser = await _userManager.FindByEmailAsync(model.Email);
+            if (oldUser != null)
+            {
+                return null;
+            }
+
+
+            IdentityResult res = await CreateUserMVC(model);
+
+            if (!res.Succeeded)
+            {
+                return null;
+            }
+
+
+
+            return res;
+
+        }
+
+
+
+        public async Task<IdentityResult> CreateUserMVC(EmailSignUpMVC_VM model)
+        {
+            ApplicationUser user = new ApplicationUser();
+
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.CreatedDate = DateTime.UtcNow;
+            user.IsDeleted = false;
+            user.PhoneNumberConfirmed = true;
+            user.EmailConfirmed = true;
+            IdentityResult res = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user, AppSetting.UserRole);
+            // check if user creation succeeded
+            return res;
+        }
+
+
+
+        public async Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model, string cartSessionId, string wishlistSessionId)
+        {
+            // create user profile and add role based on roleId
+            BuddyProfile newProfile = new BuddyProfile();
+            newProfile.UserId = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
+            newProfile.IsDeleted = false;
+            newProfile.CreatedDate = DateTime.UtcNow;
+            newProfile.FirstName = model.FirstName;
+            newProfile.LastName = model.LastName;
+            newProfile.IsAvailable = true;
+            newProfile.Image = "Images/Buddies/user-placeholder.png";
+            //newProfile.GenderId = 1;
+            // add the characteristics to the BuddyProfiles
+            await _context.BuddyProfiles.AddAsync(newProfile);
+            await _context.SaveChangesAsync();
+            if (!string.IsNullOrEmpty(cartSessionId))
+            {
+                await MoveCartFromCookiesToUser(newProfile.Id, cartSessionId);
+            }
+            if (!string.IsNullOrEmpty(wishlistSessionId))
+            {
+                await MoveWishlistFromCookiesToUser(newProfile.Id, wishlistSessionId);
+            }
+            return newProfile;
+        }
+
+
+
+        #endregion
+
+        #region OrderHistory
+        public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
+        {
+
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll().Select(x => new OrderHistoryMVC_VM
+            {
+                Id = x.Id,
+                Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
+                Status = x.OrderStatus.Title,
+                Total = (decimal)x.Total,
+
+            }).ToListAsync();
+
+            return orderHistory;
+        }
+        #endregion
+
+
+        #endregion
+
 
     }
 }

@@ -24,7 +24,9 @@ namespace HookaTimes.API.Controllers
         public async Task<IActionResult> GetAllPlaces()
         {
             //string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return Ok(await _hookaPlaceBL.GetHookaPlaces(Request));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _hookaPlaceBL.GetHookaPlaces(Request,userBuddyId));
         }
 
         [HttpGet("{id}")]
@@ -32,7 +34,7 @@ namespace HookaTimes.API.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
-            return Ok(await _hookaPlaceBL.GetHookaPlace(Request,userBuddyId, id));
+            return Ok(await _hookaPlaceBL.GetHookaPlace(Request, userBuddyId, id));
         }
 
         [HttpPut("{placeId}")]

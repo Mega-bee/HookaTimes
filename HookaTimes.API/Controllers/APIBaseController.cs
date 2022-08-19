@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HookaTimes.BLL.Utilities.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HookaTimes.BLL.Utilities.ActionFilters;
 
 namespace HookaTimes.API.Controllers
 {

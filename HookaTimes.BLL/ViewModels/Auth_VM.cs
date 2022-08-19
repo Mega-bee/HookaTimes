@@ -110,7 +110,7 @@ namespace HookaTimes.BLL.ViewModels
 
     public partial class Profile_VM
     {
-
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -125,11 +125,16 @@ namespace HookaTimes.BLL.ViewModels
 
         public string AboutMe { get; set; }
         public string MaritalStatus { get; set; }
+        public int? MaritalStatusId { get; set; }
+
         public decimal? Height { get; set; }
         public decimal? Weight { get; set; }
         public string BodyType { get; set; }
+        public int? BodyTypeId { get; set; }
         public string Eyes { get; set; }
+        public int? EyesId { get; set; }
         public string Hair { get; set; }
+        public int? HairId { get; set; }
         //public string Education { get; set; }
         public string Profession { get; set; }
         public string Interests { get; set; }
@@ -165,7 +170,7 @@ namespace HookaTimes.BLL.ViewModels
         public string SocialMediaLink1 { get; set; }
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }
-        public List<BuddyProfileAddressPutVM> Addresses { get; set; }
+
         public List<BuddyProfileEducationPutVM> Education { get; set; }
         public List<BuddyProfileExperiencePutVM> Experience { get; set; }
 
@@ -176,9 +181,17 @@ namespace HookaTimes.BLL.ViewModels
     public partial class BuddyProfileAddressVM
     {
         public int Id { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Street { get; set; }
+        [Required]
+        public string Building { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        [Required]
         public string Title { get; set; }
+        public string Appartment { get; set; }
     }
 
 
