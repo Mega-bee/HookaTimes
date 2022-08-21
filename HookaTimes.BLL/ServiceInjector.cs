@@ -37,6 +37,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             _services.AddScoped<IWishlistBL, WishlistBL>();
             _services.AddScoped<IEmailSender, EmailSender>();
+            _services.AddScoped<IContactUsBL, ContactUsBL>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();
@@ -60,6 +61,8 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<Wishlist>, GenericRepos<Wishlist>>();
             _services.AddScoped<IGenericRepos<PlaceMenu>, GenericRepos<PlaceMenu>>();
             _services.AddScoped<IGenericRepos<PlaceAlbum>, GenericRepos<PlaceAlbum>>();
+            _services.AddScoped<IGenericRepos<JobVacancy>, GenericRepos<JobVacancy>>();
+            _services.AddScoped<IGenericRepos<ContactU>, GenericRepos<ContactU>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 
