@@ -1414,7 +1414,7 @@ namespace HookaTimes.BLL.Service
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
                 Status = x.OrderStatus.Title,
-                Total = (decimal)x.Total,
+                Total = x.Total.Value.ToString("0.##"),
 
             }).ToListAsync();
 

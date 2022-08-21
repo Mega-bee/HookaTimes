@@ -60,20 +60,12 @@ namespace HookaTimes.BLL.Service
                 Quantity = quantity,
             };
            var addedItem = await _uow.CartRepository.Create(newItem);
-            CartItem_VM cartItem_VM = await _uow.CartRepository.GetAll(x => x.Id == addedItem.Id).Select(c => new CartItem_VM
-            {
-                ItemId = c.ProductId,
-                ProductName = c.Product.Title,
-                ProductPrice = c.Product.CustomerFinalPrice,
-                Quantity = c.Quantity,
-                TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
-                ProductImage = c.Product.Image,
-            }).FirstOrDefaultAsync();
+
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel()
             {
-                Data = cartItem_VM,
+                Data = "",
                 Message = "Product added to cart"
             };
             return responseModel;
@@ -90,13 +82,13 @@ namespace HookaTimes.BLL.Service
                 {
                     ItemId = c.ProductId,
                     ProductName = c.Product.Title,
-                    ProductPrice = c.Product.CustomerFinalPrice,
+                    ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
                     Quantity = c.Quantity,
-                    TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                    TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
                     ProductImage = $"{request.Scheme}://{request.Host}/{c.Product.Image}",
                 }).ToListAsync(),
             };
-            cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
+            cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
             responseModel.Data = new DataModel()
@@ -111,7 +103,7 @@ namespace HookaTimes.BLL.Service
             CartSummary_VM cartSummary = new CartSummary_VM()
             {
                 Items = Array.Empty<CartItem_VM>().ToList(),
-                TotalPrice = 0,
+                TotalPrice = "",
             };
             if (userBuddyId > 0)
             {
@@ -121,12 +113,12 @@ namespace HookaTimes.BLL.Service
                      CategoryId = (int)c.Product.ProductCategoryId,
                     CategoryName = c.Product.ProductCategory.Title,
                     ProductName = c.Product.Title,
-                    ProductPrice = c.Product.CustomerFinalPrice,
+                    ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
                     Quantity = c.Quantity,
-                    TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                    TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
                     ProductImage = c.Product.ProductCategory.Image,
                 }).ToListAsync();
-                cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
+                cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
                 return cartSummary;
             }
             cartSummary.Items = await _uow.VirtualCartRepository.GetAll(c => c.SessionCartId == cartSessionId).Select(c => new CartItem_VM
@@ -135,12 +127,12 @@ namespace HookaTimes.BLL.Service
                 CategoryName = c.Product.ProductCategory.Title,
                 CategoryId = (int)c.Product.ProductCategoryId,
                 ProductName = c.Product.Title,
-                ProductPrice = c.Product.CustomerFinalPrice,
+                ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
                 Quantity = c.Quantity,
-                TotalPrice = c.Quantity * c.Product.CustomerFinalPrice,
+                TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
                 ProductImage = c.Product.ProductCategory.Image,
             }).ToListAsync();
-            cartSummary.TotalPrice = cartSummary.Items.Sum(x => x.TotalPrice);
+            cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
             return cartSummary;
         }
 

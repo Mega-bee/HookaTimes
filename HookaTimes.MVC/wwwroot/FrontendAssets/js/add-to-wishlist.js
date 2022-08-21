@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             data: formdata,
             url: `/Wishlist/AddToWishlist`,
             success: function (result) {
-             
+             console.log(result.statusCode)
                 if (result.statusCode == 201) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
                     notyf.success({ message: "Product added to wishlist" })

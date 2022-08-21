@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="cart block">
+    <div id="cart-block" class="cart block">
         @if (Model.Items.Count == 0)
         {
             <div class="not-found">
@@ -76,7 +76,7 @@
                                         @*<li>Material: Aluminium</li>*@
                                     </ul>
                                 </td>
-                                <td class="cart-table__column cart-table__column--price cart-item-price" data-title="Price">@item.ProductPrice</td>
+                                <td class="cart-table__column cart-table__column--price cart-item-price" data-title="Price">@item.ProductPrice AED</td>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                     <div class="input-number">
                                         <input class="form-control input-number__input" type="number" min="1" value="@item.Quantity">
