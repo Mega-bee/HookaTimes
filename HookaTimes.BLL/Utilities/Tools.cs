@@ -123,25 +123,27 @@ namespace HookaTimes.BLL.Utilities
         //    return result;
         //}
 
-        public static async Task<bool> SendEmailAsync(string toEmail, string subject, string content)
-        {
-            var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("api-key", "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");
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("Accept", "application/json");
-            request.AddParameter("undefined",
-                "{\"tags\":[\"Hooka Times\"],\"sender\":{\"email\":\"" +
-                "info@arenasystem.co" + "\"},\"to\":[{\"email\":\"" + toEmail + "\",\"name\":\"" +
-                toEmail + "\"}],\"cc\":[{\"email\":\"info@arenasystem.co\",\"name\":\"HookaTimes\"}," +
-                "{\"email\":\"info@arenasystem.co \",\"name\":\"HookaTimes\"}],\"htmlContent\":\"" +
-                content + "\",\"textContent\":\"" + "hiiii" + "\",\"replyTo\":{\"email\":\"" +
-                toEmail + "\"},\"subject\":\"" +
-                subject + "\"}", ParameterType.RequestBody);
+        //public static async Task<bool> SendEmailAsync(string toEmail, string subject, string content)
+        //{
+        //    var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
+        //    var request = new RestRequest(Method.POST);
+        //    request.AddHeader("api-key", "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");
+        //    request.AddHeader("content-type", "application/json");
+        //    request.AddHeader("Accept", "application/json");
+        //    request.AddParameter("undefined",
+        //        "{\"tags\":[\"Hooka Times\"],\"sender\":{\"email\":\"" +
+        //        "info@arenasystem.co" + "\"},\"to\":[{\"email\":\"" + toEmail + "\",\"name\":\"" +
+        //        toEmail + "\"}],\"cc\":[{\"email\":\"info@arenasystem.co\",\"name\":\"HookaTimes\"}," +
+        //        "{\"email\":\"info@arenasystem.co \",\"name\":\"HookaTimes\"}],\"htmlContent\":\"" +
+        //        content + "\",\"textContent\":\"" + "hiiii" + "\",\"replyTo\":{\"email\":\"" +
+        //        toEmail + "\"},\"subject\":\"" +
+        //        subject + "\"}", ParameterType.RequestBody);
 
-            IRestResponse response = await client.ExecuteAsync(request);
-            return response.IsSuccessful;
-        }
+        //    IRestResponse response = await client.ExecuteAsync(request);
+        //    return response.IsSuccessful;
+        //}
+
+
 
         public static string GetClaimValue(HttpContext httpContext, string valueType)
         {

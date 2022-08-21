@@ -4,6 +4,7 @@ using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Service;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.Utilities.ActionFilters;
+using HookaTimes.BLL.Utilities.Mailkit;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using HookaTimes.DAL.Repos;
@@ -35,6 +36,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<ICuisineBL, CuisineBL>();
             _services.AddScoped<IUnitOfWork, UnitOfWork>();
             _services.AddScoped<IWishlistBL, WishlistBL>();
+            _services.AddScoped<IEmailSender, EmailSender>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();

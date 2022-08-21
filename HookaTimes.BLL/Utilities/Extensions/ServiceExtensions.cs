@@ -156,7 +156,7 @@ namespace HookaTimes.BLL.Utilities.Extensions
 
         public static void ConfigureMailKit(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddTransient<IEmailSender, MailKitEmailSender>();
+           
             services.Configure<MailKitEmailSenderOptions>(options =>
             {
                 options.Host_Address = Configuration["ExternalProviders:MailKit:SMTP:Address"];
