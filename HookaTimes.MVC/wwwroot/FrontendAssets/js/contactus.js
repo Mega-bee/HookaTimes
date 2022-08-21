@@ -17,7 +17,7 @@ function sendMessage(data) {
         data: data,
         url: `/ContactUs/SendContactUsMessage`,
         success: function (result) {
-
+            form.reset()
           resetBtn()
             if (result.statusCode == 200) {
                 notyf.success({ message: result.data.message }, 6)
