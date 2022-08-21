@@ -18,14 +18,6 @@ namespace HookaTimes.DAL.HookaTimesModels
         public int Id { get; set; }
         public int? BuddyProfileId { get; set; }
         [StringLength(255)]
-        public string City { get; set; }
-        [StringLength(255)]
-        public string Street { get; set; }
-        [StringLength(255)]
-        public string Building { get; set; }
-        [StringLength(255)]
-        public string Apartment { get; set; }
-        [StringLength(255)]
         public string Longitude { get; set; }
         [StringLength(255)]
         public string Latitude { get; set; }
@@ -34,6 +26,14 @@ namespace HookaTimes.DAL.HookaTimesModels
         public bool? IsDeleted { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreatedDate { get; set; }
+        [StringLength(255)]
+        public string Apartment { get; set; }
+        [StringLength(255)]
+        public string Building { get; set; }
+        [StringLength(255)]
+        public string City { get; set; }
+        [StringLength(255)]
+        public string Street { get; set; }
 
         [ForeignKey("BuddyProfileId")]
         [InverseProperty("BuddyProfileAddresses")]
