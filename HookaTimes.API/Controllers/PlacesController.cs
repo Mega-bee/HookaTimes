@@ -56,9 +56,15 @@ namespace HookaTimes.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreatePlace([FromForm]CreateHookaPlace_vM model)
         {
-            string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string uid = null;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity!.IsAuthenticated)
+            {
+                uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
             return Ok(await _hookaPlaceBL.CreatePlace(model,uid));
         }
 
