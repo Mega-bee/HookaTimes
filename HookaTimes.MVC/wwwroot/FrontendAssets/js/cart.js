@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", e => {
                 <div class="not-found__content">
                     <h1 class="not-found__title">Your cart is empty</h1>
                     <p class="not-found__text">We can't seem to find anything in your cart</p>
-                    <a asp-controller="Home" asp-action="HookaProducts" class="btn btn-light">Continue Shopping</a>
+                    <a href="/Home/HookaProducts" class="btn btn-light">Continue Shopping</a>
                 </div>
             </div>`
             }

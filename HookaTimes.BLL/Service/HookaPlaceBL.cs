@@ -305,7 +305,7 @@ namespace HookaTimes.BLL.Service
             var imgFile = model.Image;
             if(imgFile != null)
             {
-                string path = await imgFile.SaveImage("Places");
+                string path = await Helpers.SaveFile("wwwroot/images/places", imgFile);
                 newPlace.Image = path;
             }
             newPlace =  await _uow.PlaceRepository.Create(newPlace);
@@ -315,7 +315,7 @@ namespace HookaTimes.BLL.Service
             {
                 foreach (var item in model.Albums)
                 {
-                    string path = await item.SaveImage("Albums");
+                    string path = await Helpers.SaveFile("wwwroot/images/albums", imgFile);
                     album = new PlaceAlbum()
                     {
                         CreatedDate = DateTime.UtcNow,
@@ -332,7 +332,7 @@ namespace HookaTimes.BLL.Service
             {
                 foreach (var item in model.Menus)
                 {
-                    string path = await item.SaveImage("Albums");
+                    string path = await Helpers.SaveFile("wwwroot/images/menus", imgFile);
                     menu = new PlaceMenu()
                     {
                         CreatedDate = DateTime.UtcNow,
