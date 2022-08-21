@@ -20,7 +20,7 @@ namespace HookaTimes.BLL.ViewModels
         [Required]
 
         public string Message { get; set; }
-        [Required]
+        
 
     }
 }

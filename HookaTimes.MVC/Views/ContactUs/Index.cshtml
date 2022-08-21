@@ -2,6 +2,16 @@
     ViewData["Title"] = "Contact Us";
 }
 
+<style>
+    .error {
+        border:1px solid red;
+    }
+
+    .error:focus {
+            border: 1px solid red;
+    }
+</style>
+
 <div class="site__body">
     <div class="block-map block">
         <div class="block-map__body">
@@ -102,26 +112,26 @@
                             </div>
                             <div class="col-12 col-lg-6">
                                 <h4 class="contact-us__header card-title">Leave us a Message</h4>
-                                <form>
+                                <form id="contact-form" novalidate>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="form-name">Your Name</label>
-                                            <input type="text" id="form-name" class="form-control" placeholder="Your Name">
+                                            <input required type="text" id="form-name" name="name" class="form-control" placeholder="Your Name">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="form-email">Email</label>
-                                            <input type="email" id="form-email" class="form-control" placeholder="Email Address">
+                                            <input required type="email" id="form-email" name="email" class="form-control" placeholder="Email Address">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-subject">Subject</label>
-                                        <input type="text" id="form-subject" class="form-control" placeholder="Subject">
+                                        <label for="form-subject">Mobile</label>
+                                        <input required type="text" id="form-subject" name="mobile" class="form-control" placeholder="Mobile">
                                     </div>
                                     <div class="form-group">
                                         <label for="form-message">Message</label>
-                                        <textarea id="form-message" class="form-control" rows="4"></textarea>
+                                        <textarea required id="form-message" name="message" class="form-control" rows="4"></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Send Message</button>
+                                    <button id="submit-btn" type="submit" class="btn btn-primary">Send Message</button>
                                 </form>
                             </div>
                         </div>
@@ -131,3 +141,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script src="~/frontendassets/js/contactus.js"></script>
+}
