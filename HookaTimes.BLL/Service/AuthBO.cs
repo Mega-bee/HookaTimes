@@ -378,11 +378,32 @@ namespace HookaTimes.BLL.Service
                 newedu.Title = Address.Title;
                 newedu.IsDeleted = false;
                 newedu.CreatedDate = DateTime.UtcNow;
+                newedu.Apartment = Address.Appartment;
+                newedu.Street = Address.Street;
+                newedu.Building = Address.Building;
+                newedu.City = Address.City;
                 await _uow.BuddyProfileAddressRepository.Create(newedu);
+
+
+                BuddyProfileAddressPutVM add = new BuddyProfileAddressPutVM()
+                {
+                    Appartment = newedu.Apartment,
+                    Building = newedu.Building,
+                    City = newedu.City,
+                    Street = newedu.Street,
+                    IsDeleted = (bool)newedu.IsDeleted,
+                    Latitude = newedu.Latitude,
+                    Longitude = newedu.Longitude,
+                    Title = newedu.Title,
+                    Id = newedu.Id,
+
+
+                };
+
 
                 responseModel.StatusCode = 201;
                 responseModel.ErrorMessage = "";
-                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                responseModel.Data = new DataModel { Data = add, Message = "" };
                 return responseModel;
             }
 
@@ -461,9 +482,19 @@ namespace HookaTimes.BLL.Service
 
                 };
                 await _uow.BuddyProfileEducationRepository.Create(newedu);
+
+                BuddyProfileEducationPutVM edu = new BuddyProfileEducationPutVM()
+                {
+                    Id = newedu.Id,
+                    IsDeleted = education.IsDeleted,
+                    Degree = newedu.Degree,
+                    StudiedFrom = newedu.StudiedFrom,
+                    StudiedTo = newedu.StudiedTo,
+                    University = newedu.University,
+                };
                 responseModel.StatusCode = 201;
                 responseModel.ErrorMessage = "";
-                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                responseModel.Data = new DataModel { Data = edu, Message = "" };
                 return responseModel;
             }
 
@@ -502,7 +533,7 @@ namespace HookaTimes.BLL.Service
         }
 
 
-        public async Task<ResponseModel> AddExperience(BuddyProfileExperience exp, int BuddyId)
+        public async Task<ResponseModel> AddExperience(BuddyProfileExperiencePutVM exp, int BuddyId)
         {
 
             bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
@@ -532,14 +563,25 @@ namespace HookaTimes.BLL.Service
                     WorkedTo = exp.WorkedTo,
                     CreatedDate = DateTime.UtcNow
 
+
                 };
                 await _uow.BuddyProfileExperienceRepository.Create(newedu);
 
+                BuddyProfileExperiencePutVM expp = new BuddyProfileExperiencePutVM()
+                {
+                    Id = newedu.Id,
+                    IsDeleted = exp.IsDeleted,
+                    Place = newedu.Place,
+                    Position = newedu.Position,
+                    WorkedFrom = newedu.WorkedFrom,
+                    WorkedTo = newedu.WorkedTo,
 
+
+                };
 
                 responseModel.StatusCode = 201;
                 responseModel.ErrorMessage = "";
-                responseModel.Data = new DataModel { Data = newedu, Message = "" };
+                responseModel.Data = new DataModel { Data = expp, Message = "" };
                 return responseModel;
             }
 
@@ -1367,7 +1409,7 @@ namespace HookaTimes.BLL.Service
         public async Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId)
         {
 
-            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll(x=> x.BuddyId == BuddyId).Select(x => new OrderHistoryMVC_VM
+            List<OrderHistoryMVC_VM> orderHistory = await _uow.OrderRepository.GetAll(x => x.BuddyId == BuddyId).Select(x => new OrderHistoryMVC_VM
             {
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),

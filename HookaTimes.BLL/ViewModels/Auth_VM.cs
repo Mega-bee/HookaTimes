@@ -171,8 +171,7 @@ namespace HookaTimes.BLL.ViewModels
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }
 
-        public List<BuddyProfileEducationPutVM> Education { get; set; }
-        public List<BuddyProfileExperiencePutVM> Experience { get; set; }
+
 
 
     }
@@ -198,6 +197,7 @@ namespace HookaTimes.BLL.ViewModels
     public partial class BuddyProfileAddressPutVM : BuddyProfileAddressVM
     {
         public bool IsDeleted { get; set; }
+
     }
 
     public partial class BuddyProfileEducationVM
