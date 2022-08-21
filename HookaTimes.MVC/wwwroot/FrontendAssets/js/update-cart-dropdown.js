@@ -1,4 +1,4 @@
-﻿export function updateCart() {
+﻿export function updateCart(toggleCart = true) {
     $.ajax({
         type: 'GET',
         async: true,
@@ -14,11 +14,14 @@
             let navPanel = document.querySelector(".nav-panel");
             navPanel.classList.add("nav-panel--stuck", "nav-panel--show")
             let cartDropdownContainer = document.querySelector('#navbar-cart-container')
-            
-            let cartDropdownIcon = document.querySelector("#navbar-cart-container .indicator__button")
-            if (!cartDropdownContainer.classList.contains("indicator--open")) {
-                cartDropdownIcon.click()
+
+            if (toggleCart) {
+                let cartDropdownIcon = document.querySelector("#navbar-cart-container .indicator__button")
+                if (!cartDropdownContainer.classList.contains("indicator--open")) {
+                    cartDropdownIcon.click()
+                }
             }
+        
           
         },
         fail: function (err) {

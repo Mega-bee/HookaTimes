@@ -21,7 +21,7 @@ $(document).on("click", ".dropcart__product-remove", function (e) {
                 success: function (result) {
                     console.log(result)
                     if (result.statusCode == 200) {
-                        updateCart()
+                        updateCart(false)
                       
                     }
 

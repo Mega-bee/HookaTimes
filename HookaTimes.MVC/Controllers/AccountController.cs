@@ -27,8 +27,9 @@ namespace HookaTimes.MVC.Controllers
         private readonly IInvitationBL _inv;
         private readonly INotyfService _notyf;
         private readonly IHookaPlaceBL _hookaPlaceBL;
+        private readonly IOrderBL _orderBL;
 
-        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL)
+        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL, IOrderBL orderBL)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -37,6 +38,7 @@ namespace HookaTimes.MVC.Controllers
             _inv = inv;
             _notyf = notyf;
             _hookaPlaceBL = hookaPlaceBL;
+            _orderBL = orderBL;
         }
 
         public IActionResult Index()
@@ -304,7 +306,16 @@ namespace HookaTimes.MVC.Controllers
         }
         #endregion
 
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> OrderDetails( int id)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
 
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            var res = await _orderBL.GetOrder(Request, userBuddyId, id);
+            OrderDetails_VM order = (OrderDetails_VM)res.Data.Data;
+            return View(order);
+        }
 
         #region Invitations
 
