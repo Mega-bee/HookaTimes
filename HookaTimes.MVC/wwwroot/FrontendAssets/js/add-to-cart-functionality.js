@@ -19,11 +19,7 @@ export function addToCart(data,btn = null) {
                     btn.disabled = false;
                 }
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
+          
                 if (btn) {
                     btn.innerHTML = 'Add To Cart'
                     btn.disabled = false;

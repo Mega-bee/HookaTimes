@@ -58,7 +58,7 @@ namespace HookaTimes.BLL.Service
                 {
                     Id = a.Id,
                     Image = $"{request.Scheme}://{request.Host}{a.Image}",
-                }).ToList(),
+                }).OrderByDescending(a=> a.Id).ToList(),
                 Description = p.Description,
                 IsFavorite = p.FavoriteUserPlaces.Any(f => f.BuddyId == userBuddyId && f.IsDeleted == false),
                 Favorites = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false).Select(f => new HookaPlaceFavorite_VM
@@ -66,12 +66,12 @@ namespace HookaTimes.BLL.Service
                     Id = f.Id,
                     Image = $"{request.Scheme}://{request.Host}{f.Buddy.Image}",
                     IsAvailable = f.Buddy.IsAvailable
-                }).ToList(),
+                }).OrderByDescending(f=> f.Id).ToList(),
                 Menus = p.PlaceMenus.Where(m => m.IsDeleted == false).Select(m => new HookaPlaceImage_VM
                 {
                     Id = m.Id,
                     Image = $"{request.Scheme}://{request.Host}{m.Image}"
-                }).ToList(),
+                }).OrderByDescending(m=> m.Id).ToList(),
                 Reviews = p.PlaceReviews.Where(r => r.IsDeleted == false).Select(r => new HookaPlaceReview_VM
                 {
                     CreatedDate = r.CreatedDate,
@@ -80,7 +80,7 @@ namespace HookaTimes.BLL.Service
                     Name = r.Buddy.FirstName + " " + r.Buddy.LastName,
                     Image = r.Buddy.Image,
                     Rating = (float)r.Rating
-                }).ToList(),
+                }).OrderByDescending(r=> r.Id).ToList(),
                 Name = p.Title,
                 OpeningFrom = p.OpenningFrom,
                 OpeningTo = p.OpenningTo,
