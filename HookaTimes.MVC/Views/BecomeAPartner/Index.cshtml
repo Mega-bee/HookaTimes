@@ -1,0 +1,401 @@
+﻿@{
+    ViewData["Title"] = "Become a partner";
+    ViewBag.CurrentPage = "BecameAPartner";
+}
+
+<style>
+    /*
+    // .hero section
+    */
+    .section.is--hero {
+        padding-top: 5em;
+    }
+
+    .section {
+        display: flex;
+        padding: 2.5em 5em;
+    }
+
+    .became-partner-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .became-partner_hero-banner {
+        display: flex;
+        width: 100%;
+        padding-top: 4em;
+        padding-bottom: 4em;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #e7e7e7;
+        background-image: url(https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg);
+        background-position: 0px 0px;
+        background-size: auto;
+    }
+
+    .banner-h1 {
+        font-size: 3.2em;
+        line-height: 1.6;
+        font-weight: 600;
+    }
+
+    .text-span {
+        padding-left: 3em;
+    }
+
+    .became-partner-text-wrap {
+        display: flex;
+        width: 70%;
+        margin-top: 5em;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .became-partner-hero-paragraph {
+        font-size: 1.3em;
+        text-align: center;
+    }
+
+    .join-us_button {
+        margin-top: 2em;
+        padding: 1em 3em;
+        background-color: #fdcf51;
+        /*background-image: url(http://hookatimes.com/images/ic_partners.PNG);
+        background-position: 80% 50%;
+        background-size: 1.5em;
+        background-repeat: no-repeat;*/
+        color: white;
+        display: inline-block;
+        border: 0;
+        line-height: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 0;
+    }
+
+    /*
+    // .second section
+    */
+
+    .became-partner_intro-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        grid-column-gap: 3%;
+        grid-row-gap: 3%;
+    }
+
+    .became-partner-card {
+        opacity: 1 !important;
+        width: 48%;
+        padding: 3em;
+        text-align: center;
+    }
+
+    .became-partner-card_image-wrap {
+        display: flex;
+        height: 15em;
+        padding-top: 5em;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-image: url(https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg);
+        background-position: 50% 0%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        mix-blend-mode: multiply;
+    }
+
+    .became-partner_card-name {
+        width: 70%;
+        margin-right: auto;
+        margin-left: auto;
+        background-color: #fff;
+    }
+
+    ._1-6-h2 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1.6em;
+        line-height: 1.23;
+        font-weight: 600;
+    }
+
+    .became-partner_text-wrap {
+        padding: 3em 1em;
+    }
+
+    .became-partner-paragraph {
+        font-size: 1.2em;
+    }
+
+    .became-partner_video-wrap {
+        width: 45%;
+        height: 100%;
+    }
+
+    .became-partner-video {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        padding: 0;
+    }
+
+    .w-video iframe, .w-video object, .w-video embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+
+    /*
+    // .become-partner_form
+    */
+
+    .section.partner-form {
+        width: 70%;
+        margin-top: 5em;
+        margin-bottom: 5em;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+    }
+
+    .form-name {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1.85em;
+        line-height: 1.23;
+        font-weight: 600;
+    }
+
+    .became-partner-form {
+        margin-top: 2em;
+    }
+
+    .became-partner_form-flex-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        grid-column-gap: 2em;
+        grid-row-gap: 2em;
+    }
+
+    .form-horizontal-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        grid-column-gap: 1em;
+        grid-row-gap: 1em;
+    }
+
+    .form-card_vertical-flex {
+        width: 50%;
+        text-align: left;
+    }
+
+    .became-partner_field-label {
+        margin-bottom: 0.3em;
+    }
+
+    .became-partner-field {
+        background-color: transparent;
+    }
+
+    .w-input, .w-select {
+        display: block;
+        width: 100%;
+        height: 38px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333333;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+    }
+
+    .became-partner_form-button {
+        padding: 0.6em 2.4em;
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+        background-color: #fdcf51;
+        font-size: 1.4em;
+        color: white;
+        border: 0;
+        line-height: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 0;
+    }
+
+    .w-form-done {
+        display: none;
+        padding: 20px;
+        text-align: center;
+        background-color: #dddddd;
+    }
+
+    .w-form-fail {
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #ffdede;
+    }
+
+    .became-partner_text-area-field {
+        min-height: 10em;
+        background-color: transparent;
+    }
+
+</style>
+
+
+<!-- site__body -->
+<div class="site__body">
+
+    <!-- .become-partner-hero -->
+    <div class="section is--hero" data-aos="fade-up">
+        <div class="container w-container">
+            <div class="became-partner-hero">
+                <div data-w-id="943e0fa8-9e89-a11f-471c-23168419f0ef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="became-partner_hero-banner">
+                    <h1 class="banner-h1">
+                        <strong>Be you,<br></strong>
+                        <span class="text-span">
+                            <strong>with us</strong>
+                        </span>
+                    </h1>
+                </div>
+                <div data-w-id="0dcec016-f786-8e11-7f91-f693223e7046" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="became-partner-text-wrap">
+                    <p class="became-partner-hero-paragraph">
+                        Joining the HookaTimes network provides great benefits, most notably attractive financial returns. Instantly transform your business and boost your sales at no cost by becoming a host. Manage multiple host operations from a centralized distribution hub as a regional operator, or go a step further and become a HookaTimes country partner.
+                    </p>
+                    <a href="#partner-form" class="join-us_button w-button">
+                        <strong>JOIN US </strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- .become-partner-hero / end -->
+    <!-- .become-partner-second-section  -->
+    <div class="section">
+        <div class="container">
+            <div class="became-partner_intro-flex">
+                <div data-w-id="c2c2f6ce-bfda-98b6-9de1-0d8cfd189c3f" class="became-partner-card" data-aos="fade-right">
+                    <div class="became-partner-card_image-wrap">
+                        <div class="became-partner_card-name">
+                            <h2 class="_1-6-h2"><strong class="bold-text">RETAIL HOST</strong></h2>
+                        </div>
+                    </div>
+                    <div class="became-partner_text-wrap">
+                        <p class="became-partner-paragraph">
+                            Expand your menu and upgrade your services by endorsing an original hookah concept your customers will definitely love.
+                            Whether hookah is currently part of your business or not, partnering with Hooka Times can be a game changer.
+                            You can either opt to operate our carts while we provide you with our products and management system,
+                            or you can simply choose to host our carts, leaving the entire hookah service to our professional staff and brand operations.
+                        </p>
+                    </div>
+                </div>
+                <div data-w-id="712e3266-17c2-9928-d1cc-8e7778a7ecc5" class="became-partner-card" data-aos="fade-left">
+                    <div class="became-partner-card_image-wrap">
+                        <div class="became-partner_card-name">
+                            <h2 class="_1-6-h2"><strong class="bold-text">COUNTRY PARTNER</strong></h2>
+                        </div>
+                    </div>
+                    <div class="became-partner_text-wrap">
+                        <p class="became-partner-paragraph">
+                            Start your new business venture with a trusted brand of products, services and operational excellence.
+                            As a partner, you can benefit from a proven standard system, fully developed by Hooka Times to save you significant time
+                            and costs in terms of logistics, marketing and training. Our team will be ready to support you through every step of the process,
+                            making sure you receive the necessary guidance and lead an active business with guaranteed potential for growth.
+                        </p>
+                    </div>
+                </div>
+                <div data-w-id="fa09972c-cab5-a927-b0c0-787935736d15" class="became-partner_video-wrap" data-aos="fade-up">
+                    <div style="padding-top:56.17021276595745%" class="became-partner-video w-video w-embed">
+                        <iframe class="embedly-embed"
+                                src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FPuP7Fq0wk1Y%3Ffeature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DPuP7Fq0wk1Y&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FPuP7Fq0wk1Y%2Fhqdefault.jpg&amp;key=96f1f04c5f4143bcb0f2e68c87d65feb&amp;type=text%2Fhtml&amp;schema=youtube" scrolling="no" allowfullscreen="" title="Hookah Video Witty"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- .become-partner-second-section / end -->
+    <!-- .become-partner-form  -->
+
+    <section id="partner-form" data-w-id="3f4736aa-13a4-c0cd-f497-c4acb82692ef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="section partner-form">
+        <div class="container">
+            <div class="became-partner_form-wrap" data-aos="fade-up">
+                <h2 class="form-name"><strong>GET STARTED</strong></h2>
+                <div class="became-partner-form w-form">
+                    <form id="email-form" name="email-form" data-name="Email Form" method="get" class="became-partner_form-flex-wrap" aria-label="Email Form">
+                        <div class="form-horizontal-flex">
+                            <div class="form-card_vertical-flex">
+                                <label for="name" class="became-partner_field-label">FIRST Name</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name" data-name="Name" placeholder="" id="name">
+                            </div>
+                            <div class="form-card_vertical-flex">
+                                <label for="name-2" class="became-partner_field-label">LAST Name</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                            </div>
+                        </div>
+                        <div class="form-horizontal-flex">
+                            <div class="form-card_vertical-flex">
+                                <label for="name-3" class="became-partner_field-label">PHONE NUMBER</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="" id="name-3">
+                            </div>
+                            <div class="form-card_vertical-flex">
+                                <label for="name-3" class="became-partner_field-label">EMAIL ADDRESS</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                            </div>
+                        </div>
+                        <div class="form-horizontal-flex">
+                            <div class="form-card_vertical-flex">
+                                <label for="name-4" class="became-partner_field-label">HOOKA PLACE NAME</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="" id="name-3">
+                            </div>
+                            <div class="form-card_vertical-flex">
+                                <label for="name-4" class="became-partner_field-label">LOCATION</label>
+                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                            </div>
+                        </div>
+                        <div class="form-horizontal-flex">
+                            <select id="field" name="field" data-name="Field" class="became-partner_select-field w-select">
+                                <option value="">Retail Host</option>
+                                <option value="COUNTRY PARTNER">Country Partner</option>
+                            </select>
+                        </div>
+                        <div class="form-horizontal-flex">
+                            <textarea placeholder="Example Text" maxlength="5000" id="field-2" name="field-2" data-name="field" class="became-partner_text-area-field w-input"></textarea>
+                        </div>
+                        <input type="submit" value="SEND" data-wait="Please wait..." class="became-partner_form-button w-button">
+                    </form>
+                    <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form success">
+                        <div>Thank you! Your submission has been received!</div>
+                    </div>
+                    <div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form failure">
+                        <div>Oops! Something went wrong while submitting the form.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- .become-partner-form / end -->
+
+</div>
+<!-- site__body / end -->
