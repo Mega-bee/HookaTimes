@@ -891,37 +891,38 @@
                                     </div>*@
                                 </div>
                             </div>
-                            <form data-placeId="@Model.Place.Id" class="reviews-view__form">
-                                <h3 class="reviews-view__header">
-                                    Write A Review
-                                </h3>
-                                <div class="row">
-                                    <div class="col-12 col-lg-9 col-xl-8">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                <label asp-for="Review.Rating" for="review-stars">Review Stars</label>
-                                                <select id="review-stars"
+                            @if(SignInManager.IsSignedIn(User)) {
+                                <form data-placeId="@Model.Place.Id" class="reviews-view__form">
+                                    <h3 class="reviews-view__header">
+                                        Write A Review
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-9 col-xl-8">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label asp-for="Review.Rating" for="review-stars">Review Stars</label>
+                                                    <select id="review-stars"
                                                         class="form-control">
-                                                    <option value="5">
-                                                        5 Stars Rating
-                                                    </option>
-                                                    <option value="4">
-                                                        4 Stars Rating
-                                                    </option>
-                                                    <option value="3">
-                                                        3 Stars Rating
-                                                    </option>
-                                                    <option value="2">
-                                                        2 Stars Rating
-                                                    </option>
-                                                    <option value="1">
-                                                        1 Stars Rating
-                                                    </option>
-                                                </select>
-                                                <span asp-validation-for="Review.Rating" class="text-danger"></span>
+                                                        <option value="5">
+                                                            5 Stars Rating
+                                                        </option>
+                                                        <option value="4">
+                                                            4 Stars Rating
+                                                        </option>
+                                                        <option value="3">
+                                                            3 Stars Rating
+                                                        </option>
+                                                        <option value="2">
+                                                            2 Stars Rating
+                                                        </option>
+                                                        <option value="1">
+                                                            1 Stars Rating
+                                                        </option>
+                                                    </select>
+                                                    <span asp-validation-for="Review.Rating" class="text-danger"></span>
 
-                                            </div>
-                                            @*        <div class="form-group col-md-4">
+                                                </div>
+                                                @*        <div class="form-group col-md-4">
                                             <label for="review-author">Your Name</label>
                                             <input type="text"
                                             class="form-control"
@@ -935,24 +936,26 @@
                                             id="review-email"
                                             placeholder="Email Address" />
                                             </div>*@
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Review.Description" for="review-text">Your Review</label>
-                                            <textarea class="form-control"  name="review-text"
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Review.Description" for="review-text">Your Review</label>
+                                                <textarea class="form-control" name="review-text"
                                                       id="review-text"
                                                       rows="6"></textarea>
-                                            <span id="validation-msg" asp-validation-for="Review.Description" class="text-danger"></span>
+                                                <span id="validation-msg" asp-validation-for="Review.Description" class="text-danger"></span>
 
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <button  type="submit"
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                <button type="submit"
                                                     class="btn btn-primary btn-lg submit-review-btn">
-                                                Post Your Review
-                                            </button>
+                                                    Post Your Review
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            }
+                         
                         </div>
                     </div>
                     </div>
@@ -966,5 +969,9 @@
 
 @section Scripts {
     <script src="~/FrontendAssets/js/vendors/lightbox/fslightbox.js"></script>
-    <script src="~/FrontendAssets/js/submit-review.js"></script>
+@if (SignInManager.IsSignedIn(User))
+{
+     <script src="~/FrontendAssets/js/submit-review.js"></script>
+}
+   
 }
