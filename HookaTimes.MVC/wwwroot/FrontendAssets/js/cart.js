@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", e => {
 
     function removeItemFromCart(e) {
         let pressedBtn = e.currentTarget
-        console.log(pressedBtn)
         let itemId = pressedBtn.dataset.productid
         if (itemId) {
 
@@ -62,11 +61,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
                   
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: result.errorMessage
-                        })
+                     
                     }
 
                 },
@@ -112,20 +107,12 @@ document.addEventListener("DOMContentLoaded", e => {
                         })
 
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: result.errorMessage
-                        })
+                 
                     }
 
                 },
                 fail: function (err) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'Something went wrong'
-                    })
+                 
                     console.log(err)
                 }
             })
