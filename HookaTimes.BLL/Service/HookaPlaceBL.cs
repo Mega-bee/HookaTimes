@@ -246,7 +246,7 @@ namespace HookaTimes.BLL.Service
             {
                 Cuisine = p.Cuisine.Title,
                 Id = p.Id,
-                Image = $"{request.Scheme}://{request.Host}{p.Image}",
+                Image = p.Image,
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
@@ -270,8 +270,6 @@ namespace HookaTimes.BLL.Service
             }).ToListAsync();
             return favs;
         }
-
-
 
         public async Task<List<PlacesNames_VM>> GetPlacesNames()
         {
