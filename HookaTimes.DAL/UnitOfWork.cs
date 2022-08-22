@@ -47,6 +47,7 @@ namespace HookaTimes.DAL
         private IPlaceMenuRepository placeMenuRepository;
         private IContactUsRepository contactUsRepository;
         private IJobVacancyRepository jobVacancyRepository;
+        private IPartnerRequestRepository partnerRequestRepository;
 
 
         #endregion
@@ -80,6 +81,7 @@ namespace HookaTimes.DAL
         public IPlaceMenuRepository PlaceMenuRepository => placeMenuRepository ?? new PlaceMenuRepo(_context);
         public IJobVacancyRepository JobVacancyRepository => jobVacancyRepository ?? new JobVacancyRepo(_context);
         public IContactUsRepository ContactUsRepository => contactUsRepository ?? new ContactUsRepo(_context);
+        public IPartnerRequestRepository PartnerRequestRepository => partnerRequestRepository ?? new PartnerRequestRepo(_context);
 
 
         #endregion
