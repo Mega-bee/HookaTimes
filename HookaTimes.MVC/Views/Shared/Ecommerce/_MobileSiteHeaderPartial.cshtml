@@ -2,7 +2,15 @@
     .mobile-header__panel {
     background: #ededed;
     }
-
+.mobile-logo{
+        width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mobile-header__logo{
+    width: 5em;
+    height: 5em;
+}
 </style>
     
 <!-- mobile site__header -->
@@ -17,9 +25,9 @@
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#menu-18x14"></use>
                                 </svg>
                             </button>
-                            <a class="mobile-header__logo" href="index.html">
+                            <a class="mobile-header__logo"  asp-action="Index" >
                                 <!-- mobile-logo -->
-                            <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
+                            <img class="mobile-logo" src="~/FrontendAssets/images/logos/logo.png" />
 
                                 <!-- mobile-logo / end -->
                             </a>
