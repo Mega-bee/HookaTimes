@@ -2,17 +2,19 @@
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const form = document.querySelector('#logoutForm');
-    const btn = document.querySelector('#logoutbtn');
-    
-    if (btn) {
-        btn.addEventListener('click', (event) => {
-            event.preventDefault();
-            form.submit();
-        });
-    }
- 
+    $(document).on("click", "#logoutbtn", function (e) {
+        e.preventDefault()
+        const form = document.querySelector('#logoutForm');
+   /*     const btn = document.querySelector('#logoutbtn');*/
+        //console.log("button", btn)
+        console.log(form)
+        if (form) {
 
- 
+                form.submit();
+
+        }
+
+
+    })
 })
 

@@ -33,7 +33,7 @@
               <partial name="~/Views/Shared/Ecommerce/PreLoader.cshtml" />
 
     <div class="site">
-        <partial name="~/Views/Shared/Ecommerce/_MobileSiteHeaderPartial.cshtml" />
+        @await Component.InvokeAsync("MobileNavbar")
         <header class="site__header d-lg-block d-none">
             <div class="site-header">
                 @*<partial name="~/Views/Shared/Ecommerce/_NavBarTopPartial.cshtml" />*@
