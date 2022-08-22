@@ -161,19 +161,17 @@
 
                                     </li>
                                     <li class="footer-links__item">
-                                        <a 
-                                           asp-controller="BecomeAPartner" class=" footer-links__link">
+                                        <a asp-controller="BecomeAPartner" asp-action="Index" class=" footer-links__link">
                                             Became A Partner
                                         </a>
                                     </li>
                                     <li class="footer-links__item">
-                                        <a 
-                                           asp-controller="Careers" class="footer-links__link">
+                                        <a asp-controller="Careers" asp-action="Index" class="footer-links__link">
                                             Careers
                                         </a>
                                     </li>
-                                    <li class="footer-links__item">
-                                        <a asp-controller="ContactUs"
+                                    <li class="footer-links__item"> 
+                                        <a asp-controller="ContactUs" asp-action="Index"
                                            class="footer-links__link">
                                             Contact Us
                                         </a>
@@ -203,8 +201,8 @@
 
                                     </li>
                                     <li class="footer-links__item">
-                                        <a asp-controller="Home"
-                                           asp-action="WishList"
+                                        <a asp-controller="Wishlist"
+                                           asp-action="Index"
                                            class="footer-links__link">
                                             Wish List
                                         </a>
@@ -212,6 +210,7 @@
                                     </li>
                                     <li class="footer-links__item">
                                         <a asp-controller="cart"
+                                           asp-action="Index"
                                            class="footer-links__link">
                                             Cart
                                         </a>

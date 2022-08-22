@@ -1422,6 +1422,16 @@ namespace HookaTimes.BLL.Service
         }
         #endregion
 
+        public async Task<List<BuddyProfileAddressVM>> GetUserAddresses(int userBuddyId)
+        {
+            List<BuddyProfileAddressVM> addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false && x.BuddyProfileId == userBuddyId).Select(x => new BuddyProfileAddressVM
+            {
+                Id = x.Id,
+                Title = x.Title
+            }).ToListAsync();
+            return addresses;
+        }
+
 
         #endregion
 

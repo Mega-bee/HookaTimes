@@ -27,7 +27,7 @@ namespace HookaTimes.BLL.Service
         {
             ResponseModel responseModel = new ResponseModel();
             OrderItem orderItem = new OrderItem();
-            if (address != null)
+            if (addressId == 0)
             {
                 BuddyProfileAddress newAddress = new BuddyProfileAddress()
                 {
