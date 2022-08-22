@@ -260,6 +260,14 @@
         background-color: transparent;
     }
 
+      .error {
+        border:1px solid red;
+    }
+
+    .error:focus {
+            border: 1px solid red;
+    }
+
 </style>
 
 
@@ -343,35 +351,35 @@
             <div class="became-partner_form-wrap" data-aos="fade-up">
                 <h2 class="form-name"><strong>GET STARTED</strong></h2>
                 <div class="became-partner-form w-form">
-                    <form id="email-form" name="email-form" data-name="Email Form" method="get" class="became-partner_form-flex-wrap" aria-label="Email Form">
+                    <form id="partner-form" class="became-partner_form-flex-wrap" novalidate>
                         <div class="form-horizontal-flex">
                             <div class="form-card_vertical-flex">
                                 <label for="name" class="became-partner_field-label">FIRST Name</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name" data-name="Name" placeholder="" id="name">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="FirstName" data-name="Name" placeholder="" id="name">
                             </div>
                             <div class="form-card_vertical-flex">
                                 <label for="name-2" class="became-partner_field-label">LAST Name</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="LastName" data-name="Name 2" placeholder="" id="name-2">
                             </div>
                         </div>
                         <div class="form-horizontal-flex">
                             <div class="form-card_vertical-flex">
                                 <label for="name-3" class="became-partner_field-label">PHONE NUMBER</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="" id="name-3">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="PhoneNumber" data-name="Name 3" placeholder="" id="name-3">
                             </div>
                             <div class="form-card_vertical-flex">
                                 <label for="name-3" class="became-partner_field-label">EMAIL ADDRESS</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="EmailAddress" data-name="Name 2" placeholder="" id="name-2">
                             </div>
                         </div>
                         <div class="form-horizontal-flex">
                             <div class="form-card_vertical-flex">
                                 <label for="name-4" class="became-partner_field-label">HOOKA PLACE NAME</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="" id="name-3">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="HookaPlaceName" data-name="Name 3" placeholder="" id="name-3">
                             </div>
                             <div class="form-card_vertical-flex">
                                 <label for="name-4" class="became-partner_field-label">LOCATION</label>
-                                <input type="text" class="became-partner-field w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" id="name-2">
+                                <input required type="text" class="became-partner-field w-input" maxlength="256" name="Location" data-name="Name 2" placeholder="" id="name-2">
                             </div>
                         </div>
                         <div class="form-horizontal-flex">
@@ -381,16 +389,16 @@
                             </select>
                         </div>
                         <div class="form-horizontal-flex">
-                            <textarea placeholder="Example Text" maxlength="5000" id="field-2" name="field-2" data-name="field" class="became-partner_text-area-field w-input"></textarea>
+                            <textarea required placeholder="Example Text" maxlength="5000" id="field-2" name="Description"  class="became-partner_text-area-field w-input"></textarea>
                         </div>
-                        <input type="submit" value="SEND" data-wait="Please wait..." class="became-partner_form-button w-button">
+                        <button id="submit-btn" type="submit" @*value="SEND"*@ class="became-partner_form-button w-button">SEND</button>
                     </form>
-                    <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form success">
+                 @*   <div class="w-form-done" tabindex="-1" role="region" aria-label="Email Form success">
                         <div>Thank you! Your submission has been received!</div>
                     </div>
                     <div class="w-form-fail" tabindex="-1" role="region" aria-label="Email Form failure">
                         <div>Oops! Something went wrong while submitting the form.</div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -399,3 +407,6 @@
 
 </div>
 <!-- site__body / end -->
+@section Scripts {
+    <script src="~/frontendassets/js/become-a-partner.js"></script>
+}

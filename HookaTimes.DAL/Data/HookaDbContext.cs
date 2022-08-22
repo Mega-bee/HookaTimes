@@ -43,6 +43,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
+        public virtual DbSet<PartnerRequest> PartnerRequests { get; set; }
         public virtual DbSet<PhoneOtp> PhoneOtps { get; set; }
         public virtual DbSet<PlaceAlbum> PlaceAlbums { get; set; }
         public virtual DbSet<PlaceFilter> PlaceFilters { get; set; }
@@ -55,7 +56,6 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<VirtualCart> VirtualCarts { get; set; }
         public virtual DbSet<VirtualWishlist> VirtualWishlists { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -34,6 +34,7 @@ namespace HookaTimes.DAL
         IPlaceMenuRepository PlaceMenuRepository { get; }
         IJobVacancyRepository JobVacancyRepository { get; }
         IContactUsRepository ContactUsRepository { get; }
+        IPartnerRequestRepository PartnerRequestRepository { get; }
         void Save();
         Task SaveAsync();
     }
