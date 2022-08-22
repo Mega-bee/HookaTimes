@@ -15,5 +15,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public string Title { get; set; }
         [StringLength(450)]
         public string Description { get; set; }
+        public bool? IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedDate { get; set; }
     }
 }

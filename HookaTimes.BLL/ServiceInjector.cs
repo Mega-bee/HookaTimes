@@ -38,6 +38,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IWishlistBL, WishlistBL>();
             _services.AddScoped<IEmailSender, EmailSender>();
             _services.AddScoped<IContactUsBL, ContactUsBL>();
+            _services.AddScoped<ICareersBL, CareersBL>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
             _services.AddScoped<IGenericRepos<PlacesProfile>, GenericRepos<PlacesProfile>>();
