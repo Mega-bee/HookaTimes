@@ -52,11 +52,7 @@ function handleAddToCart(e) {
                 updateCart()
                 
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
+               
             }
 
         },
@@ -70,3 +66,5 @@ function handleAddToCart(e) {
 addToCartBtns.forEach(btn => {
     btn.addEventListener('click',handleAddToCart)
 })
+
+/*$(document).on("click", ".add-to-favorite-btn", handleAddToCart)*/

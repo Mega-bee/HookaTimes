@@ -420,7 +420,7 @@
                                 <label class="product__option-label">Types</label>
                                 <div class="input-radio-color">
                                     <div class="input-radio-color__list">
-                                        @foreach (var item in Model?.Products)
+                                        @foreach (var item in Model!.Products)
                                         {
                                             <label data-productId="@item.Id" data-productDesc="@item.Description" data-price="@item.CustomerFinalPrice" class="input-radio-color__item input-radio-color__item--white product-item @(item.Id == Model.Products.Select(x=> x.Id).FirstOrDefault() ? "active-item" : "")" data-toggle="tooltip" title="@item.Title">
                                                 @*<input type="radio" name="color">*@
@@ -502,5 +502,7 @@
 
 @section Scripts {
     <script type="module" src="~/FrontendAssets/js/product.js"></script>
+    <script type="module" src="~/FrontendAssets/js/add-to-cart.js"></script>
+    <script src="~/FrontendAssets/js/add-to-wishlist.js"></script>
 }
 
