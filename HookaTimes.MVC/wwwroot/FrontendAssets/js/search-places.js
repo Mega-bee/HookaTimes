@@ -1,12 +1,14 @@
 ﻿const filterBtn = document.querySelector('#filter-btn');
 const resetFilterButton = document.querySelector("#reset-filter-btn")
 const placesContainer = document.querySelector("#items-container")
-let cuisineQuery = ""
-let sortByValue = 0
+var cuisineQuery = ""
+var sortByValue = 0
 
 function submitFilter(e) {
-
+    console.log("submittttttttttttttttttttttttttttttttttt")
     var cuisines = []
+    cuisineQuery = ""
+    sortByValue = 0
     const cuisinesCheckboxes = document.querySelectorAll('input[name=cuisine]:checked');
     const sortBy = document.querySelector('input[name="sortBy"]:checked');
     if (sortBy) {
@@ -15,13 +17,19 @@ function submitFilter(e) {
     if (cuisinesCheckboxes.length) {
        cuisines =  Array.from(cuisinesCheckboxes).map(checkbox => checkbox.value)
     }
+    console.log(cuisinesCheckboxes)
+    console.log(cuisines)
+
+  
    
     if (cuisines.length) {
         cuisines.forEach(cuisine => {
             cuisineQuery+= '&cuisines=' + cuisine
         })
     }
+
     filterPlaces()
+
     var url = '@Url.Action("HookaPlacesSearch", "Home")';
 }
 
