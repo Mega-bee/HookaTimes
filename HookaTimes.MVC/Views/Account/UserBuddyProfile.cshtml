@@ -5,8 +5,14 @@
     int CountExperience = 0;
 
 }
+
 @model Profile_VM
 <style>
+
+   
+
+
+
 
     .product-card__quickviewcustom {
         position: relative;
@@ -166,6 +172,12 @@
             </div>
             <div class="page-header__title">
                 <h1>@(Model.Name ?? "")</h1>
+                <div class="custom-control custom-switch checkbox-lg">
+
+                  <input type="checkbox" class="custom-control-input" id="customSwitch1" @(Model.IsAvailable== true? "Checked":"")>
+                    <label class="custom-control-label" for="customSwitch1">Available</label>
+
+                </div>
                 <a class="product-card__quickviewcustom" asp-action="EditProfile" asp-controller="Account">
                     Edit Profile
                     <span class="fake-svg-icon"></span>
@@ -421,7 +433,7 @@
 
                         @if (Model.Education.Count > 0)
                         {
-                          
+
 
                             foreach (var edu in Model.Education)
                             {
@@ -462,7 +474,7 @@
                             }
                         }
 
-                    
+
 
 
 
@@ -478,7 +490,7 @@
                         @if (Model.Experience.Count > 0)
 
                         {
-                          
+
                             foreach (var exp in Model.Experience)
                             {
                                 <div class="dashboard__address card address-card address-card--featured">
@@ -527,22 +539,24 @@
         </div>
     </div>
 
-   @* <div class="block block-banner">
-        <div class="container">
-            <div href="" class="block-banner__body">
-                <div class="block-banner__image block-banner__image--desktop"
-                     style="background-image: url('/frontendassets/images/banners/banner-1.jpg')"></div>
+    @* <div class="block block-banner">
+    <div class="container">
+    <div href="" class="block-banner__body">
+    <div class="block-banner__image block-banner__image--desktop"
+    style="background-image: url('/frontendassets/images/banners/banner-1.jpg')"></div>
 
-                <div class="block-banner__title ">Buddy Name</div>
-                <div class="block-banner__text">Invite your Favorite buddy</div>
-                <div class="block-banner__button">
-                    <span class="btn btn-sm btn-primary product-card__quickview">Invite</span>
-                </div>
-            </div>
-        </div>
+    <div class="block-banner__title ">Buddy Name</div>
+    <div class="block-banner__text">Invite your Favorite buddy</div>
+    <div class="block-banner__button">
+    <span class="btn btn-sm btn-primary product-card__quickview">Invite</span>
+    </div>
+    </div>
+    </div>
     </div>*@
 </div>
 
+
+<script src="~/frontendassets/js/toogleavailable.js"></script>
 
 
 
