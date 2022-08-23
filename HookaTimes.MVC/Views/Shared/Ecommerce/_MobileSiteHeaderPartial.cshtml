@@ -4,24 +4,32 @@
     .mobile-header__panel {
         background: #ededed;
     }
-
+.mobile-logo{
+        width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mobile-header__logo{
+    width: 5em;
+    height: 5em;
+}
 </style>
 
 <!-- mobile site__header -->
-<header class="site__header d-lg-none">
-    <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
-    <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
-        <div class="mobile-header__panel">
-            <div class="container">
-                <div class="mobile-header__body">
-                    <button class="mobile-header__menu-button">
-                        <svg width="18px" height="14px">
-                            <use xlink:href="/FrontendAssets/images/sprite.svg#menu-18x14"></use>
-                        </svg>
-                    </button>
-                    <a class="mobile-header__logo" href="index.html">
-                        <!-- mobile-logo -->
-                        <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
+        <header class="site__header d-lg-none">
+            <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
+            <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
+                <div class="mobile-header__panel">
+                    <div class="container">
+                        <div class="mobile-header__body">
+                            <button class="mobile-header__menu-button">
+                                <svg width="18px" height="14px">
+                                    <use xlink:href="/FrontendAssets/images/sprite.svg#menu-18x14"></use>
+                                </svg>
+                            </button>
+                            <a class="mobile-header__logo"  asp-action="Index" >
+                                <!-- mobile-logo -->
+                            <img class="mobile-logo" src="~/FrontendAssets/images/logos/logo.png" />
 
                         <!-- mobile-logo / end -->
                     </a>

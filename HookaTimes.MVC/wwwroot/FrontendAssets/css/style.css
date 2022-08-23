@@ -438,6 +438,7 @@ h6 {
 }
 
 .site__body {
+    overflow:hidden;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
