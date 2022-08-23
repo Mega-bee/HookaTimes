@@ -1,11 +1,13 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.Service;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using MessagePack;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace HookaTimes.MVC.Controllers
@@ -43,14 +45,15 @@ namespace HookaTimes.MVC.Controllers
             Checkout_VM model = new Checkout_VM()
             {
                 Address = new BuddyProfileAddressVM(),
-                CartSummary = cartSummary
+                CartSummary = cartSummary,
+                Addresses = new SelectList(await _auth.GetUserAddresses(userBuddyId), nameof(BuddyProfileAddressVM.Id), nameof(BuddyProfileAddressVM.Title))
 
-            };
+        };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(BuddyProfileAddressVM address, string returnurl = null)
+        public async Task<IActionResult> PlaceOrder( int addressId,BuddyProfileAddressVM address, string returnurl = null)
         {
             ViewData["ReturnUrl"] = returnurl;
             returnurl = returnurl ?? Url.Content("~/");
@@ -62,7 +65,7 @@ namespace HookaTimes.MVC.Controllers
             {
                 return LocalRedirect(returnurl);
             }
-            var res = await _orderBL.PlaceOrder(userBuddyId,0,address);
+            var res = await _orderBL.PlaceOrder(userBuddyId,addressId,address);
             if(res.StatusCode == 200)
             {
                 _notyf.Success("Your order has been placed.");

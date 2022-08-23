@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", e => {
     const removeItemBtns = document.querySelectorAll(".remove-item-btn")
     const updateCartBtn = document.querySelector(".cart__update-button")
     const quantityInputs = document.querySelectorAll(".input-number__input")
+    const cartContainer = document.querySelector("#cart-block")
+
 
     function getCartItems() {
         const cartItems = document.querySelectorAll(".cart-table__item")
@@ -27,12 +29,25 @@ document.addEventListener("DOMContentLoaded", e => {
 
     function removeItemFromCart(e) {
         let pressedBtn = e.currentTarget
-        console.log(pressedBtn)
         let itemId = pressedBtn.dataset.productid
         if (itemId) {
 
             let formdata = new FormData()
             formdata.append("productId", itemId)
+            let row = pressedBtn.closest("tr")
+            if (row) {
+                row.remove()
+            }
+            let allRows = document.querySelectorAll(".cart-table__item")
+            if (allRows.length == 0) {
+                cartContainer.innerHTML = `  <div class="not-found">
+                <div class="not-found__content">
+                    <h1 class="not-found__title">Your cart is empty</h1>
+                    <p class="not-found__text">We can't seem to find anything in your cart</p>
+                    <a href="/Home/HookaProducts" class="btn btn-light">Continue Shopping</a>
+                </div>
+            </div>`
+            }
             $.ajax({
                 type: 'Delete',
                 async: true,
@@ -42,17 +57,11 @@ document.addEventListener("DOMContentLoaded", e => {
                 url: `/Cart/RemoveItemFromCart`,
                 success: function (result) {
                     if (result.statusCode == 200) {
-                        updateCart()
-                        let row = pressedBtn.closest("tr")
-                        if (row) {
-                            row.remove()
-                        }
+                        updateCart(false)
+
+                  
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: result.errorMessage
-                        })
+                     
                     }
 
                 },
@@ -67,10 +76,10 @@ document.addEventListener("DOMContentLoaded", e => {
     function handleUpdateCart(e) {
         e.preventDefault()
         const cartItems = document.querySelectorAll(".cart-table__item")
-      
-  
+
+
         let itemsArray = getCartItems()
-       
+
         if (itemsArray) {
             let data = new FormData()
             for (var i = 0; i < itemsArray.length; i++) {
@@ -79,7 +88,7 @@ document.addEventListener("DOMContentLoaded", e => {
             }
             //console.log("itemsss",itemsArray)
             //itemsArray = JSON.stringify({ 'items': itemsArray });
-         
+
             $.ajax({
                 type: 'POST',
                 async: true,
@@ -96,31 +105,23 @@ document.addEventListener("DOMContentLoaded", e => {
                             title: 'Success',
                             text: result.message
                         })
-                        
+
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Fail',
-                            text: result.errorMessage
-                        })
+                 
                     }
 
                 },
                 fail: function (err) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Fail',
-                        text: 'Something went wrong'
-                    })
+                 
                     console.log(err)
                 }
             })
         }
-    
+
     }
 
     function calculateNewCartTotal() {
-        let cartItems=  document.querySelectorAll(".cart-table__item")
+        let cartItems = document.querySelectorAll(".cart-table__item")
         var totalCount = 0.00
         if (!cartItems) {
             return
@@ -129,10 +130,9 @@ document.addEventListener("DOMContentLoaded", e => {
             let itemQty = parseFloat(item.querySelector(".input-number__input").value)
             let itemPrice = parseFloat(item.querySelector(".cart-item-price").textContent)
             let newItemPrice = parseFloat(itemQty * itemPrice)
-            console.log("new Item price",newItemPrice)
-            item.querySelector(".cart-item-total").textContent = newItemPrice
+            item.querySelector(".cart-item-total").textContent = newItemPrice + " " + "AED"
             totalCount += newItemPrice
-            
+
         })
         document.querySelector("#total-cart-price").textContent = totalCount + " " + "AED"
     }

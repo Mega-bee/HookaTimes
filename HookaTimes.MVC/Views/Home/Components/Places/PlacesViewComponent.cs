@@ -30,9 +30,8 @@ namespace HookaTimes.MVC.Views.Home.Components.Places
                 string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
                 userBuddyId = await _auth.GetBuddyById(UserId);
             }
-            var res = await _hookaPlaceBL.GetHookaPlaces(Request,userBuddyId);
-            List<HookaPlaces_VM> places = (List<HookaPlaces_VM>)res.Data.Data;
-            return View(places.Take(6).ToList());
+            List<HookaPlaces_VM> places = await _hookaPlaceBL.GetHookaPlacesMVC(Request,userBuddyId,8);
+            return View(places);
         }
     }
 }

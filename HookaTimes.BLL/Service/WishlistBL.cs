@@ -44,7 +44,7 @@ namespace HookaTimes.BLL.Service
                     currWishlistItem.IsDeleted = true;
                     await _uow.WishlistRepository.Update(currWishlistItem);
                     responseModel.ErrorMessage = "";
-                    responseModel.StatusCode = 201;
+                    responseModel.StatusCode = 204;
                     responseModel.Data = new DataModel()
                     {
                         Data = "",

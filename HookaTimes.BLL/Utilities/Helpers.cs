@@ -136,7 +136,7 @@ namespace HookaTimes.BLL.Utilities
             {
                 await file.CopyToAsync(stream);
             }
-            return NewFileName;
+            return filePath;
         }
 
         public static void DeleteFile(string fileName, string path, IWebHostEnvironment hostEnvironment)

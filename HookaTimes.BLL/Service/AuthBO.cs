@@ -2,6 +2,7 @@
 using HookaTimes.BLL.Enums;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
+using HookaTimes.BLL.Utilities.Mailkit;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.BLL.ViewModels.Website;
 using HookaTimes.DAL;
@@ -10,10 +11,11 @@ using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Ocsp;
 //using HookaTimes.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -760,7 +762,7 @@ namespace HookaTimes.BLL.Service
 
             string content = $"Dear Hooka Buddy \n For Security reasons,User reset code in your app to reser password \n Your Reset Password Code is : {token} \n Thank you";
 
-            bool isEmailSent = await Tools.SendEmailAsync(identifier, "Reset Password", content);
+            bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Reset Password", content);
             if (isEmailSent)
             {
                 responseModel.StatusCode = 200;
@@ -936,12 +938,12 @@ namespace HookaTimes.BLL.Service
                 await _context.EmailOtps.AddAsync(emailOtp);
                 await _context.SaveChangesAsync();
 
-                string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
-
+                //string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
+                
 
                 //Helpers.SendSMS(phone, content);
                 //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                await _emailSender.SendEmailAsync(Email, "Hooka OTP", content);
+               bool isEmailSent =  await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
                 //if (!EmailSent)
                 //{
                 //    responseModel.StatusCode = 400;
@@ -953,6 +955,17 @@ namespace HookaTimes.BLL.Service
                 //    };
                 //    return responseModel;
                 //}
+                if(!isEmailSent)
+                {
+                    responseModel.StatusCode = 500;
+                    responseModel.ErrorMessage = "Failed to send email";
+                    responseModel.Data = new DataModel
+                    {
+                        Data = "",
+                        Message = ""
+                    };
+                    return responseModel;
+                }
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -1048,10 +1061,10 @@ namespace HookaTimes.BLL.Service
                 EmailOtp.Otp = otp;
 
                 await _context.SaveChangesAsync();
-                string content = $"Dear Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
+                //string content = $"Dear Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
                 //Helpers.SendSMS(phone, content);
-                await _emailSender.SendEmailAsync(Email, "Hooka OTP", content);
+                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
                 //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
                 //if (!EmailSent)
                 //{
@@ -1064,6 +1077,17 @@ namespace HookaTimes.BLL.Service
                 //    };
                 //    return responseModel;
                 //}
+                if (!isEmailSent)
+                {
+                    responseModel.StatusCode = 500;
+                    responseModel.ErrorMessage = "Failed to send email";
+                    responseModel.Data = new DataModel
+                    {
+                        Data = "",
+                        Message = ""
+                    };
+                    return responseModel;
+                }
                 responseModel.StatusCode = 200;
                 responseModel.ErrorMessage = "";
                 responseModel.Data = new DataModel
@@ -1391,13 +1415,23 @@ namespace HookaTimes.BLL.Service
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
                 Status = x.OrderStatus.Title,
-                Total = (decimal)x.Total,
+                Total = x.Total.Value.ToString("0.##"),
 
             }).ToListAsync();
 
             return orderHistory;
         }
         #endregion
+
+        public async Task<List<BuddyProfileAddressVM>> GetUserAddresses(int userBuddyId)
+        {
+            List<BuddyProfileAddressVM> addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false && x.BuddyProfileId == userBuddyId).Select(x => new BuddyProfileAddressVM
+            {
+                Id = x.Id,
+                Title = x.Title
+            }).ToListAsync();
+            return addresses;
+        }
 
 
         public async Task<CompleteProfileMVC_VM> GetProfileMVC(int BuddyId)
@@ -1534,6 +1568,25 @@ namespace HookaTimes.BLL.Service
 
         #endregion
 
+
+        #region Account Settings
+        public async Task<ResponseModel> GetAccountSettings(int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            AccountSettings_VM settings = await _uow.BuddyRepository.GetAll(x => x.Id == userBuddyId).Select(x => new AccountSettings_VM
+            {
+                Id = x.Id,
+                IsAvailable = x.IsAvailable ?? false,
+                SocialMediaLink1 = x.SocialMediaLink1 ?? "",
+                SocialMediaLink2 = x.SocialMediaLink2 ?? "",
+                SocialMediaLink3 = x.SocialMediaLink3 ?? ""
+            }).FirstOrDefaultAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = settings, Message = "" };
+            return responseModel;
+        }
+        #endregion
 
     }
 }

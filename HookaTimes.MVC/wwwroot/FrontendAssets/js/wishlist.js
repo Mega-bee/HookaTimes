@@ -1,4 +1,6 @@
 ﻿const removeItemBtns = document.querySelectorAll(".remove-item-btn")
+let wishlistCount = document.querySelector(".wishlist-indicator-value") 
+const wishlistContainer = document.querySelector("#wishlist-block")
 
 function removeItemFromWishlist(e) {
 
@@ -10,6 +12,20 @@ function removeItemFromWishlist(e) {
 
         let formdata = new FormData()
         formdata.append("productId", itemId)
+        let row = pressedBtn.closest("tr")
+        if (row) {
+            row.remove()
+        }
+        let allRows = document.querySelectorAll(".wishlist__row")
+        if (allRows.length - 1 == 0) {
+            wishlistContainer.innerHTML = `<div class="not-found">
+                <div class="not-found__content">
+                    <h1 class="not-found__title">Your wishlist is empty!</h1>
+                    <p class="not-found__text">We can't seem to find anything in your wishlist</p>
+                    <a href="/Home/HookaProducts" class="btn btn-light">Continue Shopping</a>
+                </div>
+            </div>`
+        }
         $.ajax({
             type: 'Delete',
             async: true,
@@ -19,10 +35,9 @@ function removeItemFromWishlist(e) {
             url: `/Wishlist/RemoveItemFromWishlist`,
             success: function (result) {
                 if (result.statusCode == 200) {
-                    let row = pressedBtn.closest("tr")
-                    if (row) {
-                        row.remove()
-                    }
+                    wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
+                    
+                  
                 } else {
                     Swal.fire({
                         icon: 'error',
