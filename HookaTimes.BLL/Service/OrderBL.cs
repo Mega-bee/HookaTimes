@@ -86,7 +86,7 @@ namespace HookaTimes.BLL.Service
                     Id = x.Id,
                     Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
                     Status = x.OrderStatus.Title,
-                    Total = x.Total.Value.ToString("0.##"),
+                    Total = Convert.ToDecimal(x.Total.Value.ToString("0.##")),
 
                 }).ToListAsync(),
                 AllOrders = await _uow.OrderRepository.GetAll(x => x.BuddyId == userBuddyId).Select(x => new OrderHistoryMVC_VM
@@ -94,7 +94,7 @@ namespace HookaTimes.BLL.Service
                     Id = x.Id,
                     Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
                     Status = x.OrderStatus.Title,
-                    Total = x.Total.Value.ToString("0.##"),
+                    Total = Convert.ToDecimal(x.Total.Value.ToString("0.##")),
 
                 }).ToListAsync()
         };
@@ -114,7 +114,7 @@ namespace HookaTimes.BLL.Service
                 Id = x.Id,
                 Date = x.CreatedDate.Value.ToString("dd MMMM, yyyy"),
                 Status = x.OrderStatus.Title,
-                Total = x.Total.Value.ToString("0.##"),
+                Total = Convert.ToDecimal(x.Total.Value.ToString("0.##")),
                 Address = new BuddyProfileAddressVM
                 {
                     Appartment = x.Address.Apartment,
@@ -133,9 +133,9 @@ namespace HookaTimes.BLL.Service
                      ItemId = i.ProductId,
                      ProductImage = $"{request.Scheme}://{request.Host}{i.Product.Image}",
                       ProductName = i.Product.Title,
-                       ProductPrice = i.Product.CustomerFinalPrice.Value.ToString("0.##"),
+                       ProductPrice = Convert.ToDecimal(i.Product.CustomerFinalPrice.Value.ToString("0.##")),
                         Quantity =i.Quantity,
-                         TotalPrice = (i.Quantity* i.Product.CustomerFinalPrice).Value.ToString("0.##"),
+                         TotalPrice = Convert.ToDecimal((i.Quantity* i.Product.CustomerFinalPrice).Value.ToString("0.##")),
                           
                  }).ToList(),
                   

@@ -29,6 +29,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<BuddyProfileEducation> BuddyProfileEducations { get; set; }
         public virtual DbSet<BuddyProfileExperience> BuddyProfileExperiences { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<ContactInfo> ContactInfos { get; set; }
         public virtual DbSet<ContactU> ContactUs { get; set; }
         public virtual DbSet<Cuisine> Cuisines { get; set; }
         public virtual DbSet<EmailOtp> EmailOtps { get; set; }
@@ -56,6 +57,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<VirtualCart> VirtualCarts { get; set; }
         public virtual DbSet<VirtualWishlist> VirtualWishlists { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

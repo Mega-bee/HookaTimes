@@ -255,6 +255,12 @@ namespace HookaTimes.BLL.ViewModels
     {
         public int Id { get; set; }
         public bool IsAvailable { get; set; }
+        public SocialMediaLinks_VM SocialMediaLinks { get; set; }
+
+    }
+
+    public partial class SocialMediaLinks_VM
+    {
         public string SocialMediaLink1 { get; set; }
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }

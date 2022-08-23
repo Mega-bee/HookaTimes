@@ -19,8 +19,8 @@ namespace HookaTimes.BLL.ViewModels
         public string CategoryName { get; set; }
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
-        public string ProductPrice { get; set; }
-        public string TotalPrice { get; set; }
+        public decimal? ProductPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
     }
 
     public partial class UpdateCartItem_VM
