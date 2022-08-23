@@ -1444,9 +1444,9 @@ namespace HookaTimes.BLL.Service
             {
                 Id = x.Id,
                 IsAvailable = x.IsAvailable ?? false,
-                SocialMediaLink1 = x.SocialMediaLink1,
-                SocialMediaLink2 = x.SocialMediaLink2,
-                SocialMediaLink3 = x.SocialMediaLink3
+                SocialMediaLink1 = x.SocialMediaLink1 ?? "",
+                SocialMediaLink2 = x.SocialMediaLink2 ?? "",
+                SocialMediaLink3 = x.SocialMediaLink3 ?? ""
             }).FirstOrDefaultAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
