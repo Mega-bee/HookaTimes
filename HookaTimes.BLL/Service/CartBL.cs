@@ -82,9 +82,9 @@ namespace HookaTimes.BLL.Service
                 {
                     ItemId = c.ProductId,
                     ProductName = c.Product.Title,
-                    ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
+                    ProductPrice = Convert.ToDecimal(c.Product.CustomerFinalPrice.Value.ToString("0.##")),
                     Quantity = c.Quantity,
-                    TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
+                    TotalPrice = Convert.ToDecimal((c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##")),
                     ProductImage = $"{request.Scheme}://{request.Host}/{c.Product.Image}",
                 }).ToListAsync(),
             };
@@ -113,9 +113,9 @@ namespace HookaTimes.BLL.Service
                      CategoryId = (int)c.Product.ProductCategoryId,
                     CategoryName = c.Product.ProductCategory.Title,
                     ProductName = c.Product.Title,
-                    ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
+                    ProductPrice = Convert.ToDecimal(c.Product.CustomerFinalPrice.Value.ToString("0.##")),
                     Quantity = c.Quantity,
-                    TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
+                    TotalPrice = Convert.ToDecimal((c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##")),
                     ProductImage = c.Product.ProductCategory.Image,
                 }).ToListAsync();
                 cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
@@ -127,9 +127,9 @@ namespace HookaTimes.BLL.Service
                 CategoryName = c.Product.ProductCategory.Title,
                 CategoryId = (int)c.Product.ProductCategoryId,
                 ProductName = c.Product.Title,
-                ProductPrice = c.Product.CustomerFinalPrice.Value.ToString("0.##"),
+                ProductPrice = Convert.ToDecimal(c.Product.CustomerFinalPrice.Value.ToString("0.##")),
                 Quantity = c.Quantity,
-                TotalPrice = (c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##"),
+                TotalPrice = Convert.ToDecimal((c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##")),
                 ProductImage = c.Product.ProductCategory.Image,
             }).ToListAsync();
             cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
