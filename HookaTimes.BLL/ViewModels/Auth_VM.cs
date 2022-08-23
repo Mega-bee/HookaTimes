@@ -158,6 +158,8 @@ namespace HookaTimes.BLL.ViewModels
         [Required]
         public int? GenderId { get; set; }
         public int? MaritalStatus { get; set; }
+
+        //[DisplayFormat(DataFormatString = "{0:0.#}")]
         public decimal? Height { get; set; }
         public decimal? Weight { get; set; }
         public int? BodyType { get; set; }
