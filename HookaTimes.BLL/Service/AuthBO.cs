@@ -11,11 +11,9 @@ using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Ocsp;
 //using HookaTimes.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -939,11 +937,11 @@ namespace HookaTimes.BLL.Service
                 await _context.SaveChangesAsync();
 
                 //string content = $"Deare Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
-                
+
 
                 //Helpers.SendSMS(phone, content);
                 //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-               bool isEmailSent =  await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
+                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
                 //if (!EmailSent)
                 //{
                 //    responseModel.StatusCode = 400;
@@ -955,7 +953,7 @@ namespace HookaTimes.BLL.Service
                 //    };
                 //    return responseModel;
                 //}
-                if(!isEmailSent)
+                if (!isEmailSent)
                 {
                     responseModel.StatusCode = 500;
                     responseModel.ErrorMessage = "Failed to send email";

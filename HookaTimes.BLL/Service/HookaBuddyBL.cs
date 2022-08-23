@@ -96,6 +96,10 @@ namespace HookaTimes.BLL.Service
                 Longitude = x.Longitude,
                 Title = x.Title,
                 Id = x.Id,
+                Appartment = x.Apartment,
+                Building = x.Building,
+                City = x.City,
+                Street = x.Street
             }).ToList();
             userProfile.Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
             {
