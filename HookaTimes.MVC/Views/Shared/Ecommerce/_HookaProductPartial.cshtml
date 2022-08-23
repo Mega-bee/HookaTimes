@@ -4,24 +4,24 @@
     <div class="product-card product-card--hidden-actions ">
         <div class="product-card__buttons">
             <button data-productId="@Model.Id" style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist add-to-cart-btn" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 60.457 51.515">
-      <g id="Group_3" data-name="Group 3" transform="translate(-226.219 -38.291)">
-        <path id="Path_9" data-name="Path 9" d="M285.884,48.548H241.827l-.973-3.637a8.855,8.855,0,0,0-8.623-6.62h-5.22a.793.793,0,0,0-.792.792v.775a.793.793,0,0,0,.792.792h5.22a6.477,6.477,0,0,1,6.348,4.868l5.411,20.194a8.858,8.858,0,0,0,8.623,6.62h27.056a.794.794,0,0,0,.793-.793v-.774a.794.794,0,0,0-.793-.793H252.613a6.474,6.474,0,0,1-6.349-4.868l-.813-3.039h36.968a.793.793,0,0,0,.792-.792V60.5a.793.793,0,0,0-.792-.792h-37.6l-2.358-8.8h43.424a.793.793,0,0,0,.792-.792V49.34A.793.793,0,0,0,285.884,48.548Z" fill="#040505"/>
-        <path id="Path_10" data-name="Path 10" d="M277.756,79.776a5.869,5.869,0,1,0,1.72,4.155A5.838,5.838,0,0,0,277.756,79.776Zm-1.5,6.818a3.761,3.761,0,1,1,1.105-2.663A3.73,3.73,0,0,1,276.257,86.594Z" fill="#040505"/>
-        <path id="Path_11" data-name="Path 11" d="M253.126,78.055a5.876,5.876,0,1,0,4.155,1.721A5.87,5.87,0,0,0,253.126,78.055Zm2.657,8.539a3.761,3.761,0,1,1,1.1-2.663A3.735,3.735,0,0,1,255.783,86.594Z" fill="#040505"/>
-      </g>
-    </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 60.457 51.515">
+                    <g id="Group_3" data-name="Group 3" transform="translate(-226.219 -38.291)">
+                        <path id="Path_9" data-name="Path 9" d="M285.884,48.548H241.827l-.973-3.637a8.855,8.855,0,0,0-8.623-6.62h-5.22a.793.793,0,0,0-.792.792v.775a.793.793,0,0,0,.792.792h5.22a6.477,6.477,0,0,1,6.348,4.868l5.411,20.194a8.858,8.858,0,0,0,8.623,6.62h27.056a.794.794,0,0,0,.793-.793v-.774a.794.794,0,0,0-.793-.793H252.613a6.474,6.474,0,0,1-6.349-4.868l-.813-3.039h36.968a.793.793,0,0,0,.792-.792V60.5a.793.793,0,0,0-.792-.792h-37.6l-2.358-8.8h43.424a.793.793,0,0,0,.792-.792V49.34A.793.793,0,0,0,285.884,48.548Z" fill="#040505" />
+                        <path id="Path_10" data-name="Path 10" d="M277.756,79.776a5.869,5.869,0,1,0,1.72,4.155A5.838,5.838,0,0,0,277.756,79.776Zm-1.5,6.818a3.761,3.761,0,1,1,1.105-2.663A3.73,3.73,0,0,1,276.257,86.594Z" fill="#040505" />
+                        <path id="Path_11" data-name="Path 11" d="M253.126,78.055a5.876,5.876,0,1,0,4.155,1.721A5.87,5.87,0,0,0,253.126,78.055Zm2.657,8.539a3.761,3.761,0,1,1,1.1-2.663A3.735,3.735,0,0,1,255.783,86.594Z" fill="#040505" />
+                    </g>
+                </svg>
             </button>
             <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button>
             <button data-productId="@Model.Id" style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist add-to-wishlist-btn" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 27.954 25.959">
-                    <path id="Path_28" class="wishlist-icon" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5"  style="fill: @((bool)Model.IsInWishlist ? "red" : "none")" fill-rule="evenodd"></path>
+                    <path id="Path_28" class="wishlist-icon" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="1.5" style="fill: @((bool)Model.IsInWishlist ? "red" : "none")" fill-rule="evenodd"></path>
                 </svg>
             </button>
-            <button style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
+            <button  style="padding:1.5em;" class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist share-btn" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48.66 55.806">
-  <path id="Path_12" data-name="Path 12" d="M569.145,55.656a8.826,8.826,0,0,0-12.5-.007l-.535.554-16.046-9.875.162-.441a8.871,8.871,0,1,0-2.057,3.211l.533-.554,16.048,9.875-.162.442a8.839,8.839,0,0,0,0,6.084l.162.442L538.7,75.262l-.534-.555a8.818,8.818,0,1,0,2.058,3.212l-.162-.441L556.109,67.6l.535.554a8.84,8.84,0,1,0,12.5-12.5Zm-32.8-8.4a6.243,6.243,0,1,1-.008-8.836l.008.008a6.26,6.26,0,0,1,0,8.828Zm0,38.117a6.26,6.26,0,1,1,1.821-4.414A6.206,6.206,0,0,1,536.342,85.376Zm30.971-19.059a6.243,6.243,0,1,1-.008-8.835l.008.007a6.26,6.26,0,0,1,0,8.828Z" transform="translate(-523.076 -34)" fill="#1a1718"/>
-</svg>
+                    <path id="Path_12" data-name="Path 12" d="M569.145,55.656a8.826,8.826,0,0,0-12.5-.007l-.535.554-16.046-9.875.162-.441a8.871,8.871,0,1,0-2.057,3.211l.533-.554,16.048,9.875-.162.442a8.839,8.839,0,0,0,0,6.084l.162.442L538.7,75.262l-.534-.555a8.818,8.818,0,1,0,2.058,3.212l-.162-.441L556.109,67.6l.535.554a8.84,8.84,0,1,0,12.5-12.5Zm-32.8-8.4a6.243,6.243,0,1,1-.008-8.836l.008.008a6.26,6.26,0,0,1,0,8.828Zm0,38.117a6.26,6.26,0,1,1,1.821-4.414A6.206,6.206,0,0,1,536.342,85.376Zm30.971-19.059a6.243,6.243,0,1,1-.008-8.835l.008.007a6.26,6.26,0,0,1,0,8.828Z" transform="translate(-523.076 -34)" fill="#1a1718" />
+                </svg>
             </button>
         </div> <div class="product-card__image product-image is--featured">
             <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.CategoryId" class="product-image__body">
