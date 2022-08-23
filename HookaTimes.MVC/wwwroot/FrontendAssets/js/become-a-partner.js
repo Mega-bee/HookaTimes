@@ -47,19 +47,20 @@ function submitForm(e) {
     submitBtn.disabled = true;
     $inputs.each(function (index) {
         var val = $(this).val();
-        if ($(this).prop('required')) {
-            if (val == "" || val == null) {
-                $(this).addClass("error");
-                hasError = true;
+        //if ($(this).prop('required')) {
+        //    if (val == "" || val == null) {
+        //        $(this).addClass("error");
+        //        hasError = true;
 
-                return;
-            } else {
+        //        return;
+        //    } else {
 
                 formdata.append($(this).attr("name"), val);
             }
-        }
+        //}
 
-    });
+    //}
+);
 
     if (hasError == true) {
         var target = $('.error');
