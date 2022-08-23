@@ -5,6 +5,21 @@
 }
 @model List<Invitation_VM>
 <style>
+
+    @@media (min-width: 768px) and (max-width: 991px){
+.product-tabs .product-tabs__content {
+    padding: 20px 0px;
+}
+.container {
+  padding-right: 0px;
+    padding-left: 0px;
+    
+}
+
+    }
+   
+    }
+
     .product-tabs__item:first-child {
         margin-left: 0px;
     }
@@ -16,10 +31,6 @@
         font-weight: 500;
     }
 
-    .wishlist__column--price {
-        text-align: left;
-        padding-left: 18px;
-    }
 
     .wishlist__column--stock {
         text-align: left;
@@ -28,10 +39,14 @@
 
     .wishlist__column--product {
         width: 35%;
+         text-align: left;
+        padding-left: 18px;
     }
 
     .wishlist__column--price {
-        width: 35%;
+        width: 35
+         text-align: left;
+        padding-left: 18px;
     }
     /* @@media (min-width: 768px){
             .wishlist__column:last-child {
@@ -55,6 +70,21 @@
         margin-bottom: -2px;
     }
 
+     @@media (max-width: 750px){
+   
+
+.wishlist__column--product, .wishlist__column--stock, .wishlist__column--price, .wishlist__column--tocart {
+    text-align: center;
+}
+.wishlist__column--price {
+    width: 100%!important;
+        text-align: center !important;}
+        .wishlist__column--product {
+    width: 100%;
+    text-align: center;
+}
+
+}
 </style>
 
 <div class="site__body">
