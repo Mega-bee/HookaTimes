@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const addToWishlistBtns = document.querySelectorAll(".add-to-wishlist-btn");
     let wishlistCount = document.querySelector(".wishlist-indicator-value") 
+    let wishlistCountMobile = document.querySelector(".wishlist-indicator-value-mobile") 
 
     function handleAddToWishlist(e) {
 
@@ -29,13 +30,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
              console.log(result.statusCode)
                 if (result.statusCode == 201) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) + 1
+                    wishlistCountMobile.textContent = parseInt(wishlistCountMobile.textContent) + 1
                     notyf.success({ message: "Product added to wishlist" })
                 } else if (result.statusCode == 204) {
                     wishlistCount.textContent = parseInt(wishlistCount.textContent) - 1
                     notyf.success({ message: "Product removed from wishlist" })
-                } else {
-
-              
                 }
 
             },
