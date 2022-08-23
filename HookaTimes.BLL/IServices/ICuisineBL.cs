@@ -7,5 +7,6 @@ namespace HookaTimes.BLL.IServices
     public interface ICuisineBL
     {
         Task<List<Cuisine_VM>> GetCuisinesMVC();
+        Task<ResponseModel> GetCuisines();
     }
 }
