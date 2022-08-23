@@ -1458,7 +1458,7 @@ namespace HookaTimes.BLL.Service
                 FirstName = currProfile.FirstName,
                 GenderId = currProfile.GenderId,
                 Hair = currProfile.Hair,
-                Height = currProfile.Height,
+                Height = (Math.Floor(currProfile.Height.Value * 100000000) / 100000000),
                 Hobbies = currProfile.Hobbies,
                 Image = currProfile.Image,
                 Interests = currProfile.Interests,
@@ -1469,7 +1469,7 @@ namespace HookaTimes.BLL.Service
                 SocialMediaLink1 = currProfile.SocialMediaLink1,
                 SocialMediaLink2 = currProfile.SocialMediaLink2,
                 SocialMediaLink3 = currProfile.SocialMediaLink3,
-                Weight = currProfile.Weight,
+                Weight = (Math.Floor(currProfile.Weight.Value * 100000000) / 100000000),
                 Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
                 {
                     Id = x.Id,
