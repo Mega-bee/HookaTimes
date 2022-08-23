@@ -471,6 +471,19 @@ namespace HookaTimes.MVC.Controllers
 
 
 
+
+        #region Available Toggle
+        [HttpPut]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> IsAvailableToggle()
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            return Ok(await _auth.IsAvailableToggle(userBuddyId));
+        }
+        #endregion
+
+
         //#region Addresses
         //[Authorize(Roles = "User")]
         //[HttpGet]
