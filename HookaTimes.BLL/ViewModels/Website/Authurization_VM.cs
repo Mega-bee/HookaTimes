@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HookaTimes.BLL.ViewModels.Website
@@ -63,6 +62,7 @@ namespace HookaTimes.BLL.ViewModels.Website
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "New password")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
 
         public string NewPassword { get; set; }
 
@@ -76,32 +76,12 @@ namespace HookaTimes.BLL.ViewModels.Website
 
 
 
-    public partial class CompleteProfileMVC_VM
+    public partial class CompleteProfileMVC_VM : CompleteProfile_VM
     {
-        public IFormFile ImageFile { get; set; }
-        //public string Image { get; set; }
-        public string AboutMe { get; set; }
-        public DateTime Birthdate { get; set; }
-        public int GenderId { get; set; }
-        public int MaritalStatus { get; set; }
-        public decimal Height { get; set; }
-        public decimal Weight { get; set; }
-        public int BodyType { get; set; }
-        public int Eyes { get; set; }
-        public int Hair { get; set; }
-        //public int Education { get; set; }
-        public string Profession { get; set; }
-        public string Interests { get; set; }
-        public string Hobbies { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string SocialMediaLink1 { get; set; }
-        public string SocialMediaLink2 { get; set; }
-        public string SocialMediaLink3 { get; set; }
-        //public List<BuddyProfileAddressPutVM> Addresses { get; set; }
-        //public List<BuddyProfileEducationPutVM> Education { get; set; }
-        //public List<BuddyProfileExperiencePutVM> Experience { get; set; }
 
+        public List<BuddyProfileAddressVM> Addresses { get; set; }
+        public List<BuddyProfileEducationVM> Education { get; set; }
+        public List<BuddyProfileExperienceVM> Experience { get; set; }
 
     }
 

@@ -1,4 +1,4 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -27,9 +27,9 @@ namespace HookaTimes.MVC.Controllers
         private readonly IInvitationBL _inv;
         private readonly INotyfService _notyf;
         private readonly IHookaPlaceBL _hookaPlaceBL;
-        private readonly IOrderBL _orderBL;
-
-        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL, IOrderBL orderBL)
+        private readonly IHookaBuddyBL _buddy;
+        private readonly IOrderBL _orderbl;
+        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL buddy, IOrderBL orderbl)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -38,7 +38,8 @@ namespace HookaTimes.MVC.Controllers
             _inv = inv;
             _notyf = notyf;
             _hookaPlaceBL = hookaPlaceBL;
-            _orderBL = orderBL;
+            _buddy = buddy;
+            _orderbl = orderbl;
         }
 
         public IActionResult Index()
@@ -76,6 +77,9 @@ namespace HookaTimes.MVC.Controllers
 
                 if (res == null)
                 {
+                    _notyf.Error("SignUp Failed");
+                    _notyf.Custom("Email Already Exist", 6, "whitesmoke", "fa fa-gear");
+
                     return View(model);
 
                 }
@@ -306,16 +310,7 @@ namespace HookaTimes.MVC.Controllers
         }
         #endregion
 
-        [Authorize(Roles = "User")]
-        public async Task<IActionResult> OrderDetails( int id)
-        {
-            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
 
-            int userBuddyId = await _auth.GetBuddyById(UserId);
-            var res = await _orderBL.GetOrder(Request, userBuddyId, id);
-            OrderDetails_VM order = (OrderDetails_VM)res.Data.Data;
-            return View(order);
-        }
 
         #region Invitations
 
@@ -385,10 +380,93 @@ namespace HookaTimes.MVC.Controllers
 
 
         #region Profile
-        public IActionResult EditProfile()
+        public async Task<IActionResult> EditProfile()
         {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            if (userBuddyId != 0)
+            {
+                CompleteProfileMVC_VM res = await _auth.GetProfileMVC(userBuddyId);
+                return View(res);
+            }
             return View();
         }
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CompleteProfile(CompleteProfileMVC_VM model)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            if (userBuddyId != 0)
+            {
+                bool res = await _auth.CompleteProfileMVC(model, userBuddyId);
+                _notyf.Success("Profile Info Updated", 6);
+
+                return RedirectToAction(nameof(EditProfile), "Account");
+            }
+            _notyf.Error("Error Profile was not Updated", 6);
+
+            return RedirectToAction(nameof(EditProfile), "Account");
+        }
+
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> AddEducation(BuddyProfileEducationPutVM model)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            ResponseModel res = await _auth.AddEducation(model, userBuddyId);
+            return Ok(res);
+
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEducation([FromForm] int EducationId)
+        {
+            ResponseModel resp = await _auth.DeleteEducation(EducationId);
+            return Ok(resp);
+        }
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> AddExperience(BuddyProfileExperiencePutVM model)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+
+            ResponseModel res = await _auth.AddExperience(model, userBuddyId);
+            return Ok(res);
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteExperience([FromForm] int ExperienceId)
+        {
+            ResponseModel resp = await _auth.DeleteExperience(ExperienceId);
+            return Ok(resp);
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        public async Task<IActionResult> UserBuddyProfile()
+        {
+            ResponseModel Buddy = new ResponseModel();
+
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            if (userBuddyId != 0)
+            {
+                Buddy = await _buddy.GetBuddy(userBuddyId, Request);
+            }
+            return View(Buddy.Data.Data);
+        }
+
         #endregion
 
 
