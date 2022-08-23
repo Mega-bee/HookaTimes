@@ -1436,5 +1436,24 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
+        #region Account Settings
+        public async Task<ResponseModel> GetAccountSettings(int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            AccountSettings_VM settings = await _uow.BuddyRepository.GetAll(x => x.Id == userBuddyId).Select(x => new AccountSettings_VM
+            {
+                Id = x.Id,
+                IsAvailable = x.IsAvailable ?? false,
+                SocialMediaLink1 = x.SocialMediaLink1,
+                SocialMediaLink2 = x.SocialMediaLink2,
+                SocialMediaLink3 = x.SocialMediaLink3
+            }).FirstOrDefaultAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = settings, Message = "" };
+            return responseModel;
+        }
+        #endregion
+
     }
 }

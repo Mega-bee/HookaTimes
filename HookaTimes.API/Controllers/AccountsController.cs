@@ -202,7 +202,16 @@ namespace HookaTimes.API.Controllers
         }
         #endregion
 
-
+        #region Account Settings
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+        public async Task<IActionResult> GetAccountSettings()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _auth.GetAccountSettings(userBuddyId));
+        }
+        #endregion
 
 
 
