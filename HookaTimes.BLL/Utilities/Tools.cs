@@ -25,6 +25,7 @@ namespace HookaTimes.BLL.Utilities
                 await formFile.CopyToAsync(fs);
 
             }
+            path = path.Replace("wwwroot", "");
             return path;
         }
 

@@ -153,27 +153,27 @@ namespace HookaTimes.BLL.ViewModels
         public IFormFile ImageFile { get; set; }
         public string Image { get; set; }
         public string AboutMe { get; set; }
-        public DateTime Birthdate { get; set; }
-        public int GenderId { get; set; }
-        public int MaritalStatus { get; set; }
-        public decimal Height { get; set; }
-        public decimal Weight { get; set; }
-        public int BodyType { get; set; }
-        public int Eyes { get; set; }
-        public int Hair { get; set; }
+        [Required]
+        public DateTime? Birthdate { get; set; }
+        [Required]
+        public int? GenderId { get; set; }
+        public int? MaritalStatus { get; set; }
+        public decimal? Height { get; set; }
+        public decimal? Weight { get; set; }
+        public int? BodyType { get; set; }
+        public int? Eyes { get; set; }
+        public int? Hair { get; set; }
         //public int Education { get; set; }
         public string Profession { get; set; }
         public string Interests { get; set; }
         public string Hobbies { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public string SocialMediaLink1 { get; set; }
         public string SocialMediaLink2 { get; set; }
         public string SocialMediaLink3 { get; set; }
-
-
-
-
     }
 
 

@@ -81,5 +81,10 @@ namespace HookaTimes.BLL.IServices
         Task<IdentityResult> SignUpWithEmailMVC(EmailSignUpMVC_VM model);
         Task<BuddyProfile> CreateBuddyProfileMVC(EmailSignUpMVC_VM model, string cartSessionId, string wishlistSessionId);
         Task<List<OrderHistoryMVC_VM>> GetOrderHistoryMVC(int BuddyId);
+
+        Task<CompleteProfileMVC_VM> GetProfileMVC(int BuddyId);
+
+        Task<bool> CompleteProfileMVC(CompleteProfileMVC_VM model, int BuddyId);
+
     }
 }

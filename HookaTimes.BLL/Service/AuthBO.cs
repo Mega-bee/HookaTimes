@@ -263,12 +263,12 @@ namespace HookaTimes.BLL.Service
                 IFormFile file = model.ImageFile;
                 if (file != null)
                 {
-                    string NewFileName = await Helpers.SaveFile("wwwroot/Images/Buddies", file);
+                    string NewFileName = await file.SaveImage("Buddies");
 
                     currProfile.Image = NewFileName;
                 }
 
-                await _context.SaveChangesAsync();
+                await _uow.BuddyRepository.Update(currProfile);
 
 
                 Profile_VM userProfile = new Profile_VM();
@@ -1111,6 +1111,7 @@ namespace HookaTimes.BLL.Service
 
         #endregion
 
+
         #endregion
 
         #region MVC
@@ -1361,7 +1362,7 @@ namespace HookaTimes.BLL.Service
             newProfile.FirstName = model.FirstName;
             newProfile.LastName = model.LastName;
             newProfile.IsAvailable = true;
-            newProfile.Image = "Images/Buddies/user-placeholder.png";
+            newProfile.Image = "/Images/Buddies/user-placeholder.png";
             //newProfile.GenderId = 1;
             // add the characteristics to the BuddyProfiles
             await _context.BuddyProfiles.AddAsync(newProfile);
@@ -1397,6 +1398,138 @@ namespace HookaTimes.BLL.Service
             return orderHistory;
         }
         #endregion
+
+
+        public async Task<CompleteProfileMVC_VM> GetProfileMVC(int BuddyId)
+        {
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+                responseModel.StatusCode = 404;
+                responseModel.ErrorMessage = "User was not Found";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return null;
+            }
+
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, x => x.BuddyProfileAddresses, x => x.BuddyProfileEducations, x => x.BuddyProfileExperiences).FirstOrDefaultAsync();
+
+            CompleteProfileMVC_VM profile = new CompleteProfileMVC_VM()
+            {
+                AboutMe = currProfile.About,
+                Birthdate = currProfile.DateOfBirth,
+                BodyType = currProfile.BodyType,
+                Eyes = currProfile.Eyes,
+                FirstName = currProfile.FirstName,
+                GenderId = currProfile.GenderId,
+                Hair = currProfile.Hair,
+                Height = currProfile.Height,
+                Hobbies = currProfile.Hobbies,
+                Image = currProfile.Image,
+                Interests = currProfile.Interests,
+                ImageFile = null,
+                LastName = currProfile.LastName,
+                MaritalStatus = currProfile.MaritalStatus,
+                Profession = currProfile.Profession,
+                SocialMediaLink1 = currProfile.SocialMediaLink1,
+                SocialMediaLink2 = currProfile.SocialMediaLink2,
+                SocialMediaLink3 = currProfile.SocialMediaLink3,
+                Weight = currProfile.Weight,
+                Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
+                {
+                    Id = x.Id,
+                    Degree = x.Degree,
+                    StudiedFrom = x.StudiedFrom,
+                    StudiedTo = x.StudiedTo,
+                    University = x.University
+                }).ToList(),
+                Experience = currProfile.BuddyProfileExperiences.Select(ex => new BuddyProfileExperienceVM
+                {
+                    Id = ex.Id,
+                    Place = ex.Place,
+                    Position = ex.Position,
+                    WorkedFrom = ex.WorkedFrom,
+                    WorkedTo = ex.WorkedTo,
+
+
+                }).ToList(),
+                Addresses = currProfile.BuddyProfileAddresses.Select(add => new BuddyProfileAddressVM
+                {
+                    Id = add.Id,
+                    Appartment = add.Apartment,
+                    Building = add.Building,
+                    City = add.City,
+                    Latitude = add.Latitude,
+                    Longitude = add.Longitude,
+                    Street = add.Street,
+                    Title = add.Title,
+                }).ToList(),
+
+            };
+            return profile;
+
+        }
+
+
+        public async Task<bool> CompleteProfileMVC(CompleteProfileMVC_VM model, int BuddyId)
+        {
+
+
+
+            bool profileExist = await _uow.BuddyRepository.CheckIfExists(x => x.Id == BuddyId && x.IsDeleted == false);
+
+            //AccProfile user = _context.AccProfiles.Include(x => x.Gender).Include(x => x.Role).Where(x => x.UserId == uid && x.IsDeleted == false).FirstOrDefault();
+            ResponseModel responseModel = new ResponseModel();
+
+            if (!profileExist)
+            {
+
+                return false;
+            }
+
+            BuddyProfile currProfile = await _uow.BuddyRepository.GetAllWithPredicateAndIncludes(x => x.Id == BuddyId && x.IsDeleted == false, x => x.User, y => y.BuddyProfileAddresses, y => y.BuddyProfileEducations, y => y.BuddyProfileExperiences).FirstOrDefaultAsync();
+
+            currProfile.Profession = model.Profession;
+            currProfile.Weight = model.Weight;
+            currProfile.MaritalStatus = model.MaritalStatus;
+            currProfile.About = model.AboutMe;
+            currProfile.BodyType = model.BodyType;
+            currProfile.CreatedDate = DateTime.UtcNow;
+            currProfile.DateOfBirth = model.Birthdate != default ? model.Birthdate : model.Birthdate = new DateTime();
+            currProfile.Eyes = model.Eyes;
+            currProfile.FirstName = model.FirstName;
+            currProfile.LastName = model.LastName;
+            currProfile.GenderId = model.GenderId;
+            currProfile.Hair = model.Hair;
+            currProfile.Height = model.Height;
+            currProfile.Hobbies = model.Hobbies;
+            currProfile.Interests = model.Interests;
+            currProfile.SocialMediaLink1 = model.SocialMediaLink1;
+            currProfile.SocialMediaLink2 = model.SocialMediaLink2;
+            currProfile.SocialMediaLink3 = model.SocialMediaLink3;
+
+
+
+            IFormFile file = model.ImageFile;
+            if (file != null)
+            {
+                string NewFileName = await file.SaveImage("Buddies");
+
+                currProfile.Image = NewFileName;
+            }
+
+            await _uow.BuddyRepository.Update(currProfile);
+            return true;
+
+        }
+
+
+
+
+
 
 
         #endregion
