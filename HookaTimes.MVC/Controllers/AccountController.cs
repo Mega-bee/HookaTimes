@@ -28,7 +28,8 @@ namespace HookaTimes.MVC.Controllers
         private readonly INotyfService _notyf;
         private readonly IHookaPlaceBL _hookaPlaceBL;
         private readonly IHookaBuddyBL _buddy;
-        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL buddy)
+        private readonly IOrderBL _orderbl;
+        public AccountController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IAuthBO auth, IInvitationBL inv, INotyfService notyf, IHookaPlaceBL hookaPlaceBL, IHookaBuddyBL buddy, IOrderBL orderbl)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -38,6 +39,7 @@ namespace HookaTimes.MVC.Controllers
             _notyf = notyf;
             _hookaPlaceBL = hookaPlaceBL;
             _buddy = buddy;
+            _orderbl = orderbl;
         }
 
         public IActionResult Index()
