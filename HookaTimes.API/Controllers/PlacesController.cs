@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,12 +23,12 @@ namespace HookaTimes.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPlaces()
+        public async Task<IActionResult> GetAllPlaces([FromQuery] int sortby = 0, [FromQuery] List<int> cuisines = null)
         {
             //string uid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
-            return Ok(await _hookaPlaceBL.GetHookaPlaces(Request,userBuddyId));
+            return Ok(await _hookaPlaceBL.GetHookaPlaces(Request,userBuddyId,cuisines,sortby));
         }
 
         [HttpGet("{id}")]

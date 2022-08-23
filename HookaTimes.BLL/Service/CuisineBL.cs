@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,16 @@ namespace HookaTimes.BLL.Service
                 Title = c.Title
             }).ToListAsync();
             return cuisines;
+        }
+
+        public async Task<ResponseModel> GetCuisines()
+        {
+            ResponseModel responseModel = new ResponseModel();
+            List<Cuisine_VM> data = await GetCuisinesMVC();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = data, Message = "" };
+            return responseModel;
         }
     }
 }
