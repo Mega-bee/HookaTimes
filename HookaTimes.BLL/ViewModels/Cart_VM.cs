@@ -8,7 +8,7 @@ namespace HookaTimes.BLL.ViewModels
 {
     public partial class CartSummary_VM
     {
-        public string TotalPrice { get; set; }
+        public decimal? TotalPrice { get; set; }
         public List<CartItem_VM> Items { get; set; }
     }
     public partial class CartItem_VM

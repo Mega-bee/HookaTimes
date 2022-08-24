@@ -13,17 +13,16 @@
 
     @@media only screen and (max-width: 580px) {
         h3 {
-    font-size: 1.3em;
-    font-weight: 700;
-}
+            font-size: 1.3em;
+            font-weight: 700;
+        }
 
-    .post-card__name{
-        font-size:1.3em !important;
+        .post-card__name {
+            font-size: 1.3em !important;
+        }
     }
 
-    }
 
-    
     .product-tabs__content {
         border: 2px solid #f0f0f0;
         border-radius: 2px;
@@ -107,7 +106,7 @@
     }
 
     /*images
-                            */
+                                */
 
     .hYfAqb {
         position: relative;
@@ -520,11 +519,14 @@
                 <div class="angry-grid">
                     @for (int i = 0; i < Model.Place.Albums.Take(5).ToList().Count; i++)
                     {
+
+                        Random rnd = new Random();
+                        int num = rnd.Next();
                         <div id="item-@i">
-                            <a style="display:block" data-fslightbox href="@Model.Place.Albums[i].Image">
+                            <a style="height: 100%;width: 100%;display:block" data-fslightbox href="@("https://source.unsplash.com/random/?sig=" + num + "&food")">
 
                                 <img alt="image"
-                                 src="@Model.Place.Albums[i].Image"
+                                 src="@("https://source.unsplash.com/random/?sig=" + num + "&food")"
                                  loading="lazy"
                                  class="sc-s1isp7-5 eQUAyn" />
                             </a>
@@ -677,7 +679,8 @@
                             </i><span class="sc-eqPNPO QWWYz">Direction</span>
                         </div>
                     </a>
-                    @if(SignInManager.IsSignedIn(User)) {
+                    @if (SignInManager.IsSignedIn(User))
+                    {
                         <a class="sc-ileJJU dOANrt add-to-favorite-btn" data-placeId="@Model.Place.Id">
                             <div class="sc-eMRERa jMfkSj" @* data-placeId="@Model.Place.Id"*@>
                                 <i class="sc-rbbb40-1 iFnyeo" data-isFav="@Model.Place.IsFavorite" id="fav-icon" size="16" color="#EF4F5F">
@@ -701,7 +704,7 @@
                             </div>
                         </a>
                     }
-              
+
                     <a href="#"
                        target="_blank"
                        rel="noopener noreferrer"
@@ -731,7 +734,7 @@
                                class="product-tabs__item product-tabs__item--active">Overview</a>
                             <a href="#tab-menus"
                                class="product-tabs__item">Menu</a>
-                               <a href="#tab-albums"
+                            <a href="#tab-albums"
                                class="product-tabs__item">Albums</a>
                             <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
                         </div>
@@ -752,11 +755,13 @@
                                 {
                                     @foreach (var item in Model.Place.Menus)
                                     {
+                                        Random rnd = new Random();
+                                        int num = rnd.Next();
                                         <div class="menu-item">
-                                            <a style="display:block" data-fslightbox href="@item.Image">
+                                            <a style="display:block" data-fslightbox href="@("https://source.unsplash.com/random/?sig=" + num + "&food")">
 
                                                 <img alt="Gallery Image"
-                                             src="@item.Image"
+                                             src="@("https://source.unsplash.com/random/?sig=" + num + "&food")"
                                              loading="lazy"
                                              class="menu-photo" />
                                             </a>
@@ -765,7 +770,7 @@
 
                                 }
 
-                     
+
 
                             </div>
                         </div>
@@ -778,11 +783,12 @@
                                 {
                                     @foreach (var item in Model.Place.Albums)
                                     {
+
                                         <div class="menu-item">
-                                            <a style="display:block" data-fslightbox href="@item.Image">
+                                            <a style="display:block" data-fslightbox href="https://source.unsplash.com/random/?food">
 
                                                 <img alt="Gallery Image"
-                                             src="@item.Image"
+                                             src="https://source.unsplash.com/random/?food"
                                              loading="lazy"
                                              class="menu-photo" />
                                             </a>
@@ -904,7 +910,8 @@
                                     </div>*@
                                 </div>
                             </div>
-                            @if(SignInManager.IsSignedIn(User)) {
+                            @if (SignInManager.IsSignedIn(User))
+                            {
                                 <form data-placeId="@Model.Place.Id" class="reviews-view__form">
                                     <h3 class="reviews-view__header">
                                         Write A Review
@@ -968,23 +975,23 @@
                                     </div>
                                 </form>
                             }
-                         
+
                         </div>
                     </div>
-                    </div>
-                  
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
 
 @section Scripts {
     <script src="~/FrontendAssets/js/vendors/lightbox/fslightbox.js"></script>
-@if (SignInManager.IsSignedIn(User))
-{
-     <script src="~/FrontendAssets/js/submit-review.js"></script>
-}
-   
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <script src="~/FrontendAssets/js/submit-review.js"></script>
+    }
+
 }

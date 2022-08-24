@@ -88,7 +88,7 @@ namespace HookaTimes.BLL.Service
                     ProductImage = $"{request.Scheme}://{request.Host}/{c.Product.Image}",
                 }).ToListAsync(),
             };
-            cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
+            cartSummary.TotalPrice = Convert.ToDecimal(cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##"));
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
             responseModel.Data = new DataModel()
@@ -103,7 +103,7 @@ namespace HookaTimes.BLL.Service
             CartSummary_VM cartSummary = new CartSummary_VM()
             {
                 Items = Array.Empty<CartItem_VM>().ToList(),
-                TotalPrice = "",
+                TotalPrice = 0,
             };
             if (userBuddyId > 0)
             {
@@ -118,7 +118,7 @@ namespace HookaTimes.BLL.Service
                     TotalPrice = Convert.ToDecimal((c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##")),
                     ProductImage = c.Product.ProductCategory.Image,
                 }).ToListAsync();
-                cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
+                cartSummary.TotalPrice = Convert.ToDecimal(cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##"));
                 return cartSummary;
             }
             cartSummary.Items = await _uow.VirtualCartRepository.GetAll(c => c.SessionCartId == cartSessionId).Select(c => new CartItem_VM
@@ -132,7 +132,7 @@ namespace HookaTimes.BLL.Service
                 TotalPrice = Convert.ToDecimal((c.Quantity * c.Product.CustomerFinalPrice).Value.ToString("0.##")),
                 ProductImage = c.Product.ProductCategory.Image,
             }).ToListAsync();
-            cartSummary.TotalPrice = cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##");
+            cartSummary.TotalPrice = Convert.ToDecimal(cartSummary.Items.Sum(x => Convert.ToDecimal(x.TotalPrice)).ToString("0.##"));
             return cartSummary;
         }
 

@@ -308,6 +308,18 @@ namespace HookaTimes.MVC.Controllers
             }
             return View(orderHistory);
         }
+
+
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> OrderDetails(int id)
+        {
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            var res = await _orderbl.GetOrder(Request, userBuddyId, id);
+            OrderDetails_VM order = (OrderDetails_VM)res.Data.Data;
+            return View(order);
+        }
         #endregion
 
 
