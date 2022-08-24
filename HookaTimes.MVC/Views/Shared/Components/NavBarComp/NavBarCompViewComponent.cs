@@ -28,7 +28,7 @@ namespace HookaTimes.MVC.Views.Shared.Components.NavBarComp
 
             if (identity!.IsAuthenticated)
             {
-               
+
                 userBuddyId = await _auth.GetBuddyById(UserId);
 
             }
@@ -40,7 +40,7 @@ namespace HookaTimes.MVC.Views.Shared.Components.NavBarComp
             EmailSignInMVC_VM model = new EmailSignInMVC_VM();
 
 
-            
+
             ViewBag.Buddy = buddy;
             ViewBag.CartSummary = cartSummary;
             ViewBag.WishlistCount = wishlistCount;
@@ -50,3 +50,5 @@ namespace HookaTimes.MVC.Views.Shared.Components.NavBarComp
         }
     }
 }
+
+
