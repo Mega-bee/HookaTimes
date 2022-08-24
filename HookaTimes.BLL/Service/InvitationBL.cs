@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Conventions;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -6,6 +7,7 @@ using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +16,10 @@ namespace HookaTimes.BLL.Service
 {
     public class InvitationBL : BaseBO, IInvitationBL
     {
-        public InvitationBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public InvitationBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
+
 
         #region Api
         public async Task<ResponseModel> SetInvitationStatus(int statusId, int invitationId)
@@ -30,8 +33,19 @@ namespace HookaTimes.BLL.Service
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
+            string fcmToken = await _uow.BuddyRepository.GetAll(x => x.Id == invitation.FromBuddyId).Select(x => x.User.FcmToken).FirstOrDefaultAsync();
+            string initiatorName = await _uow.BuddyRepository.GetAll(x => x.Id == invitation.ToBuddyId).Select(x => x.FirstName + " " + x.LastName).FirstOrDefaultAsync();
             invitation.InvitationStatusId = statusId;
-            Invitation test = await _uow.InvitationRepository.Update(invitation);
+            await _uow.InvitationRepository.Update(invitation);
+            NotificationModel notificaiton = new NotificationModel()
+            {
+                Title = String.Format(AppSetting.InviteStatusChangeNotificationTitle, initiatorName),
+                Body = String.Format(AppSetting.InviteStatusChangeNotificationBody, statusId == 2 ? "accepted" : "rejected"),
+                BuddyId = (int)invitation.FromBuddyId,
+                DeviceId = fcmToken,
+                InviteId = invitationId
+            };
+            await _notificationBL.SendNotification(notificaiton);
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel { Data = "", Message = "Invitation status sucessfully set" };

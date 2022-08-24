@@ -14,7 +14,7 @@ namespace HookaTimes.BLL.Service
 {
     public class SettingsBL : BaseBO, ISettingsBL
     {
-        public SettingsBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public SettingsBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 

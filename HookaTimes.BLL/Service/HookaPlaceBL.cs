@@ -16,9 +16,7 @@ namespace HookaTimes.BLL.Service
 {
     public class HookaPlaceBL : BaseBO, IHookaPlaceBL
     {
-
-
-        public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public HookaPlaceBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 

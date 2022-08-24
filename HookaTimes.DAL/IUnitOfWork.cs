@@ -36,6 +36,7 @@ namespace HookaTimes.DAL
         IContactUsRepository ContactUsRepository { get; }
         IPartnerRequestRepository PartnerRequestRepository { get; }
         IContactInfoRepository ContactInfoRepository { get; }
+        INotificationRepo NotificationRepository { get; }
         void Save();
         Task SaveAsync();
     }

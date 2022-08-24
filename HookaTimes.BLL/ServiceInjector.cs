@@ -41,6 +41,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<ICareersBL, CareersBL>();
             _services.AddScoped<IBecomeAPartnerBL, BecomeAPartnerBL>();
             _services.AddScoped<ISettingsBL, SettingsBL>();
+            _services.AddScoped<INotificationBL, NotificationBL>();
             //_services.AddScoped<IContactInfoBL, BecomeAPartnerBL>();
             //_services.AddScoped<IGenericRepos<AccProfile>, GenericRepos<AccProfile>>();
             _services.AddScoped<IGenericRepos<AspNetUser>, GenericRepos<AspNetUser>>();
@@ -69,6 +70,7 @@ namespace HookaTimes.BLL
             _services.AddScoped<IGenericRepos<ContactU>, GenericRepos<ContactU>>();
             _services.AddScoped<IGenericRepos<PartnerRequest>, GenericRepos<PartnerRequest>>();
             _services.AddScoped<IGenericRepos<ContactInfo>, GenericRepos<ContactInfo>>();
+            _services.AddScoped<IGenericRepos<Notification>, GenericRepos<Notification>>();
             _services.AddScoped<NotificationHelper>();
             _services.AddScoped<ValidationFilterAttribute>();
 

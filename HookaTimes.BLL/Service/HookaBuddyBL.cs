@@ -17,7 +17,7 @@ namespace HookaTimes.BLL.Service
 {
     public class HookaBuddyBL : BaseBO, IHookaBuddyBL
     {
-        public HookaBuddyBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public HookaBuddyBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 
@@ -132,17 +132,17 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
-            bool buddyExists = await _uow.BuddyRepository.CheckIfExists(x => x.Id == model.ToBuddyId);
-            bool placeExists = await _uow.BuddyRepository.CheckIfExists(x => x.Id == model.PlaceId);
+            var toBuddyInfo = await _uow.BuddyRepository.GetAll(x => x.Id == model.ToBuddyId).Select(x=> new { x.User.FcmToken,x.Id }).FirstOrDefaultAsync();
+            string placeName = await _uow.PlaceRepository.GetAll(x => x.Id == model.PlaceId).Select(x=> x.Title).FirstOrDefaultAsync();
             DateTime invitationDateTime = Convert.ToDateTime(model.Date + " " + model.Time);
-            if (!buddyExists)
+            if (toBuddyInfo is null)
             {
                 responseModel.ErrorMessage = "Buddy not found";
                 responseModel.StatusCode = 404;
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
-            if (!placeExists)
+            if (string.IsNullOrEmpty(placeName))
             {
                 responseModel.ErrorMessage = "Place not found";
                 responseModel.StatusCode = 404;
@@ -156,7 +156,7 @@ namespace HookaTimes.BLL.Service
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
-
+            string fromBuddyName = await _uow.BuddyRepository.GetAll(x => x.Id == userBuddyId).Select(x => x.FirstName + " " + x.LastName).FirstOrDefaultAsync();
             Invitation invitation = new Invitation()
             {
                 FromBuddyId = userBuddyId,
@@ -169,7 +169,18 @@ namespace HookaTimes.BLL.Service
                 InvitationStatusId = 1,
                 PlaceId = model.PlaceId,
             };
-            await _uow.InvitationRepository.Create(invitation);
+          
+           var sentInvite =  await _uow.InvitationRepository.Create(invitation);
+            NotificationModel notificaiton = new NotificationModel()
+            {
+                Title = AppSetting.InviteNotificationTitle,
+                Body = String.Format(AppSetting.InviteNotificationBody,fromBuddyName,placeName),
+                 BuddyId = model.ToBuddyId,
+                   DeviceId = toBuddyInfo.FcmToken,
+                    InviteId = sentInvite.Id,
+            };
+            await _notificationBL.SendNotification(notificaiton); 
+
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel { Data = "", Message = "Invitation Sent Succesfully" };
