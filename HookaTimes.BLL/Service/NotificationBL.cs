@@ -4,6 +4,7 @@ using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
 using HookaTimes.DAL;
 using HookaTimes.DAL.HookaTimesModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -125,6 +126,24 @@ namespace HookaTimes.BLL.Service
 
 
 
+        }
+
+        public async Task<ResponseModel> GetNotifications(int userBuddyId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            List<Notification_VM> notifications = await _uow.NotificationRepository.GetAll(x => x.BuddyId == userBuddyId).Select(x => new Notification_VM
+            {
+                Body = x.Description,
+                Title = x.Title,
+                CreatedDate = x.CreatedDate.Value,
+                InviteId = x.InviteId ?? 0,
+                OrderId = x.OrderId ?? 0,
+                Id = x.Id
+            }).ToListAsync();
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = notifications, Message = "" };
+            return responseModel;
         }
     }
 }

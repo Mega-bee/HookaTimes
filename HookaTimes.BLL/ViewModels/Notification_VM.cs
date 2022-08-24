@@ -1,4 +1,6 @@
-﻿namespace HookaTimes.BLL.ViewModels
+﻿using System;
+
+namespace HookaTimes.BLL.ViewModels
 {
     public partial class NotificationModel
     {
@@ -10,5 +12,15 @@
         public int InviteId { get; set; }
 
 
+    }
+
+    public partial class Notification_VM
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public int OrderId { get; set; }
+        public int InviteId { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
