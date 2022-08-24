@@ -73,7 +73,7 @@ namespace HookaTimes.BLL.Service
                 InvitationOption = i.InvitationOption.Title,
                 InvitationDate = i.InvitationDate,
 
-            }).ToListAsync();
+            }).OrderBy(x => x.InvitationStatusId).ToListAsync();
 
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
