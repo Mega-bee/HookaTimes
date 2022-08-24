@@ -1421,14 +1421,22 @@ namespace HookaTimes.BLL.Service
         }
         #endregion
 
-        public async Task<List<BuddyProfileAddressVM>> GetUserAddresses(int userBuddyId)
+        public async Task<ResponseModel> GetUserAddresses(int userBuddyId)
         {
+            ResponseModel responseModel = new ResponseModel();
             List<BuddyProfileAddressVM> addresses = await _uow.BuddyProfileAddressRepository.GetAll(x => x.IsDeleted == false && x.BuddyProfileId == userBuddyId).Select(x => new BuddyProfileAddressVM
             {
                 Id = x.Id,
-                Title = x.Title
+                Title = x.Title,
+                 Appartment = x.Apartment,
+                  Building =x.Building,
+                   City = x.City,
+                     Street = x.Street
             }).ToListAsync();
-            return addresses;
+            responseModel.ErrorMessage = "";
+            responseModel.StatusCode = 200;
+            responseModel.Data = new DataModel { Data = addresses, Message = "" };
+            return responseModel;
         }
 
 

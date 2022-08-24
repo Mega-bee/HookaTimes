@@ -202,7 +202,14 @@ namespace HookaTimes.API.Controllers
         }
         #endregion
 
-
+        #region Addresses
+        public async Task<IActionResult> GetAdderesses()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
+            return Ok(await _auth.GetUserAddresses(userBuddyId));
+        }
+        #endregion
 
 
 

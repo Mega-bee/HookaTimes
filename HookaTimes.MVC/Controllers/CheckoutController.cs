@@ -41,12 +41,14 @@ namespace HookaTimes.MVC.Controllers
             {
                 return LocalRedirect(returnurl);
             }
+            var res = await _auth.GetUserAddresses(userBuddyId);
+            List<BuddyProfileAddressVM> addresses = (List<BuddyProfileAddressVM>)res.Data.Data;
             CartSummary_VM cartSummary = await _cartBL.GetCartSummaryMVC(userBuddyId, null);
             Checkout_VM model = new Checkout_VM()
             {
                 Address = new BuddyProfileAddressVM(),
                 CartSummary = cartSummary,
-                Addresses = new SelectList(await _auth.GetUserAddresses(userBuddyId), nameof(BuddyProfileAddressVM.Id), nameof(BuddyProfileAddressVM.Title))
+                Addresses = new SelectList(addresses, nameof(BuddyProfileAddressVM.Id), nameof(BuddyProfileAddressVM.Title))
 
         };
             return View(model);
