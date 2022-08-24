@@ -203,6 +203,7 @@ namespace HookaTimes.API.Controllers
         #endregion
 
         #region Addresses
+        [HttpGet]
         public async Task<IActionResult> GetAdderesses()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

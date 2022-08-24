@@ -18,6 +18,7 @@ namespace HookaTimes.DAL.HookaTimesModels
             FavoriteUserPlaces = new HashSet<FavoriteUserPlace>();
             InvitationFromBuddies = new HashSet<Invitation>();
             InvitationToBuddies = new HashSet<Invitation>();
+            Notifications = new HashSet<Notification>();
             Orders = new HashSet<Order>();
             PlaceReviews = new HashSet<PlaceReview>();
             Wishlists = new HashSet<Wishlist>();
@@ -80,6 +81,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         public virtual ICollection<Invitation> InvitationFromBuddies { get; set; }
         [InverseProperty("ToBuddy")]
         public virtual ICollection<Invitation> InvitationToBuddies { get; set; }
+        [InverseProperty("Buddy")]
+        public virtual ICollection<Notification> Notifications { get; set; }
         [InverseProperty("Buddy")]
         public virtual ICollection<Order> Orders { get; set; }
         [InverseProperty("Buddy")]
