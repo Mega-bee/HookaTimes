@@ -15,7 +15,7 @@ namespace HookaTimes.BLL.Service
 {
     public class CuisineBL : BaseBO, ICuisineBL
     {
-        public CuisineBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public CuisineBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 

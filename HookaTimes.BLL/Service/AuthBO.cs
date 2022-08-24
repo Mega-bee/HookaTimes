@@ -33,7 +33,7 @@ namespace HookaTimes.BLL.Service
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender) : base(unit, mapper, notificationHelper)
+        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender,INotificationBL notificationBL) : base(unit, mapper, notificationHelper,notificationBL)
         {
             _userManager = userManager;
             _signInManager = signInManager;

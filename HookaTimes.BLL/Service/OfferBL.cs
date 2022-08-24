@@ -13,10 +13,10 @@ namespace HookaTimes.BLL.Service
 {
     public class OfferBL : BaseBO, IOfferBL
     {
-        public OfferBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public OfferBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
-
         }
+
 
         #region OfferList
         public async Task<ResponseModel> GetOfferList(HttpRequest request)
