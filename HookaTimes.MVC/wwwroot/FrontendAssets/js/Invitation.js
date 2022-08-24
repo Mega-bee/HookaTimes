@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const closrbtn = document.querySelector('.quickview__close')
         const buddyIdElement = document.querySelector('#buddyId');
         let BuddyId = buddyIdElement.getAttribute('data-buddyid')
+       
+        //alert(BuddyId)
         e.preventDefault();
 
         $('input').removeClass('error');
@@ -79,12 +81,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 btn.innerHTML = "Submit";
                 btn.disabled = false;
                 if (result.statusCode == 201) {
-                    notyf.success({ message: "Your Invitation has been Sent" }, 6)
+                    notyf.success({ message: result.data.message }, 6)
                     closrbtn.click();
                 } else {
                     btn.innerHTML = "Submit";
                     btn.disabled = false;
-                    notyf.error({ message: "Your Invitation not logged in, please login" },6)
+                    notyf.error({ message: result.errorMessage },6)
 
                 }
 
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log(err)
                 btn.innerHTML = "Submit";
                 btn.disabled = false;
-                notyf.error({ message: "Your Invitation not logged in, please login" })
+                notyf.error({ message: "Your Invitation Faild" })
             }
         })
   
