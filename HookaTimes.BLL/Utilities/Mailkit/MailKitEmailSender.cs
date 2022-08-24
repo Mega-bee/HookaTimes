@@ -1,17 +1,8 @@
 ﻿using HookaTimes.BLL.Utilities.MailKit;
 using Mailjet.Client;
 using Mailjet.Client.Resources;
-using Mailjet.Client.TransactionalEmails;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
-using MimeKit;
-using MimeKit.Text;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Utilities.Mailkit
@@ -25,12 +16,12 @@ namespace HookaTimes.BLL.Utilities.Mailkit
         public MailKitEmailSenderOptions Options { get; set; }
 
 
-        public async Task<bool> SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task<bool> SendEmailAsync(string email, string subject, string htmlMessage, int TemplateId)
         {
-            return await Execute(email, subject, htmlMessage);
+            return await Execute(email, subject, htmlMessage, TemplateId);
         }
 
-        public async Task<bool> Execute(string to, string subject, string message)
+        public async Task<bool> Execute(string to, string subject, string message, int TemplateId)
         {
             // create message
             //var email = new MimeMessage();
@@ -89,7 +80,7 @@ namespace HookaTimes.BLL.Utilities.Mailkit
                    {"Name", to}
                    }
                   }},
-                  {"TemplateID", 4139941},
+                  {"TemplateID", TemplateId},
                  {"TemplateLanguage", true},
                  {"Subject", subject},
                  {"Variables", new JObject {
