@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Product";
-    
+
     ViewBag.CurrentPage = "Products";
 }
 
@@ -9,24 +9,25 @@
 <style>
 
 
-    @@media (min-width: 375px) and (hover: hover){
-.block-products-carousel[data-layout=grid-4-sm][data-mobile-grid-columns="2"] .product-card--hidden-actions:hover, .block-products-carousel[data-layout=grid-5][data-mobile-grid-columns="2"] .product-card--hidden-actions:hover {
-    position: relative;
-    z-index: 3;
-    margin-bottom: 0px;
-}}
+    @@media (min-width: 375px) and (hover: hover) {
+        .block-products-carousel[data-layout=grid-4-sm][data-mobile-grid-columns="2"] .product-card--hidden-actions:hover, .block-products-carousel[data-layout=grid-5][data-mobile-grid-columns="2"] .product-card--hidden-actions:hover {
+            position: relative;
+            z-index: 3;
+            margin-bottom: 0px;
+        }
+    }
 
 
     .block-products__list {
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    /* margin: -6px; */
-    justify-content: start;
-}
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        /* margin: -6px; */
+        justify-content: start;
+    }
 
     .active-item {
         border: 2px solid #ffd333;
@@ -83,8 +84,8 @@
     }
 
     .block-products[data-mobile-grid-columns="2"]
-        .block-products__list-item
-        .product-card--hidden-actions:hover {
+    .block-products__list-item
+    .product-card--hidden-actions:hover {
         margin-bottom: 0px;
     }
 
@@ -94,51 +95,57 @@
 
     /**/
     .product__content {
-    display: flex;
-    grid-row-gap:40px;
-    grid-column-gap: 40px;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.product__gallery{
-    width:47%;
-}
-.text-content-info{
-    width:47%;
-}
+        display: flex;
+        grid-row-gap: 40px;
+        grid-column-gap: 40px;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 
-.owl-carousel .owl-item .product-image--location--gallery .product-image__img {
+    .product__gallery {
+        width: 47%;
+    }
 
-    width: 100%;
-    height: 100%!important;
-   
-}
-@@media only screen and (max-width: 990px) {
+    .text-content-info {
+        width: 47%;
+    }
+
+    .owl-carousel .owl-item .product-image--location--gallery .product-image__img {
+        width: 100%;
+        height: 100% !important;
+    }
+
+    @@media only screen and (max-width: 990px) {
         .block-products__list-item {
             width: 46% !important;
             margin: 1em 6px;
         }
-}
-@@media only screen and (max-width: 580px) {
+    }
+
+    @@media only screen and (max-width: 580px) {
         .block-products__list-item {
             width: 100% !important;
             margin: 1em 6px;
         }
+
         .product__content {
             display: flex;
             grid-row-gap: 40px;
             grid-column-gap: 40px;
             flex-direction: column;
             align-items: flex-start;
-            justify-content:start;
+            justify-content: start;
         }
+
         .product__gallery {
             width: 100%;
         }
+
         .text-content-info {
             width: 100%;
         }
+
         .btn-lg {
             font-size: 1.1em;
         }
@@ -198,10 +205,9 @@
 max-width:100%;
 height:100%;
                                             ">
-                                            <div class="owl-item active" style="max-width:100%;"
-                                                >
+                                            <div class="owl-item active" style="max-width:100%;">
                                                 <div class="product-image product-image--location--gallery">
-                                                   
+
                                                     <a href="@Model?.CategoryImage"
                                                        data-width="700"
                                                        data-height="700"
@@ -213,116 +219,116 @@ height:100%;
                                                     </a>
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <!-- .product__gallery / end -->
 
                     <div class="text-content-info">
-                    <!-- .product__info -->
-                    <div class="product__info">
-                        <div class="product__wishlist-compare">
-                            <button type="button"
-                                    class="btn btn-sm btn-light btn-svg-icon"
-                                    data-toggle="tooltip"
-                                    data-placement="right"
-                                    title=""
-                                    data-original-title="Wishlist">
-                                <svg width="16px" height="16px">
-                                    <use xlink:href="images/sprite.svg#wishlist-16"></use>
-                                </svg>
-                            </button>
-                            <button type="button"
-                                    class="btn btn-sm btn-light btn-svg-icon"
-                                    data-toggle="tooltip"
-                                    data-placement="right"
-                                    title=""
-                                    data-original-title="Compare">
-                                <svg width="16px" height="16px">
-                                    <use xlink:href="images/sprite.svg#compare-16"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <h1 class="product__name">
-                            @Model?.CategoryTitle
-                        </h1>
-                        <div class="product__description">
-                            @Model?.Products.Select(x=> x.Description).FirstOrDefault()
-                        </div>
-                        <ul class="product__meta">
-                        </ul>
-                    </div>
-                    <!-- .product__info / end --><!-- .product__sidebar -->
-                    <div class="product__sidebar">
-                        <div class="product__availability">
-                            Availability:
-                            <span class="text-success">In Stock</span>
-                        </div>
-                        <div class="product__prices"> @Model?.Products.Select(x=> x.CustomerFinalPrice).FirstOrDefault() AED</div>
-                        <!-- .product__options -->
-                        <form id="product-fom" class="product__options">
-
-
-                            <div class="form-group product__option">
-                                <label class="product__option-label">Types</label>
-                                <div class="input-radio-color">
-                                    <div class="input-radio-color__list">
-                                        @foreach (var item in Model!.Products)
-                                        {
-                                            <label data-productId="@item.Id" data-productDesc="@item.Description" data-price="@item.CustomerFinalPrice" class="input-radio-color__item input-radio-color__item--white product-item @(item.Id == Model.Products.Select(x=> x.Id).FirstOrDefault() ? "active-item" : "")" data-toggle="tooltip" title="@item.Title">
-                                                @*<input type="radio" name="color">*@
-                                                <span style="height:100%;width:100%"> <img class="product-variation-img" style="height:100%;width:100%;" src="@item.Image" /></span>
-                                            </label>
-                                        }
-                                    </div>
-                                </div>
+                        <!-- .product__info -->
+                        <div class="product__info">
+                            <div class="product__wishlist-compare">
+                                <button type="button"
+                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        data-toggle="tooltip"
+                                        data-placement="right"
+                                        title=""
+                                        data-original-title="Wishlist">
+                                    <svg width="16px" height="16px">
+                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
+                                    </svg>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        data-toggle="tooltip"
+                                        data-placement="right"
+                                        title=""
+                                        data-original-title="Compare">
+                                    <svg width="16px" height="16px">
+                                        <use xlink:href="images/sprite.svg#compare-16"></use>
+                                    </svg>
+                                </button>
                             </div>
+                            <h1 class="product__name">
+                                @Model?.CategoryTitle
+                            </h1>
+                            <div class="product__description">
+                                @Model?.Products.Select(x=> x.Description).FirstOrDefault()
+                            </div>
+                            <ul class="product__meta">
+                            </ul>
+                        </div>
+                        <!-- .product__info / end --><!-- .product__sidebar -->
+                        <div class="product__sidebar">
+                            <div class="product__availability">
+                                Availability:
+                                <span class="text-success">In Stock</span>
+                            </div>
+                            <div class="product__prices"> @Model?.Products.Select(x=> x.CustomerFinalPrice).FirstOrDefault() AED</div>
+                            <!-- .product__options -->
+                            <form id="product-fom" class="product__options">
 
 
-
-
-                            <div class="form-group product__option">
-                                <label class="product__option-label"
-                                       for="product-quantity">Quantity</label>
-                                <div class="product__actions">
-                                    <div class="product__actions-item">
-                                        <div class="input-number product__quantity">
-                                            <input id="product-quantity"
-                                                   class="input-number__input form-control form-control-lg"
-                                                   type="number"
-                                                   min="1"
-                                                   value="1" />
-                                            <div class="input-number__add"></div>
-                                            <div class="input-number__sub"></div>
+                                <div class="form-group product__option">
+                                    <label class="product__option-label">Types</label>
+                                    <div class="input-radio-color">
+                                        <div class="input-radio-color__list">
+                                            @foreach (var item in Model!.Products)
+                                            {
+                                                <label data-productId="@item.Id" data-productDesc="@item.Description" data-price="@item.CustomerFinalPrice" class="input-radio-color__item input-radio-color__item--white product-item @(item.Id == Model.Products.Select(x=> x.Id).FirstOrDefault() ? "active-item" : "")" data-toggle="tooltip" title="@item.Title">
+                                                    @*<input type="radio" name="color">*@
+                                                    <span style="height:100%;width:100%"> <img class="product-variation-img" style="height:100%;width:100%;" src="@item.Image" /></span>
+                                                </label>
+                                            }
                                         </div>
                                     </div>
-                                    <div class="product__actions-item product__actions-item--addtocart">
-                                        <button id="add-to-cart-btn" class="btn btn-primary btn-lg">
-                                            Add to cart
-                                        </button>
-                                    </div>
-                                    <div class="product__actions-item product__actions-item--wishlist">
-                                        <button type="button"
-                                                class="btn btn-secondary btn-svg-icon btn-lg add-to-wishlist-btn"
-                                                data-toggle="tooltip"
-                                                title=""
-                                                data-original-title="Wishlist">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
-                                                <path id="Path_28" class="wishlist-icon" style="fill: @((bool)Model.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
+                                </div>
+
+
+
+
+                                <div class="form-group product__option">
+                                    <label class="product__option-label"
+                                           for="product-quantity">Quantity</label>
+                                    <div class="product__actions">
+                                        <div class="product__actions-item">
+                                            <div class="input-number product__quantity">
+                                                <input id="product-quantity"
+                                                       class="input-number__input form-control form-control-lg"
+                                                       type="number"
+                                                       min="1"
+                                                       value="1" />
+                                                <div class="input-number__add"></div>
+                                                <div class="input-number__sub"></div>
+                                            </div>
+                                        </div>
+                                        <div class="product__actions-item product__actions-item--addtocart">
+                                            <button id="add-to-cart-btn" class="btn btn-primary btn-lg">
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                        <div class="product__actions-item product__actions-item--wishlist">
+                                            <button type="button"
+                                                    class="btn btn-secondary btn-svg-icon btn-lg add-to-wishlist-btn"
+                                                    data-toggle="tooltip"
+                                                    title=""
+                                                    data-original-title="Wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 27.954 25.959">
+                                                    <path id="Path_28" class="wishlist-icon" style="fill: @((bool)Model.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" data-name="Path 28" d="M3317.794,87.587c-5.289-2.942-13.555-10.584-13.216-17.371.35-7.012,9.327-10,13.216-2.691,3.89-7.306,12.867-4.321,13.217,2.691C3331.35,77,3323.084,84.645,3317.794,87.587Z" transform="translate(-3303.817 -62.486)" fill="none" stroke="#231f20" stroke-miterlimit="10" style="@((bool)Model?.Products.Select(x=> x.IsInWishlist).FirstOrDefault() ? "red" : "none")" stroke-width="1.5" fill-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                        <!-- .product__options / end -->
-                    </div>
-                    <!-- .product__end -->
+                            </form>
+                            <!-- .product__options / end -->
+                        </div>
+                        <!-- .product__end -->
                     </div>
                 </div>
             </div>
@@ -343,7 +349,7 @@ height:100%;
                     <partial name="../shared/Ecommerce/_HookaProductPartial.cshtml" model="item" />
 
                 }
-             
+
 
 
 
