@@ -90,6 +90,7 @@ namespace HookaTimes.BLL.Service
             userProfile.EyesId = currProfile.Eyes;
             userProfile.BodyTypeId = currProfile.BodyType;
             userProfile.IsAvailable = currProfile.IsAvailable;
+            userProfile.Id = currProfile.Id;
             userProfile.Addresses = currProfile.BuddyProfileAddresses.Where(x => x.IsDeleted == false).Select(x => new BuddyProfileAddressVM
             {
                 Latitude = x.Latitude,
@@ -144,6 +145,13 @@ namespace HookaTimes.BLL.Service
             if (!placeExists)
             {
                 responseModel.ErrorMessage = "Place not found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+            if (userBuddyId == model.ToBuddyId)
+            {
+                responseModel.ErrorMessage = "You can't invite your self";
                 responseModel.StatusCode = 404;
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;

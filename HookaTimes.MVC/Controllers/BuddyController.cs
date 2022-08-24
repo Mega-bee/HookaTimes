@@ -34,7 +34,7 @@ namespace HookaTimes.MVC.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> InviteBuddy(SendInvitation_VM model)
         {
             string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
