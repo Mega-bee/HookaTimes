@@ -760,7 +760,7 @@ namespace HookaTimes.BLL.Service
 
             string content = $"Dear Hooka Buddy \n For Security reasons,User reset code in your app to reser password \n Your Reset Password Code is : {token} \n Thank you";
 
-            bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Reset Password", content);
+            bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Reset Password", content, (int)EmailEnum.OTP);
             if (isEmailSent)
             {
                 responseModel.StatusCode = 200;
@@ -941,7 +941,7 @@ namespace HookaTimes.BLL.Service
 
                 //Helpers.SendSMS(phone, content);
                 //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
-                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
+                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp, (int)EmailEnum.OTP);
                 //if (!EmailSent)
                 //{
                 //    responseModel.StatusCode = 400;
@@ -1062,7 +1062,7 @@ namespace HookaTimes.BLL.Service
                 //string content = $"Dear Hooka Buddy \n Your Verification Pin is : {otp} \n Thank you for choosing Hooka Times";
 
                 //Helpers.SendSMS(phone, content);
-                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp);
+                bool isEmailSent = await _emailSender.SendEmailAsync(Email, "Hooka OTP", otp, (int)EmailEnum.OTP);
                 //bool EmailSent = await Tools.SendEmailAsync(Email, "Hooka OTP", content);
                 //if (!EmailSent)
                 //{
