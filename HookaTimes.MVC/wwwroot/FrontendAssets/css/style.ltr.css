@@ -4297,7 +4297,7 @@ a:hover {
   background: #fff;
   color: #3d464d;
   width: 280px;
-  overflow-y: auto;
+  overflow-y: visible !important;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
