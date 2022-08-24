@@ -497,7 +497,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Places</a>
+                            <a asp-controller="Home" asp-action="hookaplaces">Places</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -732,11 +732,22 @@
                         <div class="product-tabs__list-container container">
                             <a href="#tab-description"
                                class="product-tabs__item product-tabs__item--active">Overview</a>
+                               @if (Model.Place.Menus.Count>0)
+                            {
+                                
+                           
                             <a href="#tab-menus"
                                class="product-tabs__item">Menu</a>
+                                }
+                         @if (Model.Place.Albums.Count>0)
+                            {
                             <a href="#tab-albums"
                                class="product-tabs__item">Albums</a>
+                            }
+                             @if (Model.Place.Reviews.Count>0){
+     
                             <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
+                            }
                         </div>
                     </div>
                 </div>
