@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -31,7 +31,6 @@
     <Folder Include="wwwroot\FrontendAssets\fonts\NewFolder\" />
     <Folder Include="wwwroot\FrontendAssets\Videos\" />
     <Folder Include="wwwroot\FrontendAssets\vendor\elevatezoom\" />
-    <Folder Include="wwwroot\Images\Products\" />
   </ItemGroup>
 
   <ItemGroup>
