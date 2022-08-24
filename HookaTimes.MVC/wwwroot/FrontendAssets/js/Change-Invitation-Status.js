@@ -36,21 +36,12 @@
             btn.innerHTML = btnvalue
             setStatusbtn.disabled = false;
             if (result.statusCode == 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: result.data.message,
-                })
-
+               
                 location.reload();
             } else {
                 addToCartBtn.innerHTML = btnvalue
                 addToCartBtn.disabled = false;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Fail',
-                    text: result.errorMessage
-                })
+               
 
                 location.reload();
 
