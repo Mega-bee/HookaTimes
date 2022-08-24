@@ -742,7 +742,7 @@ namespace HookaTimes.BLL.Service
 
         public async Task<ResponseModel> SendChangePasswordToken(string identifier)
         {
-
+             
             ResponseModel responseModel = new ResponseModel();
             var UID = _context.AspNetUsers.Where(x => x.Email == identifier).FirstOrDefault().Id;
             //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
@@ -783,6 +783,7 @@ namespace HookaTimes.BLL.Service
 
         public async Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model)
         {
+             
             ResponseModel responseModel = new ResponseModel();
 
             var UID = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
