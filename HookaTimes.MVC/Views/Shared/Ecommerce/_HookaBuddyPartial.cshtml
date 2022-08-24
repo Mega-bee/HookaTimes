@@ -9,7 +9,7 @@
         </div>
         <div class="post-card__info">
             <div class="post-card__name">
-                <a href="">@Model.Name </a>
+                <a asp-controller="Buddy" asp-action="BuddyProfile" asp-route-id="@Model.Id">@Model.Name </a>
             </div>
             <div class="post-card__content is--cuisines"> @Model.Profession </div>
             <div class="post-card__content is--location"> @Model.Address </div>

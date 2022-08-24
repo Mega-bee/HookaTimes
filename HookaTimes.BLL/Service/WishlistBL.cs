@@ -36,7 +36,7 @@ namespace HookaTimes.BLL.Service
             }
             if (userBuddyId > 0)
             {
-                bool isProductInWishlist = await _uow.WishlistRepository.CheckIfExists(p => p.BuddyId == userBuddyId && p.ProductId == productId);
+                bool isProductInWishlist = await _uow.WishlistRepository.CheckIfExists(p => p.BuddyId == userBuddyId && p.ProductId == productId && p.IsDeleted == false);
                 if (isProductInWishlist)
                 {
                     var currWishlistItem = await _uow.WishlistRepository.GetFirst(x => x.ProductId == productId && x.BuddyId == userBuddyId);
@@ -109,7 +109,7 @@ namespace HookaTimes.BLL.Service
             List<Wishlist_VM> wishlist = Array.Empty<Wishlist_VM>().ToList();
             if (userBuddyId > 0)
             {
-                wishlist = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId).Select(c => new Wishlist_VM
+                wishlist = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId && c.IsDeleted == false).Select(c => new Wishlist_VM
                 {
                     ItemId = c.ProductId,
                      CategoryId = c.Product.ProductCategoryId,
@@ -139,7 +139,7 @@ namespace HookaTimes.BLL.Service
             int count = 0;
             if (userBuddyId > 0)
             {
-                count = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId).CountAsync();
+                count = await _uow.WishlistRepository.GetAll(c => c.BuddyId == userBuddyId && c.IsDeleted == false ).CountAsync();
 
                 return count;
             }
