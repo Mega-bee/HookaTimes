@@ -82,8 +82,8 @@ namespace HookaTimes.BLL.Service
                 {
                     Category = c.Title,
                     IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
-                    IsInWishlist = !string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null,
-                    Title = c.Title,
+                    //IsInWishlist = !string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null,
+                    IsInWishlist = userBuddyId > 0 ?  c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null ,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
                     Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
@@ -96,7 +96,8 @@ namespace HookaTimes.BLL.Service
                 {
                     Category = c.Title,
                     IsInCart = c.Products.Where(p => p.IsDeleted == false).FirstOrDefault()!.Carts.Any(ci => ci.BuddyId == userBuddyId),
-                    IsInWishlist = !string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p=> p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null,
+                    //IsInWishlist = !string.IsNullOrEmpty(sessionWishlistId) ? c.Products.Where(p=> p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null,
+                    IsInWishlist = userBuddyId > 0 ? c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().Wishlists.Where(w => w.BuddyId == userBuddyId && w.IsDeleted == false).FirstOrDefault() != null : c.Products.Where(p => p.IsDeleted == false).FirstOrDefault().VirtualWishlists.Where(w => w.WishlistSessionId == sessionWishlistId).FirstOrDefault() != null,
                     Title = c.Title,
                     CustomerInitialPrice = c.Products.Where(p => p.IsDeleted == false).Select(p => p.CustomerFinalPrice).FirstOrDefault(),
                     Description = c.Description,
@@ -146,7 +147,7 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
-
+        
 
     }
 }
