@@ -90,7 +90,7 @@ namespace HookaTimes.BLL.IServices
 
         Task<bool> CompleteProfileMVC(CompleteProfileMVC_VM model, int BuddyId);
 
-        Task<List<BuddyProfileAddressVM>> GetUserAddresses(int userBuddyId);
+        Task<ResponseModel> GetUserAddresses(int userBuddyId);
         //Task<ResponseModel> GetAccountSettings(int userBuddyId);
     }
 }

@@ -40,6 +40,7 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<InvitationStatus> InvitationStatuses { get; set; }
         public virtual DbSet<JobVacancy> JobVacancies { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<OfferType> OfferTypes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
@@ -58,6 +59,14 @@ namespace HookaTimes.DAL.Data
         public virtual DbSet<VirtualWishlist> VirtualWishlists { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=tiaragroup.database.windows.net;Initial Catalog=HookaTimes;User Id=adminall;Password=P@ssw0rd@123");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -176,6 +185,21 @@ namespace HookaTimes.DAL.Data
                     .WithMany(p => p.InvitationToBuddies)
                     .HasForeignKey(d => d.ToBuddyId)
                     .HasConstraintName("FK_Invitation_BuddyProfile1");
+            });
+
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Buddy)
+                    .WithMany(p => p.Notifications)
+                    .HasForeignKey(d => d.BuddyId)
+                    .HasConstraintName("FK_Notification_BuddyProfile");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Notifications)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK_Notification_Order");
             });
 
             modelBuilder.Entity<Order>(entity =>

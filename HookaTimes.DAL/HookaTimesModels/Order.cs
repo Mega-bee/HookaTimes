@@ -11,6 +11,7 @@ namespace HookaTimes.DAL.HookaTimesModels
     {
         public Order()
         {
+            Notifications = new HashSet<Notification>();
             OrderItems = new HashSet<OrderItem>();
         }
 
@@ -39,6 +40,8 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("OrderStatusId")]
         [InverseProperty("Orders")]
         public virtual OrderStatus OrderStatus { get; set; }
+        [InverseProperty("Order")]
+        public virtual ICollection<Notification> Notifications { get; set; }
         [InverseProperty("Order")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
