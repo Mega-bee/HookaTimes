@@ -1,12 +1,19 @@
 ﻿$(document).on("click", ".share-btn", function (e) {
-    let domain = window.location.origin
+    e.preventDefault()
     let btn = this
     console.log(btn)
-    let parent = btn.parentElement.parentElement
-    console.log(parent)
-    let sub = parent.querySelector(".product-image__body").href
-    let link = sub
-    console.log(link)
+    var sub = ""
+    var link = ""
+    if (btn.tagName.toLowerCase() === 'a') {
+        e.preventDefault()
+        sub = btn.href; //this is the url where the anchor tag points to.
+    } else {
+        let parent = btn.parentElement.parentElement
+         sub = parent.querySelector(".product-image__body").href
+    }
+    
+   
+     link = sub
     var $temp = $("<input>");
     $("body").append($temp);
     $temp.val(link).select();
