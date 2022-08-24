@@ -736,99 +736,192 @@ namespace HookaTimes.BLL.Service
         #endregion
 
 
-        #region Forget Pass
+        #region Forget Pass with SMS token
         ///// Reset pass with sms
 
 
-        public async Task<ResponseModel> SendChangePasswordToken(string identifier)
+        //public async Task<ResponseModel> SendChangePasswordToken(string identifier)
+        //{
+
+        //    ResponseModel responseModel = new ResponseModel();
+        //    var UID = _context.AspNetUsers.Where(x => x.Email == identifier).FirstOrDefault().Id;
+        //    //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    var user = await _userManager.FindByIdAsync(UID);
+
+        //    if (user is null)
+        //    {
+        //        responseModel.StatusCode = 404;
+        //        responseModel.ErrorMessage = "User was not Found";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+
+        //    var token = await _userManager.GenerateUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose");
+
+        //    string content = $"Dear Hooka Buddy \n For Security reasons,User reset code in your app to reser password \n Your Reset Password Code is : {token} \n Thank you";
+
+        //    bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Reset Password", content, (int)EmailEnum.OTP);
+        //    if (isEmailSent)
+        //    {
+        //        responseModel.StatusCode = 200;
+        //        responseModel.ErrorMessage = "";
+        //        responseModel.Data = new DataModel
+        //        {
+        //            Data = "",
+        //            Message = "Details to reset password have been sent to email"
+        //        };
+        //        return responseModel;
+        //    }
+        //    responseModel.StatusCode = 500;
+        //    responseModel.ErrorMessage = "Failed To Send Email";
+        //    responseModel.Data = new DataModel { Data = "", Message = "" };
+        //    return responseModel;
+        //}
+
+
+
+
+        //public async Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model)
+        //{
+        //    ResponseModel responseModel = new ResponseModel();
+
+        //    var UID = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
+        //    //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
+        //    var user = await _userManager.FindByIdAsync(UID);
+
+        //    if (user is null)
+        //    {
+        //        responseModel.StatusCode = 404;
+        //        responseModel.ErrorMessage = "User was not Found";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+
+
+
+
+        //    var tokenVerified = await _userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose", model.Token);
+
+        //    if (!tokenVerified)
+        //    {
+        //        responseModel.StatusCode = 404;
+        //        responseModel.ErrorMessage = "Bad Token";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+        //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);//new token for reseting password
+        //    var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
+        //    if (!result.Succeeded)
+        //    {
+        //        responseModel.StatusCode = 400;
+        //        responseModel.ErrorMessage = "Rest Password Faild";
+        //        responseModel.Data = new DataModel { Data = "", Message = "" };
+        //        return responseModel;
+        //    }
+
+        //    responseModel.StatusCode = 200;
+        //    responseModel.ErrorMessage = "";
+        //    responseModel.Data = new DataModel { Data = "", Message = "Password has been changed" };
+        //    return responseModel;
+
+
+        //}
+
+
+        #endregion
+
+
+
+        #region Forget Password with email link
+        public async Task<ResponseModel> ForgetPassword(string identifier, HttpRequest Request)
         {
+            var responseModel = new ResponseModel();
 
-            ResponseModel responseModel = new ResponseModel();
-            var UID = _context.AspNetUsers.Where(x => x.Email == identifier).FirstOrDefault().Id;
-            //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            var user = await _userManager.FindByIdAsync(UID);
-
-            if (user is null)
+            if (string.IsNullOrEmpty(identifier))
             {
+                responseModel.ErrorMessage = "No Email was received";
                 responseModel.StatusCode = 404;
-                responseModel.ErrorMessage = "User was not Found";
                 responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
 
-            var token = await _userManager.GenerateUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose");
 
-            string content = $"Dear Hooka Buddy \n For Security reasons,User reset code in your app to reser password \n Your Reset Password Code is : {token} \n Thank you";
-
-            bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Reset Password", content, (int)EmailEnum.OTP);
-            if (isEmailSent)
+            var emailUser = await _userManager.FindByEmailAsync(identifier);
+            if (emailUser != null)
             {
-                responseModel.StatusCode = 200;
-                responseModel.ErrorMessage = "";
-                responseModel.Data = new DataModel
+                var token = await _userManager.GeneratePasswordResetTokenAsync(emailUser);
+                var encodedToken = Encoding.UTF8.GetBytes(token);
+                var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+
+                string url = $"{Request.Scheme}://{Request.Host}/ResetPassword?email={identifier}&token={validToken}";
+
+                bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Hooka OTP", url, (int)EmailEnum.Url);
+                //bool isEmailSent = _mailService.SendEmailAsync(identifier, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
+                //     $"<p>To reset your password <a href='{url}'>Click here</a></p>");
+                if (isEmailSent)
                 {
-                    Data = "",
-                    Message = "Details to reset password have been sent to email"
-                };
+
+                    responseModel.ErrorMessage = "";
+                    responseModel.StatusCode = 200;
+                    responseModel.Data = new DataModel { Data = "", Message = "Details to reset password have been sent to email" };
+                    return responseModel;
+
+                }
+                responseModel.ErrorMessage = "Failed to send Email";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
                 return responseModel;
             }
+            responseModel.ErrorMessage = "User Doesn't Exist";
+            responseModel.StatusCode = 404;
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+
+        }
+
+        public async Task<ResponseModel> ResetPasswordFromEmail(ResetPasswordFromEmail_VM model)
+        {
+            var responseModel = new ResponseModel();
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                responseModel.ErrorMessage = "User Not Found";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+                responseModel.ErrorMessage = "Passwords don't match";
+                responseModel.StatusCode = 404;
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                responseModel.ErrorMessage = "No Email was received";
+                responseModel.StatusCode = 200;
+                responseModel.Data = new DataModel { Data = "", Message = "Password has been reset succesfully" };
+                return responseModel;
+            }
+
+            responseModel.ErrorMessage = "Something Went Wrong";
             responseModel.StatusCode = 500;
-            responseModel.ErrorMessage = "Failed To Send Email";
             responseModel.Data = new DataModel { Data = "", Message = "" };
             return responseModel;
         }
 
-
-
-
-        public async Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model)
-        {
-            ResponseModel responseModel = new ResponseModel();
-
-            var UID = _context.AspNetUsers.Where(x => x.Email == model.Email).FirstOrDefault().Id;
-            //string UID = User.Claims.Where(x => x.Type == "UID").FirstOrDefault().Value;
-            var user = await _userManager.FindByIdAsync(UID);
-
-            if (user is null)
-            {
-                responseModel.StatusCode = 404;
-                responseModel.ErrorMessage = "User was not Found";
-                responseModel.Data = new DataModel { Data = "", Message = "" };
-                return responseModel;
-            }
-
-
-
-
-            var tokenVerified = await _userManager.VerifyUserTokenAsync(user, TokenOptions.DefaultPhoneProvider, "ResetPasswordPurpose", model.Token);
-
-            if (!tokenVerified)
-            {
-                responseModel.StatusCode = 404;
-                responseModel.ErrorMessage = "Bad Token";
-                responseModel.Data = new DataModel { Data = "", Message = "" };
-                return responseModel;
-            }
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);//new token for reseting password
-            var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
-            if (!result.Succeeded)
-            {
-                responseModel.StatusCode = 400;
-                responseModel.ErrorMessage = "Rest Password Faild";
-                responseModel.Data = new DataModel { Data = "", Message = "" };
-                return responseModel;
-            }
-
-            responseModel.StatusCode = 200;
-            responseModel.ErrorMessage = "";
-            responseModel.Data = new DataModel { Data = "", Message = "Password has been changed" };
-            return responseModel;
-
-
-        }
-
-
         #endregion
+
 
 
         #region Reset Pass
@@ -1451,25 +1544,25 @@ namespace HookaTimes.BLL.Service
 
             CompleteProfileMVC_VM profile = new CompleteProfileMVC_VM()
             {
-                AboutMe = currProfile.About,
-                Birthdate = currProfile.DateOfBirth,
-                BodyType = currProfile.BodyType,
-                Eyes = currProfile.Eyes,
-                FirstName = currProfile.FirstName,
-                GenderId = currProfile.GenderId,
-                Hair = currProfile.Hair,
-                Height = (Math.Floor(currProfile.Height.Value * 100000000) / 100000000),
-                Hobbies = currProfile.Hobbies,
-                Image = currProfile.Image,
-                Interests = currProfile.Interests,
+                AboutMe = currProfile.About ?? "",
+                Birthdate = currProfile.DateOfBirth ?? default,
+                BodyType = currProfile.BodyType ?? 0,
+                Eyes = currProfile.Eyes ?? 0,
+                FirstName = currProfile.FirstName ?? "",
+                GenderId = currProfile.GenderId ?? 0,
+                Hair = currProfile.Hair ?? 0,
+                Height = currProfile.Height != null ? (Math.Floor(currProfile.Height.Value * 100000000) / 100000000) : 0,
+                Hobbies = currProfile.Hobbies ?? "",
+                Image = currProfile.Image ?? "",
+                Interests = currProfile.Interests ?? "",
                 ImageFile = null,
-                LastName = currProfile.LastName,
+                LastName = currProfile.LastName ?? "",
                 MaritalStatus = currProfile.MaritalStatus,
-                Profession = currProfile.Profession,
-                SocialMediaLink1 = currProfile.SocialMediaLink1,
-                SocialMediaLink2 = currProfile.SocialMediaLink2,
-                SocialMediaLink3 = currProfile.SocialMediaLink3,
-                Weight = (Math.Floor(currProfile.Weight.Value * 100000000) / 100000000),
+                Profession = currProfile.Profession ?? "",
+                SocialMediaLink1 = currProfile.SocialMediaLink1 ?? "",
+                SocialMediaLink2 = currProfile.SocialMediaLink2 ?? "",
+                SocialMediaLink3 = currProfile.SocialMediaLink3 ?? "",
+                Weight = currProfile.Weight != null ? (Math.Floor(currProfile.Weight.Value * 100000000) / 100000000) : 0,
                 Education = currProfile.BuddyProfileEducations.Select(x => new BuddyProfileEducationVM
                 {
                     Id = x.Id,

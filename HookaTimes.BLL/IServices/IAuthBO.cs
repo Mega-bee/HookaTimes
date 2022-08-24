@@ -40,7 +40,7 @@ namespace HookaTimes.BLL.IServices
 
         //Task<ResponseModel> EmailSignIn(EmailSignIn_VM model, HttpRequest Request);
 
-        Task<ResponseModel> SendChangePasswordToken(string identifier);
+        //Task<ResponseModel> SendChangePasswordToken(string identifier);
 
         //List<Claim> GenerateClaims(ApplicationUser res, AspNetRole role);
 
@@ -62,11 +62,15 @@ namespace HookaTimes.BLL.IServices
 
         Task<ResponseModel> SignUpWithEmail(EmailSignUp_VM model, HttpRequest Request);
 
-        Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model);
+        //Task<ResponseModel> ConsumeChangePasswordToken(ConsumeChangePasswordToken_VM model);
 
         //Task<ResponseModel> UpdateProfile(UpdateProfile_VM updatedProfile, string uid, HttpRequest Request);
 
 
+
+
+        Task<ResponseModel> ForgetPassword(string identifier, HttpRequest Request);
+        Task<ResponseModel> ResetPasswordFromEmail(ResetPasswordFromEmail_VM model);
 
 
         ///////////////////////////////////////////////MVC//////////////////////////////////////////

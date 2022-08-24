@@ -482,7 +482,32 @@ namespace HookaTimes.MVC.Controllers
         #endregion
 
 
+        #region Forget Password with email link
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgetPassword([FromForm] string identifier)
+        {
+            if (!string.IsNullOrEmpty(identifier))
+            {
+                ResponseModel res = await _auth.ForgetPassword(identifier, Request);
+                return Ok(res);
+            }
+            return Ok(0);
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> ResetPasswordFromEmail([FromForm] ResetPasswordFromEmail_VM model)
+        {
+            if (ModelState.IsValid)
+            {
+                ResponseModel res = await _auth.ResetPasswordFromEmail(model);
+                return Ok(res);
+            }
+            return Ok(0);
+        }
+        #endregion
 
         #region Available Toggle
         [HttpPut]
