@@ -221,14 +221,21 @@
                                         ><i class="fab fa-youtube"></i
                                         ></a>
                                         </li>*@
-                                        <li class="social-links__item">
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink1))
+                                        {
+                                             <li class="social-links__item">
                                             <a class="social-links--shape--circle social-links__link social-links__link--type--facebook"
                                                href="@(Model.SocialMediaLink1??"")"
                                                target="_blank">
                                                 <i class="fab fa-facebook"></i>
                                             </a>
                                         </li>
-
+                                        }
+                                       
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink2))
+                                        {
+                                            
+                                        
                                         <li class="social-links__item">
                                             <a class="social-links--shape--circle social-links__link social-links__link--type--instagram"
                                                href="@(Model.SocialMediaLink2??"")"
@@ -236,14 +243,19 @@
                                                 <i class="fab fa-instagram"></i>
                                             </a>
                                         </li>
-                                        <li class="social-links__item">
-                                            <a class="social-links--shape--circle social-links__link social-links__link--type--twitter"
+                                        }
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink3))
+                                        {
+                                            <li class="social-links__item">
+                                                <a class="social-links--shape--circle social-links__link social-links__link--type--twitter"
                                                href="@(Model.SocialMediaLink3??"")"
                                                target="_blank">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </li>
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                            </li>
 
+                                        }
+                                     
                                     </ul>
                                 </div>
                             </div>

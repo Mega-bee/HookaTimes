@@ -63,6 +63,13 @@
             $(".MenuLink").removeClass("w--current");
             $(".Link" + s).addClass("w--current");
         });
+
+
+        $(document).ready(function () {
+            var s = '@ViewBag.CurrentPageNav';
+            $(".MenuLink").removeClass("account-nav__item--active");
+            $(".Link" + s).addClass("account-nav__item--active");
+        });
     </script>
     <!-- js -->
     @*<script src="/FrontendAssets/vendor/jquery/jquery.min.js"></script>*@
