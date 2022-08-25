@@ -853,7 +853,7 @@ namespace HookaTimes.BLL.Service
                 var encodedToken = Encoding.UTF8.GetBytes(token);
                 var validToken = WebEncoders.Base64UrlEncode(encodedToken);
 
-                string url = $"{Request.Scheme}://{Request.Host}/ResetPassword?email={identifier}&token={validToken}";
+                string url = $"{Request.Scheme}://{Request.Host}/Account/ResetPasswordPage?email={identifier}&token={validToken}";
 
                 bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Hooka OTP", url, (int)EmailEnum.Url);
                 //bool isEmailSent = _mailService.SendEmailAsync(identifier, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
@@ -1521,10 +1521,10 @@ namespace HookaTimes.BLL.Service
             {
                 Id = x.Id,
                 Title = x.Title,
-                 Appartment = x.Apartment,
-                  Building =x.Building,
-                   City = x.City,
-                     Street = x.Street
+                Appartment = x.Apartment,
+                Building = x.Building,
+                City = x.City,
+                Street = x.Street
             }).ToListAsync();
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 200;
