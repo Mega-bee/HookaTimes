@@ -90,6 +90,7 @@ namespace HookaTimes.BLL.Service
                     Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
                     CategoryId = c.Id,
                     Image = c.Image,
+                     Title = c.Title
                 }).ToListAsync();
             }
             else
