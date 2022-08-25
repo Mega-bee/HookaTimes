@@ -20,13 +20,11 @@ namespace HookaTimes.BLL.Utilities
     {
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _fcmSettings;
-        private readonly HookaDbContext _context;
 
-        public NotificationHelper(IConfiguration configuration, HookaDbContext context)
+        public NotificationHelper(IConfiguration configuration)
         {
             _configuration = configuration;
             _fcmSettings = _configuration.GetSection("FcmNotification");
-            _context = context;
         }
         public bool SendNotification(NotificationModel notificationModel)
         {
@@ -41,12 +39,11 @@ namespace HookaTimes.BLL.Utilities
                     to = notificationModel.DeviceId,
                     notification = new
                     {
-                        title = "Anomaly Detected",
+                        title = notificationModel.Title,
                         body = notificationModel.Body,
-                        patientId = notificationModel.PatientId,
-                        firstName = notificationModel.FirstName,
-                        middleName = notificationModel.MiddleName,
-                        lastName = notificationModel.LastName,
+                        orderId = notificationModel.OrderId,
+                        inviteId = notificationModel.InviteId,
+                        
                         sound = "default",
                         //android_channel_id= "easyapproach"
                     },
@@ -65,12 +62,10 @@ namespace HookaTimes.BLL.Utilities
                     data = new
                     {
                         type = "order",
-                        title = "Anomaly Detected",
+                        title = notificationModel.Title,
                         body = notificationModel.Body,
-                        patientId = notificationModel.PatientId,
-                        firstName = notificationModel.FirstName,
-                        middleName = notificationModel.MiddleName,
-                        lastName = notificationModel.LastName,
+                        orderId = notificationModel.OrderId,
+                        inviteId = notificationModel.InviteId,
                         //routePage= "order",
                         click_action = "FLUTTER_NOTIFICATION_CLICK"
                     }

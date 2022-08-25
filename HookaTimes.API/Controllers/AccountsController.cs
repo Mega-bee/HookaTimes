@@ -29,23 +29,22 @@ namespace HookaTimes.API.Controllers
         #endregion
 
         #region ForgetPassword
-        [HttpPost]
-        public async Task<IActionResult> ForgetPassword([FromForm] string identifier)
-        {
-            ResponseModel responseModel = new ResponseModel();
-            ResponseModel forgetPassword = await _auth.SendChangePasswordToken(identifier);
-            return Ok(forgetPassword);
+        //[HttpPost]
+        //public async Task<IActionResult> ForgetPassword([FromForm] string identifier)
+        //{
+        //    ResponseModel responseModel = new ResponseModel();
+        //    ResponseModel forgetPassword = await _auth.SendChangePasswordToken(identifier);
+        //    return Ok(forgetPassword);
+        //}
 
-        }
+        //[HttpPost]
 
-        [HttpPost]
-
-        public async Task<IActionResult> ConsumeChangePasswordToken([FromForm] ConsumeChangePasswordToken_VM model)
-        {
-            ResponseModel responseModel = new ResponseModel();
-            ResponseModel ConsumeChangePasswordToken = await _auth.ConsumeChangePasswordToken(model);
-            return Ok(ConsumeChangePasswordToken);
-        }
+        //public async Task<IActionResult> ConsumeChangePasswordToken([FromForm] ConsumeChangePasswordToken_VM model)
+        //{
+        //    ResponseModel responseModel = new ResponseModel();
+        //    ResponseModel ConsumeChangePasswordToken = await _auth.ConsumeChangePasswordToken(model);
+        //    return Ok(ConsumeChangePasswordToken);
+        //}
         #endregion
 
         #region SignUp
@@ -204,6 +203,8 @@ namespace HookaTimes.API.Controllers
 
         #region Addresses
         [HttpGet]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
+
         public async Task<IActionResult> GetAdderesses()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

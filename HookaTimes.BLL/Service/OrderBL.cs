@@ -19,7 +19,7 @@ namespace HookaTimes.BLL.Service
 {
     public class OrderBL : BaseBO, IOrderBL
     {
-        public OrderBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public OrderBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 

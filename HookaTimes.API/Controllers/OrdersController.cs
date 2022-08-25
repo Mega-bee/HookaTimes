@@ -1,4 +1,5 @@
 ﻿using HookaTimes.BLL.IServices;
+using HookaTimes.BLL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace HookaTimes.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder([FromForm] int addressId)
+        public async Task<IActionResult> PlaceOrder([FromForm] int addressId, [FromForm] BuddyProfileAddressVM address = null)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);

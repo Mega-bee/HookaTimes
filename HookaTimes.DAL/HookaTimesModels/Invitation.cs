@@ -9,6 +9,11 @@ namespace HookaTimes.DAL.HookaTimesModels
     [Table("Invitation")]
     public partial class Invitation
     {
+        public Invitation()
+        {
+            Notifications = new HashSet<Notification>();
+        }
+
         [Key]
         public int Id { get; set; }
         public bool? IsDeleted { get; set; }
@@ -38,5 +43,7 @@ namespace HookaTimes.DAL.HookaTimesModels
         [ForeignKey("ToBuddyId")]
         [InverseProperty("InvitationToBuddies")]
         public virtual BuddyProfile ToBuddy { get; set; }
+        [InverseProperty("Invite")]
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

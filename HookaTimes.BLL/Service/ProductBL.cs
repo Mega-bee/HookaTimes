@@ -15,9 +15,10 @@ namespace HookaTimes.BLL.Service
 {
     public class ProductBL : BaseBO, IProductBL
     {
-        public ProductBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public ProductBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
+
         #region Categories
         public async Task<ResponseModel> GetAllCategories(HttpRequest request)
         {
@@ -89,6 +90,7 @@ namespace HookaTimes.BLL.Service
                     Id = c.Products.Where(p => p.IsDeleted == false).Select(p => p.Id).FirstOrDefault(),
                     CategoryId = c.Id,
                     Image = c.Image,
+                     Title = c.Title
                 }).ToListAsync();
             }
             else

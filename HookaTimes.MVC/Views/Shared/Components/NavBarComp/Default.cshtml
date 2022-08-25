@@ -10,6 +10,15 @@
     var cart = (CartSummary_VM)ViewBag.CartSummary;
 }
 <style>
+
+    .account-menu__user {
+    overflow: auto;
+}
+
+    .nav-panel__logo{
+        width: 8em;
+    }
+
     .h-menu {
         z-index: 0;
         display: flex;
@@ -70,10 +79,12 @@
     }
 
         .account-menu__user-avatar.img {
-    width: 100%;
-    height:100%;
+    width: 44px;
+    height:44px;
 }
-
+   .account-menu__user-avatar {
+    width: 44px;
+    height: 44px;}
 
 
 </style>
@@ -111,7 +122,7 @@
                 <div class="nav-panel__logo">
                     <a href="/">
                         <!-- logo -->
-                        <img height="90em" src="~/FrontendAssets/images/logos/logo.png" />
+                        <img style=" height:100%; width:100% ; " src="~/FrontendAssets/images/svg/hooka logo.svg" />
                         <!-- logo / end -->
                     </a>
                 </div>

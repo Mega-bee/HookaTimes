@@ -15,7 +15,7 @@ namespace HookaTimes.BLL.Service
 {
     public class BecomeAPartnerBL : BaseBO, IBecomeAPartnerBL
     {
-        public BecomeAPartnerBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public BecomeAPartnerBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
 

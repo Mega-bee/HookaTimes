@@ -17,10 +17,9 @@ namespace HookaTimes.BLL.Service
 {
     public class CartBL : BaseBO, ICartBL
     {
-        public CartBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper) : base(unit, mapper, notificationHelper)
+        public CartBL(IUnitOfWork unit, IMapper mapper, NotificationHelper notificationHelper, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
         }
-
 
         public async Task<ResponseModel> AddToCart(int userBuddyId, int quantity, int productId)
         {
