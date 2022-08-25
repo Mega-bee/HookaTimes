@@ -221,7 +221,15 @@ namespace HookaTimes.BLL.Service
             };
 
             await _uow.PlaceReviewRepository.Create(placeReview);
-
+            var newReview = await _uow.PlaceReviewRepository.GetAll(x => x.Id == placeReview.Id).Select(x => new HookaPlaceReview_VM
+            {
+                CreatedDate = x.CreatedDate.Value,
+                Description = x.Description,
+                Image = x.Buddy.Image,
+                Name = x.Buddy.FirstName + " " + x.Buddy.LastName,
+                Rating = (float)x.Rating,
+                 Id = x.Id,
+            }).FirstOrDefaultAsync();
             //HookaPlaceInfo_VM hookaProfile = new HookaPlaceInfo_VM
             //{
             //    Id = placeReview.Id,
@@ -231,7 +239,7 @@ namespace HookaTimes.BLL.Service
             responseModel.ErrorMessage = "";
             responseModel.Data = new DataModel
             {
-                Data = "",
+                Data = newReview,
                 Message = "Review added successfuly"
             };
             return responseModel;

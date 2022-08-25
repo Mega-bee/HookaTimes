@@ -1,6 +1,20 @@
 ﻿let submitBtn = document.querySelector('.submit-review-btn')
 let form = document.querySelector('.reviews-view__form')
 
+function appendNewReview(review) {
+    console.log(review)
+    let originalNode = document.querySelector(".reviews-list__item")
+    let clonedReview = originalNode.cloneNode(true)
+    let img = clonedReview.querySelector(".review__avatar-img")
+    let name = clonedReview.querySelector(".review__author")
+    let reviewText = clonedReview.querySelector(".review__text")
+    let
+    img.src = review.image
+
+  
+
+}
+
 function handleFormSubmit(e) {
     e.preventDefault()
     let descInput = document.querySelector('#review-text')
@@ -19,7 +33,7 @@ function handleFormSubmit(e) {
     let placeId = form.dataset.placeid
     fromdata.append("rating", ratingInput.value)
     fromdata.append("description", descInput.value)
-    console.log(placeId)
+
     $.ajax({
         type: 'Post',
         async: true,
@@ -37,7 +51,7 @@ function handleFormSubmit(e) {
                 }, 3000)
 
                 notyf.success({ message: "Your review has been submitted" })
-             
+                appendNewReview(result.data.data)
             } else {
                 submitBtn.innerHTML = 'Post Your Review'
                 submitBtn.disabled = false

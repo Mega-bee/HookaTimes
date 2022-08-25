@@ -837,7 +837,7 @@
                                             <li class="reviews-list__item">
                                                 <div class="review">
                                                     <div class="review__avatar">
-                                                        <img src="@item.Image"
+                                                        <img class="review__avatar-img" src="@item.Image"
                                                          alt="" />
                                                     </div>
                                                     <div class="review__content">
@@ -880,7 +880,7 @@
                                                             @item.Description
                                                         </div>
                                                         <div class="review__date">
-                                                            @item.CreatedDate.Value.ToString("dd MM yyyy")
+                                                            @item.CreatedDate!.Value.ToString("dd MM yyyy")
                                                         </div>
                                                     </div>
                                                 </div>
