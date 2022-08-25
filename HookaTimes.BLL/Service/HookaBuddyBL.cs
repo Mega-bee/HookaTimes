@@ -208,6 +208,9 @@ namespace HookaTimes.BLL.Service
                 case 1:
                     query = query.OrderByDescending(x => x.Rating);
                     break;
+                case 3:
+                    query = query.OrderByDescending(x => x.Id);
+                    break;
                 default:
                     break;
             }
