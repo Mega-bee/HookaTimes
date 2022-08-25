@@ -25,7 +25,7 @@ namespace HookaTimes.API.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userBuddyId = Convert.ToInt32(identity.FindFirst("BuddyID").Value);
-            return Ok(await _orderBL.PlaceOrder(userBuddyId, addressId));
+            return Ok(await _orderBL.PlaceOrder(userBuddyId, addressId,address));
         }
         [HttpGet]
         public async Task<IActionResult> GetOrders()
