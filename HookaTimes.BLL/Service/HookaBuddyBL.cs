@@ -132,8 +132,8 @@ namespace HookaTimes.BLL.Service
         public async Task<ResponseModel> InviteBuddy(int userBuddyId, SendInvitation_VM model)
         {
             ResponseModel responseModel = new ResponseModel();
-            var toBuddyInfo = await _uow.BuddyRepository.GetAll(x => x.Id == model.ToBuddyId).Select(x=> new { x.User.FcmToken,x.Id }).FirstOrDefaultAsync();
-            string placeName = await _uow.PlaceRepository.GetAll(x => x.Id == model.PlaceId).Select(x=> x.Title).FirstOrDefaultAsync();
+            var toBuddyInfo = await _uow.BuddyRepository.GetAll(x => x.Id == model.ToBuddyId).Select(x => new { x.User.FcmToken, x.Id }).FirstOrDefaultAsync();
+            string placeName = await _uow.PlaceRepository.GetAll(x => x.Id == model.PlaceId).Select(x => x.Title).FirstOrDefaultAsync();
             DateTime invitationDateTime = Convert.ToDateTime(model.Date + " " + model.Time);
             if (toBuddyInfo is null)
             {
@@ -169,17 +169,17 @@ namespace HookaTimes.BLL.Service
                 InvitationStatusId = 1,
                 PlaceId = model.PlaceId,
             };
-          
-           var sentInvite =  await _uow.InvitationRepository.Create(invitation);
+
+            var sentInvite = await _uow.InvitationRepository.Create(invitation);
             NotificationModel notificaiton = new NotificationModel()
             {
                 Title = AppSetting.InviteNotificationTitle,
-                Body = String.Format(AppSetting.InviteNotificationBody,fromBuddyName,placeName),
-                 BuddyId = model.ToBuddyId,
-                   DeviceId = toBuddyInfo.FcmToken,
-                    InviteId = sentInvite.Id,
+                Body = String.Format(AppSetting.InviteNotificationBody, fromBuddyName, placeName),
+                BuddyId = model.ToBuddyId,
+                DeviceId = toBuddyInfo.FcmToken,
+                InviteId = sentInvite.Id,
             };
-            await _notificationBL.SendNotification(notificaiton); 
+            //await _notificationBL.SendNotification(notificaiton); 
 
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
