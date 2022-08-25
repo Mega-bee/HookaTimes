@@ -507,6 +507,20 @@ namespace HookaTimes.MVC.Controllers
             }
             return Ok(0);
         }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult ResetPasswordPage()
+        {
+            var token = Request.Query["token"].ToString();
+            var email = Request.Query["Email"].ToString();
+            ViewBag.token = token;
+            ViewBag.Email = email;
+            return View("~/Pages/ResetPasswordPage.cshtml");
+        }
+
         #endregion
 
         #region Available Toggle
