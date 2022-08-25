@@ -132,6 +132,20 @@
     height: 100%;
 }
 
+@@media (max-width: 767px){
+.address-card__row.is--30 {
+    width: 45%;
+  
+    
+}
+}
+
+@@media (max-width: 400px){
+.address-card__row.is--30 {
+    width: 100%;
+ 
+}}
+
 
 </style>
 
@@ -145,7 +159,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a asp-controller="Home" asp-action="HookaBuddies">Biddues</a>
+                            <a asp-controller="Home" asp-action="HookaBuddies">Buddies</a>
                             <svg class="breadcrumb-arrow"
                                  width="6px"
                                  height="9px">
@@ -217,6 +231,10 @@
                                         ><i class="fab fa-youtube"></i
                                         ></a>
                                         </li>*@
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink1))
+                                        {
+                                            
+                                        
                                         <li class="social-links__item">
                                             <a class="social-links--shape--circle social-links__link social-links__link--type--facebook"
                                                href="@(Model.SocialMediaLink1??"")"
@@ -224,22 +242,31 @@
                                                 <i class="fab fa-facebook"></i>
                                             </a>
                                         </li>
+                                        }
 
-                                        <li class="social-links__item">
-                                            <a class="social-links--shape--circle social-links__link social-links__link--type--instagram"
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink2))
+                                        {
+
+                                            <li class="social-links__item">
+                                                <a class="social-links--shape--circle social-links__link social-links__link--type--instagram"
                                                href="@(Model.SocialMediaLink2??"")"
                                                target="_blank">
-                                                <i class="fab fa-instagram"></i>
-                                            </a>
-                                        </li>
-                                        <li class="social-links__item">
-                                            <a class="social-links--shape--circle social-links__link social-links__link--type--twitter"
+                                                    <i class="fab fa-instagram"></i>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        @if (!String.IsNullOrEmpty(Model.SocialMediaLink3))
+                                        {
+
+                                            <li class="social-links__item">
+                                                <a class="social-links--shape--circle social-links__link social-links__link--type--twitter"
                                                href="@(Model.SocialMediaLink3??"")"
                                                target="_blank">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </li>
-
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -254,7 +281,7 @@
                                             Date of birth
                                         </div>
                                         <div class="address-card__row-content">
-                                            @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") == default ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy") == null ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy"))
+                                            @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") == (new DateTime().ToString("dd MMMM yyyy")) ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy") == null ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy"))
                                                                         </div>
                                     </div>
 

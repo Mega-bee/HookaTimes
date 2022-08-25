@@ -24,11 +24,15 @@ namespace HookaTimes.MVC.Controllers
         public async Task<IActionResult> BuddyProfile(int id)
         {
             ResponseModel Buddy = new ResponseModel();
-
-            if (id != 0)
+            string UserId = Tools.GetClaimValue(HttpContext, ClaimTypes.NameIdentifier);
+            int userBuddyId = await _auth.GetBuddyById(UserId);
+            if (id == userBuddyId || id == 0)
             {
-                Buddy = await _buddy.GetBuddy(id, Request);
+                return RedirectToAction("Index", "Home");
             }
+
+            Buddy = await _buddy.GetBuddy(id, Request);
+
             return View(Buddy.Data.Data);
         }
 

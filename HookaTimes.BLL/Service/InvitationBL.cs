@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration.Conventions;
 using HookaTimes.BLL.IServices;
 using HookaTimes.BLL.Utilities;
 using HookaTimes.BLL.ViewModels;
@@ -45,7 +44,7 @@ namespace HookaTimes.BLL.Service
                 DeviceId = fcmToken,
                 InviteId = invitationId
             };
-            await _notificationBL.SendNotification(notificaiton);
+            //await _notificationBL.SendNotification(notificaiton);
             responseModel.ErrorMessage = "";
             responseModel.StatusCode = 201;
             responseModel.Data = new DataModel { Data = "", Message = "Invitation status sucessfully set" };

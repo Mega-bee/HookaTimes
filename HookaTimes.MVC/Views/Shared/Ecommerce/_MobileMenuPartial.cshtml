@@ -18,7 +18,7 @@
                 <ul class="mobile-links mobile-links--level--0" data-collapse data-collapse-opened-class="mobile-links__item--open">
                                         <li class="mobile-links__item" data-collapse-item>
                         <div class="mobile-links__item-title">
-                            <a href="account-login.html" class="mobile-links__item-link">Account</a>
+                            <a href="#" class="mobile-links__item-link">Account</a>
                             <button class="mobile-links__item-toggle" type="button" data-collapse-trigger>
                                 <svg class="mobile-links__item-arrow" width="12px" height="7px">
                                     <use xlink:href="/FrontendAssets/images/sprite.svg#arrow-rounded-down-12x7"></use>
@@ -31,6 +31,12 @@
                                 <li class="mobile-links__item" data-collapse-item>
                                     <div class="mobile-links__item-title">
                                         <a asp-controller="Account" asp-action="Login" class="mobile-links__item-link">Login</a>
+                                    </div>
+                                </li>
+
+                                <li class="mobile-links__item" data-collapse-item>
+                                    <div class="mobile-links__item-title">
+                                        <a asp-controller="Account" asp-action="SignUp" class="mobile-links__item-link">SignUp</a>
                                     </div>
                                 </li>
                             } else {
