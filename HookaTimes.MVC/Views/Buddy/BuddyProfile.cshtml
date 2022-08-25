@@ -132,6 +132,20 @@
     height: 100%;
 }
 
+@@media (max-width: 767px){
+.address-card__row.is--30 {
+    width: 45%;
+  
+    
+}
+}
+
+@@media (max-width: 400px){
+.address-card__row.is--30 {
+    width: 100%;
+ 
+}}
+
 
 </style>
 
@@ -145,7 +159,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a asp-controller="Home" asp-action="HookaBuddies">Biddues</a>
+                            <a asp-controller="Home" asp-action="HookaBuddies">Buddies</a>
                             <svg class="breadcrumb-arrow"
                                  width="6px"
                                  height="9px">
