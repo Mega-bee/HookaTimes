@@ -9,13 +9,14 @@ $(document).on("click", ".add-to-favorite-btn", function (e) {
 
     let pressedBtn = this
     let placeId = $(this).attr("data-placeid")
+    console.log(placeId)
     if (placeId) {
         let formdata = new FormData()
         formdata.append("placeId", placeId)
         let heartSvg = pressedBtn.querySelector('.favorite-icon')
         let favSvg = pressedBtn.querySelector("#fav-icon")
         let row = pressedBtn.closest('tr')
-
+        console.log(row)
         if (heartSvg) {
             if (heartSvg.style.fill == 'red')
                 heartSvg.style.fill = 'none'
@@ -34,12 +35,14 @@ $(document).on("click", ".add-to-favorite-btn", function (e) {
             row.remove()
         }
 
-        if (window.location.pathname.split("/") == "Favorites") {
-            let favContainer = document.querySelector("#fav-container")
+        if (window.location.pathname.split("/")[2] == "Favorites") {
+         
             let allRows = document.querySelectorAll(".fav-row")
-            if (allRows.length > 0) return
+            if (allRows.length == 0) {
+                displayEmptyMessage()
+            }
 
-            displayEmptyMessage()
+       
 
         }
 
@@ -65,5 +68,12 @@ function changeFavIconSvg(isFav, favSvg) {
 }
 
 function displayEmptyMessage() {
-
+    let favContainer = document.querySelector("#fav-container")
+    favContainer.innerHTML = `   <div class="not-found">
+                                <div class="not-found__content">
+                                    <h1 class="not-found__title">Your favorites list is empty</h1>
+                                    <p class="not-found__text">We can't seem to find anything</p>
+                                    <a href='/home/hookaplaces' class="btn btn-light">View Places</a>
+                                </div>
+                            </div>`
 }
