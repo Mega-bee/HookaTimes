@@ -6,6 +6,63 @@
 @model List<JobVacancy_VM>
 
 <style>
+
+    .section.is--hero {
+        padding-top: 5em;
+    }
+
+    .section {
+        display: flex;
+        padding: 2.5em 5em;
+    }
+
+    .became-partner-hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .became-partner_hero-banner {
+        display: flex;
+        width: 100%;
+        padding-top: 4em;
+        padding-bottom: 4em;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        grid-row-gap: 10em;
+        grid-column-gap: 10em;
+        box-shadow: 10px 1px 20px #88888814;
+    }
+
+    .banner-h1 {
+        font-size: 3.2em;
+        line-height: 1.6;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .text-span {
+        padding-left: 1.7em;
+    }
+
+    .became-partner-text-wrap {
+        display: flex;
+        width: 70%;
+        margin-top: 5em;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .became-partner-hero-paragraph {
+        font-size: 1.3em;
+        text-align: left;
+    }
+
+   
+
     .section {
         display: -webkit-box;
         display: -webkit-flex;
@@ -15,7 +72,7 @@
     }
 
         .section.is--vacancies {
-            padding: 2.5em 5em 7em 5em;
+            padding: 7em 5em 7em 5em;
         }
 
     .vacancies-list-wrap {
@@ -87,15 +144,21 @@
 
 <!-- site__body -->
 
-<div class="block about-us">
-    <div class="about-us__image"></div>
-    <div class="container">
-        <div class="row justify-content-center" data-aos="fade-up">
-            <div class="col-12 col-xl-10">
-                <div class="about-us__body">
-                    <h1 class="about-us__title">Join Us</h1>
-                    <p class="description-paragraph">
-                        <strong>
+    <div class="section is--hero" data-aos="fade-up">
+        <div class="container w-container">
+            <div class="became-partner-hero">
+                <div data-w-id="943e0fa8-9e89-a11f-471c-23168419f0ef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="became-partner_hero-banner">
+                    <h1 class="banner-h1">
+                        <strong>Start<br></strong>
+                        <span class="text-span">
+                            <strong> your career</strong>
+                        </span>
+                    </h1>
+                    <img src="/FrontendAssets/images/svg/careers.png" >
+                </div>
+                <div data-w-id="0dcec016-f786-8e11-7f91-f693223e7046" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="became-partner-text-wrap">
+                    <p class="became-partner-hero-paragraph">
+ <strong>
                             If you are motivated active and creative, then you
                             have come to the right place!
                         </strong>
@@ -106,13 +169,15 @@
                         matching position for your career ambitions; or simply
                         send your C.V. to
                         <a href="mailto:hr@kookatimes.me" class="link">info@hookatimes.com</a>
-                        and we will inform you in case a fitting post opens up.
-                    </p>
+                        and we will inform you in case a fitting post opens up.                    </p>
+                    
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+
+
 <div class="section is--vacancies">
     <div class="container">
         @if(Model.Count == 0) {

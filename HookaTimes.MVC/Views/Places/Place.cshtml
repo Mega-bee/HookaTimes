@@ -422,7 +422,7 @@
     }
 
     .menu-item {
-        width: 24%;
+        width: 23%;
         height: 100%;
         padding-top: 23%;
         position: relative;
@@ -441,52 +441,62 @@
     }
 
     .angry-grid {
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        gap: 5px;
-        height: 100%;
-    }
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    height: 100%;
+}
 
-    #item-0 {
-        background-color: #A6778A;
-        grid-row-start: 1;
-        grid-column-start: 1;
-        grid-row-end: 5;
-        grid-column-end: 6;
-    }
+   #item-0 {
+    background-color: #A6778A;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    grid-column-end: 6;
+    max-height: 75.8vh;
 
-    #item-1 {
-        background-color: #EF5DD7;
-        grid-row-start: 1;
-        grid-column-start: 6;
-        grid-row-end: 3;
-        grid-column-end: 9;
-    }
+}
+
+   #item-1 {
+    background-color: #EF5DD7;
+    grid-row-start: 1;
+    grid-column-start: 6;
+    grid-row-end: 2;
+    grid-column-end: 9;
+    max-height: 37vh;
+    min-height: 35vh;
+}
 
     #item-2 {
-        background-color: #59B59D;
-        grid-row-start: 3;
-        grid-column-start: 6;
-        grid-row-end: 5;
-        grid-column-end: 9;
-    }
+    background-color: #59B59D;
+    grid-row-start: 2;
+    grid-column-start: 6;
+    grid-row-end: 3;
+    grid-column-end: 9;
+    max-height: 37vh;
+    min-height: 35vh;
+}
 
     #item-3 {
-        background-color: #BA6D7D;
-        grid-row-start: 1;
-        grid-column-start: 9;
-        grid-row-end: 3;
-        grid-column-end: 12;
-    }
+    background-color: #BA6D7D;
+    grid-row-start: 1;
+    grid-column-start: 9;
+    grid-row-end: 2;
+    grid-column-end: 12;
+    max-height: 37vh;
+    min-height: 35vh;
+}
 
     #item-4 {
-        background-color: #879C68;
-        grid-row-start: 3;
-        grid-column-start: 9;
-        grid-row-end: 5;
-        grid-column-end: 12;
-    }
+    background-color: #879C68;
+    grid-row-start: 2;
+    grid-column-start: 9;
+    grid-row-end: 3;
+    grid-column-end: 12;
+    max-height: 37vh;
+    min-height: 35vh;
+}
 
 </style>
 
