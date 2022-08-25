@@ -128,6 +128,15 @@
 
          @if (Model.Count == 0)
         {
+            <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 d-flex">
+
+
+                    <partial name="/Views/Shared/Ecommerce/_AccountNavigationPartial.cshtml" />
+
+                </div>
+ <div class="product-tabs product-tabs--sticky col-12 col-lg-9 mt-4 mt-lg-0">
             <div class="not-found">
                 <div class="not-found__content">
                     <h1 class="not-found__title">Your Invitation list is empty</h1>
@@ -135,7 +144,11 @@
                     <a asp-controller="Home" asp-action="HookaBuddies" class="btn btn-light">View Buddies</a>
                 </div>
             </div>
-        } else {
+            </div>
+            </div>
+            </div>
+        } 
+        else {
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-3 d-flex">
@@ -144,7 +157,7 @@
                     <partial name="/Views/Shared/Ecommerce/_AccountNavigationPartial.cshtml" />
 
                 </div>
-
+               
                 <div class="product-tabs product-tabs--sticky col-12 col-lg-9 mt-4 mt-lg-0">
 
                     <div class="product-tabs__list">
@@ -334,7 +347,7 @@
 
                     </div>
                 </div>
-
+              
             </div>
         </div>
         }
