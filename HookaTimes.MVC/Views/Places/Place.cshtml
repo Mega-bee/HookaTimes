@@ -754,10 +754,10 @@
                             <a href="#tab-albums"
                                class="product-tabs__item">Albums</a>
                             }
-                             @if (Model.Place.Reviews.Count>0){
+                           
      
                             <a href="#tab-reviews" class="product-tabs__item">Reviews</a>
-                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -832,6 +832,33 @@
                                 </h3>
                                 <div class="reviews-list">
                                     <ol class="reviews-list__content">
+                                        <li style="display:none" class="reviews-list__item">
+                                            <div class="review">
+                                                <div class="review__avatar">
+                                                    <img class="review__avatar-img" src=""
+                                                         alt="" />
+                                                </div>
+                                                <div class="review__content">
+                                                    <div class="review__author">
+                                                     
+                                                    </div>
+                                                    <div class="review__rating">
+                                                        <div class="rating">
+                                                            <div class="rating__body">
+                                                            
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="review__text">
+                                                   
+                                                    </div>
+                                                    <div class="review__date">
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                         @foreach (var item in Model.Place.Reviews)
                                         {
                                             <li class="reviews-list__item">
@@ -880,7 +907,7 @@
                                                             @item.Description
                                                         </div>
                                                         <div class="review__date">
-                                                            @item.CreatedDate!.Value.ToString("dd MM yyyy")
+                                                            @item.CreatedDate!.Value.ToString("MM/dd/yyyy hh:mm:ss tt")
                                                         </div>
                                                     </div>
                                                 </div>
