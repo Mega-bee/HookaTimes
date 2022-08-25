@@ -23,9 +23,9 @@
                     <path id="Path_12" data-name="Path 12" d="M569.145,55.656a8.826,8.826,0,0,0-12.5-.007l-.535.554-16.046-9.875.162-.441a8.871,8.871,0,1,0-2.057,3.211l.533-.554,16.048,9.875-.162.442a8.839,8.839,0,0,0,0,6.084l.162.442L538.7,75.262l-.534-.555a8.818,8.818,0,1,0,2.058,3.212l-.162-.441L556.109,67.6l.535.554a8.84,8.84,0,1,0,12.5-12.5Zm-32.8-8.4a6.243,6.243,0,1,1-.008-8.836l.008.008a6.26,6.26,0,0,1,0,8.828Zm0,38.117a6.26,6.26,0,1,1,1.821-4.414A6.206,6.206,0,0,1,536.342,85.376Zm30.971-19.059a6.243,6.243,0,1,1-.008-8.835l.008.007a6.26,6.26,0,0,1,0,8.828Z" transform="translate(-523.076 -34)" fill="#1a1718" />
                 </svg>
             </button>
-        </div> <div class="product-card__image product-image is--featured">
-            <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.CategoryId" class="product-image__body">
-                <img class="product-image__img is--featured" src="@Model.Image" alt="">
+        </div> <div class="product-card__image product-image is--featured ">
+            <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.CategoryId" class="product-image__body ">
+                <img class="product-image__img product is--featured " src="@Model.Image" alt="">
             </a>
         </div>
         <div class="product-card__info">
@@ -36,3 +36,24 @@
         </div>
     </div>
 </div>
+
+ <style>
+    
+
+    .product-card__image{
+        height:20em;
+    }
+    .product-image__img {
+    height: 100% !important;
+    object-fit: cover;
+    width:100% !important;
+
+}
+
+     @@media only screen and (max-width: 880px) {
+
+    .product-image__img.product.is--featured {
+    height:18em !important;
+}
+    }
+</style>
