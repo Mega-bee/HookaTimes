@@ -254,7 +254,7 @@
                                             Date of birth
                                         </div>
                                         <div class="address-card__row-content">
-                                            @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") == default ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy") == null ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy"))
+                                            @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") == (new DateTime().ToString("dd MMMM yyyy")) ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy") == null ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy"))
                                                                         </div>
                                     </div>
 
