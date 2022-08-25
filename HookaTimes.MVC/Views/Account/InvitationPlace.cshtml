@@ -61,9 +61,9 @@
                         <th class="wishlist__column wishlist__column--product">
                             Buddy Name
                         </th>
-                        <th class="wishlist__column wishlist__column--stock">
+                       @* <th class="wishlist__column wishlist__column--stock">
                             Status
-                        </th>
+                        </th>*@
 
                         <th class="wishlist__column wishlist__column--tocart"></th>
                         <th class="wishlist__column wishlist__column--remove"></th>
@@ -151,10 +151,10 @@
                             </td>
 
 
-
+@*
                             <td class="wishlist__column wishlist__column--stock">
                                 <div class="badge badge-@(item.InvitationStatusId == 1? "warning" :item.InvitationStatusId == 2 ? "success" :"danger")">@item.InvitationStatus</div>
-                            </td>
+                            </td>*@
 
                             <td class="wishlist__column wishlist__column--tocart">
                                 <button type="button" class="btn btn-primary btn-sm"
