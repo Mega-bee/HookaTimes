@@ -194,9 +194,13 @@ namespace HookaTimes.MVC.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnurl = null)
         {
-            ViewData["ReturnUrl"] = returnurl;
-            EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
-            return View(loginmv);
+            if (!_signInManager.IsSignedIn(User))
+            {
+                ViewData["ReturnUrl"] = returnurl;
+                EmailSignInMVC_VM loginmv = new EmailSignInMVC_VM();
+                return View(loginmv);
+            }
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -503,22 +507,26 @@ namespace HookaTimes.MVC.Controllers
             if (ModelState.IsValid)
             {
                 ResponseModel res = await _auth.ResetPasswordFromEmail(model);
-                return Ok(res);
+                return RedirectToAction("SuccessPage", "Account");
             }
-            return Ok(0);
+            _notyf.Error("Password Reset was Failed", 6);
+            return RedirectToAction("Index", "Home");
         }
-
+        public IActionResult SuccessPage()
+        {
+            return View();
+        }
 
         [HttpGet]
         [AllowAnonymous]
 
-        public IActionResult ResetPasswordPage()
+        public IActionResult CreateNewPassword()
         {
             var token = Request.Query["token"].ToString();
             var email = Request.Query["Email"].ToString();
             ViewBag.token = token;
             ViewBag.Email = email;
-            return View("~/Pages/ResetPasswordPage.cshtml");
+            return View();
         }
 
         #endregion
