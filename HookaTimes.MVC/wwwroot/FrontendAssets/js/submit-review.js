@@ -39,7 +39,8 @@ function appendNewReview(review) {
     for (var i = 0; i < review.rating; i++) {
         reviewContainer.innerHTML += rating
     }
-    container.appendChild(clonedReview)
+    //container.appendChild(clonedReview)
+    container.insertBefore(clonedReview,container.firstChild)
 }
 
 function handleFormSubmit(e) {

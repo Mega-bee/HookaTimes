@@ -57,7 +57,9 @@ namespace HookaTimes.BLL.Service
                 Name = p.Title,
                 Location = p.Location.Title,
                 Rating = (float)p.Rating,
-                IsInFavorite = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false && f.BuddyId == userBuddyId).Any()
+                IsInFavorite = p.FavoriteUserPlaces.Where(f => f.IsDeleted == false && f.BuddyId == userBuddyId).Any(),
+                 Longitude = p.Longitude,
+                  Latitude = p.Latitude
 
             }).ToListAsync();
             responseModel.ErrorMessage = "";

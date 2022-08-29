@@ -92,5 +92,6 @@ namespace HookaTimes.BLL.IServices
 
         Task<ResponseModel> GetUserAddresses(int userBuddyId);
         //Task<ResponseModel> GetAccountSettings(int userBuddyId);
+        Task<ResponseModel> ChangePassword(ResetPassword_VM model, string email);
     }
 }

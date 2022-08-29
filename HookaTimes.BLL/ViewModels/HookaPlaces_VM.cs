@@ -12,6 +12,8 @@ namespace HookaTimes.BLL.ViewModels
         public float Rating { get; set; }
         public string Name { get; set; }
         public bool IsInFavorite { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     }
 
     public partial class HookaPlaceInfo_VM

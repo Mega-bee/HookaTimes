@@ -45,6 +45,12 @@ namespace HookaTimes.API.Controllers
         //    ResponseModel ConsumeChangePasswordToken = await _auth.ConsumeChangePasswordToken(model);
         //    return Ok(ConsumeChangePasswordToken);
         //}
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromForm] ResetPassword_VM model, [FromForm] string email)
+        {
+            return Ok(await _auth.ChangePassword(model, email));
+        }
         #endregion
 
         #region SignUp

@@ -34,6 +34,9 @@ namespace HookaTimes.BLL.Service
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}{x.Image}",
                 HasPendingInvite = x.InvitationToBuddies.Where(i => i.IsDeleted == false && i.FromBuddyId == userBuddyId && i.InvitationStatusId == 1).Any(),
+                  Latitude = x.Latitude ?? "",
+                   Longitude = x.Longitude ?? "",
+                    Distance = 0
                 //Rating = x.Ra
             }).ToListAsync();
             responseModel.ErrorMessage = "";

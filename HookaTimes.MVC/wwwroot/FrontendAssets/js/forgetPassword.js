@@ -12,7 +12,6 @@
            
             let fromdata = new FormData()
             fromdata.append("identifier", email)
-            alert(email)
             $.ajax({
                 type: 'Post',
                 async: true,

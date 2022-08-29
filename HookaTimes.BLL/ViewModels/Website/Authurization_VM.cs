@@ -87,4 +87,26 @@ namespace HookaTimes.BLL.ViewModels.Website
 
 
 
+    public partial class CreateNewPassword
+    {
+        [Required]
+        public string Token { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+
+        [StringLength(50, MinimumLength = 5)]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 5)]
+        [Compare("NewPassword", ErrorMessage = "Passwords don't match")]
+        public string ConfirmPassword { get; set; }
+    }
+
+
+
 }

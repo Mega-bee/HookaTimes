@@ -33,7 +33,7 @@ namespace HookaTimes.BLL.Service
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender,INotificationBL notificationBL) : base(unit, mapper, notificationHelper,notificationBL)
+        public AuthBO(IUnitOfWork unit, IMapper mapper, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, HookaDbContext context, NotificationHelper notificationHelper, RoleManager<IdentityRole> roleManager, IEmailSender emailSender, INotificationBL notificationBL) : base(unit, mapper, notificationHelper, notificationBL)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -853,7 +853,7 @@ namespace HookaTimes.BLL.Service
                 var encodedToken = Encoding.UTF8.GetBytes(token);
                 var validToken = WebEncoders.Base64UrlEncode(encodedToken);
 
-                string url = $"{Request.Scheme}://{Request.Host}/Account/ResetPasswordPage?email={identifier}&token={validToken}";
+                string url = $"{Request.Scheme}://{Request.Host}/Account/CreateNewPassword?email={identifier}&token={validToken}";
 
                 bool isEmailSent = await _emailSender.SendEmailAsync(identifier, "Hooka OTP", url, (int)EmailEnum.Url);
                 //bool isEmailSent = _mailService.SendEmailAsync(identifier, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
@@ -908,7 +908,7 @@ namespace HookaTimes.BLL.Service
 
             if (result.Succeeded)
             {
-                responseModel.ErrorMessage = "No Email was received";
+                responseModel.ErrorMessage = "";
                 responseModel.StatusCode = 200;
                 responseModel.Data = new DataModel { Data = "", Message = "Password has been reset succesfully" };
                 return responseModel;
@@ -993,7 +993,58 @@ namespace HookaTimes.BLL.Service
 
         }
 
+        public async Task<ResponseModel> ChangePassword(ResetPassword_VM model, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            ResponseModel responseModel = new ResponseModel();
+            if (user == null)
+            {
+
+
+
+                responseModel.StatusCode = 400;
+                responseModel.ErrorMessage = "User Doesn't Exist";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+
+            //if (model.NewPassword != model.ConfirmPassword)
+            //{
+            //    responseModel.StatusCode = 400;
+            //    responseModel.ErrorMessage = "Passwords don't match";
+            //    responseModel.Data = new DataModel { Data = "", Message = "" };
+            //    return responseModel;
+            //}
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+            var decodedToken = WebEncoders.Base64UrlDecode(validToken);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+            if (result.Succeeded)
+            {
+                responseModel.StatusCode = 200;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel
+                {
+                    Data = "",
+                    Message = "Password has been reset succesfully"
+                };
+                return responseModel;
+            }
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = result.Errors.Select(e => e.Description).FirstOrDefault();
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+        }
         #endregion
+
+
 
 
         #region OTP
