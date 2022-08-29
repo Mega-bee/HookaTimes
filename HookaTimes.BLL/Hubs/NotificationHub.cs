@@ -89,7 +89,7 @@ namespace HookaTimes.BLL.Hubs
             HttpRequest request = Context.GetHttpContext().Request;
             List<HookaBuddy_VM> buddies = Array.Empty<HookaBuddy_VM>().ToList();
             DbGeography searchLocation = DbGeography.FromText(String.Format("POINT({0} {1})", longitude, latitude));
-            buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false).Select(x => new HookaBuddy_VM
+            buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Longitude != null && x.Latitude != null).Select(x => new HookaBuddy_VM
             {
 
                 About = x.About ?? "",
@@ -98,7 +98,7 @@ namespace HookaTimes.BLL.Hubs
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}{x.Image}",
                 Distance =  searchLocation.Distance(
-                         DbGeography.FromText("POINT(" + longitude + " " + latitude + ")")),
+                         DbGeography.FromText("POINT(" + x.Longitude + " " + x.Latitude + ")")),
 
             
             }).Where(x=> x.Distance >0 && x.Distance < 10000 ).ToListAsync();
