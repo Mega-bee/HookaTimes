@@ -370,10 +370,7 @@
                                             <div class="gold-divider"> </div>
 
                                             <div class="address-card__row-content">
-                                                Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                    elit, sed diam nonummy nibh euismod tincidunt ut
-                                                    laoreet dolore magna aliquam erat volutpat. Ut wisi
-                                                    enim ad minim veniam, quis nostrud exerci tation
+                                               @(Model.AboutMe ?? "")
                                                                             </div>
                                         </div>
 
@@ -465,11 +462,10 @@
                                             Education
                                         </div>
                                          <div class="address-card__row-title subtitle">
-                                            Bussiness
+                                            @Model.Education.Select(x=> x.Degree).FirstOrDefault()
                                         </div>
                                         <div class="address-card__row-content">
-                                             Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                    elit, sed diam nonummy
+                                            @Model.Education.Select(x=> x.University).FirstOrDefault()
                                         </div>
                                     </div>
 
@@ -478,10 +474,10 @@
                                             Profession
                                         </div>
                                          <div class="address-card__row-title subtitle">
-                                            Accountant
+                                            @Model.Profession
                                         </div>
                                         <div class="address-card__row-content">
-                                            @(Model.Profession ?? "")
+                                           @* @(Model.Profession ?? "")*@
                                         </div>
                                     </div>
 
@@ -491,10 +487,10 @@
                                             Interests
                                         </div>
                                          <div class="address-card__row-title subtitle">
-                                           Reading
+                                            @(Model.Interests ?? "")
                                         </div>
                                         <div class="address-card__row-content">
-                                            @(Model.Interests ?? "")
+                                            @*@(Model.Interests ?? "")*@
                                         </div>
                                     </div>
 @*                                    <div class="address-card__row is--30">
@@ -525,7 +521,7 @@
 
                     </div>
 
-                    <div class="dashboard-name"> Addresses</div>
+          @*          <div class="dashboard-name"> Addresses</div>
                     <div class="gold-divider"  style="max-width:35%; height:2px;  margin-bottom:1.8em;"> </div>
 
                     <div class="dashboard">
@@ -583,9 +579,11 @@
                                 </div>
 
                             }
+                        } else {
+                            <p>No addresses provided</p>
                         }
 
-                    </div>
+                    </div>*@
 
                     <div class="dashboard-name"> Education</div>
                     <div class="gold-divider" style="max-width:35%; height:2px; margin-bottom:1.8em;"> </div>
@@ -634,6 +632,8 @@
                                 </div>
 
                             }
+                        } else {
+                            <p>No education provided.</p>
                         }
 
 
@@ -693,6 +693,8 @@
                                 </div>
 
                             }
+                        } else {
+                            <p> No experience provided.</p>
                         }
 
 
