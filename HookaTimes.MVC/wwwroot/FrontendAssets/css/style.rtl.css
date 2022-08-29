@@ -10320,7 +10320,7 @@ a:hover {
   margin-bottom: 16px;
 }
 .profile-card__avatar img {
-  border-radius: 50%;
+  border-radius: 0%;
   max-width: 100%;
 }
 
