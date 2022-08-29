@@ -63,6 +63,10 @@ namespace HookaTimes.DAL.HookaTimesModels
         public string SocialMediaLink2 { get; set; }
         [StringLength(255)]
         public string SocialMediaLink3 { get; set; }
+        [StringLength(450)]
+        public string Latitude { get; set; }
+        [StringLength(450)]
+        public string Longitude { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("BuddyProfiles")]

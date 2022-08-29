@@ -98,7 +98,8 @@ namespace HookaTimes.BLL.Hubs
                 Name = x.FirstName + " " + x.LastName,
                 Image = $"{request.Scheme}://{request.Host}{x.Image}",
                 Distance =  searchLocation.Distance(
-                         DbGeography.FromText("POINT(" + longitude + " " + latitude + ")"))
+                         DbGeography.FromText("POINT(" + longitude + " " + latitude + ")")),
+
             
             }).Where(x=> x.Distance >0 && x.Distance < 10000 ).ToListAsync();
             

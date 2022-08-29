@@ -993,7 +993,58 @@ namespace HookaTimes.BLL.Service
 
         }
 
+        public async Task<ResponseModel> ChangePassword(ResetPassword_VM model, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            ResponseModel responseModel = new ResponseModel();
+            if (user == null)
+            {
+
+
+
+                responseModel.StatusCode = 400;
+                responseModel.ErrorMessage = "User Doesn't Exist";
+                responseModel.Data = new DataModel { Data = "", Message = "" };
+                return responseModel;
+            }
+
+
+            //if (model.NewPassword != model.ConfirmPassword)
+            //{
+            //    responseModel.StatusCode = 400;
+            //    responseModel.ErrorMessage = "Passwords don't match";
+            //    responseModel.Data = new DataModel { Data = "", Message = "" };
+            //    return responseModel;
+            //}
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+            var decodedToken = WebEncoders.Base64UrlDecode(validToken);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+            if (result.Succeeded)
+            {
+                responseModel.StatusCode = 200;
+                responseModel.ErrorMessage = "";
+                responseModel.Data = new DataModel
+                {
+                    Data = "",
+                    Message = "Password has been reset succesfully"
+                };
+                return responseModel;
+            }
+
+            responseModel.StatusCode = 400;
+            responseModel.ErrorMessage = result.Errors.Select(e => e.Description).FirstOrDefault();
+            responseModel.Data = new DataModel { Data = "", Message = "" };
+            return responseModel;
+
+        }
         #endregion
+
+
 
 
         #region OTP

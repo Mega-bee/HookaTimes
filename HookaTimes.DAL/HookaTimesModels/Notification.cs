@@ -13,14 +13,14 @@ namespace HookaTimes.DAL.HookaTimesModels
         public int Id { get; set; }
         public int? BuddyId { get; set; }
         public int? OrderId { get; set; }
+        public int? InviteId { get; set; }
         [StringLength(255)]
         public string Title { get; set; }
-        [StringLength(450)]
+        [StringLength(255)]
         public string Description { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CreatedDate { get; set; }
         public bool? IsSeen { get; set; }
-        public int? InviteId { get; set; }
 
         [ForeignKey("BuddyId")]
         [InverseProperty("Notifications")]
