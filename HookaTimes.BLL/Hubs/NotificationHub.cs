@@ -84,14 +84,19 @@ namespace HookaTimes.BLL.Hubs
 
         }
 
+        [Authorize]
         public async Task SearchNearestBuddies(string longitude,string latitude)
         {
             HttpRequest request = Context.GetHttpContext().Request;
             List<HookaBuddy_VM> buddies = Array.Empty<HookaBuddy_VM>().ToList();
             DbGeography searchLocation = DbGeography.FromText(String.Format("POINT({0} {1})", longitude, latitude));
+
             buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false && x.Longitude != null && x.Latitude != null).Select(x => new HookaBuddy_VM
             {
-
+                 Latitude = x.Latitude ?? "",
+                  Longitude = x.Longitude ?? "",
+                   Rating = (float)(x.Rating ?? 0),
+                    
                 About = x.About ?? "",
                 Id = x.Id,
                 IsAvailable = x.IsAvailable ?? false,
