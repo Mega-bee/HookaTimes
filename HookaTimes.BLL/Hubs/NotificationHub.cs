@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace HookaTimes.BLL.Hubs
 {
-    [Authorize]
     public class NotificationHub : Hub<INotificationHub>
     {
         private static readonly Dictionary<string, string> UserIds = new Dictionary<string, string>();
