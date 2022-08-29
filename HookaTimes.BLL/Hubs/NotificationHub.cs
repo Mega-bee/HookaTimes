@@ -1,8 +1,13 @@
-﻿using HookaTimes.DAL.Data;
+﻿using HookaTimes.BLL.ViewModels;
+using HookaTimes.DAL;
+using HookaTimes.DAL.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Threading.Tasks;
 //using HookaTimes.DAL.Models;
@@ -14,10 +19,12 @@ namespace HookaTimes.BLL.Hubs
     {
         private static readonly Dictionary<string, string> UserIds = new Dictionary<string, string>();
         private readonly HookaDbContext _context;
+        private readonly IUnitOfWork _uow;
 
-        public NotificationHub(HookaDbContext context)
+        public NotificationHub(HookaDbContext context, IUnitOfWork uow)
         {
             _context = context;
+            _uow = uow;
         }
 
         public void RegisterUser(string id)
@@ -76,6 +83,27 @@ namespace HookaTimes.BLL.Hubs
             var usersList = UserIds.Values.ToList();
             return Clients.All.UpdatedUserList(usersList);
 
+        }
+
+        public async Task SearchNearestBuddies(string longitude,string latitude)
+        {
+            HttpRequest request = Context.GetHttpContext().Request;
+            List<HookaBuddy_VM> buddies = Array.Empty<HookaBuddy_VM>().ToList();
+            DbGeography searchLocation = DbGeography.FromText(String.Format("POINT({0} {1})", longitude, latitude));
+            buddies = await _uow.BuddyRepository.GetAll(x => x.IsDeleted == false).Select(x => new HookaBuddy_VM
+            {
+
+                About = x.About ?? "",
+                Id = x.Id,
+                IsAvailable = x.IsAvailable ?? false,
+                Name = x.FirstName + " " + x.LastName,
+                Image = $"{request.Scheme}://{request.Host}{x.Image}",
+                Distance =  searchLocation.Distance(
+                         DbGeography.FromText("POINT(" + longitude + " " + latitude + ")"))
+            
+            }).Where(x=> x.Distance >0 && x.Distance < 10000 ).ToListAsync();
+            
+            await Clients.Client(Context.ConnectionId).UpdateBuddiesMap(buddies);
         }
     }
 
