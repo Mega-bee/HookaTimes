@@ -15,14 +15,13 @@
         align-items: flex-start;
         justify-content: start;
         flex-wrap: wrap;
-        grid-column-gap: 1em;
-        grid-row-gap: 1em;
-    }
+        grid-column-gap: 1em;    }
 
 
     .address-card__row.is--30 {
         width: 30%;
         margin-bottom: 0em;
+        margin-top:1em;
     }
 
     .address-card__row {
@@ -89,6 +88,7 @@
         justify-content: start;
         grid-column-gap: 0.9em;
         grid-row-gap: 1em;
+        align-items: flex-start;
     }
 
     .dashboard__orders {
@@ -122,12 +122,14 @@
 }
  
 .block-banner__body {
-    height: auto;s
+    height: auto;
 }
  
  }
 
  .profile-card__avatar img {
+         border-radius: 0% !important;
+
     width: 100%;
     height: 100%;
 }
@@ -146,6 +148,87 @@
  
 }}
 
+
+.profile-card__name {
+    font-weight: 500;
+    line-height: 20px;
+   
+}
+
+.profile-card__avatar.img {
+    border-radius: 0% !important;
+}
+
+.profile-card__avatar {
+    width: 100%;
+    height: 17em;
+    border-radius: 0%;
+    margin-top:16px;
+    margin-bottom: 16px;
+}
+
+.card {
+    border:  none !important;
+    border-radius: 0px !important;
+}
+
+.address-card__row.is--45{
+    width:47%;
+}
+
+.gold-divider{
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    height: 1px;
+    background: #ffd333;
+}
+
+ .grey-card{
+    background: #f0f0f0;
+    padding:0.5em;
+    margin-top:1em;
+    margin-left:0.5em;
+    margin-right:0.5em;
+
+ }
+
+ .gold-card{
+    background: #ffd333;
+    padding:0.5em;
+    margin-top:1em;
+    margin-left:0.5em;
+    margin-right:0.5em;
+ }
+ .address-card__row + .address-card__row {
+     margin-top: 1em;
+}
+.address-card__row-title {
+    font-size: 12px;
+    color: #666;
+}
+.address-card__row.2nd-row{
+    display:flex;
+    align-items: flex-start;
+    flex-direction:row;
+}
+.address-card__row-title.subtitle{
+ font-size: 16px;
+    font-weight: 500;
+    color: #ffd333;
+}
+   
+@@media (max-width: 700px){
+.table-responsive-sm {
+    flex-direction: column;
+}
+.address-card__row.is--45 {
+    width: 100%;
+}
+.dashboard__orders {
+    width: 100%;
+}
+
+}
 
 </style>
 
@@ -203,13 +286,15 @@
                     <div class="dashboard">
                         <div class="dashboard__profile card profile-card">
                             <div class="card-body profile-card__body">
-                                <div class="profile-card__avatar">
+                                                               <div class="profile-card__avatar">
                                     <img src="@(Model.ImageUrl??"")"
                                          alt="" />
                                 </div>
+
                                 <div class="profile-card__name">
                                     @(Model.Name ?? "")
                                 </div>
+
                                 <div class="profile-card__email">
                                     @(Model.Email ?? "")
                                 </div>
@@ -272,11 +357,30 @@
                             </div>
                         </div>
                         <div class="dashboard__orders card">
-                            <div class="card-header"><h5>More Info</h5></div>
-                            <div class="card-divider"></div>
                             <div class="card-table">
                                 <div class="table-responsive-sm">
-                                    <div class="address-card__row is--30">
+
+
+                                    <div class="address-card__row is--45">
+
+                                        <div class="address-card__row ">
+                                            <div class="address-card__row-title">
+                                                About Me
+                                            </div>
+                                            <div class="gold-divider"> </div>
+
+                                            <div class="address-card__row-content">
+                                               @(Model.AboutMe ?? "")
+                                                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="address-card__row is--45 " style="display:flex;">
+
+                                    <div class="address-card__row is--45  grey-card">
+                                        <div class="address-card__row ">
                                         <div class="address-card__row-title">
                                             Date of birth
                                         </div>
@@ -284,8 +388,7 @@
                                             @(Model.BirthDate!.Value.ToString("dd MMMM yyyy") == (new DateTime().ToString("dd MMMM yyyy")) ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy") == null ? "" : Model.BirthDate!.Value.ToString("dd MMMM yyyy"))
                                                                         </div>
                                     </div>
-
-                                    <div class="address-card__row is--30">
+                                        <div class="address-card__row ">
                                         <div class="address-card__row-title">
                                             Gender
                                         </div>
@@ -293,9 +396,7 @@
                                             @Model.Gender
                                         </div>
                                     </div>
-
-
-                                    <div class="address-card__row is--30">
+                                        <div class="address-card__row ">
                                         <div class="address-card__row-title">
                                             Maritial Staus
                                         </div>
@@ -305,46 +406,49 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="address-card__row is--30">
-                                        <div class="address-card__row-title">
-                                            Height
-                                        </div>
-                                        <div class="address-card__row-content">
-                                            @(String.Format("{0:0.#}", Model.Height) ?? "")
-                                        </div>
                                     </div>
+                                    <div class="address-card__row is--45  gold-card">
+                                         <div class="address-card__row ">
+                                                <div class="address-card__row-title">
+                                                    Height
+                                                </div>
+                                                <div class="address-card__row-content">
+                                                    @(String.Format("{0:0.#}", Model.Height) ?? "")
+                                                </div>
+                                         </div>
+                                         <div class="address-card__row ">
+                                            <div class="address-card__row-title">
+                                                Weight
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(String.Format("{0:0.#}", Model.Weight) ?? "")
+                                            </div>
+                                        </div>
+                                         <div class="address-card__row ">
+                                            <div class="address-card__row-title">
+                                                BodyType
+                                            </div>
+                                            <div class="address-card__row-content">
+                                                @(Model.BodyType ?? "")
+                                            </div>
+                                         </div>
 
 
-                                    <div class="address-card__row is--30">
-                                        <div class="address-card__row-title">
-                                            Weight
-                                        </div>
-                                        <div class="address-card__row-content">
-                                            @(String.Format("{0:0.#}", Model.Weight) ?? "")
-                                        </div>
+
                                     </div>
+                                     </div>
+                                     <div class=" address-card__row 2nd-row"  style="display:flex; flex-direction:row;     flex-wrap: wrap;    border: 2px solid #ffd333; padding:1em; justify-content: space-between;">
 
-
-                                    <div class="address-card__row is--30">
-                                        <div class="address-card__row-title">
-                                            BodyType
-                                        </div>
-                                        <div class="address-card__row-content">
-                                            @(Model.BodyType ?? "")
-                                        </div>
-                                    </div>
-
-                                    <div class="address-card__row is--30">
+                                          @*<div class="address-card__row is--30" style=" margin-top: 1em;">
                                         <div class="address-card__row-title">
                                             Eyes
                                         </div>
                                         <div class="address-card__row-content">
                                             @(Model.Eyes ?? "")
                                         </div>
-                                    </div>
+                                    </div>*@
 
-                                    <div class="address-card__row is--30">
+@*                                    <div class="address-card__row is--30">
                                         <div class="address-card__row-title">
                                             Hair
                                         </div>
@@ -352,15 +456,28 @@
                                             @(Model.Hair ?? "")
                                         </div>
                                     </div>
-
-
+*@
+                                     <div class="address-card__row is--30">
+                                        <div class="address-card__row-title">
+                                            Education
+                                        </div>
+                                         <div class="address-card__row-title subtitle">
+                                            @Model.Education.Select(x=> x.Degree).FirstOrDefault()
+                                        </div>
+                                        <div class="address-card__row-content">
+                                            @Model.Education.Select(x=> x.University).FirstOrDefault()
+                                        </div>
+                                    </div>
 
                                     <div class="address-card__row is--30">
                                         <div class="address-card__row-title">
                                             Profession
                                         </div>
+                                         <div class="address-card__row-title subtitle">
+                                            @Model.Profession
+                                        </div>
                                         <div class="address-card__row-content">
-                                            @(Model.Profession ?? "")
+                                           @* @(Model.Profession ?? "")*@
                                         </div>
                                     </div>
 
@@ -369,11 +486,14 @@
                                         <div class="address-card__row-title">
                                             Interests
                                         </div>
-                                        <div class="address-card__row-content">
+                                         <div class="address-card__row-title subtitle">
                                             @(Model.Interests ?? "")
                                         </div>
+                                        <div class="address-card__row-content">
+                                            @*@(Model.Interests ?? "")*@
+                                        </div>
                                     </div>
-                                    <div class="address-card__row is--30">
+@*                                    <div class="address-card__row is--30">
                                         <div class="address-card__row-title">
                                             Hobbies
                                         </div>
@@ -381,6 +501,17 @@
                                             @(Model.Hobbies ?? "")
                                         </div>
                                     </div>
+*@
+                                     </div>
+
+
+
+
+
+
+
+
+                                   
                                 </div>
 
                             </div>
@@ -390,7 +521,9 @@
 
                     </div>
 
-                    <div class="dashboard-name"> Addresses</div>
+          @*          <div class="dashboard-name"> Addresses</div>
+                    <div class="gold-divider"  style="max-width:35%; height:2px;  margin-bottom:1.8em;"> </div>
+
                     <div class="dashboard">
                         @if (Model.Addresses.Count > 0)
                         {
@@ -446,11 +579,15 @@
                                 </div>
 
                             }
+                        } else {
+                            <p>No addresses provided</p>
                         }
 
-                    </div>
+                    </div>*@
 
                     <div class="dashboard-name"> Education</div>
+                    <div class="gold-divider" style="max-width:35%; height:2px; margin-bottom:1.8em;"> </div>
+
 
                     <div class="dashboard">
 
@@ -495,6 +632,8 @@
                                 </div>
 
                             }
+                        } else {
+                            <p>No education provided.</p>
                         }
 
 
@@ -507,6 +646,8 @@
                     </div>
 
                     <div class="dashboard-name"> Experience </div>
+                    <div class="gold-divider"  style="max-width:35%; height:2px; margin-bottom:1.8em;"> </div>
+
 
                     <div class="dashboard">
 
@@ -552,6 +693,8 @@
                                 </div>
 
                             }
+                        } else {
+                            <p> No experience provided.</p>
                         }
 
 
